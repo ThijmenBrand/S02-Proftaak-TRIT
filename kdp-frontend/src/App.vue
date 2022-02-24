@@ -1,10 +1,20 @@
 <template>
-  <div id="nav">
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
+  <BaseNav />
+  <div class="main-content">
+    <router-view />
   </div>
-  <router-view />
 </template>
+
+<script>
+import BaseNav from "@/components/navigation/BaseNavigation.vue";
+
+export default {
+  components: {
+    BaseNav,
+  },
+};
+</script>
+
 
 <style lang="scss">
 #app {
