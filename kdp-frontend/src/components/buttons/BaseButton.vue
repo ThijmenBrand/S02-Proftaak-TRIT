@@ -10,6 +10,9 @@ export default {
   props: {
     btnContent: String,
   },
+  setup() {
+    
+  }
 };
 </script>
 
