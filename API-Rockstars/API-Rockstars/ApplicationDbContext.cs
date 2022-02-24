@@ -10,4 +10,6 @@ public class ApplicationDbContext : DbContext
     }
 
     public DbSet<Tribe> Tribes { get; set; }
+    public DbSet<Rockstar> Rockstars { get; set; }
+    public DbSet<TribeRockstar> TribeRockstars { get; set; }
 }

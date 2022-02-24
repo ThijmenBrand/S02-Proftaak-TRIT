@@ -22,6 +22,29 @@ namespace API_Rockstars.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
+            modelBuilder.Entity("API_Rockstars.Models.Rockstar", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<byte[]>("Image")
+                        .IsRequired()
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Rockstars");
+                });
+
             modelBuilder.Entity("API_Rockstars.Models.Tribe", b =>
                 {
                     b.Property<Guid>("Id")
@@ -35,6 +58,23 @@ namespace API_Rockstars.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Tribes");
+                });
+
+            modelBuilder.Entity("API_Rockstars.Models.TribeRockstar", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("RockstarId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("TribeId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("TribeRockstars");
                 });
 #pragma warning restore 612, 618
         }
