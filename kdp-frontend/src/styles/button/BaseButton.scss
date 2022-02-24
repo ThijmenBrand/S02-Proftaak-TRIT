@@ -1,0 +1,25 @@
+@import "../variables.scss";
+
+.btn {
+  padding: 10px 20px 10px 20px;
+  display: inline-block;
+}
+
+.btn p {
+  text-align: center;
+  font-weight: 900;
+}
+
+.btn-yellow {
+  background-color: $trit-yellow;
+  color: black;
+}
+
+.btn-black {
+  background-color: $trit-black;
+  color: white;
+}
+
+.btn:hover {
+  padding: 12px 22px 12px 22px;
+}
