@@ -7,7 +7,7 @@
   <div class="hamburger-menu">
     <input id="menu-toggle" type="checkbox"/>
     <label class="menu-btn" for="menu-toggle">
-      <span></span>
+      <span></span>     
     </label>
     
     <ul class="menu-box">
@@ -68,7 +68,6 @@ export default {
   top: 40px;
   right: 40px;
   width: 26px;
-  
   cursor: pointer;
   z-index: 1;
 }
@@ -80,10 +79,12 @@ export default {
   width: 100%;
   height: 2px;
   background-color: #616161;
+  text-decoration: none;
   transition-duration: .25s;
 }
 .menu-btn > span::before {
-  content: '';
+  content: '@@';
+  color: transparent;
   top: -8px;
 }
 .menu-btn > span::after {
