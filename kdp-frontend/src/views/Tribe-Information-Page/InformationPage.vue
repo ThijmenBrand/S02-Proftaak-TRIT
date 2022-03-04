@@ -40,13 +40,14 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+@import "@/styles/variables.scss";
 p {
   color: white;
   margin: 0;
 }
 .tribes-overview {
-  background-color: yellow;
+  background-color: $trit-yellow;
   width: auto;
   height: 300px;
   margin: 0%;
@@ -59,6 +60,7 @@ p {
   padding: 0%;
 }
 .tribe-title {
+  margin: 0;
   padding: 20px;
   padding-left: 40px;
 }

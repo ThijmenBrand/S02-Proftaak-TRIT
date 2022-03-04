@@ -5,14 +5,18 @@
     </div>
   </div>
   <div class="hamburger-menu">
-    <input id="menu-toggle" type="checkbox"/>
+    <input id="menu-toggle" type="checkbox" />
     <label class="menu-btn" for="menu-toggle">
-      <span></span>     
+      <span></span>
     </label>
-    
+
     <ul class="menu-box">
-      <li><a class="menu-item" href="#">HOME</a></li>
-      <li><a class="menu-item" href="#">OUR TEAM</a></li>
+      <li>
+        <router-link class="menu-item" to="/">HOME</router-link>
+      </li>
+      <li>
+        <router-link class="menu-item" to="/tribe">Tribes</router-link>
+      </li>
       <li><a class="menu-item" href="#">OUR ASPIRATIONS</a></li>
       <li><a class="menu-item" href="#">OUR VISION</a></li>
       <li><a class="menu-item" href="#">YOUR POSSIBILITIES</a></li>
@@ -22,13 +26,14 @@
 
 <script lang="ts">
 export default {
-  components: {}
+  components: {},
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+@import "@/styles/variables.scss";
 .container {
-  background-color: #ffe000;
+  background-color: $trit-yellow;
   width: 100%;
   height: 12em;
 }
@@ -42,7 +47,7 @@ export default {
   height: calc(12em - (20px / 2));
   filter: drop-shadow(2px 2px 2px gray);
 }
-  
+
 /* hamburger menu */
 #menu-toggle {
   opacity: 0;
@@ -80,15 +85,15 @@ export default {
   height: 2px;
   background-color: #616161;
   text-decoration: none;
-  transition-duration: .25s;
+  transition-duration: 0.25s;
 }
 .menu-btn > span::before {
-  content: '@@';
+  content: "@@";
   color: transparent;
   top: -8px;
 }
 .menu-btn > span::after {
-  content: '';
+  content: "";
   top: 8px;
 }
 .menu-box {
@@ -101,23 +106,22 @@ export default {
   margin: 0;
   padding: 80px 0;
   list-style: none;
-  background-color: #232323;
-  box-shadow: 2px 2px 6px rgba(0, 0, 0, .4);
-  transition-duration: .25s;
+  background-color: $trit-gray;
+  box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.4);
+  transition-duration: 0.25s;
 }
 .menu-item {
   display: block;
   padding: 12px 24px;
   color: #ffffff;
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   font-size: 20px;
   font-weight: 600;
   text-decoration: none;
-  transition-duration: .25s;
+  transition-duration: 0.25s;
 }
 .menu-item:hover {
   transition: color 0.25s ease-in;
-  color: #ffe000;
+  color: $trit-yellow;
 }
-
 </style>

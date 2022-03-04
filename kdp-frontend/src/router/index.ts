@@ -9,7 +9,7 @@ const routes: Array<RouteRecordRaw> = [
     component: Home,
   },
   {
-    path: "/Tribe-Information",
+    path: "/tribe",
     name: "InformationPage",
     component: InformationPage,
   },
