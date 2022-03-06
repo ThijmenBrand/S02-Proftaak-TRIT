@@ -1,6 +1,8 @@
 import { createRouter, createWebHashHistory, RouteRecordRaw } from "vue-router";
 import Home from "../views/Home.vue";
-import InformationPage from "../views/Tribe-Information-Page/InformationPage.vue";
+import tribes from "@/views/tribes/Tribes.vue";
+import tribe from "@/views/tribes/Tribe-Information-Page/InformationPage.vue";
+import article from "@/views/tribes/article/Article.vue";
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -9,9 +11,19 @@ const routes: Array<RouteRecordRaw> = [
     component: Home,
   },
   {
-    path: "/tribe",
-    name: "InformationPage",
-    component: InformationPage,
+    path: "/tribes",
+    name: "tribes",
+    component: tribes,
+  },
+  {
+    path: "/tribe/:tribe",
+    name: "tribe",
+    component: tribe,
+  },
+  {
+    path: "/tribe/:tribe/article/:articleId",
+    name: "article",
+    component: article,
   },
 ];
 

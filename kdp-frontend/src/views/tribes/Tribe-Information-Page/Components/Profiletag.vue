@@ -24,4 +24,7 @@ export default {
 .rockstar {
   color: white;
 }
+p {
+  text-align: center;
+}
 </style>

@@ -3,9 +3,7 @@
     <div class="article">
       <h4 class="title">{{ name }}</h4>
       <p class="article-p">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae,
-        enim aperiam. Molestiae minima praesentium ipsum similique vel quod hic
-        facere?
+        {{ content }}
       </p>
     </div>
   </div>
@@ -16,6 +14,7 @@ export default {
   name: "ArticlePreview",
   props: {
     name: String,
+    content: String,
   },
 };
 </script>

@@ -2,6 +2,8 @@ import { RockstarShape } from "@/models/Rockstar";
 import { TribeShape } from "@/models/Tribe";
 import { createStore } from "vuex";
 
+import tribes from "@/views/tribes/store/tribes";
+
 export default createStore({
   state: {
     rockstars: Array<RockstarShape>(),
@@ -9,5 +11,7 @@ export default createStore({
   },
   mutations: {},
   actions: {},
-  modules: {},
+  modules: {
+    tribes: tribes
+  },
 });

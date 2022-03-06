@@ -1,7 +1,9 @@
 <template>
   <div class="container">
     <div class="logo">
-      <img src="@/assets/logo.png" alt="RockstarsIT Logo" />
+      <router-link to="/">
+        <img src="@/assets/logo.png" alt="RockstarsIT Logo" />
+      </router-link>
     </div>
   </div>
   <div class="hamburger-menu">
@@ -15,7 +17,7 @@
         <router-link class="menu-item" to="/">HOME</router-link>
       </li>
       <li>
-        <router-link class="menu-item" to="/tribe">Tribes</router-link>
+        <router-link class="menu-item" to="/tribes">TRIBES</router-link>
       </li>
       <li><a class="menu-item" href="#">OUR ASPIRATIONS</a></li>
       <li><a class="menu-item" href="#">OUR VISION</a></li>
