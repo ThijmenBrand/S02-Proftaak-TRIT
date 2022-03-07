@@ -12,7 +12,7 @@
       </div>
     </div>
 
-    <div class="articles-overview">
+    <div class="content-container">
       <h3 class="articles-overview-title">Articles</h3>
       <div class="articles-container">
         <router-link
@@ -33,14 +33,13 @@
 
 <script lang="ts">
 import ArticlePreview from "./Components/ArticlePreview.vue";
-import Profiletag from "./Components/Profiletag.vue";
+import Profiletag from "../../../components/Profiletag.vue";
 
 import { useRoute } from "vue-router";
 import { useStore } from "vuex";
 import { computed } from "vue";
 import { RockstarShape } from "@/models/Rockstar";
 import { TribeShape } from "@/models/Tribe";
-import router from "@/router";
 import ArticleShape from "@/models/Article";
 export default {
   components: {
@@ -107,6 +106,27 @@ p {
   color: white;
   margin: 0;
 }
+/* width */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: gray;
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
 .tribes-overview {
   background-color: $trit-yellow;
   width: auto;
@@ -114,8 +134,7 @@ p {
   margin: 0%;
   padding: 0%;
 }
-.articles-overview {
-  background-color: black;
+.content-container {
   min-height: 452px;
 }
 .tribe-title {

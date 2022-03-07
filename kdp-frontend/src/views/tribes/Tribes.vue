@@ -35,8 +35,12 @@ export default {
 <style scoped lang="scss">
 @import "@/styles/variables.scss";
 
+h3 {
+  color: white;
+}
+
 .tribe-link {
-  color: $trit-gray;
+  color: $trit-white;
   text-decoration: none;
   padding: 20px;
   margin: 10px;
@@ -44,7 +48,7 @@ export default {
 }
 
 .tribe-link:hover {
-  color: $trit-black;
+  color: $trit-yellow;
   text-decoration: underline;
 }
 

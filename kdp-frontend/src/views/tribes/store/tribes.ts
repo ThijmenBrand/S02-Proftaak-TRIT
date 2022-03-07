@@ -1,4 +1,4 @@
-import ArticleShape from "@/models/Article";
+import ArticleShape, {articleCategory} from "@/models/Article";
 import { RockstarShape } from "@/models/Rockstar";
 import { TribeShape } from "@/models/Tribe";
 
@@ -62,113 +62,13 @@ const tribes = {
           Description: "Hans knows a lot about VueJs and is super cool",
           TribeID: "1",
         },
-        {
-          rockstarId: "5",
-          rockstarName: "amber",
-          Description: "Hans knows a lot about VueJs and is super cool",
-          TribeID: "1",
-        },
-        {
-          rockstarId: "5",
-          rockstarName: "amber",
-          Description: "Hans knows a lot about VueJs and is super cool",
-          TribeID: "1",
-        },
-        {
-          rockstarId: "5",
-          rockstarName: "amber",
-          Description: "Hans knows a lot about VueJs and is super cool",
-          TribeID: "1",
-        },
-        {
-          rockstarId: "5",
-          rockstarName: "amber",
-          Description: "Hans knows a lot about VueJs and is super cool",
-          TribeID: "1",
-        },
-        {
-          rockstarId: "5",
-          rockstarName: "amber",
-          Description: "Hans knows a lot about VueJs and is super cool",
-          TribeID: "1",
-        },
-        {
-          rockstarId: "5",
-          rockstarName: "amber",
-          Description: "Hans knows a lot about VueJs and is super cool",
-          TribeID: "1",
-        },
-        {
-          rockstarId: "5",
-          rockstarName: "amber",
-          Description: "Hans knows a lot about VueJs and is super cool",
-          TribeID: "1",
-        },
-        {
-          rockstarId: "5",
-          rockstarName: "amber",
-          Description: "Hans knows a lot about VueJs and is super cool",
-          TribeID: "1",
-        },
-        {
-          rockstarId: "5",
-          rockstarName: "amber",
-          Description: "Hans knows a lot about VueJs and is super cool",
-          TribeID: "1",
-        },
-        {
-          rockstarId: "5",
-          rockstarName: "amber",
-          Description: "Hans knows a lot about VueJs and is super cool",
-          TribeID: "1",
-        },
-        {
-          rockstarId: "5",
-          rockstarName: "amber",
-          Description: "Hans knows a lot about VueJs and is super cool",
-          TribeID: "1",
-        },
-        {
-          rockstarId: "5",
-          rockstarName: "amber",
-          Description: "Hans knows a lot about VueJs and is super cool",
-          TribeID: "1",
-        },
-        {
-          rockstarId: "5",
-          rockstarName: "amber",
-          Description: "Hans knows a lot about VueJs and is super cool",
-          TribeID: "1",
-        },
-        {
-          rockstarId: "5",
-          rockstarName: "amber",
-          Description: "Hans knows a lot about VueJs and is super cool",
-          TribeID: "1",
-        },
-        {
-          rockstarId: "5",
-          rockstarName: "amber",
-          Description: "Hans knows a lot about VueJs and is super cool",
-          TribeID: "1",
-        },
-        {
-          rockstarId: "5",
-          rockstarName: "amber",
-          Description: "Hans knows a lot about VueJs and is super cool",
-          TribeID: "1",
-        },
-        {
-          rockstarId: "5",
-          rockstarName: "amber",
-          Description: "Hans knows a lot about VueJs and is super cool",
-          TribeID: "1",
-        },
       ],
       articleList: [
         {
           articleId: "1",
           tribeId: "1",
+          articleCategory: articleCategory.blog,
+          articleWriter: "1",
           articleTitle: "Vuejs article one",
           articleDescription:
             "Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae, enim aperiam. Molestiae minima praesentium ipsum similique vel quod hic facere?",
@@ -178,6 +78,8 @@ const tribes = {
         {
           articleId: "2",
           tribeId: "1",
+          articleCategory: articleCategory.podcast,
+          articleWriter: "3",
           articleTitle: "Vuejs article two",
           articleDescription:
             "Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae, enim aperiam. Molestiae minima praesentium ipsum similique vel quod hic facere?",
@@ -187,6 +89,8 @@ const tribes = {
         {
           articleId: "3",
           tribeId: "2",
+          articleCategory: articleCategory.blog,
+          articleWriter: "2",
           articleTitle: "DotNet article one",
           articleDescription:
             "Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae, enim aperiam. Molestiae minima praesentium ipsum similique vel quod hic facere?",
@@ -196,6 +100,8 @@ const tribes = {
         {
           articleId: "4",
           tribeId: "2",
+          articleCategory: articleCategory.video,
+          articleWriter: "5",
           articleTitle: "DotNet article two",
           articleDescription:
             "Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae, enim aperiam. Molestiae minima praesentium ipsum similique vel quod hic facere?",
@@ -205,6 +111,8 @@ const tribes = {
         {
           articleId: "5",
           tribeId: "3",
+          articleCategory: articleCategory.podcast,
+          articleWriter: "1",
           articleTitle: "Java article one",
           articleDescription:
             "Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae, enim aperiam. Molestiae minima praesentium ipsum similique vel quod hic facere?",
@@ -214,6 +122,8 @@ const tribes = {
         {
           articleId: "6",
           tribeId: "1",
+          articleCategory: articleCategory.blog,
+          articleWriter: "4",
           articleTitle: "Vuejs article three",
           articleDescription:
             "Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae, enim aperiam. Molestiae minima praesentium ipsum similique vel quod hic facere?",

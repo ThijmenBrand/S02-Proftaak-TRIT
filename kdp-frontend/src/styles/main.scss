@@ -1,6 +1,6 @@
 @import "./variables.scss";
 
-@import "./button//BaseButton.scss";
+@import "./button/BaseButton.scss";
 
 html {
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
@@ -10,25 +10,40 @@ html {
 body {
   margin: 0;
   background-color: $trit-yellow;
+  height: 100%;
 }
 
-body {
-  margin: 0;
+h1,
+h2,
+h3,
+h4,
+h5 {
+  color: $trit-gray;
 }
+
 h1 {
-  font-size: 70px;
+  font-size: 48px;
+  line-height: 83.33%;
+  font-weight: 800;
+  font-style: normal;
 }
 
 h2 {
-  font-size: 45px;
+  font-size: 48px;
+  line-height: 83.33%;
+  font-weight: 800;
+  font-style: normal;
 }
 
 h3 {
-  font-size: 32px;
+  font-size: 36px;
+  line-height: 88.89%;
+  font-weight: bold;
 }
 
 h4 {
   font-size: 24px;
+  font-weight: bold;
 }
 
 h5 {
@@ -40,5 +55,20 @@ p {
 }
 
 .content-container {
-  color: $trit-black;
+  background-color: $trit-gray;
+  min-height: 300px;
+  height: auto !important; /* real browsers */
+  min-height: 100%; /* real browsers */
+  bottom: 0;
+}
+
+.content-container {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  p {
+    color: white;
+  }
 }
