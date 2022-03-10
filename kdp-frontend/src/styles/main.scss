@@ -1,0 +1,78 @@
+@import "./variables.scss";
+
+@import "./button/BaseButton.scss";
+
+html {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+}
+
+body {
+  margin: 0;
+  background-color: $trit-yellow;
+  height: 100%;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  color: $trit-gray;
+}
+
+h1 {
+  font-size: 48px;
+  line-height: 83.33%;
+  font-weight: 800;
+  font-style: normal;
+}
+
+h2 {
+  font-size: 48px;
+  line-height: 83.33%;
+  font-weight: 800;
+  font-style: normal;
+}
+
+h3 {
+  font-size: 36px;
+  line-height: 88.89%;
+  font-weight: bold;
+}
+
+h4 {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+h5 {
+  font-size: 20px;
+}
+
+p {
+  font-size: 16px;
+}
+
+.content-container {
+  background-color: $trit-gray;
+  min-height: 300px;
+  height: auto !important; /* real browsers */
+  min-height: 100%; /* real browsers */
+  bottom: 0;
+}
+
+.content-container {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  p {
+    color: white;
+  }
+}
+
+.page-title {
+  margin-left: 20px;
+}

@@ -1,18 +1,7 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png" />
-    <test />
+    <h1 class="page-title">Main content</h1>
   </div>
 </template>
 
-<script lang="ts">
-import { Options, Vue } from "vue-class-component";
-import test from "@/components/test.vue"; // @ is an alias to /src
-
-@Options({
-  components: {
-    test,
-  },
-})
-export default class Home extends Vue {}
-</script>
+<script lang="ts"></script>
