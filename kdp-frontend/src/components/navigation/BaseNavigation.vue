@@ -165,9 +165,9 @@ export default {
   right: 0 !important;
 }
 .menu-btn {
-  position: fixed;
+  position: absolute;
   top: 40px;
-  right: 40px;
+  right: 80px;
   width: 26px;
   cursor: pointer;
   z-index: 1;
