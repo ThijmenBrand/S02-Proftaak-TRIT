@@ -110,8 +110,8 @@ export default {
 }
 
 .logo {
-  margin: 0;
   padding: 0;
+  margin: 10px 0 0 40px;
 }
 
 .logo img {
@@ -166,7 +166,7 @@ export default {
 }
 .menu-btn {
   position: absolute;
-  top: 40px;
+  top: 60px;
   right: 80px;
   width: 26px;
   cursor: pointer;
