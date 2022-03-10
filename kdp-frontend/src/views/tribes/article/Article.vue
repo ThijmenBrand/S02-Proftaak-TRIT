@@ -1,7 +1,7 @@
 <template>
   <div class="header-wrapper">
     <div class="title-category">
-      <h1>{{ articleDetails.articleTitle }}</h1>
+      <h1 class="page-title">{{ articleDetails.articleTitle }}</h1>
     </div>
     <ProfileTag :name="articleWriter.rockstarName"></ProfileTag>
   </div>

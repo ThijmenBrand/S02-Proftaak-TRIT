@@ -1,5 +1,5 @@
 <template>
-  <h1>All tribes</h1>
+  <h1 class="page-title">All tribes</h1>
   <div class="content-container">
     <div class="tribes-links-container">
       <h3 v-for="(tribe, index) in tribesList" :key="index">
