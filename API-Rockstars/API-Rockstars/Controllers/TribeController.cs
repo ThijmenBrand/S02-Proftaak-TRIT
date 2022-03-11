@@ -42,7 +42,40 @@ namespace API_Rockstars.Controllers
 
             return tribe;
         }
+        
+        // GET: api/Tribe/5
+        [HttpGet("getall/{id}")]
+        public async Task<ActionResult<List<Rockstar>>> GetRockstarsByTribe(Guid id)
+        {
+            var tribe = await _context.Tribes.FindAsync(id);
 
+            if (tribe == null)
+            {
+                return NotFound();
+            }
+            
+            Task<List<TribeRockstar>> tribeRockstars = _context.TribeRockstars.Where(x => x.TribeId == id).ToListAsync();
+
+            if (tribeRockstars.Result.Count == 0)
+            {
+                return NotFound();
+            }
+
+            List<Rockstar> rockstars = new List<Rockstar>();
+
+            foreach (var rockstar in tribeRockstars.Result)
+            {
+                rockstars.Add(_context.Rockstars.Find(rockstar.RockstarId));
+            }
+
+            if (rockstars.Count == 0)
+            {
+                return NotFound();
+            }
+
+            return rockstars;
+        }
+        
         // PUT: api/Tribe/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
