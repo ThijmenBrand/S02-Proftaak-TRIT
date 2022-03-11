@@ -26,7 +26,7 @@ jobs:
         run: dotnet build API-Rockstars/API-Rockstars.sln --configuration Release
 
       - name: dotnet publish
-        run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/API-Rockstars
+        run: dotnet publish API-Rockstars/API-Rockstars.sln -c Release -o ${{env.DOTNET_ROOT}}/API-Rockstars
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
