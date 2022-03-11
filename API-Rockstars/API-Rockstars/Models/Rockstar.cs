@@ -12,8 +12,8 @@ namespace API_Rockstars.Models
 
         public string Name { get; set; }
 
-        public byte[] Image { get; set; }
+        public byte[]? Image { get; set; }
 
-        public String Description { get; set; }
+        public string? Description { get; set; }
     }
 }
