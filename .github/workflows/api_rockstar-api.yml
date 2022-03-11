@@ -53,5 +53,5 @@ jobs:
         with:
           app-name: 'rockstar-api'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_7173D5B2891E4118B7C83BB3C19AF2FF }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_E61C5BE8DBAB45009A02E5BDFFAC8B91 }}
           package: .
