@@ -4,10 +4,13 @@
     <div class="tribes-links-container">
       <h3 v-for="(tribe, index) in tribesList" :key="index">
         <router-link
-          :to="{ name: 'tribe', params: { tribe: tribe.tribeName } }"
+          :to="{
+            name: 'tribe',
+            params: { tribe: tribe.id },
+          }"
           class="tribe-link"
         >
-          {{ tribe.tribeName }}
+          {{ tribe.name }}
         </router-link>
       </h3>
     </div>
@@ -15,7 +18,7 @@
 </template>
 
 <script lang="ts">
-import { computed } from "vue";
+import { computed, onMounted } from "vue";
 import { useStore } from "vuex";
 import { TribeShape } from "@/models/Tribe";
 export default {
@@ -23,8 +26,14 @@ export default {
   setup() {
     const store = useStore();
 
-    const tribesList = computed((): TribeShape => {
-      return store.getters["tribes/getAllTribesList"];
+    onMounted(() => {
+      store.dispatch("tribes/getAllTribes");
+    });
+
+    const tribesList = computed((): TribeShape[] => {
+      const list = store.getters["tribes/getAllTribesList"];
+      console.log(list);
+      return list;
     });
 
     return { tribesList };

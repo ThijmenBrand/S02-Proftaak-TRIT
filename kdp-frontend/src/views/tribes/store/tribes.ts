@@ -1,8 +1,10 @@
-import ArticleShape, {articleCategory} from "@/models/Article";
+import ArticleShape, { articleCategory } from "@/models/Article";
 import { RockstarShape } from "@/models/Rockstar";
 import { TribeShape } from "@/models/Tribe";
+import Axios from "axios";
 
 interface tribesState {
+  loading: boolean;
   tribesList: TribeShape[];
   rockstarsList: RockstarShape[];
   articleList: ArticleShape[];
@@ -13,56 +15,13 @@ const tribes = {
   namespaced: true,
   state(): tribesState {
     return {
-      tribesList: [
-        {
-          tribeID: "1",
-          tribeName: "VueJs",
-        },
-        {
-          tribeID: "2",
-          tribeName: "DotNet",
-        },
-        {
-          tribeID: "3",
-          tribeName: "Java",
-        },
-      ],
+      loading: false,
+      tribesList: [],
       currentTribe: {
-        tribeID: "",
-        tribeName: "",
+        id: "",
+        name: "",
       },
-      rockstarsList: [
-        {
-          rockstarId: "1",
-          rockstarName: "Hans",
-          Description: "Hans knows a lot about Dotnet and is super cool",
-          TribeID: "2",
-        },
-        {
-          rockstarId: "2",
-          rockstarName: "Frank",
-          Description: "Hans knows a lot about Java and is super cool",
-          TribeID: "3",
-        },
-        {
-          rockstarId: "3",
-          rockstarName: "Peter",
-          Description: "Hans knows a lot about Dotnet and is super cool",
-          TribeID: "2",
-        },
-        {
-          rockstarId: "4",
-          rockstarName: "Hans",
-          Description: "Hans knows a lot about VueJs and is super cool",
-          TribeID: "1",
-        },
-        {
-          rockstarId: "5",
-          rockstarName: "amber",
-          Description: "Hans knows a lot about VueJs and is super cool",
-          TribeID: "1",
-        },
-      ],
+      rockstarsList: [],
       articleList: [
         {
           articleId: "1",
@@ -137,15 +96,52 @@ const tribes = {
     getAllTribesList: (state: tribesState): TribeShape[] => {
       return state.tribesList;
     },
-    getAllRockstars: (state: tribesState): RockstarShape[] => {
+    getRockstarsByTribe: (state: tribesState): RockstarShape[] => {
       return state.rockstarsList;
     },
     getAllArticles: (state: tribesState): ArticleShape[] => {
       return state.articleList;
     },
+    getCurrentTribe: (state: tribesState): TribeShape => {
+      return state.currentTribe;
+    },
   },
-  actions: {},
-  mutations: {},
+  actions: {
+    getAllTribes: async ({ commit }: any) => {
+      console.log("Calling");
+      const { data, status } = await Axios.get(
+        "https://rockstar-api.azurewebsites.net/api/tribe"
+      );
+
+      if (status >= 200 && status <= 299) {
+        commit("SET_TRIBE_LIST", data);
+      }
+    },
+    getRockstarsByTribe: async ({ commit, state }: any, tribeId: string) => {
+      const { data, status } = await Axios.get(
+        `https://rockstar-api.azurewebsites.net/api/tribe/getall/${tribeId}`
+      );
+
+      if (status >= 200 && status <= 299) {
+        commit("SET_ROCKSTARS_BY_TRIBE", data);
+      }
+    },
+  },
+  mutations: {
+    SET_TRIBE_LIST: (state: tribesState, data: TribeShape[]) => {
+      state.tribesList = data;
+    },
+    SET_ROCKSTARS_BY_TRIBE: (state: tribesState, data: RockstarShape[]) => {
+      state.rockstarsList = data;
+    },
+    SET_CURRENT_TRIBE: (state: tribesState, data: string) => {
+      console.log(data);
+      state.currentTribe = state.tribesList.find((a) => a.id == data) || {
+        id: "",
+        name: "",
+      };
+    },
+  },
 };
 
 export default tribes;

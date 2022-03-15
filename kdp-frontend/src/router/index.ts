@@ -19,6 +19,7 @@ const routes: Array<RouteRecordRaw> = [
     path: "/tribe/:tribe",
     name: "tribe",
     component: tribe,
+    props: true,
   },
   {
     path: "/tribe/:tribe/article/:articleId",
