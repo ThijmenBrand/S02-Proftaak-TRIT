@@ -56,7 +56,7 @@ export default {
     });
 
     onMounted(() => {
-      store.commit("tribes/SET_CURRENT_TRIBE", route.params.tribe);
+      store.dispatch("tribes/getCurrentTribe", route.params.tribe);
       store.dispatch("tribes/getRockstarsByTribe", route.params.tribe);
     });
 

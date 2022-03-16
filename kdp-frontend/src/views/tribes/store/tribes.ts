@@ -117,6 +117,15 @@ const tribes = {
         commit("SET_TRIBE_LIST", data);
       }
     },
+    getCurrentTribe: async ({ commit }: any, tribeId: string) => {
+      const { data, status } = await Axios.get(
+        `https://rockstar-api.azurewebsites.net/api/tribe/${tribeId}`
+      );
+
+      if (status >= 200 && status <= 299) {
+        commit("SET_CURRENT_TRIBE", data);
+      }
+    },
     getRockstarsByTribe: async ({ commit, state }: any, tribeId: string) => {
       const { data, status } = await Axios.get(
         `https://rockstar-api.azurewebsites.net/api/tribe/getall/${tribeId}`
@@ -134,12 +143,8 @@ const tribes = {
     SET_ROCKSTARS_BY_TRIBE: (state: tribesState, data: RockstarShape[]) => {
       state.rockstarsList = data;
     },
-    SET_CURRENT_TRIBE: (state: tribesState, data: string) => {
-      console.log(data);
-      state.currentTribe = state.tribesList.find((a) => a.id == data) || {
-        id: "",
-        name: "",
-      };
+    SET_CURRENT_TRIBE: (state: tribesState, data: TribeShape) => {
+      state.currentTribe = data;
     },
   },
 };

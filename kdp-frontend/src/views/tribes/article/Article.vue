@@ -61,16 +61,15 @@ export default {
         store.getters["tribes/getAllRockstars"];
 
       const applyingRockstar: RockstarShape | undefined = allRockstars.find(
-        (a) => a.rockstarId == articleDetails.value?.articleWriter
+        (a) => a.id == articleDetails.value?.articleWriter
       );
 
       return applyingRockstar != undefined
         ? applyingRockstar
         : {
-            rockstarId: "",
-            rockstarName: "unknown",
-            Description: "",
-            TribeID: "",
+            id: "",
+            name: "unknown",
+            description: "",
           };
     });
 
