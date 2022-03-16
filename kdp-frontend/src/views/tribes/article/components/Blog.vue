@@ -4,7 +4,7 @@
 
 <script lang="ts">
 export default {
-  name: "blog",
+  name: 'blog',
   props: {
     articleContent: {
       type: String,
@@ -14,5 +14,4 @@ export default {
 };
 </script>
 
-<style>
-</style>
+<style></style>

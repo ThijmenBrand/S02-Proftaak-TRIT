@@ -4,7 +4,7 @@
 </template>
 
 <script>
-import heloo from "./HelloWorld.vue";
+import heloo from './HelloWorld.vue';
 
 export default {
   components: { heloo },

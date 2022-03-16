@@ -32,15 +32,15 @@
 </template>
 
 <script lang="ts">
-import ArticlePreview from "./Components/ArticlePreview.vue";
-import Profiletag from "../../../components/Profiletag.vue";
+import ArticlePreview from './Components/ArticlePreview.vue';
+import Profiletag from '../../../components/Profiletag.vue';
 
-import { useRoute } from "vue-router";
-import { useStore } from "vuex";
-import { computed, onMounted } from "vue";
-import { RockstarShape } from "@/models/Rockstar";
-import { TribeShape } from "@/models/Tribe";
-import ArticleShape from "@/models/Article";
+import { useRoute } from 'vue-router';
+import { useStore } from 'vuex';
+import { computed, onMounted } from 'vue';
+import { RockstarShape } from '@/models/Rockstar';
+import { TribeShape } from '@/models/Tribe';
+import ArticleShape from '@/models/Article';
 export default {
   components: {
     Profiletag,
@@ -52,31 +52,31 @@ export default {
 
     //todo, op basis van id een request sturen met individuele tribe info en daarvan de data gebruiken.
     const currentTribe = computed((): TribeShape => {
-      return store.getters["tribes/getCurrentTribe"];
+      return store.getters['tribes/getCurrentTribe'];
     });
 
     onMounted(() => {
-      store.dispatch("tribes/getCurrentTribe", route.params.tribe);
-      store.dispatch("tribes/getRockstarsByTribe", route.params.tribe);
+      store.dispatch('tribes/getCurrentTribe', route.params.tribe);
+      store.dispatch('tribes/getRockstarsByTribe', route.params.tribe);
     });
 
     const articles = computed((): ArticleShape[] => {
       const applyingArticles: ArticleShape[] = [];
 
       const allArticles: ArticleShape[] =
-        store.getters["tribes/getAllArticles"];
+        store.getters['tribes/getAllArticles'];
 
       allArticles.forEach((article) => {
         article.tribeId === currentTribe.value.id
           ? applyingArticles.push(article)
-          : "";
+          : '';
       });
 
       return applyingArticles;
     });
 
     const rockstars = computed((): RockstarShape[] => {
-      const rockstar = store.getters["tribes/getRockstarsByTribe"];
+      const rockstar = store.getters['tribes/getRockstarsByTribe'];
       return rockstar;
     });
 
@@ -86,9 +86,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "@/styles/variables.scss";
+@import '@/styles/variables.scss';
 p {
-  color: white;
+  color: $trit-white;
   margin: 0;
 }
 /* width */
@@ -104,7 +104,7 @@ p {
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: gray;
+  background: $trit-gray;
   border-radius: 10px;
 }
 
@@ -136,7 +136,7 @@ p {
 .articles-overview-title {
   text-align: center;
   margin: 0;
-  color: white;
+  color: $trit-white;
   padding-top: 20px;
 }
 .articles-container {

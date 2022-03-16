@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import BaseNav from "@/components/navigation/BaseNavigation.vue";
+import BaseNav from '@/components/navigation/BaseNavigation.vue';
 
 export default {
   components: {
@@ -16,5 +16,5 @@ export default {
 </script>
 
 <style lang="scss">
-@import "@/styles/main.scss";
+@import '@/styles/main.scss';
 </style>

@@ -18,20 +18,20 @@
 </template>
 
 <script lang="ts">
-import { computed, onMounted } from "vue";
-import { useStore } from "vuex";
-import { TribeShape } from "@/models/Tribe";
+import { computed, onMounted } from 'vue';
+import { useStore } from 'vuex';
+import { TribeShape } from '@/models/Tribe';
 export default {
-  name: "Tribes",
+  name: 'Tribes',
   setup() {
     const store = useStore();
 
     onMounted(() => {
-      store.dispatch("tribes/getAllTribes");
+      store.dispatch('tribes/getAllTribes');
     });
 
     const tribesList = computed((): TribeShape[] => {
-      const list = store.getters["tribes/getAllTribesList"];
+      const list = store.getters['tribes/getAllTribesList'];
       console.log(list);
       return list;
     });
@@ -42,10 +42,10 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import "@/styles/variables.scss";
+@import '@/styles/variables.scss';
 
 h3 {
-  color: white;
+  color: $trit-white;
 }
 
 .tribe-link {

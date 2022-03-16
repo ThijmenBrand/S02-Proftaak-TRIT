@@ -1,29 +1,29 @@
-import { createRouter, createWebHashHistory, RouteRecordRaw } from "vue-router";
-import Home from "../views/Home.vue";
-import tribes from "@/views/tribes/Tribes.vue";
-import tribe from "@/views/tribes/Tribe-Information-Page/InformationPage.vue";
-import article from "@/views/tribes/article/Article.vue";
+import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router';
+import Home from '../views/Home.vue';
+import tribes from '@/views/tribes/Tribes.vue';
+import tribe from '@/views/tribes/Tribe-Information-Page/InformationPage.vue';
+import article from '@/views/tribes/article/Article.vue';
 
 const routes: Array<RouteRecordRaw> = [
   {
-    path: "/",
-    name: "Home",
+    path: '/',
+    name: 'Home',
     component: Home,
   },
   {
-    path: "/tribes",
-    name: "tribes",
+    path: '/tribes',
+    name: 'tribes',
     component: tribes,
   },
   {
-    path: "/tribe/:tribe",
-    name: "tribe",
+    path: '/tribe/:tribe',
+    name: 'tribe',
     component: tribe,
     props: true,
   },
   {
-    path: "/tribe/:tribe/article/:articleId",
-    name: "article",
+    path: '/tribe/:tribe/article/:articleId',
+    name: 'article',
     component: article,
   },
 ];
