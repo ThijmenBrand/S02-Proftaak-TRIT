@@ -1,4 +1,4 @@
 export interface TribeShape {
-    tribeID: string,
-    tribeName: string
-};
+  id: string;
+  name: string;
+}

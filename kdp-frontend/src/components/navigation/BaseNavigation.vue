@@ -102,7 +102,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "@/styles/variables.scss";
+@import '@/styles/variables.scss';
 .container {
   background-color: $trit-yellow;
   width: 100%;
@@ -114,16 +114,11 @@ export default {
   margin: 10px 0 0 40px;
 }
 
-.logo img {
-  height: calc(12em - (20px / 2));
-  filter: drop-shadow(2px 2px 2px gray);
-}
-
 .shadow {
   height: 128px;
-  -webkit-filter: drop-shadow(0px 1px 1px #000000)
+  -webkit-filter: drop-shadow(0px 1px 1px $trit-black)
     drop-shadow(0px 4px 8px rgba(0, 0, 0, 0.15));
-  filter: drop-shadow(0px 1px 1px #000000)
+  filter: drop-shadow(0px 1px 1px $trit-black)
     drop-shadow(0px 4px 8px rgba(0, 0, 0, 0.15));
 }
 
@@ -141,7 +136,7 @@ export default {
 }
 
 .st5 {
-  fill: #ffe000;
+  fill: $trit-yellow;
 }
 
 /* hamburger menu */
@@ -154,12 +149,12 @@ export default {
 #menu-toggle:checked + .menu-btn > span::before {
   top: 0;
   transform: rotate(0deg);
-  background-color: #ffffff;
+  background-color: $trit-white;
 }
 #menu-toggle:checked + .menu-btn > span::after {
   top: 0;
   transform: rotate(90deg);
-  background-color: #ffffff;
+  background-color: $trit-white;
 }
 #menu-toggle:checked ~ .menu-box {
   right: 0 !important;
@@ -184,12 +179,12 @@ export default {
   transition-duration: 0.25s;
 }
 .menu-btn > span::before {
-  content: "@@";
+  content: '@@';
   color: transparent;
   top: -8px;
 }
 .menu-btn > span::after {
-  content: "";
+  content: '';
   top: 8px;
 }
 .menu-box {
@@ -209,8 +204,8 @@ export default {
 .menu-item {
   display: block;
   padding: 12px 24px;
-  color: #ffffff;
-  font-family: "Roboto", sans-serif;
+  color: $trit-white;
+  font-family: 'Roboto', sans-serif;
   font-size: 20px;
   font-weight: 600;
   text-decoration: none;

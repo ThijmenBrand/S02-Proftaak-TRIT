@@ -16,19 +16,19 @@
 </template>
 
 <script lang="ts">
-import ProfileTag from "@/components/Profiletag.vue";
-import ArticleShape from "@/models/Article";
+import ProfileTag from '@/components/Profiletag.vue';
+import ArticleShape from '@/models/Article';
 
-import Blog from "./components/Blog.vue";
-import Podcast from "./components/Podcast.vue";
-import Video from "./components/video.vue";
+import Blog from './components/Blog.vue';
+import Podcast from './components/Podcast.vue';
+import Video from './components/video.vue';
 
-import { useRoute } from "vue-router";
-import { useStore } from "vuex";
-import { computed } from "vue";
-import { RockstarShape } from "@/models/Rockstar";
+import { useRoute } from 'vue-router';
+import { useStore } from 'vuex';
+import { computed } from 'vue';
+import { RockstarShape } from '@/models/Rockstar';
 export default {
-  name: "Article-view",
+  name: 'Article-view',
   components: {
     Blog,
     Podcast,
@@ -45,10 +45,10 @@ export default {
 
     const articleDetails = computed((): ArticleShape | undefined => {
       const allArticles: ArticleShape[] =
-        store.getters["tribes/getAllArticles"];
+        store.getters['tribes/getAllArticles'];
 
       const applyingArticle: ArticleShape | undefined = allArticles.find(
-        (a) => a.articleId === articleId.value
+        (a) => a.id === articleId.value
       );
 
       console.log(applyingArticle);
@@ -58,19 +58,18 @@ export default {
 
     const articleWriter = computed((): RockstarShape => {
       const allRockstars: RockstarShape[] =
-        store.getters["tribes/getAllRockstars"];
+        store.getters['tribes/getAllRockstars'];
 
       const applyingRockstar: RockstarShape | undefined = allRockstars.find(
-        (a) => a.rockstarId == articleDetails.value?.articleWriter
+        (a) => a.id == articleDetails.value?.writer
       );
 
       return applyingRockstar != undefined
         ? applyingRockstar
         : {
-            rockstarId: "",
-            rockstarName: "unknown",
-            Description: "",
-            TribeID: "",
+            id: '',
+            name: 'unknown',
+            description: '',
           };
     });
 

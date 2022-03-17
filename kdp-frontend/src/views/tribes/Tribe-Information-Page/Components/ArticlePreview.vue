@@ -11,7 +11,7 @@
 
 <script lang="ts">
 export default {
-  name: "ArticlePreview",
+  name: 'ArticlePreview',
   props: {
     name: String,
     content: String,
@@ -20,17 +20,18 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '@/styles/variables.scss';
 .article {
   height: 200px;
   width: 400px;
-  background-color: white;
+  background-color: $trit-white;
 }
 .article-p {
-  color: black;
+  color: $trit-black;
   padding: 10px;
 }
 .title {
-  color: black;
+  color: $trit-black;
   text-align: center;
   padding-top: 10px;
 }
