@@ -32,7 +32,7 @@
 </template>
 
 <script lang="ts">
-import ArticlePreview from "./Components/ArticlePreview.vue";
+import ArticlePreview from "../../../components/ArticlePreview.vue";
 import Profiletag from "../../../components/Profiletag.vue";
 
 import { useRoute } from "vue-router";
