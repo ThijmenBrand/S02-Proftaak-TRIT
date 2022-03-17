@@ -43,6 +43,24 @@ namespace API_Rockstars.Controllers
             return rockstar;
         }
 
+        [HttpPost("AddRollToRockstar")]
+        public async Task<ActionResult<Rockstar>> AddRoleToRockstar(RockstarRole rockstarRole)
+        {
+            RockstarRole checkDuplicate = _context.RockstarRoles.FirstOrDefault(x =>
+                x.TribeId == rockstarRole.TribeId && x.RoleId == rockstarRole.RoleId &&
+                x.RockstarId == rockstarRole.RockstarId);
+
+            if (checkDuplicate != null)
+            {
+                return BadRequest("This rockstar is already assigned to this role in this Tribe");
+            }
+
+            _context.RockstarRoles.Add(rockstarRole);
+            await _context.SaveChangesAsync();
+
+            return Ok();
+        }
+
         // PUT: api/Rockstar/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
@@ -82,7 +100,7 @@ namespace API_Rockstars.Controllers
             _context.Rockstars.Add(rockstar);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetRockstar", new { id = rockstar.Id }, rockstar);
+            return CreatedAtAction("GetRockstar", new {id = rockstar.Id}, rockstar);
         }
 
         // DELETE: api/Rockstar/5
