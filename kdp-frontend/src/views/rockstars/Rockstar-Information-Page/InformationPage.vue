@@ -8,7 +8,7 @@
 import { useRoute } from 'vue-router';
 import { useStore } from 'vuex';
 import { RockstarShape } from "@/models/Rockstar";
-import { computed, onMounted } from "vue";
+import { computed, onMounted, onUpdated } from "vue";
 import rockstar from "@/views/rockstars/store/rockstars";
 
 export default {
@@ -23,6 +23,9 @@ export default {
     
     onMounted(() => {
       store.dispatch('rockstars/getRockstar', route.params.rockstarId);
+    });
+    
+    onUpdated( () => {
       document.title = rockstar.value.name;
     });
     
@@ -31,6 +34,7 @@ export default {
       rockstar
     }
   },
+  
 };
 </script>
 
