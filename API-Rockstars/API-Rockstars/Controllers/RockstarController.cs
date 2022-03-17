@@ -119,6 +119,23 @@ namespace API_Rockstars.Controllers
             return NoContent();
         }
 
+        [HttpPost("AddRollToRockstar")]
+        public async Task<ActionResult<Rockstar>> AddRoleToRockstar(RockstarRole rockstarRole)
+        {
+            RockstarRole checkDuplicate = _context.RockstarRoles.FirstOrDefault(x => x.TribeId == rockstarRole.TribeId && x.RoleId == rockstarRole.RoleId && x.RockstarId == rockstarRole.RockstarId);
+
+            if (checkDuplicate != null)
+            {
+                return BadRequest("This rockstar is already assigned to this role in this Tribe");
+            }
+
+            _context.RockstarRoles.Add(rockstarRole);
+            await _context.SaveChangesAsync();
+
+            return Ok();
+
+        }
+
         private bool RockstarExists(Guid id)
         {
             return _context.Rockstars.Any(e => e.Id == id);
