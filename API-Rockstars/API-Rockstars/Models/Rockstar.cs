@@ -9,7 +9,7 @@ namespace API_Rockstars.Models
     {
         [Key]
         public Guid Id { get; set; }
-
+        [Required]
         public string Name { get; set; }
 
         public byte[]? Image { get; set; }

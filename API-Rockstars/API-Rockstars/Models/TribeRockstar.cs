@@ -8,10 +8,10 @@ namespace API_Rockstars.Models
     {
         [Key]
         public Guid Id { get; set; }
-        
-            public Guid TribeId { get; set; }
-            
-            public Guid RockstarId { get; set; }
+        [Required]
+        public Guid TribeId { get; set; }
+        [Required]
+        public Guid RockstarId { get; set; }
 
     }
 }
