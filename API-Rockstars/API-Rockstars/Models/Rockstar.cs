@@ -7,13 +7,9 @@ namespace API_Rockstars.Models
 {
     public class Rockstar
     {
-        [Key]
-        public Guid Id { get; set; }
-        [Required]
-        public string Name { get; set; }
-
+        [Key] public Guid Id { get; set; }
+        [Required] public string Name { get; set; }
         public byte[]? Image { get; set; }
-
         public string? Description { get; set; }
     }
 }
