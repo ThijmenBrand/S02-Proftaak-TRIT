@@ -69,6 +69,19 @@ namespace API_Rockstars.Controllers
             return articles;
         }
         
+        [HttpGet("GetArticles/TribeId/{tribeId}/RockstarId/{rockstarId}")]
+        public async Task<ActionResult<List<Article>>> GetArticlesByTribeAndRockstar(Guid tribeId, Guid rockstarId)
+        {
+            List<Article> articles = await _context.Articles.Where(x => x.RockstarId == rockstarId && x.TribeId == tribeId).ToListAsync();
+
+            if (articles.Count == 0)
+            {
+                return NotFound();
+            }
+
+            return articles;
+        }
+        
 
         // PUT: api/Article/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
