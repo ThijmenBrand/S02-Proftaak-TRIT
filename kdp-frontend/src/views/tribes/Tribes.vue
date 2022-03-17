@@ -32,7 +32,6 @@ export default {
 
     const tribesList = computed((): TribeShape[] => {
       const list = store.getters['tribes/getAllTribesList'];
-      console.log(list);
       return list;
     });
 
