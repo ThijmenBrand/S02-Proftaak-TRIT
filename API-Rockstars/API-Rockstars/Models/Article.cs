@@ -9,7 +9,8 @@ public class Article
     public Guid TribeId { get; set; }
     [Required]
     public Guid RockstarId { get; set; }
-    [Required]
+    [Required] 
     public string Title { get; set; }
-    public string? Content { get; set; }
+    [Required]
+    public string Content { get; set; }
 }
