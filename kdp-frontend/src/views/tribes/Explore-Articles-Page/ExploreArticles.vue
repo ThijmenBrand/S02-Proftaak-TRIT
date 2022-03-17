@@ -1,7 +1,7 @@
 <template>
   <div class="search-bar">
     <p>Message is: {{ message }}</p>
-    <input v-model="message" placeholder="edit me" />
+    <input v-model="searchQuery" placeholder="edit me" />
   </div>
 
   <div class="articles-container">
@@ -21,8 +21,8 @@
 
 <script lang="ts">
 import { useStore } from "vuex";
-import ArticleShape from "@/models/Article";
-import { computed } from "vue";
+import ArticleShape, { articleCategory } from "@/models/Article";
+import { computed, ref } from "vue";
 import ArticlePreview from "@/components/ArticlePreview.vue";
 
 export default {
@@ -41,6 +41,18 @@ export default {
       const allArticles: ArticleShape[] = store.getters["getAllArticles"];
       return allArticles;
     });
+
+    /* const searchQuery = ref("");
+    const searchedArticles = computed(() => {
+      return articles.value.filter((articles: ArticleShape) => {
+        return (
+          articles.articleTitle
+            .toLowerCase()
+            .indexOf(searchQuery.value.toLowerCase()) != -1
+        );
+      });
+    });
+    */
 
     return { articles };
   },
