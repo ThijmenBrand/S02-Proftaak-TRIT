@@ -1,7 +1,7 @@
 import ArticleShape, { articleCategory } from "@/models/Article";
 import { RockstarShape } from "@/models/Rockstar";
 import { TribeShape } from "@/models/Tribe";
-import Axios from "axios";
+import tribeService from "@/services/tribe";
 
 interface tribesState {
   tribesList: TribeShape[];
@@ -38,37 +38,27 @@ const tribes = {
     },
   },
   actions: {
-    getAllTribes: async (context: any) => {
-      context.rootState.loading = true;
-      const { data, status } = await Axios.get(
-        "https://rockstar-api.azurewebsites.net/api/tribe"
-      );
+    getAllTribes: async ({ commit }: any) => {
+      const { data, status } = await tribeService.getAllTribes();
 
       if (status >= 200 && status <= 299) {
-        context.rootState.loading = false;
-        context.commit("SET_TRIBE_LIST", data);
+        commit("SET_TRIBE_LIST", data);
       }
     },
-    getCurrentTribe: async (context: any, tribeId: string) => {
-      context.rootState.loading = true;
-      const { data, status } = await Axios.get(
-        `https://rockstar-api.azurewebsites.net/api/tribe/${tribeId}`
-      );
+    getCurrentTribe: async ({ commit }: any, tribeId: string) => {
+      const { data, status } = await tribeService.getSpecificTribe(tribeId);
 
       if (status >= 200 && status <= 299) {
-        context.rootState.loading = false;
-        context.commit("SET_CURRENT_TRIBE", data);
+        commit("SET_CURRENT_TRIBE", data);
       }
     },
-    getRockstarsByTribe: async (context: any, tribeId: string) => {
-      context.rootState.loading = true;
-      const { data, status } = await Axios.get(
-        `https://rockstar-api.azurewebsites.net/api/tribe/GetAllRockstars/${tribeId}`
+    getRockstarsByTribe: async ({ commit, state }: any, tribeId: string) => {
+      const { data, status } = await tribeService.getRockstarsWithTribe(
+        tribeId
       );
 
       if (status >= 200 && status <= 299) {
-        context.rootState.loading = false;
-        context.commit("SET_ROCKSTARS_BY_TRIBE", data);
+        commit("SET_ROCKSTARS_BY_TRIBE", data);
       }
     },
   },
