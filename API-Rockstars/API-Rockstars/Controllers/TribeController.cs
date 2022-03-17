@@ -44,7 +44,7 @@ namespace API_Rockstars.Controllers
         }
         
         // GET: api/Tribe/5
-        [HttpGet("getall/{id}")]
+        [HttpGet("GetAllRockstars/{id}")]
         public async Task<ActionResult<List<Rockstar>>> GetRockstarsByTribe(Guid id)
         {
             var tribe = await _context.Tribes.FindAsync(id);
@@ -74,6 +74,23 @@ namespace API_Rockstars.Controllers
             }
 
             return rockstars;
+        }
+
+        [HttpPost("AddRockstar")]
+        public async Task<ActionResult<Tribe>> AddRockstartToTribe(TribeRockstar tribeRockstar)
+        {
+            TribeRockstar checkDuplicate = _context.TribeRockstars.FirstOrDefault(x =>
+                x.RockstarId == tribeRockstar.RockstarId && x.TribeId == tribeRockstar.TribeId);
+
+            if (checkDuplicate != null)
+            {
+                return BadRequest("Rockstar already in tribe!");
+            }
+            
+            _context.TribeRockstars.Add(tribeRockstar);
+            await _context.SaveChangesAsync();
+            
+            return Ok();
         }
         
         // PUT: api/Tribe/5

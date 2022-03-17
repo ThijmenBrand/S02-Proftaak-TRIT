@@ -9,9 +9,9 @@ namespace API_Rockstars.Models
         [Key]
         public Guid Id { get; set; }
         
-        public Guid TribeId { get; set; }
-        
-        public Guid RockstarId { get; set; }
+            public Guid TribeId { get; set; }
+            
+            public Guid RockstarId { get; set; }
 
     }
 }
