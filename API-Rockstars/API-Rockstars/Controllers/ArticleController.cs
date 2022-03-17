@@ -56,6 +56,19 @@ namespace API_Rockstars.Controllers
             return articles;
         }
         
+        [HttpGet("GetArticlesByRockstar/{id}")]
+        public async Task<ActionResult<List<Article>>> GetArticlesByRockstar(Guid id)
+        {
+            List<Article> articles = await _context.Articles.Where(x => x.RockstarId == id).ToListAsync();
+
+            if (articles.Count == 0)
+            {
+                return NotFound();
+            }
+
+            return articles;
+        }
+        
 
         // PUT: api/Article/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
