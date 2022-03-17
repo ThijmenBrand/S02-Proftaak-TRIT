@@ -41,7 +41,6 @@ const tribes = {
   },
   actions: {
     getAllTribes: async ({ commit }: any) => {
-      console.log("Calling");
       const { data, status } = await tribeService.getAllTribes();
 
       if (status >= 200 && status <= 299) {

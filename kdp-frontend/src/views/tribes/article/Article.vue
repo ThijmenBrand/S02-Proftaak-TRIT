@@ -51,7 +51,6 @@ export default {
         (a) => a.id === articleId.value
       );
 
-      console.log(applyingArticle);
 
       return applyingArticle;
     });
