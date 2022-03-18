@@ -118,6 +118,20 @@ namespace API_Rockstars.Controllers
 
         }
 
+        //[HttpGet("GetRockstarRole/TribeId/{tribeId}/RockstarId/{rockstarId}")]
+        //public async Task<ActionResult<Rockstar>> GetRockstarsRoleByTribeId(Guid tribeId, Guid rockstarId)
+        //{
+        //    List<RockstarRole> rockstarRoles = await _context.RockstarRoles.Where(x => x.TribeId == tribeId && x.RockstarId == rockstarId).ToListAsync();
+
+        //    if (rockstarRoles.Count == 0)
+        //    {
+        //        return NotFound();
+        //    }
+
+
+        //    return roles;
+        //}
+
         private bool RockstarExists(Guid id)
         {
             return _context.Rockstars.Any(e => e.Id == id);
