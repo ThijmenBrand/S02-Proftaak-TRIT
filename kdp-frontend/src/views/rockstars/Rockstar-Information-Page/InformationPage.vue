@@ -1,7 +1,6 @@
 ﻿<template>
-  <h1>{{ rockstar.id }}</h1>
-  <h1>{{ rockstar.name }}</h1>
-  <h1>{{ rockstar.description }}</h1>
+  <RockstarView :rockstar="rockstar" />
+  
 </template>
 
 <script lang="ts">
@@ -10,26 +9,28 @@ import { useStore } from 'vuex';
 import { RockstarShape } from "@/models/Rockstar";
 import { computed, onMounted, onUpdated } from "vue";
 import rockstar from "@/views/rockstars/store/rockstars";
+import RockstarView from "@/views/rockstars/RockstarView.vue";
 
 export default {
+  components: { RockstarView },
   setup(props: any) {
     const route = useRoute();
     const store = useStore();
     
-    const id = route.params.rockstarId;
     const rockstar = computed( (): RockstarShape => {
       return store.getters['rockstars/getRockstar'];
     });
     
+    // when loading the page, get the rockstar by id
     onMounted(() => {
       store.dispatch('rockstars/getRockstar', route.params.rockstarId);
     });
     
+    // on every update, change the page title to the rockstar's name
     onUpdated( () => {
       document.title = rockstar.value.name;
     });
     
-    // !! opzoeken: Composition API
     return {
       rockstar
     }
