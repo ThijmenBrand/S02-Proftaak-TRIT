@@ -38,27 +38,33 @@ const tribes = {
     },
   },
   actions: {
-    getAllTribes: async ({ commit }: any) => {
+    getAllTribes: async (context: any) => {
+      context.rootState.loading = true;
       const { data, status } = await tribeService.getAllTribes();
 
       if (status >= 200 && status <= 299) {
-        commit("SET_TRIBE_LIST", data);
+        context.rootState.loading = false;
+        context.commit("SET_TRIBE_LIST", data);
       }
     },
-    getCurrentTribe: async ({ commit }: any, tribeId: string) => {
+    getCurrentTribe: async (context: any, tribeId: string) => {
+      context.rootState.loading = true;
       const { data, status } = await tribeService.getSpecificTribe(tribeId);
 
       if (status >= 200 && status <= 299) {
-        commit("SET_CURRENT_TRIBE", data);
+        context.rootState.loading = false;
+        context.commit("SET_CURRENT_TRIBE", data);
       }
     },
-    getRockstarsByTribe: async ({ commit, state }: any, tribeId: string) => {
+    getRockstarsByTribe: async (context: any, tribeId: string) => {
+      context.rootState.loading = true;
       const { data, status } = await tribeService.getRockstarsWithTribe(
         tribeId
       );
 
       if (status >= 200 && status <= 299) {
-        commit("SET_ROCKSTARS_BY_TRIBE", data);
+        context.rootState.loading = false;
+        context.commit("SET_ROCKSTARS_BY_TRIBE", data);
       }
     },
   },
