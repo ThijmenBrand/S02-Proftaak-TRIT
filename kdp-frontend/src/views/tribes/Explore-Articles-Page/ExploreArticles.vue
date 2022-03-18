@@ -10,10 +10,7 @@
       :key="index"
       class="article"
     >
-      <article-preview
-        :name="article.articleTitle"
-        :content="article.articleContent"
-      />
+      <article-preview :name="article.title" :content="article.content" />
     </router-link>
   </div>
 </template>
@@ -31,25 +28,28 @@ export default {
 
   setup() {
     const store = useStore();
+
     const searchQuery = ref("");
 
     const articles = computed((): ArticleShape[] => {
-      const allArticles: ArticleShape[] = store.getters["getAllArticles"];
-      return allArticles;
+      return store.getters["getAllArticles"];
     });
 
     const filteredArticles = computed((): ArticleShape[] => {
-      const allArticles: ArticleShape[] = store.getters["getAllArticles"];
-      return allArticles.filter((article: ArticleShape) => {
-        return (
-          article.articleTitle
+      const returnArray: ArticleShape[] = [];
+      articles.value.forEach((article) => {
+        if (
+          article.title.toLowerCase().indexOf(searchQuery.value.toLowerCase()) >
+            -1 ||
+          article.writer
             .toLowerCase()
-            .includes(searchQuery.value.toLowerCase()),
-          article.articleWriter
-            .toLowerCase()
-            .includes(searchQuery.value.toLowerCase())
-        );
+            .indexOf(searchQuery.value.toLowerCase()) > -1
+        ) {
+          returnArray.push(article);
+        }
       });
+
+      return returnArray;
     });
 
     return { articles, filteredArticles, searchQuery };

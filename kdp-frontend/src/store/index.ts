@@ -11,69 +11,43 @@ export default createStore({
     tribe: Array<TribeShape>(),
     articleList: [
       {
-        articleId: "1",
-        tribeId: "1",
-        articleCategory: articleCategory.blog,
-        articleWriter: "Henk",
-        articleTitle: "Vuejs article one",
-        articleDescription:
+        id: "1",
+        category: articleCategory.blog,
+        writer: "Henk",
+        title: "Vuejs article one",
+        description:
           "Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae, enim aperiam. Molestiae minima praesentium ipsum similique vel quod hic facere?",
-        articleContent:
-          "Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae, enim aperiam. Molestiae minima praesentium ipsum similique vel quod hic facere?",
-      },
-      {
-        articleId: "2",
-        tribeId: "1",
-        articleCategory: articleCategory.podcast,
-        articleWriter: "Pieter",
-        articleTitle: "Vuejs article two",
-        articleDescription:
-          "Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae, enim aperiam. Molestiae minima praesentium ipsum similique vel quod hic facere?",
-        articleContent:
+        content:
           "Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae, enim aperiam. Molestiae minima praesentium ipsum similique vel quod hic facere?",
       },
       {
-        articleId: "3",
-        tribeId: "2",
-        articleCategory: articleCategory.blog,
-        articleWriter: "Pieter",
-        articleTitle: "DotNet article one",
-        articleDescription:
+        id: "2",
+        category: articleCategory.blog,
+        writer: "Henk",
+        title: "Reno is raar",
+        description:
           "Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae, enim aperiam. Molestiae minima praesentium ipsum similique vel quod hic facere?",
-        articleContent:
-          "Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae, enim aperiam. Molestiae minima praesentium ipsum similique vel quod hic facere?",
-      },
-      {
-        articleId: "4",
-        tribeId: "2",
-        articleCategory: articleCategory.video,
-        articleWriter: "Gerard",
-        articleTitle: "DotNet article two",
-        articleDescription:
-          "Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae, enim aperiam. Molestiae minima praesentium ipsum similique vel quod hic facere?",
-        articleContent:
+        content:
           "Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae, enim aperiam. Molestiae minima praesentium ipsum similique vel quod hic facere?",
       },
       {
-        articleId: "5",
-        tribeId: "3",
-        articleCategory: articleCategory.podcast,
-        articleWriter: "Gerard",
-        articleTitle: "Java article one",
-        articleDescription:
+        id: "3",
+        category: articleCategory.blog,
+        writer: "Henk",
+        title: "test",
+        description:
           "Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae, enim aperiam. Molestiae minima praesentium ipsum similique vel quod hic facere?",
-        articleContent:
+        content:
           "Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae, enim aperiam. Molestiae minima praesentium ipsum similique vel quod hic facere?",
       },
       {
-        articleId: "6",
-        tribeId: "1",
-        articleCategory: articleCategory.blog,
-        articleWriter: "Jaap",
-        articleTitle: "Vuejs article three",
-        articleDescription:
+        id: "4",
+        category: articleCategory.blog,
+        writer: "Henk",
+        title: "Vuejs article two",
+        description:
           "Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae, enim aperiam. Molestiae minima praesentium ipsum similique vel quod hic facere?",
-        articleContent:
+        content:
           "Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae, enim aperiam. Molestiae minima praesentium ipsum similique vel quod hic facere?",
       },
     ],

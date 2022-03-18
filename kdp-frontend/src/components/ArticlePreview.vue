@@ -24,6 +24,7 @@ export default {
   height: 200px;
   width: 400px;
   background-color: white;
+  display: inline-block;
 }
 .article-p {
   color: black;
