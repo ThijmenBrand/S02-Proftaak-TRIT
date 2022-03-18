@@ -2,7 +2,8 @@
   <h1 class="page-title">All tribes</h1>
   <div class="content-container">
     <div class="tribes-links-container">
-      <h3 v-for="(tribe, index) in tribesList" :key="index">
+      <Loader v-if="loading" />
+      <h3 v-else v-for="(tribe, index) in tribesList" :key="index">
         <router-link
           :to="{
             name: 'tribe',
@@ -18,16 +19,21 @@
 </template>
 
 <script lang="ts">
-import { computed, onMounted } from 'vue';
-import { useStore } from 'vuex';
-import { TribeShape } from '@/models/Tribe';
+import { computed, onMounted } from "vue";
+import { useStore } from "vuex";
+import { TribeShape } from "@/models/Tribe";
+
+import Loader from "@/components/loader/Loader.vue";
 export default {
-  name: 'Tribes',
+  name: "Tribes",
+  components: { Loader },
   setup() {
     const store = useStore();
 
+    const loading = computed(() => store.getters["isLoading"]);
+
     onMounted(() => {
-      store.dispatch('tribes/getAllTribes');
+      store.dispatch("tribes/getAllTribes");
     });
 
     const tribesList = computed((): TribeShape[] => {
@@ -35,13 +41,13 @@ export default {
       return list;
     });
 
-    return { tribesList };
+    return { tribesList, loading };
   },
 };
 </script>
 
 <style scoped lang="scss">
-@import '@/styles/variables.scss';
+@import "@/styles/variables.scss";
 
 h3 {
   color: $trit-white;

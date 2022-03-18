@@ -4,7 +4,6 @@ import { TribeShape } from "@/models/Tribe";
 import tribeService from "@/services/tribe";
 
 interface tribesState {
-  loading: boolean;
   tribesList: TribeShape[];
   rockstarsList: RockstarShape[];
   articleList: ArticleShape[];
@@ -15,7 +14,6 @@ const tribes = {
   namespaced: true,
   state(): tribesState {
     return {
-      loading: false,
       tribesList: [],
       currentTribe: {
         id: "",

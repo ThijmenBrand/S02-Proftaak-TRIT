@@ -1,9 +1,17 @@
 <template>
-  <div class="information-page-main">
+  <div class="loader-container" v-if="loading">
+    <Loader />
+  </div>
+  <div class="information-page-main" v-else>
     <div class="tribes-overview">
       <h3 class="tribe-title">{{ currentTribe.name }}</h3>
       <div class="profile-container">
+        <div class="lds-ripple" v-if="loading">
+          <div></div>
+          <div></div>
+        </div>
         <profiletag
+          v-else
           v-for="(rockstar, index) in rockstars"
           :key="index"
           :name="rockstar.name"
@@ -32,61 +40,71 @@
 </template>
 
 <script lang="ts">
-import ArticlePreview from './Components/ArticlePreview.vue';
-import Profiletag from '../../../components/Profiletag.vue';
+import ArticlePreview from "./Components/ArticlePreview.vue";
+import Profiletag from "@/components/Profiletag.vue";
+import Loader from "@/components/loader/Loader.vue";
 
-import { useRoute } from 'vue-router';
-import { useStore } from 'vuex';
-import { computed, onMounted } from 'vue';
-import { RockstarShape } from '@/models/Rockstar';
-import { TribeShape } from '@/models/Tribe';
-import ArticleShape from '@/models/Article';
+import { useRoute } from "vue-router";
+import { useStore } from "vuex";
+import { computed, onMounted } from "vue";
+import { RockstarShape } from "@/models/Rockstar";
+import { TribeShape } from "@/models/Tribe";
+import ArticleShape from "@/models/Article";
 export default {
   components: {
     Profiletag,
     ArticlePreview,
+    Loader,
   },
   setup(props: any) {
     const route = useRoute();
     const store = useStore();
 
+    const loading = computed(() => store.getters["isLoading"]);
+
     //todo, op basis van id een request sturen met individuele tribe info en daarvan de data gebruiken.
     const currentTribe = computed((): TribeShape => {
-      return store.getters['tribes/getCurrentTribe'];
+      return store.getters["tribes/getCurrentTribe"];
     });
 
     onMounted(() => {
-      store.dispatch('tribes/getCurrentTribe', route.params.tribe);
-      store.dispatch('tribes/getRockstarsByTribe', route.params.tribe);
+      store.dispatch("tribes/getCurrentTribe", route.params.tribe);
+      store.dispatch("tribes/getRockstarsByTribe", route.params.tribe);
     });
 
     const articles = computed((): ArticleShape[] => {
       const applyingArticles: ArticleShape[] = [];
 
       const allArticles: ArticleShape[] =
-        store.getters['tribes/getAllArticles'];
+        store.getters["tribes/getAllArticles"];
 
       allArticles.forEach((article) => {
         article.tribeId === currentTribe.value.id
           ? applyingArticles.push(article)
-          : '';
+          : "";
       });
 
       return applyingArticles;
     });
 
     const rockstars = computed((): RockstarShape[] => {
-      const rockstar = store.getters['tribes/getRockstarsByTribe'];
+      const rockstar = store.getters["tribes/getRockstarsByTribe"];
       return rockstar;
     });
 
-    return { articles, rockstars, currentTribe };
+    return { articles, rockstars, currentTribe, loading };
   },
 };
 </script>
 
 <style lang="scss" scoped>
-@import '@/styles/variables.scss';
+@import "@/styles/variables.scss";
+.loader-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+}
 p {
   color: $trit-white;
   margin: 0;
