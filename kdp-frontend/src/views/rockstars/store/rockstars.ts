@@ -1,6 +1,5 @@
 ﻿import { RockstarShape } from "@/models/Rockstar";
 import Axios from 'axios';
-import Article from "@/views/tribes/article/Article.vue";
 import ArticleShape from "@/models/Article";
 
 interface rockstarState {
