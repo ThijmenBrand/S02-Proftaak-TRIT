@@ -1,6 +1,6 @@
 ﻿<template>
   <RockstarView :rockstar="rockstar" />
-  <div class="articles-container">
+  <div class="articles-container DIN2014-Regular">
     <ul>
       <li v-for="(article, index) in articles" :key="index">{{ article.title }}</li>
     </ul>
@@ -52,6 +52,12 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import "@/styles/variables.scss";
+@import "../../../styles/variables.scss";
+
+.articles-container {
+  background-color: $trit-black;
+  color: $trit-white;
+  min-height: 100vh;
+}
 
 </style>
