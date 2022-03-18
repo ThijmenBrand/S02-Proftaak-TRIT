@@ -1,10 +1,12 @@
 ﻿<template>
   <RockstarView :rockstar="rockstar" />
   <div class="articles-container DIN2014-Regular">
-    <ul>
-      <li v-for="(article, index) in articles" :key="index">{{ article.title }}</li>
-    </ul>
-  </div>
+    <div class="articles-content DIN2014-Regular">
+      <ul>
+        <li v-for="(article, index) in articles" :key="index">{{ article.title }}</li>
+      </ul>
+    </div>
+  </div>  
   
 </template>
 
@@ -33,8 +35,6 @@ export default {
     // when loading the page, get the rockstar by id and their articles
     onMounted(() => {
       store.dispatch('rockstars/getRockstar', route.params.rockstarId);
-    });
-    onMounted(() => {
       store.dispatch('rockstars/getArticles', route.params.rockstarId);
     });
     
@@ -49,15 +49,17 @@ export default {
   },
   
 };
+
+
 </script>
 
 <style scoped lang="scss">
 @import "@/styles/variables.scss";
 
 .articles-container {
-  background-color: $trit-black;
   color: $trit-white;
-  min-height: 100vh;
+  background-color: $trit-gray;
 }
+
 
 </style>
