@@ -15,7 +15,7 @@ export default createStore({
         articleId: "1",
         tribeId: "1",
         articleCategory: articleCategory.blog,
-        articleWriter: "1",
+        articleWriter: "Henk",
         articleTitle: "Vuejs article one",
         articleDescription:
           "Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae, enim aperiam. Molestiae minima praesentium ipsum similique vel quod hic facere?",
@@ -26,7 +26,7 @@ export default createStore({
         articleId: "2",
         tribeId: "1",
         articleCategory: articleCategory.podcast,
-        articleWriter: "3",
+        articleWriter: "Pieter",
         articleTitle: "Vuejs article two",
         articleDescription:
           "Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae, enim aperiam. Molestiae minima praesentium ipsum similique vel quod hic facere?",
@@ -37,7 +37,7 @@ export default createStore({
         articleId: "3",
         tribeId: "2",
         articleCategory: articleCategory.blog,
-        articleWriter: "2",
+        articleWriter: "Pieter",
         articleTitle: "DotNet article one",
         articleDescription:
           "Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae, enim aperiam. Molestiae minima praesentium ipsum similique vel quod hic facere?",
@@ -48,7 +48,7 @@ export default createStore({
         articleId: "4",
         tribeId: "2",
         articleCategory: articleCategory.video,
-        articleWriter: "5",
+        articleWriter: "Gerard",
         articleTitle: "DotNet article two",
         articleDescription:
           "Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae, enim aperiam. Molestiae minima praesentium ipsum similique vel quod hic facere?",
@@ -59,7 +59,7 @@ export default createStore({
         articleId: "5",
         tribeId: "3",
         articleCategory: articleCategory.podcast,
-        articleWriter: "1",
+        articleWriter: "Gerard",
         articleTitle: "Java article one",
         articleDescription:
           "Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae, enim aperiam. Molestiae minima praesentium ipsum similique vel quod hic facere?",
@@ -70,7 +70,7 @@ export default createStore({
         articleId: "6",
         tribeId: "1",
         articleCategory: articleCategory.blog,
-        articleWriter: "4",
+        articleWriter: "Jaap",
         articleTitle: "Vuejs article three",
         articleDescription:
           "Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae, enim aperiam. Molestiae minima praesentium ipsum similique vel quod hic facere?",

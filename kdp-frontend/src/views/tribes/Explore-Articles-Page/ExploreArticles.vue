@@ -1,8 +1,6 @@
 <template>
   <div class="search-bar">
     <input v-model="searchQuery" placeholder="Search.." />
-    <p>Searching for: {{ searchQuery }}</p>
-    <p>{{ filteredArticles }}</p>
   </div>
 
   <div class="articles-container">
@@ -30,30 +28,31 @@ export default {
   components: {
     ArticlePreview,
   },
-  data() {
-    return {
-      searchQuery: "",
-    };
-  },
+
   setup() {
     const store = useStore();
+    const searchQuery = ref("");
 
     const articles = computed((): ArticleShape[] => {
       const allArticles: ArticleShape[] = store.getters["getAllArticles"];
       return allArticles;
     });
-    const searchQuery = ref("");
 
     const filteredArticles = computed((): ArticleShape[] => {
       const allArticles: ArticleShape[] = store.getters["getAllArticles"];
       return allArticles.filter((article: ArticleShape) => {
-        return article.articleTitle
-          .toLowerCase()
-          .includes(searchQuery.value.toLowerCase());
+        return (
+          article.articleTitle
+            .toLowerCase()
+            .includes(searchQuery.value.toLowerCase()),
+          article.articleWriter
+            .toLowerCase()
+            .includes(searchQuery.value.toLowerCase())
+        );
       });
     });
 
-    return { articles, filteredArticles };
+    return { articles, filteredArticles, searchQuery };
   },
 };
 </script>
