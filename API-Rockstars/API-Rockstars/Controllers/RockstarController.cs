@@ -118,19 +118,30 @@ namespace API_Rockstars.Controllers
 
         }
 
-        //[HttpGet("GetRockstarRole/TribeId/{tribeId}/RockstarId/{rockstarId}")]
-        //public async Task<ActionResult<Rockstar>> GetRockstarsRoleByTribeId(Guid tribeId, Guid rockstarId)
-        //{
-        //    List<RockstarRole> rockstarRoles = await _context.RockstarRoles.Where(x => x.TribeId == tribeId && x.RockstarId == rockstarId).ToListAsync();
+        [HttpGet("GetRockstarRole/TribeId/{tribeId}/RockstarId/{rockstarId}")]
+        public async Task<ActionResult<List<Role>>> GetRockstarsRoleByTribeId(Guid tribeId, Guid rockstarId)
+        {
+            List<RockstarRole> rockstarRoles = await _context.RockstarRoles.Where(x => x.TribeId == tribeId && x.RockstarId == rockstarId).ToListAsync();
 
-        //    if (rockstarRoles.Count == 0)
-        //    {
-        //        return NotFound();
-        //    }
+            if (rockstarRoles.Count == 0)
+            {
+                return NotFound();
+            }
 
+            List<Role> roles = new List<Role>();
 
-        //    return roles;
-        //}
+            foreach (var role in rockstarRoles)
+            {
+                roles.Add(await _context.Roles.FindAsync(role.RoleId));
+            }
+
+            if (roles.Count == 0)
+            {
+                return NotFound();
+            }
+
+            return roles;
+        }
 
         private bool RockstarExists(Guid id)
         {

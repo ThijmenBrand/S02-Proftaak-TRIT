@@ -65,7 +65,7 @@ namespace API_Rockstars.Controllers
 
             foreach (var rockstar in tribeRockstars.Result)
             {
-                rockstars.Add(_context.Rockstars.Find(rockstar.RockstarId));
+                rockstars.Add(await _context.Rockstars.FindAsync(rockstar.RockstarId));
             }
 
             if (rockstars.Count == 0)
