@@ -1,13 +1,14 @@
 <template>
   <div class="search-bar">
-    <p>Message is: {{ message }}</p>
-    <input v-model="searchQuery" placeholder="edit me" />
+    <input v-model="searchQuery" placeholder="Search.." />
+    <p>Searching for: {{ searchQuery }}</p>
+    <p>{{ filteredArticles }}</p>
   </div>
 
   <div class="articles-container">
     <router-link
       to="/"
-      v-for="(article, index) in articles"
+      v-for="(article, index) in filteredArticles"
       :key="index"
       class="article"
     >
@@ -31,7 +32,7 @@ export default {
   },
   data() {
     return {
-      message: "",
+      searchQuery: "",
     };
   },
   setup() {
@@ -41,20 +42,18 @@ export default {
       const allArticles: ArticleShape[] = store.getters["getAllArticles"];
       return allArticles;
     });
+    const searchQuery = ref("");
 
-    /* const searchQuery = ref("");
-    const searchedArticles = computed(() => {
-      return articles.value.filter((articles: ArticleShape) => {
-        return (
-          articles.articleTitle
-            .toLowerCase()
-            .indexOf(searchQuery.value.toLowerCase()) != -1
-        );
+    const filteredArticles = computed((): ArticleShape[] => {
+      const allArticles: ArticleShape[] = store.getters["getAllArticles"];
+      return allArticles.filter((article: ArticleShape) => {
+        return article.articleTitle
+          .toLowerCase()
+          .includes(searchQuery.value.toLowerCase());
       });
     });
-    */
 
-    return { articles };
+    return { articles, filteredArticles };
   },
 };
 </script>
