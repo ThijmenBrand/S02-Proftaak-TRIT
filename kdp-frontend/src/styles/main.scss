@@ -76,3 +76,9 @@ p {
 .page-title {
   margin-left: 20px;
 }
+
+.profile-tag {
+  display: flex;
+  flex-flow: column;
+  align-items: center
+}
