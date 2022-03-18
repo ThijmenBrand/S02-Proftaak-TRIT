@@ -52,7 +52,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import "../../../styles/variables.scss";
+@import "@/styles/variables.scss";
 
 .articles-container {
   background-color: $trit-black;

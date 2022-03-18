@@ -3,7 +3,7 @@ import Home from '../views/Home.vue';
 import tribes from '@/views/tribes/Tribes.vue';
 import tribe from '@/views/tribes/Tribe-Information-Page/InformationPage.vue';
 import article from '@/views/tribes/article/Article.vue';
-import rockstar from '@/views/rockstars/Rockstar-Information-Page/InformationPage.vue';
+import RockstarInformationPage from '@/views/rockstars/Rockstar-Information-Page/InformationPage.vue';
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -30,7 +30,7 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/rockstar/:rockstarId',
     name: 'rockstar',
-    component: rockstar,
+    component: RockstarInformationPage,
   },
 ];
 

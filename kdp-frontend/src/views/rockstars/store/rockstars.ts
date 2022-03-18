@@ -1,6 +1,7 @@
 ﻿import { RockstarShape } from "@/models/Rockstar";
 import Axios from 'axios';
 import ArticleShape from "@/models/Article";
+import rockstarService from "@/services/rockstar";
 
 interface rockstarState {
     rockstar : RockstarShape;
@@ -28,22 +29,22 @@ const rockstar = {
         },
     },
     actions: {
-        getRockstar: async ({ commit }: any, rockstarId: string) => {
-            const { data, status } = await Axios.get(
-            `https://rockstar-api.azurewebsites.net/api/rockstar/${rockstarId}`
-            );
+        getRockstar: async (context: any, rockstarId: string) => {
+            context.rootState.loading = true;
+            const { data, status } = await rockstarService.getRockstar(rockstarId);
             
             if (status >= 200 && status <= 299) {
-                commit('SET_ROCKSTAR', data);
+                context.rootState.loading = false;
+                context.commit('SET_ROCKSTAR', data);
             }
         },   
-        getArticles: async ({ commit }: any, rockstarId: string) => {
-            const { data, status } = await Axios.get(
-                `https://rockstar-api.azurewebsites.net/api/article/GetArticlesByRockstar/${rockstarId}`
-            );
+        getArticles: async (context: any, rockstarId: string) => {
+            context.rootState.loading = true;
+            const { data, status } = await rockstarService.getArticles(rockstarId);
 
             if (status >= 200 && status <= 299) {
-                commit('SET_ARTICLES', data);
+                context.rootState.loading = false;
+                context.commit('SET_ARTICLES', data);
             }
         },
     },
