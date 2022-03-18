@@ -1,8 +1,11 @@
 ﻿import { RockstarShape } from "@/models/Rockstar";
 import Axios from 'axios';
+import Article from "@/views/tribes/article/Article.vue";
+import ArticleShape from "@/models/Article";
 
 interface rockstarState {
     rockstar : RockstarShape;
+    articles : ArticleShape[];
 }
 
 const rockstar = {
@@ -14,11 +17,15 @@ const rockstar = {
                 name: '',
                 description: '',
             },
+            articles: [],
         };
     },
     getters: {
         getRockstar: (state: rockstarState): RockstarShape => {
             return state.rockstar;
+        },
+        getArticles: (state: rockstarState): ArticleShape[] => {
+            return state.articles;  
         },
     },
     actions: {
@@ -30,11 +37,23 @@ const rockstar = {
             if (status >= 200 && status <= 299) {
                 commit('SET_ROCKSTAR', data);
             }
-        },       
+        },   
+        getArticles: async ({ commit }: any, rockstarId: string) => {
+            const { data, status } = await Axios.get(
+                `https://rockstar-api.azurewebsites.net/api/article/GetArticlesByRockstar/${rockstarId}`
+            );
+
+            if (status >= 200 && status <= 299) {
+                commit('SET_ARTICLES', data);
+            }
+        },
     },
     mutations: {
         SET_ROCKSTAR: (state: rockstarState, data: RockstarShape) => {
             state.rockstar = data;
+        },
+        SET_ARTICLES: (state: rockstarState, data: ArticleShape[]) => {
+            state.articles = data;  
         },
     },
 };
