@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -51,14 +52,14 @@ namespace API_Rockstars.Controllers
 
             if (tribe == null)
             {
-                return NotFound();
+                return NoContent();
             }
             
             Task<List<TribeRockstar>> tribeRockstars = _context.TribeRockstars.Where(x => x.TribeId == id).ToListAsync();
 
             if (tribeRockstars.Result.Count == 0)
             {
-                return NotFound();
+                return NoContent();
             }
 
             List<Rockstar> rockstars = new List<Rockstar>();
@@ -70,7 +71,7 @@ namespace API_Rockstars.Controllers
 
             if (rockstars.Count == 0)
             {
-                return NotFound();
+                return NoContent();
             }
 
             return rockstars;
