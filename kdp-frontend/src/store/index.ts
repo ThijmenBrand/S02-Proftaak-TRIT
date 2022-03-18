@@ -9,7 +9,6 @@ export default createStore({
   state: {
     rockstars: Array<RockstarShape>(),
     tribe: Array<TribeShape>(),
-
     articleList: [
       {
         articleId: "1",
@@ -82,6 +81,9 @@ export default createStore({
   getters: {
     getAllArticles: (state: any): ArticleShape[] => {
       return state.articleList;
+    },
+    isLoading: (state: any) => {
+      return state.loading;
     },
   },
   mutations: {},

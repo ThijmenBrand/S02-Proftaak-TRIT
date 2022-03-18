@@ -7,7 +7,7 @@
 
 <script lang="ts">
 export default {
-  name: "Profiletag",
+  name: 'Profiletag',
   props: {
     name: String,
   },

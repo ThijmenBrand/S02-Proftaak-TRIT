@@ -10,6 +10,7 @@
     "prettier-watch": "onchange 'src/**/*.ts' -- prettier --write {{changed}}"
   },
   "dependencies": {
+    "axios": "^0.26.1",
     "core-js": "^3.6.5",
     "vue": "^3.2.31",
     "vue-class-component": "^8.0.0-0",

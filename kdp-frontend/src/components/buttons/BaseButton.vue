@@ -6,15 +6,11 @@
 
 <script lang="ts">
 export default {
-  name: "BaseButtom",
+  name: 'BaseButton',
   props: {
     btnContent: String,
   },
-  setup() {
-    
-  }
 };
 </script>
 
-<style>
-</style>
+<style></style>

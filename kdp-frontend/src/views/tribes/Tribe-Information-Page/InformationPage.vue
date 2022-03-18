@@ -1,12 +1,20 @@
 <template>
-  <div class="information-page-main">
+  <div class="loader-container" v-if="loading">
+    <Loader />
+  </div>
+  <div class="information-page-main" v-else>
     <div class="tribes-overview">
-      <h3 class="tribe-title">{{ tribeName }}</h3>
+      <h3 class="tribe-title">{{ currentTribe.name }}</h3>
       <div class="profile-container">
+        <div class="lds-ripple" v-if="loading">
+          <div></div>
+          <div></div>
+        </div>
         <profiletag
+          v-else
           v-for="(rockstar, index) in rockstars"
           :key="index"
-          :name="rockstar.rockstarName"
+          :name="rockstar.name"
           class="profile-tag"
         />
       </div>
@@ -32,12 +40,13 @@
 </template>
 
 <script lang="ts">
-import ArticlePreview from "../../../components/ArticlePreview.vue";
-import Profiletag from "../../../components/Profiletag.vue";
+import ArticlePreview from "./Components/ArticlePreview.vue";
+import Profiletag from "@/components/Profiletag.vue";
+import Loader from "@/components/loader/Loader.vue";
 
 import { useRoute } from "vue-router";
 import { useStore } from "vuex";
-import { computed } from "vue";
+import { computed, onMounted } from "vue";
 import { RockstarShape } from "@/models/Rockstar";
 import { TribeShape } from "@/models/Tribe";
 import ArticleShape from "@/models/Article";
@@ -45,30 +54,32 @@ export default {
   components: {
     Profiletag,
     ArticlePreview,
+    Loader,
   },
-  setup() {
-    const Route = useRoute();
-    const Store = useStore();
+  setup(props: any) {
+    const route = useRoute();
+    const store = useStore();
 
+    const loading = computed(() => store.getters["isLoading"]);
+
+    //todo, op basis van id een request sturen met individuele tribe info en daarvan de data gebruiken.
     const currentTribe = computed((): TribeShape => {
-      const allTribes: TribeShape[] = Store.getters["tribes/getAllTribesList"];
+      return store.getters["tribes/getCurrentTribe"];
+    });
 
-      return (
-        allTribes.find(
-          (tribe) => tribe.tribeName === tribeName.value
-          //Todo, when tribe is not found, send to "no tribe found page"
-        ) || { tribeID: "", tribeName: "" }
-      );
+    onMounted(() => {
+      store.dispatch("tribes/getCurrentTribe", route.params.tribe);
+      store.dispatch("tribes/getRockstarsByTribe", route.params.tribe);
     });
 
     const articles = computed((): ArticleShape[] => {
       const applyingArticles: ArticleShape[] = [];
 
       const allArticles: ArticleShape[] =
-        Store.getters["tribes/getAllArticles"];
+        store.getters["tribes/getAllArticles"];
 
       allArticles.forEach((article) => {
-        article.tribeId === currentTribe.value.tribeID
+        article.tribeId === currentTribe.value.id
           ? applyingArticles.push(article)
           : "";
       });
@@ -77,33 +88,25 @@ export default {
     });
 
     const rockstars = computed((): RockstarShape[] => {
-      const applyingRockstars: RockstarShape[] = [];
-
-      const allRockstars: RockstarShape[] =
-        Store.getters["tribes/getAllRockstars"];
-
-      allRockstars.forEach((rockstar) => {
-        rockstar.TribeID === currentTribe.value.tribeID
-          ? applyingRockstars.push(rockstar)
-          : "";
-      });
-
-      return applyingRockstars;
+      const rockstar = store.getters["tribes/getRockstarsByTribe"];
+      return rockstar;
     });
 
-    const tribeName = computed(() => {
-      return Route.params.tribe;
-    });
-
-    return { articles, tribeName, rockstars };
+    return { articles, rockstars, currentTribe, loading };
   },
 };
 </script>
 
 <style lang="scss" scoped>
 @import "@/styles/variables.scss";
+.loader-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+}
 p {
-  color: white;
+  color: $trit-white;
   margin: 0;
 }
 /* width */
@@ -119,7 +122,7 @@ p {
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: gray;
+  background: $trit-gray;
   border-radius: 10px;
 }
 
@@ -151,7 +154,7 @@ p {
 .articles-overview-title {
   text-align: center;
   margin: 0;
-  color: white;
+  color: $trit-white;
   padding-top: 20px;
 }
 .articles-container {

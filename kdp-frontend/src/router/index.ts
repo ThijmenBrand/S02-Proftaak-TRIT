@@ -7,8 +7,8 @@ import ExploreArticles from "@/views/tribes/Explore-Articles-Page/ExploreArticle
 
 const routes: Array<RouteRecordRaw> = [
   {
-    path: "/",
-    name: "Home",
+    path: '/',
+    name: 'Home',
     component: Home,
   },
   {
