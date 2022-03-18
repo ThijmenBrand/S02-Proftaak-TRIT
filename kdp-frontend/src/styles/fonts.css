@@ -1,0 +1,40 @@
+/**
+ * @license
+ * MyFonts Webfont Build ID 3486096, 2017-11-20T05:37:54-0500
+ * 
+ * The fonts listed in this notice are subject to the End User License
+ * Agreement(s) entered into by the website owner. All other parties are 
+ * explicitly restricted from using the Licensed Webfonts(s).
+ * 
+ * You may obtain a valid license at the URLs below.
+ * 
+ * Webfont: DIN2014-Bold by ParaType
+ * URL: https://www.myfonts.com/fonts/paratype/din-2014/bold/
+ * 
+ * Webfont: DIN2014-Regular by ParaType
+ * URL: https://www.myfonts.com/fonts/paratype/din-2014/regular/
+ * 
+ * Webfont: DIN2014-Demi by ParaType
+ * URL: https://www.myfonts.com/fonts/paratype/din-2014/demi/
+ * 
+ * 
+ * License: https://www.myfonts.com/viewlicense?type=web&buildid=3486096
+ * Licensed pageviews: 10,000
+ * Webfonts copyright: Copyright &#x00A9; 2014 ParaType Inc., ParaType Ltd. All rights reserved.
+ * 
+ * © 2017 MyFonts Inc
+*/
+
+
+/* @import must be at top of file, otherwise CSS will not work */
+/*@import url("//hello.myfonts.net/count/353190");*/
+
+  
+@font-face {font-family: 'DIN2014-Bold';src: url('webfonts/353190_0_0.eot');src: url('webfonts/353190_0_0.eot?#iefix') format('embedded-opentype'),url('webfonts/353190_0_0.woff2') format('woff2'),url('webfonts/353190_0_0.woff') format('woff'),url('webfonts/353190_0_0.ttf') format('truetype');}
+ 
+  
+@font-face {font-family: 'DIN2014-Regular';src: url('webfonts/353190_1_0.eot');src: url('webfonts/353190_1_0.eot?#iefix') format('embedded-opentype'),url('webfonts/353190_1_0.woff2') format('woff2'),url('webfonts/353190_1_0.woff') format('woff'),url('webfonts/353190_1_0.ttf') format('truetype');}
+ 
+  
+@font-face {font-family: 'DIN2014-Demi';src: url('webfonts/353190_2_0.eot');src: url('webfonts/353190_2_0.eot?#iefix') format('embedded-opentype'),url('webfonts/353190_2_0.woff2') format('woff2'),url('webfonts/353190_2_0.woff') format('woff'),url('webfonts/353190_2_0.ttf') format('truetype');}
+ 
