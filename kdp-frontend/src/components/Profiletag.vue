@@ -2,6 +2,7 @@
   <div>
     <div class="image"></div>
     <p class="rockstar">{{ name }}</p>
+    <p class="rockstar-role">{{ role }}</p>
   </div>
 </template>
 
@@ -10,6 +11,7 @@ export default {
   name: "Profiletag",
   props: {
     name: String,
+    role: String,
   },
 };
 </script>
@@ -27,5 +29,10 @@ export default {
 }
 p {
   text-align: center;
+}
+.rockstar-role {
+  font-size: 10px;
+  margin-top: -10px;
+  color: $trit-gray;
 }
 </style>

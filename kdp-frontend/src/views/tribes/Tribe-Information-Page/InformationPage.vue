@@ -18,7 +18,11 @@
             params: { rockstarId: rockstar.id },
           }"
         >
-          <profiletag :name="rockstar.name" class="profile-tag" />
+          <profiletag
+            :name="rockstar.name"
+            :role="rockstar.role"
+            class="profile-tag"
+          />
         </router-link>
       </div>
     </div>
@@ -70,6 +74,7 @@ export default {
     });
 
     onMounted(() => {
+      store.commit("tribes/EMPTY_STORE");
       store.dispatch("tribes/getCurrentTribe", route.params.tribe);
       store.dispatch("tribes/getRockstarsByTribe", route.params.tribe);
     });
