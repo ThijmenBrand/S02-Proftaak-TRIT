@@ -2,19 +2,22 @@
   <div>
     <div class="image"></div>
     <p class="rockstar">{{ name }}</p>
+    <p class="rockstar-role">{{ role }}</p>
   </div>
 </template>
 
 <script lang="ts">
 export default {
-  name: 'Profiletag',
+  name: "Profiletag",
   props: {
     name: String,
+    role: String,
   },
 };
 </script>
 
 <style lang="scss" scoped>
+@import "@/styles/variables.scss";
 .image {
   height: 60px;
   width: 60px;
@@ -22,9 +25,14 @@ export default {
   border-radius: 50%;
 }
 .rockstar {
-  color: white;
+  color: $trit-gray;
 }
 p {
   text-align: center;
+}
+.rockstar-role {
+  font-size: 10px;
+  margin-top: -10px;
+  color: $trit-gray;
 }
 </style>

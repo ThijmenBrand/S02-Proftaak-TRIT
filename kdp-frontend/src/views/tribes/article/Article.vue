@@ -16,19 +16,19 @@
 </template>
 
 <script lang="ts">
-import ProfileTag from '@/components/Profiletag.vue';
-import ArticleShape from '@/models/Article';
+import ProfileTag from "@/components/Profiletag.vue";
+import ArticleShape from "@/models/Article";
 
-import Blog from './components/Blog.vue';
-import Podcast from './components/Podcast.vue';
-import Video from './components/video.vue';
+import Blog from "./components/Blog.vue";
+import Podcast from "./components/Podcast.vue";
+import Video from "./components/video.vue";
 
-import { useRoute } from 'vue-router';
-import { useStore } from 'vuex';
-import { computed } from 'vue';
-import { RockstarShape } from '@/models/Rockstar';
+import { useRoute } from "vue-router";
+import { useStore } from "vuex";
+import { computed } from "vue";
+import { RockstarShape } from "@/models/Rockstar";
 export default {
-  name: 'Article-view',
+  name: "Article-view",
   components: {
     Blog,
     Podcast,
@@ -45,19 +45,18 @@ export default {
 
     const articleDetails = computed((): ArticleShape | undefined => {
       const allArticles: ArticleShape[] =
-        store.getters['tribes/getAllArticles'];
+        store.getters["tribes/getAllArticles"];
 
       const applyingArticle: ArticleShape | undefined = allArticles.find(
         (a) => a.id === articleId.value
       );
-
 
       return applyingArticle;
     });
 
     const articleWriter = computed((): RockstarShape => {
       const allRockstars: RockstarShape[] =
-        store.getters['tribes/getAllRockstars'];
+        store.getters["tribes/getAllRockstars"];
 
       const applyingRockstar: RockstarShape | undefined = allRockstars.find(
         (a) => a.id == articleDetails.value?.writer
@@ -66,9 +65,10 @@ export default {
       return applyingRockstar != undefined
         ? applyingRockstar
         : {
-            id: '',
-            name: 'unknown',
-            description: '',
+            id: "",
+            name: "unknown",
+            description: "",
+            role: "",
           };
     });
 

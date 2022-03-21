@@ -73,10 +73,19 @@ const tribes = {
       state.tribesList = data;
     },
     SET_ROCKSTARS_BY_TRIBE: (state: tribesState, data: RockstarShape[]) => {
-      state.rockstarsList = data;
+      data.forEach((rockstar) => {
+        if (!rockstar.role) {
+          rockstar.role = "Rockstar";
+        }
+      });
+      state.rockstarsList = data.sort().reverse();
     },
     SET_CURRENT_TRIBE: (state: tribesState, data: TribeShape) => {
       state.currentTribe = data;
+    },
+    EMPTY_STORE: (state: tribesState) => {
+      state.articleList = [];
+      state.rockstarsList = [];
     },
   },
 };

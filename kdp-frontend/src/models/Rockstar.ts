@@ -4,4 +4,5 @@ export interface RockstarShape {
   //Todo place this back
   //rockstarProfilePricure: Uint32Array,
   description: string;
+  role: string;
 }
