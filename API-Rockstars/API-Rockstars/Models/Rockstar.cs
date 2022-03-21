@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Reflection.Metadata;
 using Newtonsoft.Json.Converters;
 
@@ -11,5 +12,6 @@ namespace API_Rockstars.Models
         [Required] public string Name { get; set; }
         public byte[]? Image { get; set; }
         public string? Description { get; set; }
+        [NotMapped] public string? Role { get; set; }
     }
 }

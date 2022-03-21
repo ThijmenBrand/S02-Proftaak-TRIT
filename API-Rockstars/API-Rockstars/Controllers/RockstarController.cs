@@ -119,46 +119,24 @@ namespace API_Rockstars.Controllers
             return NoContent();
         }
 
-        [HttpPost("AddRollToRockstar")]
-        public async Task<ActionResult<Rockstar>> AddRoleToRockstar(RockstarRole rockstarRole)
-        {
-            RockstarRole checkDuplicate = _context.RockstarRoles.FirstOrDefault(x => x.TribeId == rockstarRole.TribeId && x.RoleId == rockstarRole.RoleId && x.RockstarId == rockstarRole.RockstarId);
-
-            if (checkDuplicate != null)
-            {
-                return BadRequest("This rockstar is already assigned to this role in this Tribe");
-            }
-
-            _context.RockstarRoles.Add(rockstarRole);
-            await _context.SaveChangesAsync();
-
-            return Ok();
-
-        }
-
         [HttpGet("GetRockstarRole/TribeId/{tribeId}/RockstarId/{rockstarId}")]
-        public async Task<ActionResult<List<Role>>> GetRockstarsRoleByTribeId(Guid tribeId, Guid rockstarId)
+        public async Task<ActionResult<Role>> GetRockstarsRoleByTribeId(Guid tribeId, Guid rockstarId)
         {
-            List<RockstarRole> rockstarRoles = await _context.RockstarRoles.Where(x => x.TribeId == tribeId && x.RockstarId == rockstarId).ToListAsync();
+            RockstarRole rockstarRole = await _context.RockstarRoles.FirstOrDefaultAsync(x => x.TribeId == tribeId && x.RockstarId == rockstarId);
 
-            if (rockstarRoles.Count == 0)
+            if (rockstarRole == null)
             {
                 return NotFound();
             }
 
-            List<Role> roles = new List<Role>();
+            Role role = await _context.Roles.FindAsync(rockstarRole.RoleId);
 
-            foreach (var role in rockstarRoles)
-            {
-                roles.Add(await _context.Roles.FindAsync(role.RoleId));
-            }
-
-            if (roles.Count == 0)
+            if (role == null)
             {
                 return NotFound();
             }
 
-            return roles;
+            return role;
         }
 
         private bool RockstarExists(Guid id)

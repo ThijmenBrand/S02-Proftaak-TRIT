@@ -74,6 +74,17 @@ namespace API_Rockstars.Controllers
                 return NoContent();
             }
 
+            foreach (var rockstar in rockstars)
+            {
+                RockstarRole rockstarRole = await _context.RockstarRoles.FirstOrDefaultAsync(x => x.TribeId == id && x.RockstarId == rockstar.Id);
+
+                if (rockstarRole != null)
+                {
+                    Role role = await _context.Roles.FindAsync(rockstarRole.RoleId);
+                    rockstar.Role = role.Name;
+                }
+            }
+
             return rockstars;
         }
 
