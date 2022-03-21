@@ -16,9 +16,10 @@
 </template>
 
 <script lang="ts">
-import { useStore } from "vuex";
-import ArticleShape, { articleCategory } from "@/models/Article";
 import { computed, ref } from "vue";
+import { useStore } from "vuex";
+
+import ArticleShape from "@/models/Article";
 import ArticlePreview from "@/components/ArticlePreview.vue";
 
 export default {
