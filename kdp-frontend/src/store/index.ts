@@ -2,69 +2,47 @@ import { RockstarShape } from "@/models/Rockstar";
 import { TribeShape } from "@/models/Tribe";
 import { createStore } from "vuex";
 
+import exporeService from "@/services/callFunctions/explore";
+
 import tribes from "@/views/tribes/store/tribes";
-import ArticleShape, { articleCategory } from "@/models/Article";
+import ArticleShape from "@/models/Article";
 import rockstars from "@/views/rockstars/store/rockstars";
+import article from "@/views/article/store/article";
 
 export default createStore({
   state: {
-    rockstars: Array<RockstarShape>(),
     tribe: Array<TribeShape>(),
-    articleList: [
-      {
-        id: "1",
-        category: articleCategory.blog,
-        writer: "Henk",
-        title: "Vuejs article one",
-        description:
-          "Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae, enim aperiam. Molestiae minima praesentium ipsum similique vel quod hic facere?",
-        content:
-          "Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae, enim aperiam. Molestiae minima praesentium ipsum similique vel quod hic facere?",
-      },
-      {
-        id: "2",
-        category: articleCategory.blog,
-        writer: "Henk",
-        title: "Reno is raar",
-        description:
-          "Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae, enim aperiam. Molestiae minima praesentium ipsum similique vel quod hic facere?",
-        content:
-          "Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae, enim aperiam. Molestiae minima praesentium ipsum similique vel quod hic facere?",
-      },
-      {
-        id: "3",
-        category: articleCategory.blog,
-        writer: "Henk",
-        title: "test",
-        description:
-          "Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae, enim aperiam. Molestiae minima praesentium ipsum similique vel quod hic facere?",
-        content:
-          "Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae, enim aperiam. Molestiae minima praesentium ipsum similique vel quod hic facere?",
-      },
-      {
-        id: "4",
-        category: articleCategory.blog,
-        writer: "Henk",
-        title: "Vuejs article two",
-        description:
-          "Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae, enim aperiam. Molestiae minima praesentium ipsum similique vel quod hic facere?",
-        content:
-          "Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae, enim aperiam. Molestiae minima praesentium ipsum similique vel quod hic facere?",
-      },
-    ],
+    articleList: Array<ArticleShape>(),
+    loading: false,
   },
   getters: {
     getAllArticles: (state: any): ArticleShape[] => {
+      console.log(state.articleList);
       return state.articleList;
     },
     isLoading: (state: any) => {
       return state.loading;
     },
   },
-  mutations: {},
-  actions: {},
+  actions: {
+    getAllArticles: async (context: any) => {
+      context.state.loading = true;
+      const { data, status } = await exporeService.getAllArticles();
+
+      if (status >= 200 && status <= 299) {
+        context.state.loading = false;
+        context.commit("SET_ALL_ARTICLES", data);
+      }
+    },
+  },
+  mutations: {
+    SET_ALL_ARTICLES: (state, data: ArticleShape[]) => {
+      state.articleList = data;
+    },
+  },
   modules: {
     tribes: tribes,
     rockstars: rockstars,
+    article: article,
   },
 });

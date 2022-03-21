@@ -5,9 +5,12 @@
 
   <div class="articles-container">
     <router-link
-      to="/"
       v-for="(article, index) in filteredArticles"
       :key="index"
+      :to="{
+        name: 'article',
+        params: { articleId: article.id },
+      }"
       class="article"
     >
       <article-preview :name="article.title" :content="article.content" />
@@ -16,7 +19,7 @@
 </template>
 
 <script lang="ts">
-import { computed, ref } from "vue";
+import { computed, onMounted, ref } from "vue";
 import { useStore } from "vuex";
 
 import ArticleShape from "@/models/Article";
@@ -32,6 +35,10 @@ export default {
 
     const searchQuery = ref("");
 
+    onMounted(() => {
+      store.dispatch("getAllArticles");
+    });
+
     const articles = computed((): ArticleShape[] => {
       return store.getters["getAllArticles"];
     });
@@ -42,7 +49,7 @@ export default {
         if (
           article.title.toLowerCase().indexOf(searchQuery.value.toLowerCase()) >
             -1 ||
-          article.writer
+          article.rockstarName
             .toLowerCase()
             .indexOf(searchQuery.value.toLowerCase()) > -1
         ) {
