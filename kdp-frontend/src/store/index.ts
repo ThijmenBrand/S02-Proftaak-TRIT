@@ -17,7 +17,6 @@ export default createStore({
   },
   getters: {
     getAllArticles: (state: any): ArticleShape[] => {
-      console.log(state.articleList);
       return state.articleList;
     },
     isLoading: (state: any) => {

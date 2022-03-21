@@ -22,7 +22,6 @@ const tribes = {
   },
   getters: {
     getArticle: (state: articleState): ArticleShape => {
-      console.log(state.article);
       return state.article;
     },
   },
