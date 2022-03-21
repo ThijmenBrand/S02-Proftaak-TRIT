@@ -1,10 +1,9 @@
-import ArticleShape, { articleCategory } from '@/models/Article';
-import { RockstarShape } from '@/models/Rockstar';
-import { TribeShape } from '@/models/Tribe';
-import Axios from 'axios';
+import ArticleShape, { articleCategory } from "@/models/Article";
+import { RockstarShape } from "@/models/Rockstar";
+import { TribeShape } from "@/models/Tribe";
+import tribeService from "@/services/tribe";
 
 interface tribesState {
-  loading: boolean;
   tribesList: TribeShape[];
   rockstarsList: RockstarShape[];
   articleList: ArticleShape[];
@@ -15,11 +14,10 @@ const tribes = {
   namespaced: true,
   state(): tribesState {
     return {
-      loading: false,
       tribesList: [],
       currentTribe: {
-        id: '',
-        name: '',
+        id: "",
+        name: "",
       },
       rockstarsList: [],
       articleList: [],
@@ -40,32 +38,33 @@ const tribes = {
     },
   },
   actions: {
-    getAllTribes: async ({ commit }: any) => {
-      console.log('Calling');
-      const { data, status } = await Axios.get(
-        'https://rockstar-api.azurewebsites.net/api/tribe'
-      );
+    getAllTribes: async (context: any) => {
+      context.rootState.loading = true;
+      const { data, status } = await tribeService.getAllTribes();
 
       if (status >= 200 && status <= 299) {
-        commit('SET_TRIBE_LIST', data);
+        context.rootState.loading = false;
+        context.commit("SET_TRIBE_LIST", data);
       }
     },
-    getCurrentTribe: async ({ commit }: any, tribeId: string) => {
-      const { data, status } = await Axios.get(
-        `https://rockstar-api.azurewebsites.net/api/tribe/${tribeId}`
-      );
+    getCurrentTribe: async (context: any, tribeId: string) => {
+      context.rootState.loading = true;
+      const { data, status } = await tribeService.getSpecificTribe(tribeId);
 
       if (status >= 200 && status <= 299) {
-        commit('SET_CURRENT_TRIBE', data);
+        context.rootState.loading = false;
+        context.commit("SET_CURRENT_TRIBE", data);
       }
     },
-    getRockstarsByTribe: async ({ commit, state }: any, tribeId: string) => {
-      const { data, status } = await Axios.get(
-        `https://rockstar-api.azurewebsites.net/api/tribe/getall/${tribeId}`
+    getRockstarsByTribe: async (context: any, tribeId: string) => {
+      context.rootState.loading = true;
+      const { data, status } = await tribeService.getRockstarsWithTribe(
+        tribeId
       );
 
       if (status >= 200 && status <= 299) {
-        commit('SET_ROCKSTARS_BY_TRIBE', data);
+        context.rootState.loading = false;
+        context.commit("SET_ROCKSTARS_BY_TRIBE", data);
       }
     },
   },

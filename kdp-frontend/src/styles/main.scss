@@ -2,6 +2,8 @@
 
 @import "./button/BaseButton.scss";
 
+@import "./loader/loader.scss";
+
 html {
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   margin: 0;
@@ -75,6 +77,12 @@ p {
 
 .page-title {
   margin-left: 20px;
+}
+
+.profile-tag {
+  display: flex;
+  flex-flow: column;
+  align-items: center
 }
 
 /* fonts */

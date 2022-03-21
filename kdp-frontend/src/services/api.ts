@@ -1,4 +1,4 @@
-﻿import axios, { AxiosInstance, AxiosResponse } from "axios";
+import axios, { AxiosInstance, AxiosResponse } from "axios";
 
 const API: AxiosInstance = axios.create({
     baseURL: "https://rockstar-api.azurewebsites.net/api/",

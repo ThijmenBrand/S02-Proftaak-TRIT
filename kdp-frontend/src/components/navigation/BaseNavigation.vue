@@ -102,7 +102,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '@/styles/variables.scss';
+@import "@/styles/variables.scss";
 .container {
   background-color: $trit-yellow;
   width: 100%;
@@ -179,12 +179,12 @@ export default {
   transition-duration: 0.25s;
 }
 .menu-btn > span::before {
-  content: '@@';
+  content: "@@";
   color: transparent;
   top: -8px;
 }
 .menu-btn > span::after {
-  content: '';
+  content: "";
   top: 8px;
 }
 .menu-box {
@@ -205,7 +205,7 @@ export default {
   display: block;
   padding: 12px 24px;
   color: $trit-white;
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   font-size: 20px;
   font-weight: 600;
   text-decoration: none;

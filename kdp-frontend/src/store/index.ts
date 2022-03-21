@@ -7,8 +7,14 @@ import rockstars from "@/views/rockstars/store/rockstars";
 
 export default createStore({
   state: {
+    loading: false,
     rockstars: Array<RockstarShape>(),
     tribe: Array<TribeShape>(),
+  },
+  getters: {
+    isLoading: (state: any) => {
+      return state.loading;
+    },
   },
   mutations: {},
   actions: {},
