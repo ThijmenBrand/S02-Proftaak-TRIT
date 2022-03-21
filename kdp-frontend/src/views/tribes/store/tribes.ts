@@ -1,7 +1,7 @@
-import ArticleShape, { articleCategory } from "@/models/Article";
+import ArticleShape from "@/models/Article";
 import { RockstarShape } from "@/models/Rockstar";
 import { TribeShape } from "@/models/Tribe";
-import tribeService from "@/services/tribe";
+import tribeService from "@/services/callFunctions/tribe";
 
 interface tribesState {
   tribesList: TribeShape[];

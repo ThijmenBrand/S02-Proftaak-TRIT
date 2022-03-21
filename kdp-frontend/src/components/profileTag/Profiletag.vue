@@ -1,0 +1,17 @@
+<template>
+  <div class="profile-tag">
+    <div class="image"></div>
+    <p class="rockstar">{{ name }}</p>
+  </div>
+</template>
+
+<script lang="ts">
+export default {
+  name: "Profiletag",
+  props: {
+    name: String,
+  },
+};
+</script>
+
+<style lang="scss" scoped src="@/styles/profile-tag/profile-tag.scss" />

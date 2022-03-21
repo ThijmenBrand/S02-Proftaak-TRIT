@@ -26,21 +26,22 @@
         </router-link>
       </div>
     </div>
-
-    <div class="content-container">
-      <h3 class="articles-overview-title">Articles</h3>
-      <div class="articles-container">
-        <router-link
-          :to="{ name: 'article', params: { articleId: article.articleId } }"
-          v-for="(article, index) in articles"
-          :key="index"
-          class="article"
-        >
-          <article-preview
-            :name="article.articleTitle"
-            :content="article.articleContent"
-          />
-        </router-link>
+    <div class="background-container">
+      <div class="content-container">
+        <h3 class="articles-overview-title">Articles</h3>
+        <div class="articles-container">
+          <router-link
+            :to="{ name: 'article', params: { articleId: article.articleId } }"
+            v-for="(article, index) in articles"
+            :key="index"
+            class="article"
+          >
+            <article-preview
+              :name="article.articleTitle"
+              :content="article.articleContent"
+            />
+          </router-link>
+        </div>
       </div>
     </div>
   </div>
@@ -48,7 +49,7 @@
 
 <script lang="ts">
 import ArticlePreview from "./Components/ArticlePreview.vue";
-import Profiletag from "@/components/Profiletag.vue";
+import Profiletag from "@/components/profileTag/Profiletag.vue";
 import Loader from "@/components/loader/Loader.vue";
 
 import { useRoute } from "vue-router";
@@ -140,12 +141,8 @@ p {
 .tribes-overview {
   background-color: $trit-yellow;
   width: auto;
-  height: 300px;
   margin: 0%;
   padding: 0%;
-}
-.content-container {
-  min-height: 452px;
 }
 .tribe-title {
   margin: 0;
@@ -178,5 +175,8 @@ p {
 }
 .profile-tag {
   margin: 20px;
+}
+.content-container {
+  min-height: calc(100vh - 417px);
 }
 </style>

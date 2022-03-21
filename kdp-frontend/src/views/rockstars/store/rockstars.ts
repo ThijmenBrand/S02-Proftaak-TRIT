@@ -1,7 +1,7 @@
 ﻿import { RockstarShape } from "@/models/Rockstar";
 import Axios from "axios";
 import ArticleShape from "@/models/Article";
-import rockstarService from "@/services/rockstar";
+import rockstarService from "@/services/callFunctions/rockstar";
 
 interface rockstarState {
   rockstar: RockstarShape;

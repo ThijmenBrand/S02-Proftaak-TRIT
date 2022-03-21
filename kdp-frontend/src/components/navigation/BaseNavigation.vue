@@ -23,7 +23,9 @@
       <li>
         <router-link class="menu-item" to="/tribes">TRIBES</router-link>
       </li>
-      <li><a class="menu-item" href="#">OUR ASPIRATIONS</a></li>
+      <li>
+        <router-link class="menu-item" to="/explore">EXPLORE</router-link>
+      </li>
       <li><a class="menu-item" href="#">OUR VISION</a></li>
       <li><a class="menu-item" href="#">YOUR POSSIBILITIES</a></li>
     </ul>

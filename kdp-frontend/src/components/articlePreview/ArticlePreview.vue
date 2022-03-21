@@ -1,11 +1,9 @@
 <template>
-  <div>
-    <div class="article">
-      <h4 class="title">{{ name }}</h4>
-      <p class="article-p">
-        {{ content }}
-      </p>
-    </div>
+  <div class="article">
+    <h4 class="title">{{ name }}</h4>
+    <p class="article-p">
+      {{ content }}
+    </p>
   </div>
 </template>
 
@@ -20,18 +18,19 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "@/styles/variables.scss";
 .article {
   height: 200px;
-  width: 400px;
-  background-color: $trit-white;
+  width: 300px;
+  background-color: white;
+  display: inline-block;
+  margin: 10px;
 }
 .article-p {
-  color: $trit-black;
+  color: black;
   padding: 10px;
 }
 .title {
-  color: $trit-black;
+  color: black;
   text-align: center;
   padding-top: 10px;
 }
