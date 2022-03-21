@@ -4,6 +4,7 @@ import { createStore } from "vuex";
 
 import tribes from "@/views/tribes/store/tribes";
 import ArticleShape, { articleCategory } from "@/models/Article";
+import rockstars from "@/views/rockstars/store/rockstars";
 
 export default createStore({
   state: {
@@ -64,5 +65,6 @@ export default createStore({
   actions: {},
   modules: {
     tribes: tribes,
+    rockstars: rockstars,
   },
 });
