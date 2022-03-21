@@ -82,7 +82,7 @@ p {
 .profile-tag {
   display: flex;
   flex-flow: column;
-  align-items: center
+  align-items: center;
 }
 
 /* fonts */
@@ -100,4 +100,8 @@ p {
   font-family: DIN2014-Demi;
   font-weight: normal;
   font-style: normal;
+}
+
+a {
+  text-decoration: none;
 }

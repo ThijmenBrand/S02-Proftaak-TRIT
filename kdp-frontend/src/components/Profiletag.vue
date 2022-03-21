@@ -7,7 +7,7 @@
 
 <script lang="ts">
 export default {
-  name: 'Profiletag',
+  name: "Profiletag",
   props: {
     name: String,
   },
@@ -15,6 +15,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "@/styles/variables.scss";
 .image {
   height: 60px;
   width: 60px;
@@ -22,7 +23,7 @@ export default {
   border-radius: 50%;
 }
 .rockstar {
-  color: white;
+  color: $trit-gray;
 }
 p {
   text-align: center;
