@@ -11,7 +11,7 @@
 
 <script lang="ts">
 export default {
-  name: 'ArticlePreview',
+  name: "ArticlePreview",
   props: {
     name: String,
     content: String,
@@ -20,7 +20,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '@/styles/variables.scss';
+@import "@/styles/variables.scss";
 .article {
   height: 200px;
   width: 400px;

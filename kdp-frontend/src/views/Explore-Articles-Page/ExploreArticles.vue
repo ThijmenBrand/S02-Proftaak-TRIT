@@ -1,0 +1,109 @@
+<template>
+  <div class="search-bar">
+    <input v-model="searchQuery" placeholder="Search.." class="search-input" />
+  </div>
+  <div class="background-container">
+    <div class="container content-container">
+      <div class="articles-container">
+        <Loader v-if="loading" />
+        <router-link
+          v-else
+          v-for="(article, index) in filteredArticles"
+          :key="index"
+          :to="{
+            name: 'article',
+            params: { articleId: article.id },
+          }"
+          class="article"
+        >
+          <article-preview :name="article.title" :content="article.content" />
+        </router-link>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script lang="ts">
+import { computed, onMounted, ref } from "vue";
+import { useStore } from "vuex";
+
+import ArticleShape from "@/models/Article";
+import ArticlePreview from "@/components/ArticlePreview.vue";
+import Loader from "@/components/loader/Loader.vue";
+
+export default {
+  components: {
+    ArticlePreview,
+    Loader,
+  },
+
+  setup() {
+    const store = useStore();
+
+    const searchQuery = ref("");
+
+    const loading = computed(() => store.getters["isLoading"]);
+
+    onMounted(() => {
+      store.dispatch("getAllArticles");
+    });
+
+    const articles = computed((): ArticleShape[] => {
+      return store.getters["getAllArticles"];
+    });
+
+    const filteredArticles = computed((): ArticleShape[] => {
+      const returnArray: ArticleShape[] = [];
+      articles.value.forEach((article) => {
+        if (
+          article.title.toLowerCase().indexOf(searchQuery.value.toLowerCase()) >
+            -1 ||
+          article.rockstarName
+            .toLowerCase()
+            .indexOf(searchQuery.value.toLowerCase()) > -1
+        ) {
+          returnArray.push(article);
+        }
+      });
+
+      return returnArray;
+    });
+
+    return { articles, filteredArticles, searchQuery, loading };
+  },
+};
+</script>
+
+<style lang="scss" scoped>
+@import "@/styles/variables.scss";
+
+a {
+  margin: 10px;
+}
+.articles-container {
+  margin-top: 30px;
+  display: grid;
+  justify-content: center;
+  grid-column: 1rem;
+  grid-row-gap: 1rem;
+  grid-template-columns: auto auto auto;
+}
+
+.content-container {
+  min-height: calc(100vh - 257.5px);
+}
+
+.search-input {
+  padding: 10px;
+  width: 25%;
+  border: none;
+  background-color: transparent;
+  color: $trit-gray;
+  border-bottom: 1px solid $trit-gray;
+}
+.search-bar {
+  margin-right: 45px;
+  display: flex;
+  justify-content: right;
+}
+</style>

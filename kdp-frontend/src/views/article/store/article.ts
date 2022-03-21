@@ -38,6 +38,17 @@ const tribes = {
     },
   },
   mutations: {
+    CLEAR_ARTICLE: (state: articleState) => {
+      state.article = {
+        content: "",
+        id: "",
+        rockstarId: "",
+        rockstarName: "",
+        title: "",
+        tribeId: "",
+        tribeName: "",
+      };
+    },
     SET_ARTICLE: (state: articleState, data: ArticleShape) => {
       state.article = data;
     },

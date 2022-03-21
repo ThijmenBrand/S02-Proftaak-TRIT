@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="profile-tag">
     <div class="image"></div>
     <p class="rockstar">{{ name }}</p>
   </div>
@@ -7,24 +7,11 @@
 
 <script lang="ts">
 export default {
-  name: 'Profiletag',
+  name: "Profiletag",
   props: {
     name: String,
   },
 };
 </script>
 
-<style lang="scss" scoped>
-.image {
-  height: 60px;
-  width: 60px;
-  background-color: white;
-  border-radius: 50%;
-}
-.rockstar {
-  color: white;
-}
-p {
-  text-align: center;
-}
-</style>
+<style lang="scss" scoped src="@/styles/profile-tag/profile-tag.scss" />

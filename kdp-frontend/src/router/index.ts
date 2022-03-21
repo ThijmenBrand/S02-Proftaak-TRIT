@@ -4,7 +4,7 @@ import tribes from "@/views/tribes/Tribes.vue";
 import tribe from "@/views/tribes/Tribe-Information-Page/InformationPage.vue";
 import article from "@/views/article/Article.vue";
 import RockstarInformationPage from "@/views/rockstars/Rockstar-Information-Page/InformationPage.vue";
-import ExploreArticles from "@/views/tribes/Explore-Articles-Page/ExploreArticles.vue";
+import ExploreArticles from "@/views/Explore-Articles-Page/ExploreArticles.vue";
 
 const routes: Array<RouteRecordRaw> = [
   {

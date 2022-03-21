@@ -1,12 +1,17 @@
 <template>
-  <div class="header-wrapper">
-    <div class="title-category">
-      <h1 class="page-title">{{ articleDetails.title }}</h1>
+  <Loader v-if="loading" />
+  <div class="content-container" v-else>
+    <div class="header-wrapper">
+      <div class="title-category">
+        <h1 class="page-title">{{ articleDetails.title }}</h1>
+      </div>
+      <ProfileTag :name="articleDetails.rockstarName"></ProfileTag>
     </div>
-    <ProfileTag :name="articleDetails.rockstarName"></ProfileTag>
   </div>
-  <div class="content-container">
-    <Blog :articleContent="articleDetails.content" />
+  <div class="background-container">
+    <div class="content-container article-content">
+      <Blog :articleContent="articleDetails.content" />
+    </div>
   </div>
 </template>
 
@@ -15,6 +20,7 @@ import ProfileTag from "@/components/Profiletag.vue";
 import ArticleShape from "@/models/Article";
 
 import Blog from "./components/Blog.vue";
+import Loader from "@/components/loader/Loader.vue";
 
 import { useRoute } from "vue-router";
 import { useStore } from "vuex";
@@ -25,16 +31,20 @@ export default {
   components: {
     Blog,
     ProfileTag,
+    Loader,
   },
   setup() {
     const route = useRoute();
     const store = useStore();
+
+    const loading = computed(() => store.getters["isLoading"]);
 
     const articleId = computed(() => {
       return route.params.articleId;
     });
 
     onMounted(() => {
+      store.commit("article/CLEAR_ARTICLE");
       store.dispatch("article/getArticle", articleId.value);
     });
 
@@ -42,21 +52,21 @@ export default {
       return store.getters["article/getArticle"];
     });
 
-    return { articleId, articleDetails };
+    return { articleId, articleDetails, loading };
   },
 };
 </script>
 
 <style scoped lang="scss">
 .header-wrapper {
-  padding: 30px;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.content-container {
-  padding: 30px;
+.article-content {
+  padding: 30px 0px;
+  min-height: calc(100vh - 365.5px);
 }
 .title-category {
   display: inline-block;

@@ -1,11 +1,9 @@
 <template>
-  <div>
-    <div class="article">
-      <h4 class="title">{{ name }}</h4>
-      <p class="article-p">
-        {{ content }}
-      </p>
-    </div>
+  <div class="article">
+    <h4 class="title">{{ name }}</h4>
+    <p class="article-p">
+      {{ content }}
+    </p>
   </div>
 </template>
 
@@ -22,9 +20,10 @@ export default {
 <style lang="scss" scoped>
 .article {
   height: 200px;
-  width: 400px;
+  width: 300px;
   background-color: white;
   display: inline-block;
+  margin: 10px;
 }
 .article-p {
   color: black;
