@@ -11,9 +11,9 @@ import article from "@/views/article/store/article";
 
 export default createStore({
   state: {
+    loading: false,
     tribe: Array<TribeShape>(),
     articleList: Array<ArticleShape>(),
-    loading: false,
   },
   getters: {
     getAllArticles: (state: any): ArticleShape[] => {

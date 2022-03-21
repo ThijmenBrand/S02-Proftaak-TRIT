@@ -6,16 +6,24 @@
     <div class="tribes-overview">
       <h3 class="tribe-title">{{ currentTribe.name }}</h3>
       <div class="profile-container">
-        <div class="lds-ripple" v-if="loading">
+        <div class="lds-ripple">
           <div></div>
           <div></div>
         </div>
-        <profiletag
-          v-else
+        <router-link
           v-for="(rockstar, index) in rockstars"
           :key="index"
-          :name="rockstar.name"
-        />
+          :to="{
+            name: 'rockstar',
+            params: { rockstarId: rockstar.id },
+          }"
+        >
+          <profiletag
+            :name="rockstar.name"
+            :role="rockstar.role"
+            class="profile-tag"
+          />
+        </router-link>
       </div>
     </div>
     <div class="background-container">
@@ -62,12 +70,12 @@ export default {
 
     const loading = computed(() => store.getters["isLoading"]);
 
-    //todo, op basis van id een request sturen met individuele tribe info en daarvan de data gebruiken.
     const currentTribe = computed((): TribeShape => {
       return store.getters["tribes/getCurrentTribe"];
     });
 
     onMounted(() => {
+      store.commit("tribes/EMPTY_STORE");
       store.dispatch("tribes/getCurrentTribe", route.params.tribe);
       store.dispatch("tribes/getRockstarsByTribe", route.params.tribe);
     });
@@ -144,7 +152,8 @@ p {
 .profile-container {
   display: flex;
   flex-direction: row;
-  justify-content: space-evenly;
+  justify-content: left;
+  margin-left: 20px;
   overflow-x: auto;
 }
 .articles-overview-title {
