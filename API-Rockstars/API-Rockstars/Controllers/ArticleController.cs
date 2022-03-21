@@ -26,7 +26,24 @@ namespace API_Rockstars.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Article>>> GetArticles()
         {
-            return await _context.Articles.ToListAsync();
+            List<Article> articles = await _context.Articles.ToListAsync();
+
+            foreach (var article in articles)
+            {
+                Tribe tribe = await _context.Tribes.FindAsync(article.TribeId);
+                if (tribe != null)
+                {
+                    article.TribeName = tribe.Name;
+                }
+            
+                Rockstar rockstar = await _context.Rockstars.FindAsync(article.RockstarId);
+                if (rockstar != null)
+                {
+                    article.RockstarName = rockstar.Name;
+                }
+            }
+            
+            return articles;
         }
 
         // GET: api/Article/5
@@ -38,6 +55,18 @@ namespace API_Rockstars.Controllers
             if (article == null)
             {
                 return NotFound();
+            }
+
+            Tribe tribe = await _context.Tribes.FindAsync(article.TribeId);
+            if (tribe != null)
+            {
+                article.TribeName = tribe.Name;
+            }
+            
+            Rockstar rockstar = await _context.Rockstars.FindAsync(article.RockstarId);
+            if (rockstar != null)
+            {
+                article.RockstarName = rockstar.Name;
             }
 
             return article;
@@ -53,6 +82,21 @@ namespace API_Rockstars.Controllers
                 return NotFound();
             }
 
+            foreach (var article in articles)
+            {
+                Tribe tribe = await _context.Tribes.FindAsync(article.TribeId);
+                if (tribe != null)
+                {
+                    article.TribeName = tribe.Name;
+                }
+            
+                Rockstar rockstar = await _context.Rockstars.FindAsync(article.RockstarId);
+                if (rockstar != null)
+                {
+                    article.RockstarName = rockstar.Name;
+                }
+            }
+
             return articles;
         }
         
@@ -64,6 +108,21 @@ namespace API_Rockstars.Controllers
             if (articles.Count == 0)
             {
                 return NotFound();
+            }
+            
+            foreach (var article in articles)
+            {
+                Tribe tribe = await _context.Tribes.FindAsync(article.TribeId);
+                if (tribe != null)
+                {
+                    article.TribeName = tribe.Name;
+                }
+            
+                Rockstar rockstar = await _context.Rockstars.FindAsync(article.RockstarId);
+                if (rockstar != null)
+                {
+                    article.RockstarName = rockstar.Name;
+                }
             }
 
             return articles;
