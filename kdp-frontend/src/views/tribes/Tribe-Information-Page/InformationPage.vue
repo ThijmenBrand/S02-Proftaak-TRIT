@@ -155,7 +155,8 @@ p {
 .profile-container {
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: left;
+  margin-left: 20px;
   overflow-x: auto;
 }
 .articles-overview-title {
