@@ -7,8 +7,6 @@
   </div>
   <div class="content-container">
     <Blog :articleContent="articleDetails.content" />
-    <!-- <Podcast v-else-if="articleDetails.articleCategory == 'podcast'" />
-    <Video v-else-if="articleDetails.articleCategory == 'video'" /> -->
   </div>
 </template>
 
