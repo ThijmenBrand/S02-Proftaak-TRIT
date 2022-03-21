@@ -28,7 +28,7 @@ import { computed, onMounted, ref } from "vue";
 import { useStore } from "vuex";
 
 import ArticleShape from "@/models/Article";
-import ArticlePreview from "@/components/ArticlePreview.vue";
+import ArticlePreview from "@/components/articlePreview/ArticlePreview.vue";
 import Loader from "@/components/loader/Loader.vue";
 
 export default {

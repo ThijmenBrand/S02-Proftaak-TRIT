@@ -16,7 +16,7 @@
 </template>
 
 <script lang="ts">
-import ProfileTag from "@/components/Profiletag.vue";
+import ProfileTag from "@/components/profileTag/Profiletag.vue";
 import ArticleShape from "@/models/Article";
 
 import Blog from "./components/Blog.vue";
