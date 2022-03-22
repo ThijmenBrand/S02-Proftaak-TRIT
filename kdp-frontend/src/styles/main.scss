@@ -57,14 +57,11 @@ p {
 }
 
 .content-container {
-  background-color: $trit-gray;
-  min-height: 300px;
-  height: auto !important; /* real browsers */
-  min-height: 100%; /* real browsers */
   bottom: 0;
+  margin: 0 $page-margin;
 }
 
-.content-container {
+.background-container {
   h1,
   h2,
   h3,
@@ -75,14 +72,8 @@ p {
   }
 }
 
-.page-title {
-  margin-left: 20px;
-}
-
-.profile-tag {
-  display: flex;
-  flex-flow: column;
-  align-items: center
+.background-container {
+  background-color: $trit-gray;
 }
 
 /* fonts */
@@ -100,4 +91,8 @@ p {
   font-family: DIN2014-Demi;
   font-weight: normal;
   font-style: normal;
+}
+
+a {
+  text-decoration: none;
 }

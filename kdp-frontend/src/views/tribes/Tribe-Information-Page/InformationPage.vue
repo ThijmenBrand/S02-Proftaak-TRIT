@@ -19,7 +19,7 @@
         />
       </div>
     </div>
-
+<div class="background-container">
     <div class="content-container">
       <h3 class="articles-overview-title">Articles</h3>
       <div class="articles-container">
@@ -37,11 +37,12 @@
       </div>
     </div>
   </div>
+  </div>
 </template>
 
 <script lang="ts">
 import ArticlePreview from "./Components/ArticlePreview.vue";
-import Profiletag from "@/components/Profiletag.vue";
+import Profiletag from "@/components/profileTag/Profiletag.vue";
 import Loader from "@/components/loader/Loader.vue";
 
 import { useRoute } from "vue-router";

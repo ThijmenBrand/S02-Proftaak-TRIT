@@ -1,19 +1,23 @@
 <template>
-  <h1 class="page-title">All tribes</h1>
   <div class="content-container">
-    <div class="tribes-links-container">
-      <Loader v-if="loading" />
-      <h3 v-else v-for="(tribe, index) in tribesList" :key="index">
-        <router-link
-          :to="{
-            name: 'tribe',
-            params: { tribe: tribe.id },
-          }"
-          class="tribe-link"
-        >
-          {{ tribe.name }}
-        </router-link>
-      </h3>
+    <h1 class="page-title">All tribes</h1>
+  </div>
+  <div class="background-container">
+    <div class="content-container">
+      <div class="tribes-links-container">
+        <Loader v-if="loading" />
+        <h3 v-else v-for="(tribe, index) in tribesList" :key="index">
+          <router-link
+            :to="{
+              name: 'tribe',
+              params: { tribe: tribe.id },
+            }"
+            class="tribe-link"
+          >
+            {{ tribe.name }}
+          </router-link>
+        </h3>
+      </div>
     </div>
   </div>
 </template>
@@ -37,7 +41,7 @@ export default {
     });
 
     const tribesList = computed((): TribeShape[] => {
-      const list = store.getters['tribes/getAllTribesList'];
+      const list = store.getters["tribes/getAllTribesList"];
       return list;
     });
 
@@ -71,5 +75,6 @@ h3 {
   justify-content: center;
   flex-direction: row;
   flex-wrap: wrap;
+  min-height: calc(100vh - 295.5px);
 }
 </style>
