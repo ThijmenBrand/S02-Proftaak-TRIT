@@ -75,7 +75,6 @@ const tribes = {
       const { data, status } = await tribeService.getArticlesByTribe(
         tribeId
       );
-        console.log(data);
       if (status >= 200 && status <= 299) {
         context.rootState.loading = false;
         context.commit("SET_ARTICLES_BY_TRIBE", data);
