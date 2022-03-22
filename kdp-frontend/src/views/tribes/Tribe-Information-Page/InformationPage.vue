@@ -24,14 +24,14 @@
       <h3 class="articles-overview-title">Articles</h3>
       <div class="articles-container">
         <router-link
-          :to="{ name: 'article', params: { articleId: article.articleId } }"
-          v-for="(article, index) in articles"
+          :to="{ name: 'article', params: { articleId: article.id } }"
+          v-for="(article, index) in tribeArticles"
           :key="index"
           class="article"
         >
           <article-preview
-            :name="article.articleTitle"
-            :content="article.articleContent"
+            :name="article.title"
+            :content="article.content"
           />
         </router-link>
       </div>
@@ -70,6 +70,7 @@ export default {
     onMounted(() => {
       store.dispatch("tribes/getCurrentTribe", route.params.tribe);
       store.dispatch("tribes/getRockstarsByTribe", route.params.tribe);
+      store.dispatch("tribes/getArticlesByTribe",route.params.tribe);
     });
 
     const articles = computed((): ArticleShape[] => {
@@ -92,7 +93,12 @@ export default {
       return rockstar;
     });
 
-    return { articles, rockstars, currentTribe, loading };
+  const tribeArticles = computed((): ArticleShape[] => {
+      const articles = store.getters["tribes/getArticlesbByTribe"];
+      return articles;
+    });
+
+    return { tribeArticles, articles, rockstars, currentTribe, loading };
   },
 };
 </script>

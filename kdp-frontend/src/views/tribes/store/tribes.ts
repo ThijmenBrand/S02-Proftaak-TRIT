@@ -36,6 +36,9 @@ const tribes = {
     getCurrentTribe: (state: tribesState): TribeShape => {
       return state.currentTribe;
     },
+    getArticlesbByTribe: (state: tribesState): ArticleShape[] => {
+      return state.articleList;
+    },
   },
   actions: {
     getAllTribes: async (context: any) => {
@@ -67,6 +70,17 @@ const tribes = {
         context.commit("SET_ROCKSTARS_BY_TRIBE", data);
       }
     },
+    getArticlesByTribe: async (context: any, tribeId: string) => {
+      context.rootState.loading = true;
+      const { data, status } = await tribeService.getArticlesByTribe(
+        tribeId
+      );
+        console.log(data);
+      if (status >= 200 && status <= 299) {
+        context.rootState.loading = false;
+        context.commit("SET_ARTICLES_BY_TRIBE", data);
+      }
+    },
   },
   mutations: {
     SET_TRIBE_LIST: (state: tribesState, data: TribeShape[]) => {
@@ -77,6 +91,9 @@ const tribes = {
     },
     SET_CURRENT_TRIBE: (state: tribesState, data: TribeShape) => {
       state.currentTribe = data;
+    },
+    SET_ARTICLES_BY_TRIBE: (state: tribesState, data: ArticleShape[]) => {
+      state.articleList = data;
     },
   },
 };

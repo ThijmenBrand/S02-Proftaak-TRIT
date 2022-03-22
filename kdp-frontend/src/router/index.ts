@@ -32,6 +32,11 @@ const routes: Array<RouteRecordRaw> = [
     name: 'rockstar',
     component: RockstarInformationPage,
   },
+  {
+    path: '/article/:articleId',
+    name: 'article',
+    component: RockstarInformationPage,
+  },
 ];
 
 const router = createRouter({
