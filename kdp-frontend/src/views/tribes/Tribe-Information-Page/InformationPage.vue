@@ -6,44 +6,42 @@
     <div class="tribes-overview">
       <h3 class="tribe-title">{{ currentTribe.name }}</h3>
       <div class="profile-container">
-        <div class="lds-ripple">
+        <div class="lds-ripple" v-if="loading">
           <div></div>
           <div></div>
         </div>
-        <router-link
-          v-for="(rockstar, index) in rockstars"
-          :key="index"
-          :to="{
+        <router-link v-else
+         v-for="(rockstar, index) in rockstars"
+          :key="index" :to="{
             name: 'rockstar',
             params: { rockstarId: rockstar.id },
           }"
         >
-          <profiletag
-            :name="rockstar.name"
-            :role="rockstar.role"
-            class="profile-tag"
+        <profiletag
+          :name="rockstar.name"
+          class="profile-tag"
+        />
+        </router-link>
+      </div>
+    </div>
+<div class="background-container">
+    <div class="content-container">
+      <h3 class="articles-overview-title">Articles</h3>
+      <div class="articles-container">
+        <router-link
+          :to="{ name: 'article', params: { articleId: article.id } }"
+          v-for="(article, index) in tribeArticles"
+          :key="index"
+          class="article"
+        >
+          <article-preview
+            :name="article.title"
+            :content="article.content"
           />
         </router-link>
       </div>
     </div>
-    <div class="background-container">
-      <div class="content-container">
-        <h3 class="articles-overview-title">Articles</h3>
-        <div class="articles-container">
-          <router-link
-            :to="{ name: 'article', params: { articleId: article.articleId } }"
-            v-for="(article, index) in articles"
-            :key="index"
-            class="article"
-          >
-            <article-preview
-              :name="article.articleTitle"
-              :content="article.articleContent"
-            />
-          </router-link>
-        </div>
-      </div>
-    </div>
+  </div>
   </div>
 </template>
 
@@ -70,6 +68,7 @@ export default {
 
     const loading = computed(() => store.getters["isLoading"]);
 
+    //todo, op basis van id een request sturen met individuele tribe info en daarvan de data gebruiken.
     const currentTribe = computed((): TribeShape => {
       return store.getters["tribes/getCurrentTribe"];
     });
@@ -78,6 +77,7 @@ export default {
       store.commit("tribes/EMPTY_STORE");
       store.dispatch("tribes/getCurrentTribe", route.params.tribe);
       store.dispatch("tribes/getRockstarsByTribe", route.params.tribe);
+      store.dispatch("tribes/getArticlesByTribe",route.params.tribe);
     });
 
     const articles = computed((): ArticleShape[] => {
@@ -100,7 +100,12 @@ export default {
       return rockstar;
     });
 
-    return { articles, rockstars, currentTribe, loading };
+  const tribeArticles = computed((): ArticleShape[] => {
+      const articles = store.getters["tribes/getArticlesbByTribe"];
+      return articles;
+    });
+
+    return { tribeArticles, articles, rockstars, currentTribe, loading };
   },
 };
 </script>
@@ -141,8 +146,12 @@ p {
 .tribes-overview {
   background-color: $trit-yellow;
   width: auto;
+  height: 300px;
   margin: 0%;
   padding: 0%;
+}
+.content-container {
+  min-height: 452px;
 }
 .tribe-title {
   margin: 0;

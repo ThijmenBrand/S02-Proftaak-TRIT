@@ -16,15 +16,10 @@
 import {RockstarShape} from "@/models/Rockstar";
 
 export default {
+  name: "RockstarView",
   props: {
     rockstar: Object as () => RockstarShape,
   },
-  setup(props: any) {
-    return {
-      props,
-    };
-  },
-  name: "RockstarView",
 }
 </script>
 
