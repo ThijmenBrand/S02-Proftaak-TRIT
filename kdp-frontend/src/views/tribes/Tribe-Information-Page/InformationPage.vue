@@ -10,13 +10,18 @@
           <div></div>
           <div></div>
         </div>
+        <router-link v-else
+         v-for="(rockstar, index) in rockstars"
+          :key="index" :to="{
+            name: 'rockstar',
+            params: { rockstarId: rockstar.id },
+          }"
+        >
         <profiletag
-          v-else
-          v-for="(rockstar, index) in rockstars"
-          :key="index"
           :name="rockstar.name"
           class="profile-tag"
         />
+        </router-link>
       </div>
     </div>
 <div class="background-container">
@@ -69,6 +74,7 @@ export default {
     });
 
     onMounted(() => {
+      store.commit("tribes/EMPTY_STORE");
       store.dispatch("tribes/getCurrentTribe", route.params.tribe);
       store.dispatch("tribes/getRockstarsByTribe", route.params.tribe);
       store.dispatch("tribes/getArticlesByTribe",route.params.tribe);
@@ -155,7 +161,8 @@ p {
 .profile-container {
   display: flex;
   flex-direction: row;
-  justify-content: space-evenly;
+  justify-content: left;
+  margin-left: 20px;
   overflow-x: auto;
 }
 .articles-overview-title {
@@ -177,5 +184,8 @@ p {
 }
 .profile-tag {
   margin: 20px;
+}
+.content-container {
+  min-height: calc(100vh - 417px);
 }
 </style>
