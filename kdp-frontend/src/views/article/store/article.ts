@@ -17,6 +17,7 @@ const tribes = {
         title: "",
         tribeId: "",
         tribeName: "",
+        publishDate: new Date(),
       },
     };
   },
@@ -46,6 +47,7 @@ const tribes = {
         title: "",
         tribeId: "",
         tribeName: "",
+        publishDate: new Date(),
       };
     },
     SET_ARTICLE: (state: articleState, data: ArticleShape) => {
