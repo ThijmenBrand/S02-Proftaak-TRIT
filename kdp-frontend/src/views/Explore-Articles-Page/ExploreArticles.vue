@@ -14,8 +14,7 @@
             name: 'article',
             params: { articleId: article.id },
           }"
-          class="article"
-        >
+          class="article">
           <article-preview :name="article.title" :content="article.content" />
         </router-link>
       </div>

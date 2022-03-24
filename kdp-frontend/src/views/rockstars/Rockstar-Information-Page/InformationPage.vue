@@ -12,8 +12,7 @@
               name: 'article',
               params: { articleId: article.id },
             }"
-            class="article"
-        >
+            class="article">
           <article-preview :name="article.title" :content="article.content" />
         </router-link>
       </div>
@@ -61,11 +60,8 @@ export default {
     return {
       rockstar, articles, loading
     }
-  },
-  
+  },  
 };
-
-
 </script>
 
 <style scoped lang="scss">
@@ -86,6 +82,4 @@ a {
 .content-container {
   min-height: calc(100vh - 257.5px);
 }
-
-
 </style>
