@@ -16,7 +16,7 @@
           }"
           class="article"
         >
-          <article-preview :name="article.title" :content="article.content" />
+          <article-preview :name="article.title" :content="article.content" :rockstarName="article.rockstarName" />
         </router-link>
       </div>
     </div>

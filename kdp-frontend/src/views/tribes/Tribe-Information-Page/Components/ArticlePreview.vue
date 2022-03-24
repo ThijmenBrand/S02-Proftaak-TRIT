@@ -1,6 +1,11 @@
 <template>
   <div>
     <div class="article">
+      <img
+      src="@/assets/logo.svg"
+      class="shadow logo-style st0 st1 st5"
+      id="rs-logo"
+      />
       <h4 class="title">{{ name }}</h4>
       <p class="article-p">
         {{ content }}
@@ -22,17 +27,20 @@ export default {
 <style lang="scss" scoped>
 @import "@/styles/variables.scss";
 .article {
-  height: 200px;
+  height: 550px;
   width: 400px;
-  background-color: $trit-white;
+  border: 1px solid #3E3E3E;
+  background-color: $trit-gray;
 }
 .article-p {
-  color: $trit-black;
-  padding: 10px;
+  color: $trit-white;
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-bottom: 15;
 }
 .title {
-  color: $trit-black;
+  color: $trit-yellow;
   text-align: center;
-  padding-top: 10px;
+  padding-top: 5px;
 }
 </style>

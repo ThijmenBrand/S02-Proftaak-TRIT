@@ -22,11 +22,11 @@
           class="profile-tag"
         />
         </router-link>
-      </div>
+      </div><h3 class="articles-overview-title">Articles</h3>
     </div>
 <div class="background-container">
     <div class="content-container">
-      <h3 class="articles-overview-title">Articles</h3>
+      
       <div class="articles-container">
         <router-link
           :to="{ name: 'article', params: { articleId: article.id } }"
@@ -37,6 +37,7 @@
           <article-preview
             :name="article.title"
             :content="article.content"
+            :rockstarName="article.rockstarName"
           />
         </router-link>
       </div>
@@ -46,7 +47,7 @@
 </template>
 
 <script lang="ts">
-import ArticlePreview from "./Components/ArticlePreview.vue";
+import ArticlePreview from "@/components/articlePreview/ArticlePreview.vue";
 import Profiletag from "@/components/profileTag/Profiletag.vue";
 import Loader from "@/components/loader/Loader.vue";
 
@@ -168,7 +169,7 @@ p {
 .articles-overview-title {
   text-align: center;
   margin: 0;
-  color: $trit-white;
+  color: $trit-black;
   padding-top: 20px;
 }
 .articles-container {
