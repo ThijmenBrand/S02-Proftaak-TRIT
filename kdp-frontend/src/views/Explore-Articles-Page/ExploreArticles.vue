@@ -54,7 +54,7 @@ export default {
     const filteredArticles = computed((): ArticleShape[] => {
       const returnArray: ArticleShape[] = [];
       articles.value.forEach((article) => {
-        if (article.rockstarName != null || article.tribeId != null) 
+        if (article.rockstarName != null || article.tribeName != null) 
         {
           if (article.title.toLowerCase().indexOf(searchQuery.value.toLowerCase()) > -1 || article.rockstarName.toLowerCase().indexOf(searchQuery.value.toLowerCase()) > -1)
           {
