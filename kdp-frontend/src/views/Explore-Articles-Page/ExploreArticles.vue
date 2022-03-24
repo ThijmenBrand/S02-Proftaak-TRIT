@@ -19,8 +19,7 @@
             name: 'article',
             params: { articleId: article.id },
           }"
-          class="article"
-        >
+          class="article">
           <article-preview :name="article.title" :content="article.content" />
         </router-link>
       </div>
@@ -70,6 +69,13 @@ export default {
         ) {
           returnArray.push(article);
           }
+        if (article.rockstarName != null || article.tribeName != null) 
+        {
+          if (article.title.toLowerCase().indexOf(searchQuery.value.toLowerCase()) > -1 || article.rockstarName.toLowerCase().indexOf(searchQuery.value.toLowerCase()) > -1)
+          {
+            returnArray.push(article);
+          }
+        }
       });
       if (selectedFilter.value == "az"){
         returnArray = returnArray.sort((a,b) => {

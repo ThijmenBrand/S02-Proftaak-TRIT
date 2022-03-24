@@ -1,12 +1,23 @@
 ﻿<template>
   <RockstarView :rockstar="rockstar" />
-  <div class="articles-container DIN2014-Regular">
-    <div class="articles-content DIN2014-Regular">
-      <ul>
-        <li v-for="(article, index) in articles" :key="index">{{ article.title }}</li>
-      </ul>
-    </div>
-  </div>  
+  <div class="background-container">
+    <div class="container content-container DIN2014-Regular">
+      <div class="articles-container DIN2014-Regular">
+        <Loader v-if="loading" />
+        <router-link
+            v-else
+            v-for="(article, index) in articles"
+            :key="index"
+            :to="{
+              name: 'article',
+              params: { articleId: article.id },
+            }"
+            class="article">
+          <article-preview :name="article.title" :content="article.content" />
+        </router-link>
+      </div>
+    </div>  
+  </div>
   
 </template>
 
@@ -15,15 +26,18 @@ import { useRoute } from 'vue-router';
 import { useStore } from 'vuex';
 import { RockstarShape } from "@/models/Rockstar";
 import { computed, onMounted, onUpdated } from "vue";
-import rockstar from "@/views/rockstars/store/rockstars";
 import RockstarView from "@/views/rockstars/RockstarView.vue";
 import ArticleShape from "@/models/Article";
+import ArticlePreview from "@/components/articlePreview/ArticlePreview.vue";
+import Loader from "@/components/loader/Loader.vue";
 
 export default {
-  components: { RockstarView },
+  components: { RockstarView, ArticlePreview, Loader },
   setup(props: any) {
     const route = useRoute();
     const store = useStore();
+    
+    const loading = computed(() => store.getters["isLoading"]);
     
     const rockstar = computed( (): RockstarShape => {
       return store.getters['rockstars/getRockstar'];
@@ -44,22 +58,28 @@ export default {
     });
     
     return {
-      rockstar, articles
+      rockstar, articles, loading
     }
-  },
-  
+  },  
 };
-
-
 </script>
 
 <style scoped lang="scss">
 @import "@/styles/variables.scss";
 
-.articles-container {
-  color: $trit-white;
-  background-color: $trit-gray;
+a {
+  margin: 10px;
 }
 
+.articles-container {
+  margin-top: 30px;
+  display: grid;
+  justify-content: center;
+  grid-row-gap: 1rem;
+  grid-template-columns: auto auto auto;
+}
 
+.content-container {
+  min-height: calc(100vh - 257.5px);
+}
 </style>
