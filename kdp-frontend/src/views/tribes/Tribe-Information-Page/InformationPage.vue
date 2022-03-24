@@ -46,7 +46,7 @@
 </template>
 
 <script lang="ts">
-import ArticlePreview from "./Components/ArticlePreview.vue";
+import ArticlePreview from "@/components/articlePreview/ArticlePreview.vue";
 import Profiletag from "@/components/profileTag/Profiletag.vue";
 import Loader from "@/components/loader/Loader.vue";
 
@@ -172,16 +172,20 @@ p {
   padding-top: 20px;
 }
 .articles-container {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
+  margin-top: 30px;
+  display: grid;
   justify-content: center;
-  padding: 40px;
+  grid-column: 1rem;
+  grid-row-gap: 1rem;
+  grid-template-columns: repeat(auto-fill, minmax( 330px, 1fr ));
 }
+
 .article {
-  margin: 30px;
-  text-decoration: none;
+  margin: 10px;
+  justify-self: center;
 }
+
+
 .profile-tag {
   margin: 20px;
 }

@@ -115,4 +115,11 @@ a {
   }
 }
 
+
+@media only screen and (min-width: 1750px) {
+  .content-container {
+        margin: 0 230px;
+  }
+}
+
 </style>
