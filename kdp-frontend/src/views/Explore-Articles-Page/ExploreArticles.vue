@@ -1,6 +1,11 @@
 <template>
   <div class="search-bar">
     <input v-model="searchQuery" placeholder="Search.." class="search-input" />
+    <select v-model="selectedFilter">
+      <option value = "">Select filter</option>
+      <option value="az">A-Z</option>
+      <option value="za">Z-A</option>
+    </select>
   </div>
   <div class="background-container">
     <div class="container content-container">
@@ -41,6 +46,7 @@ export default {
     const store = useStore();
 
     const searchQuery = ref("");
+    const selectedFilter = ref("")
 
     const loading = computed(() => store.getters["isLoading"]);
 
@@ -53,7 +59,7 @@ export default {
     });
 
     const filteredArticles = computed((): ArticleShape[] => {
-      const returnArray: ArticleShape[] = [];
+      var returnArray: ArticleShape[] = [];
       articles.value.forEach((article) => {
         if (
           article.title.toLowerCase().indexOf(searchQuery.value.toLowerCase()) >
@@ -63,13 +69,36 @@ export default {
             .indexOf(searchQuery.value.toLowerCase()) > -1
         ) {
           returnArray.push(article);
-        }
+          }
       });
-
+      if (selectedFilter.value == "az"){
+        returnArray = returnArray.sort((a,b) => {
+          let fa = a.title.toLowerCase(), fb = b.title.toLowerCase();
+          if (fa < fb){
+            return -1
+          }
+          if (fa > fb){
+            return 1
+          }
+          return 0
+        })
+      }
+      if (selectedFilter.value == "za"){
+        returnArray = returnArray.sort((a,b) => {
+          let fa = a.title.toLowerCase(), fb = b.title.toLowerCase();
+          if (fa < fb){
+            return 1
+          }
+          if (fa > fb){
+            return -1
+          }
+          return 0
+        })
+      }
       return returnArray;
     });
 
-    return { articles, filteredArticles, searchQuery, loading };
+    return { articles, filteredArticles, searchQuery, selectedFilter, loading };
   },
 };
 </script>
