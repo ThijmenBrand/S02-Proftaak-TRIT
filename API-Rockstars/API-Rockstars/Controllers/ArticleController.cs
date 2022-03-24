@@ -54,7 +54,7 @@ namespace API_Rockstars.Controllers
 
             if (article == null)
             {
-                return NotFound();
+                return NoContent();
             }
 
             Tribe tribe = await _context.Tribes.FindAsync(article.TribeId);
@@ -79,7 +79,7 @@ namespace API_Rockstars.Controllers
 
             if (articles.Count == 0)
             {
-                return NotFound();
+                return NoContent();
             }
 
             foreach (var article in articles)
@@ -107,7 +107,7 @@ namespace API_Rockstars.Controllers
 
             if (articles.Count == 0)
             {
-                return NotFound();
+                return NoContent();
             }
             
             foreach (var article in articles)
@@ -135,7 +135,7 @@ namespace API_Rockstars.Controllers
 
             if (articles.Count == 0)
             {
-                return NotFound();
+                return NoContent();
             }
 
             return articles;
@@ -162,7 +162,7 @@ namespace API_Rockstars.Controllers
             {
                 if (!ArticleExists(id))
                 {
-                    return NotFound();
+                    return NoContent();
                 }
                 else
                 {
@@ -193,7 +193,7 @@ namespace API_Rockstars.Controllers
             var article = await _context.Articles.FindAsync(id);
             if (article == null)
             {
-                return NotFound();
+                return NoContent();
             }
 
             _context.Articles.Remove(article);
