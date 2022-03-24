@@ -22,7 +22,7 @@ const routes: Array<RouteRecordRaw> = [
     name: "tribe",
     component: tribe,
   },
-  {
+  { 
     path: "/article/:articleId",
     name: "article",
     component: article,
@@ -36,11 +36,6 @@ const routes: Array<RouteRecordRaw> = [
     path: "/rockstar/:rockstarId",
     name: "rockstar",
     component: RockstarInformationPage,
-  },
-  {
-    path: '/article/:articleId',
-    name: 'article',
-    component: article,
   },
 ];
 
