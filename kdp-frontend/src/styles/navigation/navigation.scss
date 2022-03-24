@@ -1,14 +1,19 @@
 @import "@/styles/variables.scss";
 
 .container {
+  position: relative;
   background-color: $trit-yellow;
   width: 100%;
   height: 10em;
+  display: flex;
+  align-items: center;
 }
 
 .logo {
-  padding: 0;
-  margin: 10px 0 0 40px;
+  float: left;
+  img {
+    margin: 0 0 0 50px;
+  }
 }
 
 .shadow {
@@ -20,8 +25,18 @@
 }
 
 /* hamburger menu */
+.hamburger-menu {
+  position: absolute;
+  right: 76px;
+/*  position: relative;
+  float: right;
+  width: 26px;
+  height: 100%;*/
+}
+
 #menu-toggle {
   opacity: 0;
+  position: absolute;
 }
 #menu-toggle:checked + .menu-btn > span {
   transform: rotate(45deg);
@@ -41,8 +56,6 @@
 }
 .menu-btn {
   position: absolute;
-  top: 60px;
-  right: 80px;
   width: 26px;
   cursor: pointer;
   z-index: 1;
@@ -67,6 +80,7 @@
   content: "";
   top: 8px;
 }
+
 .menu-box {
   display: block;
   position: fixed;
@@ -75,7 +89,7 @@
   width: 300px;
   height: 100%;
   margin: 0;
-  padding: 80px 0;
+  padding: 100px 0;
   list-style: none;
   background-color: $trit-gray;
   box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.4);
@@ -94,4 +108,8 @@
 .menu-item:hover {
   transition: color 0.25s ease-in;
   color: $trit-yellow;
+}
+
+.opened {
+  position: fixed;
 }

@@ -11,11 +11,10 @@
       />
       <h4 class="title">{{ name }}</h4>
       <p class="article-p">
-        {{ content }}
+        {{ limitContent(content) }}
       </p>
       <p class="rockstarName-p">{{rockstarName}}</p>
     </div>
-
   </div>
 </template>
 
@@ -27,6 +26,13 @@ export default {
     name: String,
     content: String,
     rockstarName: String,
+  },
+  setup() {
+    const limitContent = (content: string): string => {
+      return content.length < 250 ? content : content.substring(0, 250) + "...";
+    };
+
+    return { limitContent };
   },
 };
 </script>
