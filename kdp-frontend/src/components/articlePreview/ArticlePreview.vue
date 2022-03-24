@@ -2,7 +2,7 @@
   <div class="article">
     <h4 class="title">{{ name }}</h4>
     <p class="article-p">
-      {{ content }}
+      {{ limitContent(content) }}
     </p>
   </div>
 </template>
@@ -13,6 +13,13 @@ export default {
   props: {
     name: String,
     content: String,
+  },
+  setup() {
+    const limitContent = (content: string): string => {
+      return content.length < 250 ? content : content.substring(0, 250) + "...";
+    };
+
+    return { limitContent };
   },
 };
 </script>
