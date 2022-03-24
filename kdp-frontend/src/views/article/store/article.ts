@@ -77,10 +77,10 @@ const tribes = {
       state.article = data;
     },
     SET_ROCKSTAR: (state: articleState, data: RockstarShape) => {
-      if (!data) {
-        const rockstar: RockstarShape = { name: data.name, image: pfPlaceholder };
-      }
       state.rockstar = data;
+      if (state.rockstar.image == null) {
+        state.rockstar.image = pfPlaceholder;
+      }
     },
   },
 };

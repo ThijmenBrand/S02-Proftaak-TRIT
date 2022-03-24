@@ -4,6 +4,7 @@
       <img class="profile-image" :src="`data:image/png;base64,${image}`" />
     </div>
     <p class="rockstar">{{ name }}</p>
+    <p class="rockstar-role ">{{ role }}</p>
   </div>
 </template>
 
@@ -13,6 +14,10 @@ export default {
   props: {
     name: String,
     image: String,
+    role: {
+      type: String,
+      default: "",
+    },
   },
 };
 </script>

@@ -2,6 +2,7 @@
 import Axios from "axios";
 import ArticleShape from "@/models/Article";
 import rockstarService from "@/services/callFunctions/rockstar";
+import pfPlaceholder from "@/assets/profilePlaceholder";
 
 interface rockstarState {
   rockstar: RockstarShape;
@@ -56,6 +57,9 @@ const rockstar = {
     },
     SET_ARTICLES: (state: rockstarState, data: ArticleShape[]) => {
       state.articles = data;
+      if (state.rockstar.image == null) {
+        state.rockstar.image = pfPlaceholder;
+      }
     },
   },
 };

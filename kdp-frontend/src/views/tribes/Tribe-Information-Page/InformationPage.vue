@@ -22,6 +22,7 @@
           <profiletag
             :name="rockstar.name"
             :image="rockstar.image"
+            :role="rockstar.role"
             class="profile-tag"
           />
         </router-link>
