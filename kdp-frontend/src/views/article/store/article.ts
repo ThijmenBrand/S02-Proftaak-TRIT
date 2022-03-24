@@ -1,8 +1,12 @@
 import ArticleShape from "@/models/Article";
+import { RockstarShape } from "@/models/Rockstar";
 import articleService from "@/services/callFunctions/article";
+import rockstarService from "@/services/callFunctions/rockstar";
+import pfPlaceholder from "@/assets/profilePlaceholder";
 
 interface articleState {
   article: ArticleShape;
+  rockstar: RockstarShape;
 }
 
 const tribes = {
@@ -18,11 +22,21 @@ const tribes = {
         tribeId: "",
         tribeName: "",
       },
+      rockstar: {
+        id: "",
+        name: "",
+        description: "",
+        image: "",
+        role: "",
+      },
     };
   },
   getters: {
     getArticle: (state: articleState): ArticleShape => {
       return state.article;
+    },
+    getRockstar: (state: articleState): RockstarShape => {
+      return state.rockstar;
     },
   },
   actions: {
@@ -33,6 +47,17 @@ const tribes = {
       if (status >= 200 && status <= 299) {
         context.rootState.loading = false;
         context.commit("SET_ARTICLE", data);
+      }
+    },
+    getRockstar: async (context: any) => {
+      context.rootState.loading = true;
+      const rockstarId = context.state.article.rockstarId;
+      console.log(rockstarId);
+      const { data, status } = await rockstarService.getRockstar(rockstarId);
+
+      if (status >= 200 && status <= 299) {
+        context.rootState.loading = false;
+        context.commit("SET_ROCKSTAR", data);
       }
     },
   },
@@ -50,6 +75,12 @@ const tribes = {
     },
     SET_ARTICLE: (state: articleState, data: ArticleShape) => {
       state.article = data;
+    },
+    SET_ROCKSTAR: (state: articleState, data: RockstarShape) => {
+      if (!data) {
+        const rockstar: RockstarShape = { name: data.name, image: pfPlaceholder };
+      }
+      state.rockstar = data;
     },
   },
 };

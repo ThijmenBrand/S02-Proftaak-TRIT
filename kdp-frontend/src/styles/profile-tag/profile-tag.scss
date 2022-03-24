@@ -1,18 +1,25 @@
+@import "@/styles/variables.scss";
 .image {
-    height: 60px;
-    width: 60px;
-    background-color: white;
-    border-radius: 50%;
-  }
-  .rockstar {
-    color: white;
-  }
-  p {
-    text-align: center;
-  }
-  
-  .profile-tag {
-    display: flex;
-    flex-flow: column;
-    align-items: center;
-  }
+  height: 60px;
+  width: 60px;
+  background-color: white;
+  border-radius: 50%;
+}
+.rockstar {
+  color: $trit-gray;
+}
+p {
+  text-align: center;
+}
+
+.profile-tag {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+}
+
+.profile-image {
+  height: 60px;
+  width: 60px;
+  border-radius: 50%;
+}

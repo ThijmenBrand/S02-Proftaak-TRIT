@@ -16,6 +16,7 @@ const rockstar = {
         id: "",
         name: "",
         description: "",
+        image: "",
         role: "",
       },
       articles: [],
