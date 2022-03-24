@@ -41,6 +41,11 @@ export default {
     // on every update, change the page title to the rockstar's name
     onUpdated( () => {
       document.title = rockstar.value.name;
+
+      if (route.params.rockstarId !== rockstar.value.id){
+        store.dispatch('rockstars/getRockstar', route.params.rockstarId);
+        store.dispatch('rockstars/getArticles', route.params.rockstarId);
+      }
     });
     
     return {
