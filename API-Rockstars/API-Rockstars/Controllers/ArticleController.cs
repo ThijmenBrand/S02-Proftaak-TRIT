@@ -178,6 +178,8 @@ namespace API_Rockstars.Controllers
         [HttpPost]
         public async Task<ActionResult<Article>> PostArticle(Article article)
         {
+            article.PublishDate = DateTime.Now;
+
             _context.Articles.Add(article);
             await _context.SaveChangesAsync();
 

@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace API_Rockstars.Models;
 
@@ -10,6 +11,8 @@ public class Article
     [Required] public Guid RockstarId { get; set; }
     [Required] public string Title { get; set; }
     [Required] public string Content { get; set; }
-    [NotMapped] public string TribeName { get; set; }
-    [NotMapped] public string RockstarName { get; set; }
+    [NotMapped] public string? TribeName { get; set; }
+    [NotMapped] public string? RockstarName { get; set; }
+    public DateTime PublishDate { get; set; }
+
 }

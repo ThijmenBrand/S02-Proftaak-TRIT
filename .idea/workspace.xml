@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="488c66be-5999-4591-ac24-3a4ddcd1a7be" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/API-Rockstars/API-Rockstars/API-Rockstars.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/API-Rockstars/API-Rockstars/API-Rockstars.csproj" afterDir="false" />
-    </list>
+    <list default="true" id="488c66be-5999-4591-ac24-3a4ddcd1a7be" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -21,7 +19,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../s2-individueel/ConstantFit" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="nodejs_package_manager_path" value="npm" />
@@ -36,6 +34,7 @@
       <option name="presentableId" value="Default" />
       <updated>1647520132264</updated>
       <workItem from="1647520133398" duration="39000" />
+      <workItem from="1647591513443" duration="10000" />
     </task>
     <servers />
   </component>
