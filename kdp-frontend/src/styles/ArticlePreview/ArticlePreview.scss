@@ -1,0 +1,30 @@
+@import "@/styles/variables.scss";
+.article {
+  height: 500px;
+  width: 400px;
+  border: 1px solid #3E3E3E;
+  background-color: $trit-gray;
+    margin: 5px;
+}
+.content {
+  color: $trit-white;
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-bottom: 5px;
+}
+.rockstar-name {
+  color: $trit-white;
+  font-size: 8;
+  padding-left: 15px;
+  color: $trit-yellow;
+}
+.title {
+  color: $trit-yellow;
+  text-align: center;
+  padding-top: 5px;
+}
+.image{
+  object-fit:scale-down;
+  width:400px;
+  height:300px;
+}
