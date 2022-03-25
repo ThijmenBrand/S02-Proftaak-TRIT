@@ -56,6 +56,10 @@ const rockstar = {
     SET_ARTICLES: (state: rockstarState, data: ArticleShape[]) => {
       state.articles = data;
     },
+    CLEAR_ROCKSTAR: (state: rockstarState) => {
+      state.articles = [];
+      state.rockstar = { id: "", name: "", description: "", role: "" };
+    },
   },
 };
 

@@ -34,6 +34,7 @@ export default {
     
     // when loading the page, get the rockstar by id and their articles
     onMounted(() => {
+      store.commit("rockstars/CLEAR_ROCKSTAR");
       store.dispatch('rockstars/getRockstar', route.params.rockstarId);
       store.dispatch('rockstars/getArticles', route.params.rockstarId);
     });
