@@ -14,8 +14,9 @@
             name: 'article',
             params: { articleId: article.id },
           }"
-          class="article">
-          <article-preview :name="article.title" :content="article.content" />
+          class="article"
+        >
+          <article-preview :name="article.title" :content="article.content" :rockstarName="article.rockstarName" />
         </router-link>
       </div>
     </div>
@@ -84,7 +85,7 @@ a {
   justify-content: center;
   grid-column: 1rem;
   grid-row-gap: 1rem;
-  grid-template-columns: repeat(auto-fill, minmax( 330px, 1fr ));
+  grid-template-columns: repeat(auto-fill, minmax( 415px, 1fr ));
 }
 
 .content-container {

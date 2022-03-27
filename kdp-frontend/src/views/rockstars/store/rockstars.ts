@@ -62,7 +62,7 @@ const rockstar = {
     },
     CLEAR_ROCKSTAR: (state: rockstarState) => {
       state.articles = [];
-      state.rockstar = { id: "", name: "", description: "", role: "" };
+      state.rockstar = { id: "", name: "", description: "", role: "", image: "" };
     },
   },
 };

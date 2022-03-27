@@ -1,18 +1,26 @@
 <template>
-  <div class="article">
-    <h4 class="title">{{ name }}</h4>
-    <p class="article-p">
-      {{ limitContent(content) }}
-    </p>
+  <div>
+    <div class="article">
+      <img src="@/assets/logo.svg" class="preview image" />
+      <h4 class="title">{{ name }}</h4>
+      <p class="content">
+        {{ limitContent(content) }}
+      </p>
+      <p class="rockstar-name">
+        {{ rockstarName }}
+      </p>
+    </div>
   </div>
 </template>
 
 <script lang="ts">
+import rockstar from "@/views/rockstars/store/rockstars";
 export default {
   name: "ArticlePreview",
   props: {
     name: String,
     content: String,
+    rockstarName: String,
   },
   setup() {
     const limitContent = (content: string): string => {
@@ -25,20 +33,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.article {
-  height: 200px;
-  width: 300px;
-  background-color: white;
-  display: inline-block;
-  margin: 10px;
-}
-.article-p {
-  color: black;
-  padding: 10px;
-}
-.title {
-  color: black;
-  text-align: center;
-  padding-top: 10px;
-}
+@import "@/styles/variables.scss";
+@import "@/styles/ArticlePreview/ArticlePreview.scss";
 </style>

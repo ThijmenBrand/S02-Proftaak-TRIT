@@ -38,7 +38,11 @@
             :key="index"
             class="article"
           >
-            <article-preview :name="article.title" :content="article.content" />
+            <article-preview
+              :name="article.title"
+              :content="article.content"
+              :rockstarName="article.rockstarName"
+            />
           </router-link>
         </div>
       </div>
@@ -178,14 +182,13 @@ p {
   justify-content: center;
   grid-column: 1rem;
   grid-row-gap: 1rem;
-  grid-template-columns: repeat(auto-fill, minmax( 330px, 1fr ));
+  grid-template-columns: repeat(auto-fill, minmax(415px, 1fr));
 }
 
 .article {
   margin: 10px;
   justify-self: center;
 }
-
 
 .profile-tag {
   margin: 20px;
