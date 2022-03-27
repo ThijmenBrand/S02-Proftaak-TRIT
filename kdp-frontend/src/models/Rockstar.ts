@@ -2,7 +2,7 @@ export interface RockstarShape {
   id: string;
   name: string;
   //Todo place this back
-  //rockstarProfilePricure: Uint32Array,
+  image: string;
   description: string;
   role: string;
 }
