@@ -1,23 +1,20 @@
 <template>
   <div>
     <div class="article">
-      <img
-        src="@/assets/logo.svg"
-        class="preview image"
-      />
+      <img src="@/assets/logo.svg" class="preview image" />
       <h4 class="title">{{ name }}</h4>
       <p class="content">
         {{ limitContent(content) }}
       </p>
       <p class="rockstar-name">
-        {{rockstarName}}
+        {{ rockstarName }}
       </p>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import rockstar from '@/views/rockstars/store/rockstars';
+import rockstar from "@/views/rockstars/store/rockstars";
 export default {
   name: "ArticlePreview",
   props: {

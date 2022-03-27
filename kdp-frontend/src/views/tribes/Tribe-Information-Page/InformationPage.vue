@@ -10,39 +10,38 @@
           <div></div>
           <div></div>
         </div>
-        <router-link v-else
-         v-for="(rockstar, index) in rockstars"
-          :key="index" :to="{
+        <router-link
+          v-else
+          v-for="(rockstar, index) in rockstars"
+          :key="index"
+          :to="{
             name: 'rockstar',
             params: { rockstarId: rockstar.id },
           }"
         >
-        <profiletag
-          :name="rockstar.name"
-          class="profile-tag"
-        />
-        </router-link>
-      </div><h3 class="articles-overview-title">Articles</h3>
-    </div>
-<div class="background-container">
-    <div class="content-container">
-      
-      <div class="articles-container">
-        <router-link
-          :to="{ name: 'article', params: { articleId: article.id } }"
-          v-for="(article, index) in tribeArticles"
-          :key="index"
-          class="article"
-        >
-          <article-preview
-            :name="article.title"
-            :content="article.content"
-            :rockstarName="article.rockstarName"
-          />
+          <profiletag :name="rockstar.name" class="profile-tag" />
         </router-link>
       </div>
+      <h3 class="articles-overview-title">Articles</h3>
     </div>
-  </div>
+    <div class="background-container">
+      <div class="content-container">
+        <div class="articles-container">
+          <router-link
+            :to="{ name: 'article', params: { articleId: article.id } }"
+            v-for="(article, index) in tribeArticles"
+            :key="index"
+            class="article"
+          >
+            <article-preview
+              :name="article.title"
+              :content="article.content"
+              :rockstarName="article.rockstarName"
+            />
+          </router-link>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -78,7 +77,7 @@ export default {
       store.commit("tribes/EMPTY_STORE");
       store.dispatch("tribes/getCurrentTribe", route.params.tribe);
       store.dispatch("tribes/getRockstarsByTribe", route.params.tribe);
-      store.dispatch("tribes/getArticlesByTribe",route.params.tribe);
+      store.dispatch("tribes/getArticlesByTribe", route.params.tribe);
     });
 
     const articles = computed((): ArticleShape[] => {
@@ -101,7 +100,7 @@ export default {
       return rockstar;
     });
 
-  const tribeArticles = computed((): ArticleShape[] => {
+    const tribeArticles = computed((): ArticleShape[] => {
       const articles = store.getters["tribes/getArticlesbByTribe"];
       return articles;
     });
