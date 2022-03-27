@@ -18,6 +18,11 @@
   margin: 0 auto 0 auto;
 }
 
+.profile-image {
+  width: 12em;
+  height: 12em;
+}
+
 .rockstar-card .col-image {
   aspect-ratio: 1/1;
   height: 12em;
@@ -42,7 +47,8 @@
   height: 100%;
 }
 
-@media only screen and (max-width: 1000px) { /* for mobile screens <= 1000px width */
+@media only screen and (max-width: 1000px) {
+  /* for mobile screens <= 1000px width */
   .rockstar-pane {
     height: 24em;
   }

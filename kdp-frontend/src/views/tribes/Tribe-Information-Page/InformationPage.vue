@@ -19,13 +19,18 @@
             params: { rockstarId: rockstar.id },
           }"
         >
-          <profiletag :name="rockstar.name" class="profile-tag" />
+          <profiletag
+            :name="rockstar.name"
+            :image="rockstar.image"
+            :role="rockstar.role"
+            class="profile-tag"
+          />
         </router-link>
       </div>
-      <h3 class="articles-overview-title">Articles</h3>
     </div>
     <div class="background-container">
       <div class="content-container">
+        <h3 class="articles-overview-title">Articles</h3>
         <div class="articles-container">
           <router-link
             :to="{ name: 'article', params: { articleId: article.id } }"
@@ -168,20 +173,23 @@ p {
 .articles-overview-title {
   text-align: center;
   margin: 0;
-  color: $trit-black;
+  color: $trit-white;
   padding-top: 20px;
 }
 .articles-container {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
+  margin-top: 30px;
+  display: grid;
   justify-content: center;
-  padding: 40px;
+  grid-column: 1rem;
+  grid-row-gap: 1rem;
+  grid-template-columns: repeat(auto-fill, minmax(415px, 1fr));
 }
+
 .article {
-  margin: 30px;
-  text-decoration: none;
+  margin: 10px;
+  justify-self: center;
 }
+
 .profile-tag {
   margin: 20px;
 }
