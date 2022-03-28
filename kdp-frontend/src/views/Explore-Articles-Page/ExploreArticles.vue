@@ -1,13 +1,15 @@
 <template>
   <div class="search-bar">
     <input v-model="searchQuery" placeholder="Search.." class="search-input" />
-    <select v-model="selectedFilter">
+    <div class="custom-select">
+      <select v-model="selectedFilter">
       <option value="">Select filter</option>
       <option value="new">Sort by newest</option>
       <option value="old">Sort by oldest</option>
-      <option value="az">Sort title by A-Z</option>
-      <option value="za">Sort title by Z-A</option>
+      <option value="a-z">Sort title by A-Z</option>
+      <option value="z-a">Sort title by Z-A</option>
     </select>
+    </div>
   </div>
   <div class="background-container">
     <div class="container content-container">
@@ -61,7 +63,7 @@ export default {
     });
 
     const filteredArticles = computed((): ArticleShape[] => {
-      var returnArray: ArticleShape[] = [];
+      let returnArray: ArticleShape[] = [];
       articles.value.forEach((article) => {
         if (article.rockstarName != null || article.tribeName != null) {
           if (
@@ -76,7 +78,7 @@ export default {
           }
         }
       });
-      if (selectedFilter.value == "az") {
+      if (selectedFilter.value == "a-z") {
         returnArray = returnArray.sort((a, b) => {
           let fa = a.title.toLowerCase(),
             fb = b.title.toLowerCase();
@@ -89,7 +91,7 @@ export default {
           return 0;
         });
       }
-      if (selectedFilter.value == "za") {
+      if (selectedFilter.value == "z-a") {
         returnArray = returnArray.sort((a, b) => {
           let fa = a.title.toLowerCase(),
             fb = b.title.toLowerCase();
@@ -158,4 +160,5 @@ a {
   display: flex;
   justify-content: right;
 }
+
 </style>
