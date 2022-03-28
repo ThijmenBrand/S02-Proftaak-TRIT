@@ -10,43 +10,48 @@
           <div></div>
           <div></div>
         </div>
-        <router-link v-else
-         v-for="(rockstar, index) in rockstars"
-          :key="index" :to="{
+        <router-link
+          v-else
+          v-for="(rockstar, index) in rockstars"
+          :key="index"
+          :to="{
             name: 'rockstar',
             params: { rockstarId: rockstar.id },
           }"
         >
-        <profiletag
-          :name="rockstar.name"
-          class="profile-tag"
-        />
-        </router-link>
-      </div>
-    </div>
-<div class="background-container">
-    <div class="content-container">
-      <h3 class="articles-overview-title">Articles</h3>
-      <div class="articles-container">
-        <router-link
-          :to="{ name: 'article', params: { articleId: article.id } }"
-          v-for="(article, index) in tribeArticles"
-          :key="index"
-          class="article"
-        >
-          <article-preview
-            :name="article.title"
-            :content="article.content"
+          <profiletag
+            :name="rockstar.name"
+            :image="rockstar.image"
+            :role="rockstar.role"
+            class="profile-tag"
           />
         </router-link>
       </div>
     </div>
-  </div>
+    <div class="background-container">
+      <div class="content-container">
+        <h3 class="articles-overview-title">Articles</h3>
+        <div class="articles-container">
+          <router-link
+            :to="{ name: 'article', params: { articleId: article.id } }"
+            v-for="(article, index) in tribeArticles"
+            :key="index"
+            class="article"
+          >
+            <article-preview
+              :name="article.title"
+              :content="article.content"
+              :rockstarName="article.rockstarName"
+            />
+          </router-link>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script lang="ts">
-import ArticlePreview from "./Components/ArticlePreview.vue";
+import ArticlePreview from "@/components/articlePreview/ArticlePreview.vue";
 import Profiletag from "@/components/profileTag/Profiletag.vue";
 import Loader from "@/components/loader/Loader.vue";
 
@@ -77,7 +82,7 @@ export default {
       store.commit("tribes/EMPTY_STORE");
       store.dispatch("tribes/getCurrentTribe", route.params.tribe);
       store.dispatch("tribes/getRockstarsByTribe", route.params.tribe);
-      store.dispatch("tribes/getArticlesByTribe",route.params.tribe);
+      store.dispatch("tribes/getArticlesByTribe", route.params.tribe);
     });
 
     const articles = computed((): ArticleShape[] => {
@@ -100,7 +105,7 @@ export default {
       return rockstar;
     });
 
-  const tribeArticles = computed((): ArticleShape[] => {
+    const tribeArticles = computed((): ArticleShape[] => {
       const articles = store.getters["tribes/getArticlesbByTribe"];
       return articles;
     });
@@ -172,16 +177,19 @@ p {
   padding-top: 20px;
 }
 .articles-container {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
+  margin-top: 30px;
+  display: grid;
   justify-content: center;
-  padding: 40px;
+  grid-column: 1rem;
+  grid-row-gap: 1rem;
+  grid-template-columns: repeat(auto-fill, minmax(415px, 1fr));
 }
+
 .article {
-  margin: 30px;
-  text-decoration: none;
+  margin: 10px;
+  justify-self: center;
 }
+
 .profile-tag {
   margin: 20px;
 }

@@ -2,6 +2,7 @@ import ArticleShape from "@/models/Article";
 import { RockstarShape } from "@/models/Rockstar";
 import { TribeShape } from "@/models/Tribe";
 import tribeService from "@/services/callFunctions/tribe";
+import pfPlaceholder from "@/assets/profilePlaceholder";
 
 interface tribesState {
   tribesList: TribeShape[];
@@ -72,9 +73,7 @@ const tribes = {
     },
     getArticlesByTribe: async (context: any, tribeId: string) => {
       context.rootState.loading = true;
-      const { data, status } = await tribeService.getArticlesByTribe(
-        tribeId
-      );
+      const { data, status } = await tribeService.getArticlesByTribe(tribeId);
       if (status >= 200 && status <= 299) {
         context.rootState.loading = false;
         context.commit("SET_ARTICLES_BY_TRIBE", data);
@@ -90,8 +89,19 @@ const tribes = {
         if (!rockstar.role) {
           rockstar.role = "Rockstar";
         }
+        if (rockstar.image == null) {
+          rockstar.image = pfPlaceholder;
+        }
       });
-      state.rockstarsList = data.sort().reverse();
+      state.rockstarsList = data
+        .sort((a, b) => {
+          if (a.role < b.role) return -1;
+
+          if (a.role > b.role) return 1;
+
+          return 0;
+        })
+        .reverse();
     },
     SET_CURRENT_TRIBE: (state: tribesState, data: TribeShape) => {
       state.currentTribe = data;

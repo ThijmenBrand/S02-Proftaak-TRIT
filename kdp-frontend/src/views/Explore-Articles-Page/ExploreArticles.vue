@@ -14,8 +14,9 @@
             name: 'article',
             params: { articleId: article.id },
           }"
-          class="article">
-          <article-preview :name="article.title" :content="article.content" />
+          class="article"
+        >
+          <article-preview :name="article.title" :content="article.content" :rockstarName="article.rockstarName" />
         </router-link>
       </div>
     </div>
@@ -54,14 +55,12 @@ export default {
     const filteredArticles = computed((): ArticleShape[] => {
       const returnArray: ArticleShape[] = [];
       articles.value.forEach((article) => {
-        if (
-          article.title.toLowerCase().indexOf(searchQuery.value.toLowerCase()) >
-            -1 ||
-          article.rockstarName
-            .toLowerCase()
-            .indexOf(searchQuery.value.toLowerCase()) > -1
-        ) {
-          returnArray.push(article);
+        if (article.rockstarName != null || article.tribeName != null) 
+        {
+          if (article.title.toLowerCase().indexOf(searchQuery.value.toLowerCase()) > -1 || article.rockstarName.toLowerCase().indexOf(searchQuery.value.toLowerCase()) > -1)
+          {
+            returnArray.push(article);
+          }
         }
       });
 
@@ -78,6 +77,7 @@ export default {
 
 a {
   margin: 10px;
+  justify-self: center;
 }
 .articles-container {
   margin-top: 30px;
@@ -85,11 +85,11 @@ a {
   justify-content: center;
   grid-column: 1rem;
   grid-row-gap: 1rem;
-  grid-template-columns: auto auto auto;
+  grid-template-columns: repeat(auto-fill, minmax( 415px, 1fr ));
 }
 
 .content-container {
-  min-height: calc(100vh - 257.5px);
+  min-height: calc(100vh - 226.5px);
 }
 
 .search-input {
@@ -105,4 +105,19 @@ a {
   display: flex;
   justify-content: right;
 }
+
+
+@media only screen and (max-width: 700px) {
+  .search-input {
+    width: 60%;
+  }
+}
+
+
+@media only screen and (min-width: 1750px) {
+  .content-container {
+        margin: 0 230px;
+  }
+}
+
 </style>

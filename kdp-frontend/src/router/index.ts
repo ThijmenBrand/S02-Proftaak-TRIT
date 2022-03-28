@@ -22,7 +22,7 @@ const routes: Array<RouteRecordRaw> = [
     name: "tribe",
     component: tribe,
   },
-  { 
+  {
     path: "/article/:articleId",
     name: "article",
     component: article,
