@@ -5,7 +5,10 @@
       <div class="title-category">
         <h1 class="page-title">{{ articleDetails.title }}</h1>
       </div>
-      <ProfileTag :name="articleDetails.rockstarName"></ProfileTag>
+      <ProfileTag
+        :name="getRockstar.name"
+        :image="getRockstar.image"
+      ></ProfileTag>
     </div>
   </div>
   <div class="background-container">
@@ -45,14 +48,21 @@ export default {
 
     onMounted(() => {
       store.commit("article/CLEAR_ARTICLE");
-      store.dispatch("article/getArticle", articleId.value);
+      store
+        .dispatch("article/getArticle", articleId.value)
+        .then(() => store.dispatch("article/getRockstar"));
     });
 
-    const articleDetails = computed((): ArticleShape => {
-      return store.getters["article/getArticle"];
+    const articleDetails = computed(
+      (): ArticleShape => store.getters["article/getArticle"]
+    );
+
+    const getRockstar = computed((): RockstarShape => {
+      console.log(store.getters["article/getRockstar"]);
+      return store.getters["article/getRockstar"];
     });
 
-    return { articleId, articleDetails, loading };
+    return { articleId, articleDetails, loading, getRockstar };
   },
 };
 </script>
