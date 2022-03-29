@@ -1,11 +1,5 @@
-<svg class="shadow" version="1.1" id="rs-logo" xmlns="http://www.w3.org/2000/svg" x="0" y="0" viewBox="0 0 595.3 504.9" xml:space="preserve">
+<svg version="1.1" id="rs-logo" xmlns="http://www.w3.org/2000/svg" x="0" y="0" viewBox="42 0 595.3 504.9" xml:space="preserve">
         <style>
-            .shadow {
-                height: 128px;
-                -webkit-filter: drop-shadow(0px 1px 1px #000000) drop-shadow(0px 4px 8px rgba(0, 0, 0, 0.15));
-                filter: drop-shadow(0px 1px 1px #000000) drop-shadow(0px 4px 8px rgba(0, 0, 0, 0.15));
-            }
-
             .st0,
             .st1,
             .st5 {
