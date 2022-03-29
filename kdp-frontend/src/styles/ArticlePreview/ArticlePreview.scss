@@ -5,6 +5,7 @@
   border: 1px solid #3e3e3e;
   background-color: $trit-gray;
   margin: 5px;
+  position: relative;
 }
 .content {
   color: $trit-white;
@@ -13,18 +14,25 @@
   padding-bottom: 5px;
 }
 .rockstar-name {
-  color: $trit-white;
   font-size: 8;
+  margin-top: auto;
+  margin-bottom: 10px;
   padding-left: 15px;
   color: $trit-yellow;
+  position: absolute;
+  bottom: 0px;
 }
 .title {
   color: $trit-yellow;
-  text-align: center;
-  padding-top: 5px;
+  text-align: left;
+  padding-left: 15px;
+  text-transform: uppercase;
+  margin-top: 5px;
+  margin-bottom: 10px;
 }
 .image {
   object-fit: scale-down;
+  object-position: top;
   width: 400px;
   height: 300px;
 }
