@@ -1,14 +1,16 @@
 <template>
   <div>
     <div class="article">
-      <img src="@/assets/logo.svg" class="preview image" />
-      <h4 class="title">{{ name }}</h4>
-      <p class="content">
-        {{ limitContent(content) }}
-      </p>
-      <p class="rockstar-name">
-        {{ rockstarName }}
-      </p>
+      <img src="@/assets/images/article-placeholder-image.jpg" class="preview image" />
+      <div>
+        <h4 class="title">{{ name }}</h4>
+        <p class="content">
+          {{ limitContent(content) }}
+        </p>
+        <p class="rockstar-name">
+          {{ rockstarName }}
+        </p>
+      </div>
     </div>
   </div>
 </template>
