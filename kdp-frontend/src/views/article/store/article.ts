@@ -21,6 +21,7 @@ const tribes = {
         title: "",
         tribeId: "",
         tribeName: "",
+        publishDate: new Date(),
       },
       rockstar: {
         id: "",
@@ -71,6 +72,7 @@ const tribes = {
         title: "",
         tribeId: "",
         tribeName: "",
+        publishDate: new Date(),
       };
     },
     SET_ARTICLE: (state: articleState, data: ArticleShape) => {

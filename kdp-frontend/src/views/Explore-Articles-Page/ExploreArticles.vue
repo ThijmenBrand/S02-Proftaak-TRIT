@@ -1,6 +1,15 @@
 <template>
   <div class="search-bar">
     <input v-model="searchQuery" placeholder="Search.." class="search-input" />
+    <div class="custom-select">
+      <select class="select" v-model="selectedFilter">
+        <option class="select-item" value="">Select filter</option>
+        <option class="select-item" value="new">Sort by newest</option>
+        <option class="select-item" value="old">Sort by oldest</option>
+        <option class="select-item" value="a-z">Sort title by A-Z</option>
+        <option class="select-item" value="z-a">Sort title by Z-A</option>
+      </select>
+    </div>
   </div>
   <div class="background-container">
     <div class="container content-container">
@@ -16,7 +25,11 @@
           }"
           class="article"
         >
-          <article-preview :name="article.title" :content="article.content" :rockstarName="article.rockstarName" />
+          <article-preview
+            :name="article.title"
+            :content="article.content"
+            :rockstarName="article.rockstarName"
+          />
         </router-link>
       </div>
     </div>
@@ -41,6 +54,7 @@ export default {
     const store = useStore();
 
     const searchQuery = ref("");
+    const selectedFilter = ref("");
 
     const loading = computed(() => store.getters["isLoading"]);
 
@@ -53,21 +67,67 @@ export default {
     });
 
     const filteredArticles = computed((): ArticleShape[] => {
-      const returnArray: ArticleShape[] = [];
+      let returnArray: ArticleShape[] = [];
       articles.value.forEach((article) => {
-        if (article.rockstarName != null || article.tribeName != null) 
-        {
-          if (article.title.toLowerCase().indexOf(searchQuery.value.toLowerCase()) > -1 || article.rockstarName.toLowerCase().indexOf(searchQuery.value.toLowerCase()) > -1)
-          {
+        if (article.rockstarName != null || article.tribeName != null) {
+          if (
+            article.title
+              .toLowerCase()
+              .indexOf(searchQuery.value.toLowerCase()) > -1 ||
+            article.rockstarName
+              .toLowerCase()
+              .indexOf(searchQuery.value.toLowerCase()) > -1
+          ) {
             returnArray.push(article);
           }
         }
       });
-
+      if (selectedFilter.value == "a-z") {
+        returnArray = returnArray.sort((a, b) => {
+          let fa = a.title.toLowerCase(),
+            fb = b.title.toLowerCase();
+          if (fa < fb) {
+            return -1;
+          }
+          if (fa > fb) {
+            return 1;
+          }
+          return 0;
+        });
+      }
+      if (selectedFilter.value == "z-a") {
+        returnArray = returnArray.sort((a, b) => {
+          let fa = a.title.toLowerCase(),
+            fb = b.title.toLowerCase();
+          if (fa < fb) {
+            return 1;
+          }
+          if (fa > fb) {
+            return -1;
+          }
+          return 0;
+        });
+      }
+      if (selectedFilter.value == "new") {
+        returnArray = returnArray.sort((a, b) => {
+          return (
+            new Date(a.publishDate).valueOf() -
+            new Date(b.publishDate).valueOf()
+          );
+        });
+      }
+      if (selectedFilter.value == "old") {
+        returnArray = returnArray.sort((a, b) => {
+          return (
+            new Date(b.publishDate).valueOf() -
+            new Date(a.publishDate).valueOf()
+          );
+        });
+      }
       return returnArray;
     });
 
-    return { articles, filteredArticles, searchQuery, loading };
+    return { articles, filteredArticles, searchQuery, selectedFilter, loading };
   },
 };
 </script>
@@ -85,7 +145,7 @@ a {
   justify-content: center;
   grid-column: 1rem;
   grid-row-gap: 1rem;
-  grid-template-columns: repeat(auto-fill, minmax( 415px, 1fr ));
+  grid-template-columns: repeat(auto-fill, minmax(415px, 1fr));
 }
 
 .content-container {
@@ -105,7 +165,33 @@ a {
   display: flex;
   justify-content: right;
 }
+.custom-select {
+  border-bottom: 1px solid #232323;
+  display: flex;
+}
 
+.select {
+  border: none;
+  background: none;
+}
+
+.select:focus {
+  outline: 0;
+}
+.select-item {
+  position: absolute;
+  background-color: $trit-gray;
+  color: $trit-yellow;
+  top: 100%;
+  left: 0;
+  right: 0;
+  z-index: 99;
+}
+
+.select-item div:hover,
+.same-as-selected {
+  background-color: white;
+}
 
 @media only screen and (max-width: 700px) {
   .search-input {
@@ -113,11 +199,9 @@ a {
   }
 }
 
-
 @media only screen and (min-width: 1750px) {
   .content-container {
-        margin: 0 230px;
+    margin: 0 230px;
   }
 }
-
 </style>
