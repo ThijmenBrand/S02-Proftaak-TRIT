@@ -12,11 +12,12 @@
     </div>
   </div>
   <div class="background-container">
-    <div class="container content-container">
-      <div class="articles-container">
-        <Loader v-if="loading" />
+    <div class="content-container">
+      <div v-if="loading">
+        <Loader  />
+      </div>
+      <div class="articles-container" v-else>
         <router-link
-          v-else
           v-for="(article, index) in filteredArticles"
           :key="index"
           :to="{
@@ -154,16 +155,28 @@ a {
 
 .search-input {
   padding: 10px;
-  width: 25%;
+  width: 15%;
   border: none;
   background-color: transparent;
   color: $trit-gray;
   border-bottom: 1px solid $trit-gray;
 }
+
+.search-input::-webkit-input-placeholder {
+  /* Chrome/Opera/Safari */
+  color: $trit-gray;
+}
+
+.search-input::-moz-placeholder {
+  /* Firefox 18- */
+  color: $trit-gray;
+}
+
 .search-bar {
   margin-right: 45px;
   display: flex;
   justify-content: right;
+  margin-bottom: 30px;
 }
 .custom-select {
   border-bottom: 1px solid #232323;
@@ -187,6 +200,8 @@ a {
   right: 0;
   z-index: 99;
 }
+
+
 
 .select-item div:hover,
 .same-as-selected {
