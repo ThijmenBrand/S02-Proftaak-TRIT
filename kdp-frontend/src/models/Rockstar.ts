@@ -1,8 +1,8 @@
 export interface RockstarShape {
-  rockstarId: string;
-  rockstarName: string;
+  id: string;
+  name: string;
   //Todo place this back
-  //rockstarProfilePricure: Uint32Array,
-  Description: string;
-  TribeID: string;
+  image: string;
+  description: string;
+  role: string;
 }

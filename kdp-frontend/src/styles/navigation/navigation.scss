@@ -1,0 +1,116 @@
+@import "@/styles/variables.scss";
+
+.container {
+  position: relative;
+  background-color: $trit-yellow;
+  width: 100%;
+  height: 10em;
+  display: flex;
+  align-items: center;
+  z-index: 100;
+}
+
+.logo {
+  float: left;
+  img {
+    margin: 0 0 0 50px;
+  }
+}
+
+.shadow {
+  height: 128px;
+  -webkit-filter: drop-shadow(0px 1px 1px $trit-black)
+    drop-shadow(0px 4px 8px rgba(0, 0, 0, 0.15));
+  filter: drop-shadow(0px 1px 1px $trit-black)
+    drop-shadow(0px 4px 8px rgba(0, 0, 0, 0.15));
+}
+
+/* hamburger menu */
+.hamburger-menu {
+  position: absolute;
+  right: 76px;
+/*  position: relative;
+  float: right;
+  width: 26px;
+  height: 100%;*/
+}
+
+#menu-toggle {
+  opacity: 0;
+  position: absolute;
+}
+#menu-toggle:checked + .menu-btn > span {
+  transform: rotate(45deg);
+}
+#menu-toggle:checked + .menu-btn > span::before {
+  top: 0;
+  transform: rotate(0deg);
+  background-color: $trit-white;
+}
+#menu-toggle:checked + .menu-btn > span::after {
+  top: 0;
+  transform: rotate(90deg);
+  background-color: $trit-white;
+}
+#menu-toggle:checked ~ .menu-box {
+  right: 0 !important;
+}
+.menu-btn {
+  position: absolute;
+  width: 26px;
+  cursor: pointer;
+  z-index: 1;
+}
+.menu-btn > span,
+.menu-btn > span::before,
+.menu-btn > span::after {
+  display: block;
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  background-color: $trit-black;
+  text-decoration: none;
+  transition-duration: 0.25s;
+}
+.menu-btn > span::before {
+  content: "@@";
+  color: transparent;
+  top: -8px;
+}
+.menu-btn > span::after {
+  content: "";
+  top: 8px;
+}
+
+.menu-box {
+  display: block;
+  position: fixed;
+  top: 0;
+  right: -100%;
+  width: 300px;
+  height: 100%;
+  margin: 0;
+  padding: 100px 0;
+  list-style: none;
+  background-color: $trit-gray;
+  box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.4);
+  transition-duration: 0.25s;
+}
+.menu-item {
+  display: block;
+  padding: 12px 24px;
+  color: $trit-white;
+  font-family: "Roboto", sans-serif;
+  font-size: 20px;
+  font-weight: 600;
+  text-decoration: none;
+  transition-duration: 0.25s;
+}
+.menu-item:hover {
+  transition: color 0.25s ease-in;
+  color: $trit-yellow;
+}
+
+.opened {
+  position: fixed;
+}

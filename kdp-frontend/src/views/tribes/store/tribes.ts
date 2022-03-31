@@ -1,6 +1,8 @@
-import ArticleShape, {articleCategory} from "@/models/Article";
+import ArticleShape from "@/models/Article";
 import { RockstarShape } from "@/models/Rockstar";
 import { TribeShape } from "@/models/Tribe";
+import tribeService from "@/services/callFunctions/tribe";
+import pfPlaceholder from "@/assets/profilePlaceholder";
 
 interface tribesState {
   tribesList: TribeShape[];
@@ -13,139 +15,105 @@ const tribes = {
   namespaced: true,
   state(): tribesState {
     return {
-      tribesList: [
-        {
-          tribeID: "1",
-          tribeName: "VueJs",
-        },
-        {
-          tribeID: "2",
-          tribeName: "DotNet",
-        },
-        {
-          tribeID: "3",
-          tribeName: "Java",
-        },
-      ],
+      tribesList: [],
       currentTribe: {
-        tribeID: "",
-        tribeName: "",
+        id: "",
+        name: "",
       },
-      rockstarsList: [
-        {
-          rockstarId: "1",
-          rockstarName: "Hans",
-          Description: "Hans knows a lot about Dotnet and is super cool",
-          TribeID: "2",
-        },
-        {
-          rockstarId: "2",
-          rockstarName: "Frank",
-          Description: "Hans knows a lot about Java and is super cool",
-          TribeID: "3",
-        },
-        {
-          rockstarId: "3",
-          rockstarName: "Peter",
-          Description: "Hans knows a lot about Dotnet and is super cool",
-          TribeID: "2",
-        },
-        {
-          rockstarId: "4",
-          rockstarName: "Hans",
-          Description: "Hans knows a lot about VueJs and is super cool",
-          TribeID: "1",
-        },
-        {
-          rockstarId: "5",
-          rockstarName: "amber",
-          Description: "Hans knows a lot about VueJs and is super cool",
-          TribeID: "1",
-        },
-      ],
-      articleList: [
-        {
-          articleId: "1",
-          tribeId: "1",
-          articleCategory: articleCategory.blog,
-          articleWriter: "1",
-          articleTitle: "Vuejs article one",
-          articleDescription:
-            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae, enim aperiam. Molestiae minima praesentium ipsum similique vel quod hic facere?",
-          articleContent:
-            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae, enim aperiam. Molestiae minima praesentium ipsum similique vel quod hic facere?",
-        },
-        {
-          articleId: "2",
-          tribeId: "1",
-          articleCategory: articleCategory.podcast,
-          articleWriter: "3",
-          articleTitle: "Vuejs article two",
-          articleDescription:
-            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae, enim aperiam. Molestiae minima praesentium ipsum similique vel quod hic facere?",
-          articleContent:
-            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae, enim aperiam. Molestiae minima praesentium ipsum similique vel quod hic facere?",
-        },
-        {
-          articleId: "3",
-          tribeId: "2",
-          articleCategory: articleCategory.blog,
-          articleWriter: "2",
-          articleTitle: "DotNet article one",
-          articleDescription:
-            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae, enim aperiam. Molestiae minima praesentium ipsum similique vel quod hic facere?",
-          articleContent:
-            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae, enim aperiam. Molestiae minima praesentium ipsum similique vel quod hic facere?",
-        },
-        {
-          articleId: "4",
-          tribeId: "2",
-          articleCategory: articleCategory.video,
-          articleWriter: "5",
-          articleTitle: "DotNet article two",
-          articleDescription:
-            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae, enim aperiam. Molestiae minima praesentium ipsum similique vel quod hic facere?",
-          articleContent:
-            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae, enim aperiam. Molestiae minima praesentium ipsum similique vel quod hic facere?",
-        },
-        {
-          articleId: "5",
-          tribeId: "3",
-          articleCategory: articleCategory.podcast,
-          articleWriter: "1",
-          articleTitle: "Java article one",
-          articleDescription:
-            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae, enim aperiam. Molestiae minima praesentium ipsum similique vel quod hic facere?",
-          articleContent:
-            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae, enim aperiam. Molestiae minima praesentium ipsum similique vel quod hic facere?",
-        },
-        {
-          articleId: "6",
-          tribeId: "1",
-          articleCategory: articleCategory.blog,
-          articleWriter: "4",
-          articleTitle: "Vuejs article three",
-          articleDescription:
-            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae, enim aperiam. Molestiae minima praesentium ipsum similique vel quod hic facere?",
-          articleContent:
-            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae, enim aperiam. Molestiae minima praesentium ipsum similique vel quod hic facere?",
-        },
-      ],
+      rockstarsList: [],
+      articleList: [],
     };
   },
   getters: {
     getAllTribesList: (state: tribesState): TribeShape[] => {
       return state.tribesList;
     },
-    getAllRockstars: (state: tribesState): RockstarShape[] => {
+    getRockstarsByTribe: (state: tribesState): RockstarShape[] => {
       return state.rockstarsList;
     },
     getAllArticles: (state: tribesState): ArticleShape[] => {
       return state.articleList;
     },
+    getCurrentTribe: (state: tribesState): TribeShape => {
+      return state.currentTribe;
+    },
+    getArticlesbByTribe: (state: tribesState): ArticleShape[] => {
+      return state.articleList;
+    },
   },
-  actions: {},
-  mutations: {},
+  actions: {
+    getAllTribes: async (context: any) => {
+      context.rootState.loading = true;
+      const { data, status } = await tribeService.getAllTribes();
+
+      if (status >= 200 && status <= 299) {
+        context.rootState.loading = false;
+        context.commit("SET_TRIBE_LIST", data);
+      }
+    },
+    getCurrentTribe: async (context: any, tribeId: string) => {
+      context.rootState.loading = true;
+      const { data, status } = await tribeService.getSpecificTribe(tribeId);
+
+      if (status >= 200 && status <= 299) {
+        context.rootState.loading = false;
+        context.commit("SET_CURRENT_TRIBE", data);
+      }
+    },
+    getRockstarsByTribe: async (context: any, tribeId: string) => {
+      context.rootState.loading = true;
+      const { data, status } = await tribeService.getRockstarsWithTribe(
+        tribeId
+      );
+
+      if (status >= 200 && status <= 299) {
+        context.rootState.loading = false;
+        context.commit("SET_ROCKSTARS_BY_TRIBE", data);
+      }
+    },
+    getArticlesByTribe: async (context: any, tribeId: string) => {
+      context.rootState.loading = true;
+      const { data, status } = await tribeService.getArticlesByTribe(tribeId);
+      if (status >= 200 && status <= 299) {
+        context.rootState.loading = false;
+        context.commit("SET_ARTICLES_BY_TRIBE", data);
+      }
+    },
+  },
+  mutations: {
+    SET_TRIBE_LIST: (state: tribesState, data: TribeShape[]) => {
+      state.tribesList = data;
+    },
+    SET_ROCKSTARS_BY_TRIBE: (state: tribesState, data: RockstarShape[]) => {
+      data.forEach((rockstar) => {
+        if (!rockstar.role) {
+          rockstar.role = "Rockstar";
+        }
+        if (rockstar.image == null) {
+          rockstar.image = pfPlaceholder;
+        }
+      });
+      state.rockstarsList = data
+        .sort((a, b) => {
+          if (a.role < b.role) return -1;
+
+          if (a.role > b.role) return 1;
+
+          return 0;
+        })
+        .reverse();
+    },
+    SET_CURRENT_TRIBE: (state: tribesState, data: TribeShape) => {
+      state.currentTribe = data;
+    },
+    SET_ARTICLES_BY_TRIBE: (state: tribesState, data: ArticleShape[]) => {
+      state.articleList = data;
+    },
+    EMPTY_STORE: (state: tribesState) => {
+      state.articleList = [];
+      state.rockstarsList = [];
+    },
+  },
 };
 
 export default tribes;

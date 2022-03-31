@@ -1,15 +1,10 @@
-export enum articleCategory {
-  podcast = "podcast",
-  blog = "blog",
-  video = "video",
-}
-
 export default interface ArticleShape {
-  articleId: string;
+  id: string;
   tribeId: string;
-  articleCategory: articleCategory;
-  articleWriter: string;
-  articleTitle: string;
-  articleDescription: string;
-  articleContent: string;
+  tribeName: string;
+  rockstarId: string;
+  rockstarName: string;
+  title: string;
+  content: string;
+  publishDate: Date;
 }

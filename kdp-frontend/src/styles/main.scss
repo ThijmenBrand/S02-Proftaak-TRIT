@@ -2,6 +2,8 @@
 
 @import "./button/BaseButton.scss";
 
+@import "./loader/loader.scss";
+
 html {
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   margin: 0;
@@ -55,14 +57,11 @@ p {
 }
 
 .content-container {
-  background-color: $trit-gray;
-  min-height: 300px;
-  height: auto !important; /* real browsers */
-  min-height: 100%; /* real browsers */
   bottom: 0;
+  margin: 0 $page-margin;
 }
 
-.content-container {
+.background-container {
   h1,
   h2,
   h3,
@@ -73,6 +72,27 @@ p {
   }
 }
 
-.page-title {
-  margin-left: 20px;
+.background-container {
+  background-color: $trit-gray;
+}
+
+/* fonts */
+.DIN2014-Bold {
+  font-family: DIN2014-Bold;
+  font-weight: normal;
+  font-style: normal;
+}
+.DIN2014-Regular {
+  font-family: DIN2014-Regular;
+  font-weight: normal;
+  font-style: normal;
+}
+.DIN2014-Demi {
+  font-family: DIN2014-Demi;
+  font-weight: normal;
+  font-style: normal;
+}
+
+a {
+  text-decoration: none;
 }

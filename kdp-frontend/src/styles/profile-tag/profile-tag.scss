@@ -1,0 +1,30 @@
+@import "@/styles/variables.scss";
+.image {
+  height: 60px;
+  width: 60px;
+  background-color: white;
+  border-radius: 50%;
+}
+.rockstar {
+  color: $trit-gray;
+}
+.rockstar-role {
+  color: $trit-gray;
+  font-size: 0.7em;
+  margin-top: -10px;
+}
+p {
+  text-align: center;
+}
+
+.profile-tag {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+}
+
+.profile-image {
+  height: 60px;
+  width: 60px;
+  border-radius: 50%;
+}
