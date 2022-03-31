@@ -1,4 +1,3 @@
-import { RockstarShape } from "@/models/Rockstar";
 import { TribeShape } from "@/models/Tribe";
 import { createStore } from "vuex";
 
@@ -6,8 +5,14 @@ import exporeService from "@/services/callFunctions/explore";
 
 import tribes from "@/views/tribes/store/tribes";
 import ArticleShape from "@/models/Article";
-import rockstars from "@/views/rockstars/store/rockstars";
+import rockstars from "@/views/rockstar/store/rockstars";
 import article from "@/views/article/store/article";
+
+interface IState {
+  loading: boolean;
+  tribe: TribeShape[];
+  articleList: ArticleShape[];
+}
 
 export default createStore({
   state: {
@@ -16,10 +21,10 @@ export default createStore({
     articleList: Array<ArticleShape>(),
   },
   getters: {
-    getAllArticles: (state: any): ArticleShape[] => {
+    getAllArticles: (state: IState): ArticleShape[] => {
       return state.articleList;
     },
-    isLoading: (state: any) => {
+    isLoading: (state: IState) => {
       return state.loading;
     },
   },

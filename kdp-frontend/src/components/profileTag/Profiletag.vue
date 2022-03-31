@@ -1,10 +1,10 @@
 <template>
-  <div class="profile-tag">
-    <div class="image">
+  <div class="profile-tag-container">
+    <div class="profile-image-container">
       <img class="profile-image" :src="`data:image/png;base64,${image}`" />
     </div>
     <p class="rockstar">{{ name }}</p>
-    <p class="rockstar-role ">{{ role }}</p>
+    <p class="rockstar-role">{{ role }}</p>
   </div>
 </template>
 
@@ -22,4 +22,4 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped src="@/styles/profile-tag/profile-tag.scss" />
+<style lang="scss" scoped />

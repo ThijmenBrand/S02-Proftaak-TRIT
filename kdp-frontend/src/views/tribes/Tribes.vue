@@ -1,6 +1,6 @@
 <template>
   <div class="content-container">
-    <h1 class="page-title">All tribes</h1>
+    <h1>All tribes</h1>
   </div>
   <div class="background-container">
     <div class="content-container">
@@ -18,10 +18,8 @@
               {{ tribe.name }}
             </router-link>
           </h3>
+        </div>
       </div>
-
-      </div>
-      
     </div>
   </div>
 </template>
@@ -29,6 +27,7 @@
 <script lang="ts">
 import { computed, onMounted } from "vue";
 import { useStore } from "vuex";
+
 import { TribeShape } from "@/models/Tribe";
 
 import Loader from "@/components/loader/Loader.vue";
@@ -54,34 +53,4 @@ export default {
 };
 </script>
 
-<style scoped lang="scss">
-@import "@/styles/variables.scss";
-
-h3 {
-  color: $trit-white;
-}
-
-.tribe-link {
-  color: $trit-white;
-  text-decoration: none;
-  padding: 20px;
-  margin: 10px;
-  transition: 500ms;
-}
-
-.tribe-link:hover {
-  color: $trit-yellow;
-  text-decoration: underline;
-}
-
-.tribes-links-container {
-  min-height: calc(100vh - 264.5px);
-}
-
-.tribes-links-flexbox {
-  display: flex;
-  justify-content: center;
-  flex-direction: row;
-  flex-wrap: wrap;
-}
-</style>
+<style scoped lang="scss" src="@/styles/pageStyles/tribes/Tribes.scss" />
