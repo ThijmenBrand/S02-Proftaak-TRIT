@@ -45,6 +45,7 @@ export default {
 
     const CloseTab = () => {
       let menuToggle: any = document.getElementById("menu-toggle");
+      isOpened.value = false;
       menuToggle.checked = false;
     }
 
