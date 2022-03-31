@@ -1,8 +1,5 @@
 <template>
-  <div class="loader-container" v-if="loading">
-    <Loader />
-  </div>
-  <div class="information-page-main" v-else>
+  <div class="information-page-main">
     <div class="tribes-overview">
       <h3 class="tribe-title">{{ currentTribe.name }}</h3>
       <div class="profile-container">
@@ -31,6 +28,9 @@
     <div class="background-container">
       <div class="content-container">
         <h3 class="articles-overview-title">Articles</h3>
+        <div class="loader-container" v-if="loading">
+          <Loader />
+        </div>
         <div class="articles-container">
           <router-link
             :to="{ name: 'article', params: { articleId: article.id } }"
