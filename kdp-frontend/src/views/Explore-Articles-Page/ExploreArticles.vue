@@ -154,6 +154,7 @@ a {
 }
 
 .search-input {
+  outline: none;
   padding: 10px;
   width: 15%;
   border: none;
