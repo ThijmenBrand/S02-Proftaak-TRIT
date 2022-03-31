@@ -17,16 +17,16 @@
 
       <ul class="menu-box">
         <li>
-          <router-link class="menu-item" to="/">HOME</router-link>
+          <router-link class="menu-item" to="/" @click="CloseTab">HOME</router-link>
         </li>
         <li>
-          <router-link class="menu-item" to="/tribes">TRIBES</router-link>
+          <router-link class="menu-item" to="/tribes" @click="CloseTab">TRIBES</router-link>
         </li>
         <li>
-          <router-link class="menu-item" to="/explore">EXPLORE</router-link>
+          <router-link class="menu-item" to="/explore" @click="CloseTab">EXPLORE</router-link>
         </li>
-        <li><a class="menu-item" href="#">OUR VISION</a></li>
-        <li><a class="menu-item" href="#">YOUR POSSIBILITIES</a></li>
+        <li><a class="menu-item" href="#" @click="CloseTab">OUR VISION</a></li>
+        <li><a class="menu-item" href="#" @click="CloseTab">YOUR POSSIBILITIES</a></li>
       </ul>
     </div>
   </div>
@@ -43,9 +43,15 @@ export default {
       isOpened.value = event.target.checked;
     }
 
+    const CloseTab = () => {
+      let menuToggle: any = document.getElementById("menu-toggle");
+      menuToggle.checked = false;
+    }
+
     return {
       isOpened, 
-      CheckIfOpened
+      CheckIfOpened,
+      CloseTab,
     }
   }
 };
