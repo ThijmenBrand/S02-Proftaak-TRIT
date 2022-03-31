@@ -41,11 +41,9 @@ const rockstar = {
       }
     },
     getArticles: async (context: any, rockstarId: string) => {
-      context.rootState.loading = true;
       const { data, status } = await rockstarService.getArticles(rockstarId);
 
       if (status >= 200 && status <= 299) {
-        context.rootState.loading = false;
         context.commit("SET_ARTICLES", data);
       }
     },
@@ -62,7 +60,13 @@ const rockstar = {
     },
     CLEAR_ROCKSTAR: (state: rockstarState) => {
       state.articles = [];
-      state.rockstar = { id: "", name: "", description: "", role: "", image: "" };
+      state.rockstar = {
+        id: "",
+        name: "",
+        description: "",
+        role: "",
+        image: "",
+      };
     },
   },
 };
