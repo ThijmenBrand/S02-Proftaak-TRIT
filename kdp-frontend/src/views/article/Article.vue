@@ -6,6 +6,7 @@
         <h1>{{ articleDetails.title }}</h1>
       </div>
       <ProfileTag
+        :id="getRockstar.id"
         :name="getRockstar.name"
         :image="getRockstar.image"
       ></ProfileTag>
@@ -59,7 +60,6 @@ export default {
     );
 
     const getRockstar = computed((): RockstarShape => {
-      console.log(store.getters["article/getRockstar"]);
       return store.getters["article/getRockstar"];
     });
 
