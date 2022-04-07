@@ -2,7 +2,7 @@
   <RockstarView :rockstar="rockstar" />
   <div class="background-container">
     <div class="content-container DIN2014-Regular">
-      <div class="articles-container DIN2014-Regular">
+      <div class="articles-container">
         <Loader v-if="loading" />
         <router-link
           v-else

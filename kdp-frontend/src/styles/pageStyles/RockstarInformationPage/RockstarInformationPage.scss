@@ -1,17 +1,40 @@
 @import "@/styles/variables.scss";
 
+
+.main-content {
+  .rockstar-pane {
+    width: auto;
+  }
+}
 .background-container {
     a {
       margin: 10px;
     }
   .content-container {
     min-height: calc(100vh - 257.5px);
+    .articles-overview-title {
+      text-align: center;
+      margin: 0;
+      color: $trit-white;
+      padding-top: 20px;
+    }
+    .loader-container {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+    }
     .articles-container {
       margin-top: 30px;
       display: grid;
       justify-content: center;
+      grid-column: 1rem;
       grid-row-gap: 1rem;
-      grid-template-columns: auto auto auto;
+      grid-template-columns: repeat(auto-fill, minmax(415px, 1fr));
+      .article {
+        margin: 10px;
+        justify-self: center;
+      }
     }
   }
 }
