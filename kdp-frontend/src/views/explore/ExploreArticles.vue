@@ -14,7 +14,7 @@
   <div class="background-container">
     <div class="content-container">
       <div v-if="loading">
-        <Loader  />
+        <Loader />
       </div>
       <div class="articles-container" v-else>
         <router-link
@@ -42,6 +42,7 @@ import { computed, onMounted, ref } from "vue";
 import { useStore } from "vuex";
 
 import ArticleShape from "@/models/Article";
+
 import ArticlePreview from "@/components/articlePreview/ArticlePreview.vue";
 import Loader from "@/components/loader/Loader.vue";
 
@@ -133,91 +134,8 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-@import "@/styles/variables.scss";
-
-a {
-  margin: 10px;
-  justify-self: center;
-}
-.articles-container {
-  margin-top: 30px;
-  display: grid;
-  justify-content: center;
-  grid-column: 1rem;
-  grid-row-gap: 1rem;
-  grid-template-columns: repeat(auto-fill, minmax(415px, 1fr));
-}
-
-.content-container {
-  min-height: calc(100vh - 226.5px);
-}
-
-.search-input {
-  outline: none;
-  padding: 10px;
-  width: 15%;
-  border: none;
-  background-color: transparent;
-  color: $trit-gray;
-  border-bottom: 1px solid $trit-gray;
-}
-
-.search-input::-webkit-input-placeholder {
-  /* Chrome/Opera/Safari */
-  color: $trit-gray;
-}
-
-.search-input::-moz-placeholder {
-  /* Firefox 18- */
-  color: $trit-gray;
-}
-
-.search-bar {
-  margin-right: 45px;
-  display: flex;
-  justify-content: right;
-  margin-bottom: 30px;
-}
-.custom-select {
-  border-bottom: 1px solid #232323;
-  display: flex;
-}
-
-.select {
-  border: none;
-  background: none;
-}
-
-.select:focus {
-  outline: 0;
-}
-.select-item {
-  position: absolute;
-  background-color: $trit-gray;
-  color: $trit-yellow;
-  top: 100%;
-  left: 0;
-  right: 0;
-  z-index: 99;
-}
-
-
-
-.select-item div:hover,
-.same-as-selected {
-  background-color: white;
-}
-
-@media only screen and (max-width: 700px) {
-  .search-input {
-    width: 60%;
-  }
-}
-
-@media only screen and (min-width: 1750px) {
-  .content-container {
-    margin: 0 230px;
-  }
-}
-</style>
+<style
+  lang="scss"
+  scoped
+  src="@/styles/pageStyles/exploreArticles/ExploreArticles.scss"
+/>

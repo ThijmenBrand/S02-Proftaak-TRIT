@@ -1,13 +1,15 @@
-@import "../variables.scss";
+@import "@/styles/variables.scss";
 
 .btn {
   padding: 10px 20px 10px 20px;
   display: inline-block;
 }
 
-.btn p {
-  text-align: center;
-  font-weight: 900;
+.btn {
+  p {
+    text-align: center;
+    font-weight: 900;
+  }
 }
 
 .btn-yellow {

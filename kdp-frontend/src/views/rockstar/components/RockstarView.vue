@@ -3,7 +3,7 @@
     <div class="rockstar-card">
       <div class="col-image">
         <img
-          class="profile-image"
+          class="rockstar-profile-image"
           :src="`data:image/png;base64,${rockstar.image}`"
         />
       </div>
@@ -30,9 +30,8 @@ export default {
 };
 </script>
 
-<style scoped lang="scss">
-@import "@/styles/main.scss";
-@import "@/styles/variables.scss";
-@import "../../styles/fonts.css"; /* bij het geven van een @/ krijg ik een compiler error */
-@import "@/styles/RockstarInformationPage/RockstarView.scss";
-</style>
+<style
+  scoped
+  lang="scss"
+  src="@/styles/pageStyles/RockstarInformationPage/RockstarView.scss"
+/>
