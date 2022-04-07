@@ -59,7 +59,6 @@ export default {
     );
 
     const getRockstar = computed((): RockstarShape => {
-      console.log(store.getters["article/getRockstar"]);
       return store.getters["article/getRockstar"];
     });
 

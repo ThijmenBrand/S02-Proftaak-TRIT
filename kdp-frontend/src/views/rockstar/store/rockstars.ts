@@ -2,6 +2,7 @@
 import ArticleShape from "@/models/Article";
 import rockstarService from "@/services/callFunctions/rockstar";
 import pfPlaceholder from "@/assets/profilePlaceholder";
+import SetProfilePicture from "@/services/profilePictureHelper";
 
 interface rockstarState {
   rockstar: RockstarShape;
@@ -50,6 +51,9 @@ const rockstar = {
   },
   mutations: {
     SET_ROCKSTAR: (state: rockstarState, data: RockstarShape) => {
+      if (data.image != null) {
+        data.image = SetProfilePicture(data.image);
+      }
       state.rockstar = data;
     },
     SET_ARTICLES: (state: rockstarState, data: ArticleShape[]) => {
