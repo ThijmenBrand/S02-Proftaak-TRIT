@@ -13,5 +13,9 @@ namespace API_Rockstars.Models
         [Column(TypeName = "varchar(MAX)")] public string? Image { get; set; }
         public string? Description { get; set; }
         [NotMapped] public string? Role { get; set; }
+        public string? LinkedIn { get; set; }
+        public string? Twitter { get; set; }
+        [EmailAddress] public string? Email { get; set; }
+        [Phone] public string? Phone { get; set; }
     }
 }
