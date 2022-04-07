@@ -2,10 +2,11 @@
   <RockstarView :rockstar="rockstar" />
   <div class="background-container">
     <div class="content-container DIN2014-Regular">
-      <div class="articles-container DIN2014-Regular">
-        <Loader v-if="loading" />
+      <div class="loader-container" v-if="loading">
+        <Loader />
+      </div>
+      <div class="articles-container" v-else>
         <router-link
-          v-else
           v-for="(article, index) in articles"
           :key="index"
           :to="{
