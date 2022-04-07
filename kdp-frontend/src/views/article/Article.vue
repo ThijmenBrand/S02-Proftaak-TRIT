@@ -6,6 +6,7 @@
         <h1>{{ articleDetails.title }}</h1>
       </div>
       <ProfileTag
+        :id="getRockstar.id"
         :name="getRockstar.name"
         :image="getRockstar.image"
       ></ProfileTag>
