@@ -12,6 +12,11 @@
     </div>
   </div>
   <div class="background-container">
+    <div class="article-details">
+        <div class="publish-date">
+          <p>{{publishDate}}</p>
+        </div>
+    </div>
     <div class="content-container article-content">
       <Blog :articleContent="articleDetails.content" />
     </div>
@@ -55,15 +60,26 @@ export default {
     });
 
     const articleDetails = computed(
-      (): ArticleShape => store.getters["article/getArticle"]
+      (): ArticleShape => {
+        const article = store.getters["article/getArticle"]
+        console.log(" test");
+        console.log(article)
+        return article
+        }
     );
 
+    const publishDate = computed(() => {
+      const publishDate = articleDetails.value.publishDate;
+      const language = navigator.language;
+      const publishDateCustom = new Date(publishDate.toString()).toLocaleDateString(language);
+      return publishDateCustom;
+    });
+
     const getRockstar = computed((): RockstarShape => {
-      console.log(store.getters["article/getRockstar"]);
       return store.getters["article/getRockstar"];
     });
 
-    return { articleId, articleDetails, loading, getRockstar };
+    return { articleId, articleDetails, loading, getRockstar, publishDate};
   },
 };
 </script>

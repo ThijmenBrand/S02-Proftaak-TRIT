@@ -113,16 +113,16 @@ export default {
       if (selectedFilter.value == "new") {
         returnArray = returnArray.sort((a, b) => {
           return (
-            new Date(a.publishDate).valueOf() -
-            new Date(b.publishDate).valueOf()
+            new Date(a.publishDate.toString()).valueOf() -
+            new Date(b.publishDate.toString()).valueOf()
           );
         });
       }
       if (selectedFilter.value == "old") {
         returnArray = returnArray.sort((a, b) => {
           return (
-            new Date(b.publishDate).valueOf() -
-            new Date(a.publishDate).valueOf()
+            new Date(b.publishDate.toString()).valueOf() -
+            new Date(a.publishDate.toString()).valueOf()
           );
         });
       }

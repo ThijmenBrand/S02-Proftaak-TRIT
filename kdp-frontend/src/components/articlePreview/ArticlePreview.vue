@@ -1,3 +1,4 @@
+
 <template>
   <div>
     <div>
@@ -19,6 +20,9 @@
 </template>
 
 <script lang="ts">
+import { computed } from 'vue';
+import ArticleShape from '@/models/Article';
+import store from '@/store';
 export default {
   name: "ArticlePreview",
   props: {
@@ -30,8 +34,11 @@ export default {
     const limitContent = (content: string): string => {
       return content.length < 250 ? content : content.substring(0, 250) + "...";
     };
-
-    return { limitContent };
+    
+    const articleDetails = computed(
+      (): ArticleShape => store.getters["article/getArticle"]
+    );
+    return { limitContent};
   },
 };
 </script>
