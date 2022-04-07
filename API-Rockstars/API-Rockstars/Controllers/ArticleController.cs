@@ -201,6 +201,25 @@ namespace API_Rockstars.Controllers
 
             return NoContent();
         }
+        
+        //Update viewcount
+        [HttpGet("/updateViewCount/{id}")]
+        public async Task<IActionResult> UpdateArticleViewCount(Guid id)
+        {
+            var article = await _context.Articles.FindAsync(id);
+            if (article == null)
+            {
+                return NoContent();
+            }
+
+            article.ViewCount += 1;
+
+            _context.Articles.Update(article);
+            await _context.SaveChangesAsync();
+
+            return NoContent();
+        }
+        
 
         private bool ArticleExists(Guid id)
         {
