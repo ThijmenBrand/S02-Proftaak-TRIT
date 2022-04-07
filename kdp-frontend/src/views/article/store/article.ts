@@ -35,6 +35,7 @@ const tribes = {
   getters: {
     getArticle: (state: articleState): ArticleShape => {
       return state.article;
+
     },
     getRockstar: (state: articleState): RockstarShape => {
       return state.rockstar;
@@ -72,7 +73,7 @@ const tribes = {
         title: "",
         tribeId: "",
         tribeName: "",
-        publishDate: new Date(),
+        publishDate: "",
       };
     },
     SET_ARTICLE: (state: articleState, data: ArticleShape) => {
