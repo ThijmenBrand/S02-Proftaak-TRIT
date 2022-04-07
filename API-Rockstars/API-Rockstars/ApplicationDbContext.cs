@@ -12,6 +12,7 @@ public class ApplicationDbContext : DbContext
     public DbSet<Tribe> Tribes { get; set; }
     public DbSet<Rockstar> Rockstars { get; set; }
     public DbSet<TribeRockstar> TribeRockstars { get; set; }
+    public DbSet<TribeSpotify> TribeSpotify { get; set; }
 
     public DbSet<Role> Roles { get; set; }
     public DbSet<RockstarRole> RockstarRoles { get; set; }

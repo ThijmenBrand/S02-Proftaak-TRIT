@@ -13,6 +13,7 @@ public class Article
     [Required] public string Content { get; set; }
     [NotMapped] public string? TribeName { get; set; }
     [NotMapped] public string? RockstarName { get; set; }
+    public int? ViewCount { get; set; }
     public DateTime PublishDate { get; set; }
 
 }

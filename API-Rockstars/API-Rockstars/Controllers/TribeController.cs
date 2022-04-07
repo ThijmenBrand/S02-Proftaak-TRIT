@@ -167,5 +167,63 @@ namespace API_Rockstars.Controllers
         {
             return _context.Tribes.Any(e => e.Id == id);
         }
+        
+        //Spotify calls in tribe
+        
+        [HttpGet("spotify/{id}")]
+        public async Task<ActionResult<TribeSpotify>> GetTribeSpotify(Guid id)
+        {
+            var tribeSpotify = await _context.TribeSpotify.FindAsync(id);
+
+            if (tribeSpotify == null)
+            {
+                return NoContent();
+            }
+
+            return tribeSpotify;
+        }
+        
+        [HttpGet("{id}/spotify")]
+        public async Task<ActionResult<List<TribeSpotify>>> GetSpotifyByTribeId(Guid id)
+        {
+            List<TribeSpotify> tribeSpotifies = await _context.TribeSpotify.Where(x => x.TribeId == id).ToListAsync();
+
+            if (!tribeSpotifies.Any())
+            {
+                return NoContent();
+            }
+
+            return tribeSpotifies;
+        }
+        
+        [HttpPost("spotify")]
+        public async Task<IActionResult> AddSpotifyToTribe(TribeSpotify tribeSpotify)
+        {
+            if (!TribeExists(tribeSpotify.TribeId))
+            {
+                return BadRequest("Tribe does not exists");
+            }
+            
+            _context.TribeSpotify.Add(tribeSpotify);
+            await _context.SaveChangesAsync();
+
+            return CreatedAtAction("GetTribeSpotify", new { id = tribeSpotify.Id }, tribeSpotify);
+        }
+        
+        // DELETE: api/Tribe/id/spotify
+        [HttpDelete("spotify/{id}")]
+        public async Task<IActionResult> DeleteSpotifyFromTribe(Guid id)
+        {
+            var tribeSpotify = await _context.TribeSpotify.FindAsync(id);
+            if (tribeSpotify == null)
+            {
+                return NoContent();
+            }
+
+            _context.TribeSpotify.Remove(tribeSpotify);
+            await _context.SaveChangesAsync();
+
+            return NoContent();
+        }
     }
 }
