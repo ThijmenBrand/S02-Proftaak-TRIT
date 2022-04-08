@@ -17,5 +17,7 @@
 
   "tribes-overview-page.header": "All tribes",
 
-  "articles-overview.header": "Articles"
+  "articles-overview.header": "Articles",
+
+  "rockstar-page.profile-picture-alt-text": "Profile picture of {name}"
 }

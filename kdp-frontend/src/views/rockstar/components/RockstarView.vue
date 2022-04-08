@@ -5,6 +5,7 @@
         <img
           class="rockstar-profile-image"
           :src="`data:image/png;base64,${rockstar.image}`"
+          :alt="$t('rockstar-page.profile-picture-alt-text', { name: rockstar.name })"
         />
       </div>
       <div class="col-information">
