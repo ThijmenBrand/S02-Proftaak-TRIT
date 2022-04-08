@@ -26,5 +26,6 @@
   "explore-articles-page.search-bar.sort-oldest": "Van oud naar nieuw",
   "explore-articles-page.search-bar.sort-newest": "Van nieuw naar oud",
   "explore-articles-page.search-bar.select-filter": "Selecteer filter",
-  "explore-articles-page.search-bar.placeholder": "Zoeken..."
+  "explore-articles-page.search-bar.placeholder": "Zoeken...",
+  "explore-articles-page.article-thumbnail-alt-text": "Thumbnail van artikel genaamd '{articleName}'"
 }

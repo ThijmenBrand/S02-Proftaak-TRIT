@@ -26,5 +26,6 @@
   "explore-articles-page.search-bar.sort-oldest": "Sort by oldest",
   "explore-articles-page.search-bar.sort-newest": "Sort by newest",
   "explore-articles-page.search-bar.select-filter": "Select filter",
-  "explore-articles-page.search-bar.placeholder": "Search..."
+  "explore-articles-page.search-bar.placeholder": "Search...",
+  "explore-articles-page.article-thumbnail-alt-text": "Thumbnail of article named '{articleName}'"
 }
