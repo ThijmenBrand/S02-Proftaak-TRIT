@@ -4,5 +4,8 @@
   "menu.vision": "OUR VISION",
   "menu.explore": "EXPLORE",
   "menu.tribes": "TRIBES",
-  "menu.home": "HOME"
+  "menu.home": "HOME",
+  "menu.change-language-prompt": "Change the display language",
+  "menu.change-language-prompt.flags.usa": "Flag of the United States of America",
+  "menu.change-language-prompt.flags.nl": "Flag of the Netherlands"
 }

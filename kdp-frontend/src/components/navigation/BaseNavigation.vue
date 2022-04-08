@@ -15,33 +15,45 @@
         <span></span>
       </label>
 
-      <ul class="menu-box">
-        <li>
+      <div class="menu-box">
+        <div class="menu-item">
           <router-link class="menu-item" to="/" @click="CloseTab">
             {{ $t('menu.home') }}
           </router-link>
-        </li>
-        <li>
+        </div>
+        <div class="menu-item">
           <router-link class="menu-item" to="/tribes" @click="CloseTab">
             {{ $t('menu.tribes') }}
           </router-link>
-        </li>
-        <li>
+        </div>
+        <div class="menu-item">
           <router-link class="menu-item" to="/explore" @click="CloseTab">
             {{ $t("menu.explore") }}
           </router-link>
-        </li>
-        <li>
+        </div>
+        <div class="menu-item">
           <a class="menu-item" href="#" @click="CloseTab">
             {{ $t('menu.vision') }}
           </a>
-        </li>
-        <li>
+        </div>
+        <div class="menu-item">
           <a class="menu-item" href="#" @click="CloseTab">
             {{ $t('menu.possibilities') }}
           </a>
-        </li>
-      </ul>
+        </div>
+        <div class="locale-change-container">
+          <div class="locale-container-title"><i>{{ $t('menu.change-language-prompt') }}</i></div>
+          <div class="locale-container">
+            <div class="locale" id="nl">
+              <img src="@/assets/flags/nl.svg" alt="{{ $t('menu.change-language-prompt.flags.nl') }}" />
+            </div>
+            <div class="locale" id="en">
+              <img src="@/assets/flags/us.svg" alt="{{ $t('menu.change-language-prompt.flags.usa')  }}" />
+            </div>
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
 </template>
