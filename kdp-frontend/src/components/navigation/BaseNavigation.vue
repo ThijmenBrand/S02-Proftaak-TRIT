@@ -17,23 +17,29 @@
 
       <ul class="menu-box">
         <li>
-          <router-link class="menu-item" to="/" @click="CloseTab"
-            >HOME</router-link
-          >
+          <router-link class="menu-item" to="/" @click="CloseTab">
+            {{ $t('menu.home') }}
+          </router-link>
         </li>
         <li>
-          <router-link class="menu-item" to="/tribes" @click="CloseTab"
-            >TRIBES</router-link
-          >
+          <router-link class="menu-item" to="/tribes" @click="CloseTab">
+            {{ $t('menu.tribes') }}
+          </router-link>
         </li>
         <li>
-          <router-link class="menu-item" to="/explore" @click="CloseTab"
-            >EXPLORE</router-link
-          >
+          <router-link class="menu-item" to="/explore" @click="CloseTab">
+            {{ $t("menu.explore") }}
+          </router-link>
         </li>
-        <li><a class="menu-item" href="#" @click="CloseTab">OUR VISION</a></li>
         <li>
-          <a class="menu-item" href="#" @click="CloseTab">YOUR POSSIBILITIES</a>
+          <a class="menu-item" href="#" @click="CloseTab">
+            {{ $t('menu.vision') }}
+          </a>
+        </li>
+        <li>
+          <a class="menu-item" href="#" @click="CloseTab">
+            {{ $t('menu.possibilities') }}
+          </a>
         </li>
       </ul>
     </div>
