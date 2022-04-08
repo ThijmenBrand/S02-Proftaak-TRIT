@@ -2,6 +2,7 @@
   <RockstarView :rockstar="rockstar" />
   <div class="background-container">
     <div class="content-container DIN2014-Regular">
+      <h3 class="articles-overview-title">{{ $t('articles-overview.header') }}</h3>
       <div class="loader-container" v-if="loading">
         <Loader />
       </div>

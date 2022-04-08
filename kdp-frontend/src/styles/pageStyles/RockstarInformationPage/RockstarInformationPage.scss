@@ -7,9 +7,15 @@
   }
 }
 .background-container {
-    a {
-      margin: 10px;
-    }
+  a {
+    margin: 10px;
+  }
+  .articles-overview-title {
+    text-align: center;
+    margin: 0;
+    color: $trit-white;
+    padding-top: 20px;
+  }
   .content-container {
     min-height: calc(100vh - 257.5px);
     .loader-container {
