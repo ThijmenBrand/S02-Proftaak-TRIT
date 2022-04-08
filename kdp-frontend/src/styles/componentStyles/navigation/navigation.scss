@@ -143,9 +143,18 @@
 
     height: 3em;
 
-    .locale {
+    .locale-single {
       height: 100%;
       width: 3em;
+
+      img {
+        position: relative;
+        top: -1.5em;
+      }
+
+      img:hover {
+        cursor: pointer;
+      }
     }
   }
 }
