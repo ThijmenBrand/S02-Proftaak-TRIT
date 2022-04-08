@@ -1,5 +1,6 @@
 ﻿{
-  "hello.world": "hallo wereld!",
+  "hello-world": "hallo wereld!",
+  "rockstars-logo": "RockstarsIT logo",
   "menu.explore": "VERKEN",
   "menu.vision": "ONZE VISIE",
   "menu.possibilities": "UW MOGELIJKHEDEN",
@@ -7,5 +8,6 @@
   "menu.home": "HOME",
   "menu.change-language-prompt": "Verander de weergavetaal",
   "menu.change-language-prompt.flags.usa": "Vlag van de Verenigde Staten",
-  "menu.change-language-prompt.flags.nl": "Vlag van Nederland"
+  "menu.change-language-prompt.flags.nl": "Vlag van Nederland",
+  "menu.change-language-prompt.flags.generic" : "Landsvlad die een mogelijke weergevetaal weerspiegelt"
 }

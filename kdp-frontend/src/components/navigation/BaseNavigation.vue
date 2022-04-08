@@ -6,6 +6,7 @@
           src="@/assets/logo.svg"
           class="shadow logo-style st0 st1 st5"
           id="rs-logo"
+          :alt="$t('rockstars-logo')"
         />
       </router-link>
     </div>
@@ -59,7 +60,10 @@
                   v-model="$i18n.locale"
                   :value="locale">
               <label :for="locale">
-                <img :src="require('@/assets/flags/' + locale + '.svg')" />
+                <img
+                    :src="require('@/assets/flags/' + locale + '.svg')"
+                    :alt="$t('menu.change-language-prompt.flags.generic')"
+                />
               </label>
             </div>
           </div>
