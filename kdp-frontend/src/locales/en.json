@@ -19,5 +19,12 @@
 
   "articles-overview.header": "Articles",
 
-  "rockstar-page.profile-picture-alt-text": "Profile picture of {name}"
+  "rockstar-page.profile-picture-alt-text": "Profile picture of {name}",
+
+  "explore-articles-page.search-bar.sort-title-za": "Sort title by Z-A",
+  "explore-articles-page.search-bar.sort-title-az": "Sort title by A-Z",
+  "explore-articles-page.search-bar.sort-oldest": "Sort by oldest",
+  "explore-articles-page.search-bar.sort-newest": "Sort by newest",
+  "explore-articles-page.search-bar.select-filter": "Select filter",
+  "explore-articles-page.search-bar.placeholder": "Search..."
 }

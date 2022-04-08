@@ -1,13 +1,13 @@
 <template>
   <div class="search-bar">
-    <input v-model="searchQuery" placeholder="Search.." class="search-input" />
+    <input v-model="searchQuery" :placeholder="$t('explore-articles-page.search-bar.placeholder')" class="search-input" />
     <div class="custom-select">
       <select class="select" v-model="selectedFilter">
-        <option class="select-item" value="">Select filter</option>
-        <option class="select-item" value="new">Sort by newest</option>
-        <option class="select-item" value="old">Sort by oldest</option>
-        <option class="select-item" value="a-z">Sort title by A-Z</option>
-        <option class="select-item" value="z-a">Sort title by Z-A</option>
+        <option class="select-item" value="">{{ $t('explore-articles-page.search-bar.select-filter') }}</option>
+        <option class="select-item" value="new">{{ $t('explore-articles-page.search-bar.sort-newest') }}</option>
+        <option class="select-item" value="old">{{ $t('explore-articles-page.search-bar.sort-oldest') }}</option>
+        <option class="select-item" value="a-z">{{ $t('explore-articles-page.search-bar.sort-title-az') }}</option>
+        <option class="select-item" value="z-a">{{ $t('explore-articles-page.search-bar.sort-title-za') }}</option>
       </select>
     </div>
   </div>

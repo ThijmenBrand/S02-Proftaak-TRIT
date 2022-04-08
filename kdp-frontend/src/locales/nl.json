@@ -19,5 +19,12 @@
 
   "articles-overview.header": "Artikelen",
 
-  "rockstar-page.profile-picture-alt-text": "Profielfoto van {name}"
+  "rockstar-page.profile-picture-alt-text": "Profielfoto van {name}",
+
+  "explore-articles-page.search-bar.sort-title-za": "Sorteren op titel, Z-A",
+  "explore-articles-page.search-bar.sort-title-az": "Sorteren op titel, A-Z",
+  "explore-articles-page.search-bar.sort-oldest": "Van oud naar nieuw",
+  "explore-articles-page.search-bar.sort-newest": "Van nieuw naar oud",
+  "explore-articles-page.search-bar.select-filter": "Selecteer filter",
+  "explore-articles-page.search-bar.placeholder": "Zoeken..."
 }
