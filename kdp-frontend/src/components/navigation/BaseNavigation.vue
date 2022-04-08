@@ -41,6 +41,7 @@
             {{ $t('menu.possibilities') }}
           </a>
         </div>
+
         <div class="locale-change-container">
           <div class="locale-container-title"><i>{{ $t('menu.change-language-prompt') }}</i></div>
           <div class="locale-container">
