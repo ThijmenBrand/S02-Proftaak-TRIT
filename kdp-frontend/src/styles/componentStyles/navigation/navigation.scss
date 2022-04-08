@@ -126,7 +126,7 @@
   margin-top: auto;
   transform: translateY(-6em);
   height: 5em;
-  padding-left: 3em;
+  padding-left: 2.5em;
 
   .locale-container-title {
     height: 1.5em;
@@ -147,13 +147,17 @@
       height: 100%;
       width: 3em;
 
-      img {
+      img:hover {
+        cursor: pointer;
+      }
+
+      label {
         position: relative;
         top: -1.5em;
       }
 
-      img:hover {
-        cursor: pointer;
+      input[type="radio"]:checked + label {
+        box-shadow: $trit-yellow 0 5px;
       }
     }
   }
