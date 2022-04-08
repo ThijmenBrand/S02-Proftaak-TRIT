@@ -4,7 +4,7 @@
       <div class="col-image">
         <img
           class="rockstar-profile-image"
-          :src="`data:image/png;base64,${rockstar.image}`"
+          :src="rockstar.image"
           :alt="$t('rockstar-page.profile-picture-alt-text', { name: rockstar.name })"
         />
       </div>

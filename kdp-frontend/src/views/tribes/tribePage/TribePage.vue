@@ -3,26 +3,14 @@
     <div class="tribes-overview">
       <h3 class="tribe-title">{{ currentTribe.name }}</h3>
       <div class="profile-container">
-        <div class="lds-ripple" v-if="loading">
-          <div></div>
-          <div></div>
-        </div>
-        <router-link
-          v-else
-          v-for="(rockstar, index) in rockstars"
-          :key="index"
-          :to="{
-            name: 'rockstar',
-            params: { rockstarId: rockstar.id },
-          }"
-        >
-          <profiletag
+          <profiletag  v-for="(rockstar, index) in rockstars"
+            :key="index" 
+            :id="rockstar.id"
             :name="rockstar.name"
             :image="rockstar.image"
             :role="rockstar.role"
             class="profile-tag"
           />
-        </router-link>
       </div>
     </div>
     <div class="background-container">
