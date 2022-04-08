@@ -9,5 +9,6 @@
   "menu.change-language-prompt": "Verander de weergavetaal",
   "menu.change-language-prompt.flags.usa": "Vlag van de Verenigde Staten",
   "menu.change-language-prompt.flags.nl": "Vlag van Nederland",
-  "menu.change-language-prompt.flags.generic" : "Landsvlad die een mogelijke weergevetaal weerspiegelt"
+  "menu.change-language-prompt.flags.generic" : "Landsvlad die een mogelijke weergevetaal weerspiegelt",
+  "homepage.header": "Hoofdpagina"
 }
