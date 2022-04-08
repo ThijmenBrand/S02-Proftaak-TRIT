@@ -44,12 +44,9 @@
         <div class="locale-change-container">
           <div class="locale-container-title"><i>{{ $t('menu.change-language-prompt') }}</i></div>
           <div class="locale-container">
-            <div class="locale" id="nl">
-              <img src="@/assets/flags/nl.svg" alt="{{ $t('menu.change-language-prompt.flags.nl') }}" />
-            </div>
-            <div class="locale" id="en">
-              <img src="@/assets/flags/us.svg" alt="{{ $t('menu.change-language-prompt.flags.usa')  }}" />
-            </div>
+            <select v-model="$i18n.locale">
+              <option v-for="locale in $i18n.availableLocales" :key="`locale-${locale}`" :value="locale">{{ locale }}</option>
+            </select>
           </div>
         </div>
       </div>

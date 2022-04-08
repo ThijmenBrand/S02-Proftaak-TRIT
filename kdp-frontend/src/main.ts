@@ -2,13 +2,23 @@ import { createApp } from "vue";
 import App from "./App.vue";
 import router from "./router";
 import store from "./store";
-import { createI18n } from "vue-i18n";
-import { I18nHelper } from "@/i18nHelper";
 
-const i18n = createI18n({
-  locale: process.env.VUE_APP_I18N_LOCALE || "nl",
-  fallbackLocale: process.env.VUE_APP_I18N_FALLBACK_LOCALE || "en",
-  messages: I18nHelper.loadLocaleMessages(),
+import {createI18n, I18nOptions} from "vue-i18n";
+
+import nl from "@/locales/nl.json";
+import en from "@/locales/en.json";
+
+type MessageSchema = typeof nl;
+
+const i18n = createI18n<I18nOptions, [MessageSchema], 'nl' | 'en'>({
+  legacy: false,
+  globalInjection: true,
+  locale: 'nl',
+  fallbackLocale: 'en',
+  messages: {
+    'nl' : nl,
+    'en' : en
+  },
 });
 
 createApp(App).use(store).use(router).use(i18n).mount("#app");
