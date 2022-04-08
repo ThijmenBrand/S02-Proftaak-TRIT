@@ -1,6 +1,8 @@
 {
   "hello-world": "hello world!",
+
   "rockstars-logo": "RockstarsIT logo",
+
   "menu.possibilities": "YOUR POSSIBILITIES",
   "menu.vision": "OUR VISION",
   "menu.explore": "EXPLORE",
@@ -10,5 +12,8 @@
   "menu.change-language-prompt.flags.usa": "Flag of the United States of America",
   "menu.change-language-prompt.flags.nl": "Flag of the Netherlands",
   "menu.change-language-prompt.flags.generic": "Country flag depicting a possible display language",
-  "homepage.header": "Homepage"
+
+  "homepage.header": "Homepage",
+
+  "tribes-overview-page.header": "All tribes"
 }
