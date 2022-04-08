@@ -15,5 +15,7 @@
 
   "homepage.header": "Homepage",
 
-  "tribes-overview-page.header": "All tribes"
+  "tribes-overview-page.header": "All tribes",
+
+  "articles-overview.header": "Articles"
 }

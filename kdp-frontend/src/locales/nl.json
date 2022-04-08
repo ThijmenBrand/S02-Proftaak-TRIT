@@ -15,5 +15,7 @@
 
   "homepage.header": "Hoofdpagina",
 
-  "tribes-overview-page.header": "Alle tribes"
+  "tribes-overview-page.header": "Alle tribes",
+
+  "articles-overview.header": "Artikelen"
 }

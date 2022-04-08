@@ -27,7 +27,7 @@
     </div>
     <div class="background-container">
       <div class="content-container">
-        <h3 class="articles-overview-title">Articles</h3>
+        <h3 class="articles-overview-title">{{ $t('articles-overview.header') }}</h3>
         <div class="loader-container" v-if="loading">
           <Loader />
         </div>
