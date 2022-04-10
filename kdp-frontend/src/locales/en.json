@@ -3,29 +3,36 @@
 
   "rockstars-logo": "RockstarsIT logo",
 
-  "menu.possibilities": "YOUR POSSIBILITIES",
-  "menu.vision": "OUR VISION",
-  "menu.explore": "EXPLORE",
-  "menu.tribes": "TRIBES",
-  "menu.home": "HOME",
-  "menu.change-language-prompt": "Change the display language",
-  "menu.change-language-prompt.flags.usa": "Flag of the United States of America",
-  "menu.change-language-prompt.flags.nl": "Flag of the Netherlands",
-  "menu.change-language-prompt.flags.generic": "Country flag depicting a possible display language",
-
-  "homepage.header": "Homepage",
-
-  "tribes-overview-page.header": "All tribes",
-
-  "articles-overview.header": "Articles",
-
-  "rockstar-page.profile-picture-alt-text": "Profile picture of {name}",
-
-  "explore-articles-page.search-bar.sort-title-za": "Sort title by Z-A",
-  "explore-articles-page.search-bar.sort-title-az": "Sort title by A-Z",
-  "explore-articles-page.search-bar.sort-oldest": "Sort by oldest",
-  "explore-articles-page.search-bar.sort-newest": "Sort by newest",
-  "explore-articles-page.search-bar.select-filter": "Select filter",
-  "explore-articles-page.search-bar.placeholder": "Search...",
-  "explore-articles-page.article-thumbnail-alt-text": "Thumbnail of article named '{articleName}'"
+  "menu": {
+    "possibilities": "YOUR POSSIBILITIES",
+    "vision": "OUR VISION",
+    "explore": "EXPLORE",
+    "tribes": "TRIBES",
+    "home": "HOME",
+    "change-language-prompt": "Change the display language",
+    "change-language-prompt.flags.usa": "Flag of the United States of America",
+    "change-language-prompt.flags.nl": "Flag of the Netherlands",
+    "change-language-prompt.flags.generic": "Country flag depicting a possible display language"
+  },
+  "homepage": {
+    "header": "Homepage"
+  },
+  "tribes-overview-page": {
+    "header": "All tribes"
+  },
+  "articles-overview": {
+    "header": "Articles"
+  },
+  "rockstar-page": {
+    "profile-picture-alt-text": "Profile picture of {name}"
+  },
+  "explore-articles-page": {
+    "search-bar.sort-title-za": "Sort title by Z-A",
+    "search-bar.sort-title-az": "Sort title by A-Z",
+    "search-bar.sort-oldest": "Sort by oldest",
+    "search-bar.sort-newest": "Sort by newest",
+    "search-bar.select-filter": "Select filter",
+    "search-bar.placeholder": "Search...",
+    "article-thumbnail-alt-text": "Thumbnail of article named '{articleName}'"
+  }
 }
