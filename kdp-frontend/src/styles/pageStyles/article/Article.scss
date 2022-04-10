@@ -1,3 +1,5 @@
+@import "@/styles/variables.scss";
+
 .content-container {
     .article-header-container {
       display: flex;
@@ -8,10 +10,72 @@
     .article-title-container {
       display: inline-block;
     }
+}
+
+.background-container {
+  color: white;
+  .article-info {
+    padding-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    span {
+      font-size: 1.5vw;
+      @media only screen and (max-width: $responsive-size1) {
+        font-size: 5vw;
+      }
+    }
+    .icon {
+      margin-right: 0.5vw;
+      height: 1.5vw;
+      width: 1.5vw;
+      @media only screen and (max-width: $responsive-size1) {
+        height: 5vw;
+        width: 5vw;
+      }
+    }
+    .left-article-info {
+      width: 15%;
+      display: flex;
+      justify-content: space-between;
+      @media only screen and (max-width: $responsive-size1) {
+        width: 70%;
+      }
+    }
+    .info-item {
+      width: fit-content;
+      display: flex;
+      align-items: center;
+    }
   }
+}
   
-  .article-content {
-    padding: 30px 0px;
-    color: white;
-    min-height: calc(100vh - 365.5px);
+.article-content {
+  padding: 30px 0px;
+  min-height: calc(100vh - 365.5px);
+}
+
+.row {
+  &::after {
+    content: "";
+    display: table;
+    clear: both;
   }
+
+  .column {
+    float: left;
+  }
+
+  .left {
+    width: 70%;
+    @media only screen and (max-width: $responsive-size1) {
+      width: 100%;
+    }
+  }
+
+  .right {
+    width: 30%;
+    @media only screen and (max-width: $responsive-size1) {
+      width: 100%;
+    }
+  }
+}
