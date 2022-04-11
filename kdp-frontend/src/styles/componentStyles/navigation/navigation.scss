@@ -83,22 +83,23 @@
 }
 
 .menu-box {
-  display: block;
+  display: flex;
+  flex-direction: column;
+
   position: fixed;
   top: 0;
   right: -100%;
   width: 300px;
   height: 100%;
   margin: 0;
-  padding: 100px 0;
+  padding: 6em 0;
   list-style: none;
   background-color: $trit-gray;
   box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.4);
   transition-duration: 0.25s;
 }
-.menu-item {
-  display: block;
-  padding: 12px 24px;
+.menu-box .menu-item {
+  padding: 0.5em 1em;
   color: $trit-white;
   font-family: "Roboto", sans-serif;
   font-size: 20px;

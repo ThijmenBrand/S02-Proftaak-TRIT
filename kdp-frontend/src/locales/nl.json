@@ -1,0 +1,31 @@
+﻿{
+  "hello-world": "hallo wereld!",
+
+  "rockstars-logo": "RockstarsIT logo",
+
+  "menu.explore": "VERKEN",
+  "menu.vision": "ONZE VISIE",
+  "menu.possibilities": "UW MOGELIJKHEDEN",
+  "menu.tribes": "TRIBES",
+  "menu.home": "HOME",
+  "menu.change-language-prompt": "Verander de weergavetaal",
+  "menu.change-language-prompt.flags.usa": "Vlag van de Verenigde Staten",
+  "menu.change-language-prompt.flags.nl": "Vlag van Nederland",
+  "menu.change-language-prompt.flags.generic" : "Landsvlad die een mogelijke weergevetaal weerspiegelt",
+
+  "homepage.header": "Hoofdpagina",
+
+  "tribes-overview-page.header": "Alle tribes",
+
+  "articles-overview.header": "Artikelen",
+
+  "rockstar-page.profile-picture-alt-text": "Profielfoto van {name}",
+
+  "explore-articles-page.search-bar.sort-title-za": "Sorteren op titel, Z-A",
+  "explore-articles-page.search-bar.sort-title-az": "Sorteren op titel, A-Z",
+  "explore-articles-page.search-bar.sort-oldest": "Van oud naar nieuw",
+  "explore-articles-page.search-bar.sort-newest": "Van nieuw naar oud",
+  "explore-articles-page.search-bar.select-filter": "Selecteer filter",
+  "explore-articles-page.search-bar.placeholder": "Zoeken...",
+  "explore-articles-page.article-thumbnail-alt-text": "Thumbnail van artikel genaamd '{articleName}'"
+}
