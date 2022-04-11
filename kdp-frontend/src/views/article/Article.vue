@@ -13,9 +13,9 @@
   </div>
   <div class="background-container">
     <div class="article-details">
-        <div class="publish-date">
-          <p>{{publishDate}}</p>
-        </div>
+      <div class="publish-date">
+        <p>{{ customPublishDate }}</p>
+      </div>
     </div>
     <div class="content-container article-content">
       <Blog :articleContent="articleDetails.content" />
@@ -59,19 +59,17 @@ export default {
         .then(() => store.dispatch("article/getRockstar"));
     });
 
-    const articleDetails = computed(
-      (): ArticleShape => {
-        const article = store.getters["article/getArticle"]
-        console.log(" test");
-        console.log(article)
-        return article
-        }
-    );
+    const articleDetails = computed((): ArticleShape => {
+      const article = store.getters["article/getArticle"];
+      return article;
+    });
 
-    const publishDate = computed(() => {
+    const customPublishDate = computed(() => {
       const publishDate = articleDetails.value.publishDate;
       const language = navigator.language;
-      const publishDateCustom = new Date(publishDate.toString()).toLocaleDateString(language);
+      const publishDateCustom = new Date(
+        publishDate.toString()
+      ).toLocaleDateString(language);
       return publishDateCustom;
     });
 
@@ -79,7 +77,13 @@ export default {
       return store.getters["article/getRockstar"];
     });
 
-    return { articleId, articleDetails, loading, getRockstar, publishDate};
+    return {
+      articleId,
+      articleDetails,
+      loading,
+      getRockstar,
+      customPublishDate,
+    };
   },
 };
 </script>

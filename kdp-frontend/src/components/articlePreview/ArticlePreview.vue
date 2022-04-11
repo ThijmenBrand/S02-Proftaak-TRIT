@@ -1,4 +1,3 @@
-
 <template>
   <div>
     <div>
@@ -14,31 +13,29 @@
         <p class="rockstar-name">
           {{ rockstarName }}
         </p>
+        <p class="publish-date">
+          {{ articlePublishDate }}
+        </p>
       </div>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { computed } from 'vue';
-import ArticleShape from '@/models/Article';
-import store from '@/store';
 export default {
   name: "ArticlePreview",
   props: {
     name: String,
     content: String,
     rockstarName: String,
+    articlePublishDate: String,
   },
   setup() {
     const limitContent = (content: string): string => {
       return content.length < 250 ? content : content.substring(0, 250) + "...";
     };
-    
-    const articleDetails = computed(
-      (): ArticleShape => store.getters["article/getArticle"]
-    );
-    return { limitContent};
+
+    return { limitContent };
   },
 };
 </script>
