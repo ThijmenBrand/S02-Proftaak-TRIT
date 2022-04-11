@@ -14,6 +14,17 @@
         <div class="row-description">
           <a class="DIN2014-Regular">{{ rockstar.description }}</a>
         </div>
+
+        <div class="col-socials">
+
+          <a  v-if="rockstar.twitter != null" class="social-component" :href="rockstar.twitter">
+            <img class="social-image" src="@/assets/images/socials/twitter.svg"/>
+          </a>
+          
+          <a v-if="rockstar.linkedIn != null" class="social-component" :href="rockstar.linkedIn">
+            <img class="social-image" src="@/assets/images/socials/linkedin.svg"/>
+          </a>
+        </div>
       </div>
     </div>
   </div>

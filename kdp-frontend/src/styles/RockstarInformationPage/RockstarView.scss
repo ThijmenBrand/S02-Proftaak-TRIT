@@ -2,7 +2,7 @@
 
 .rockstar-pane {
   width: 100%;
-  height: 12em;
+  //height: 12em;
   background-color: $trit-yellow;
   margin-bottom: 1em;
 }
@@ -21,6 +21,16 @@
 .profile-image {
   width: 12em;
   height: 12em;
+}
+
+.social-image {
+  width: 1.7em;
+  height: 1.7em;
+}
+
+.social-text {
+  color: black;
+  font-size: 1.1rem;
 }
 
 .rockstar-card .col-image {
@@ -47,10 +57,25 @@
   height: 100%;
 }
 
+
+.col-socials {
+  width: fit-content;
+  margin: 0 0 5px 0;
+  display: flex;
+  flex-direction: row;
+}
+
+.social-component {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin: 0 0.5em 0 0;
+}
+
 @media only screen and (max-width: 1000px) {
   /* for mobile screens <= 1000px width */
   .rockstar-pane {
-    height: 24em;
+    height: fit-content;
   }
   .rockstar-card {
     width: 100vw;
@@ -59,7 +84,7 @@
     flex-direction: column;
   }
 
-  .rockstar-card .col-information {
+  .rockstar-card .col-information .row-description {
     flex: 100%;
   }
 
@@ -74,4 +99,5 @@
   .rockstar-card .col-image {
     margin: 0 auto 0 auto;
   }
+  
 }

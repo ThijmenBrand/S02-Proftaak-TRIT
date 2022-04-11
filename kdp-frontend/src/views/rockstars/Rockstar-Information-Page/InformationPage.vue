@@ -45,7 +45,7 @@ export default {
     const articles = computed( (): ArticleShape[] => {
       return store.getters['rockstars/getArticles'];
     });
-    
+
     // when loading the page, get the rockstar by id and their articles
     onMounted(() => {
       store.commit("rockstars/CLEAR_ROCKSTAR");
@@ -56,7 +56,7 @@ export default {
     // on every update, change the page title to the rockstar's name
     onUpdated( () => {
       document.title = rockstar.value.name;
-
+      
       if (route.params.rockstarId !== rockstar.value.id){
         store.dispatch('rockstars/getRockstar', route.params.rockstarId);
         store.dispatch('rockstars/getArticles', route.params.rockstarId);
@@ -78,7 +78,6 @@ a {
 }
 
 .articles-container {
-  margin-top: 30px;
   display: grid;
   justify-content: center;
   grid-row-gap: 1rem;

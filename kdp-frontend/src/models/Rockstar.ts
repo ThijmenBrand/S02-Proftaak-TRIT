@@ -5,4 +5,8 @@ export interface RockstarShape {
   image: string;
   description: string;
   role: string;
+  linkedIn:string;
+  twitter:string;
+  email:string;
+  phone:string;
 }
