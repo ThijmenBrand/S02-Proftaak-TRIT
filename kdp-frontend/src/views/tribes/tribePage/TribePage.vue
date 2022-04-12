@@ -37,6 +37,8 @@
             />
           </router-link>
         </div>
+        <h3 class="podcasts-overview-title">Podcasts</h3>
+        <SpotifyCarousel :spotify-links="spotifyList" />
       </div>
     </div>
   </div>
@@ -54,8 +56,10 @@ import ArticleShape from "@/models/Article";
 import ArticlePreview from "@/components/articlePreview/ArticlePreview.vue";
 import Profiletag from "@/components/profileTag/Profiletag.vue";
 import Loader from "@/components/loader/Loader.vue";
+import SpotifyCarousel from "@/components/carousel/Carousel.vue";
 export default {
   components: {
+    SpotifyCarousel,
     Profiletag,
     ArticlePreview,
     Loader,
@@ -103,7 +107,19 @@ export default {
       return articles;
     });
 
-    return { tribeArticles, articles, rockstars, currentTribe, loading };
+    let spotifyList = computed((): any[] => {
+      const spotify = store.getters["tribes/getAllSpotifyByTribe"];
+      return spotify;
+    });
+
+    return {
+      tribeArticles,
+      articles,
+      rockstars,
+      currentTribe,
+      loading,
+      spotifyList,
+    };
   },
 };
 </script>

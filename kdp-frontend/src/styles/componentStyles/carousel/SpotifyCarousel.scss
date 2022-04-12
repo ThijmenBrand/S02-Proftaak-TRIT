@@ -1,0 +1,36 @@
+@import "@/styles/variables.scss";
+
+.spotify-iframe {
+  overflow: hidden;
+  width: 75%;
+}
+.carousel{
+  margin-top: 30px;
+  width: 100% ;
+}
+
+.carousel__prev {
+  top: 50%;
+  left: 0;
+  transform: translate(0, -50%) !important;
+}
+
+.carousel__next {
+  top: 50%;
+  right: 0;
+  transform: translate(0, -50%) !important;
+}
+.carousel__next,
+.carousel__prev{
+  background-color: $trit-yellow !important;
+  svg{
+    fill: $trit-gray !important;
+  }
+}
+
+.carousel__pagination-button{
+  background-color: $trit-white !important;
+}
+.carousel__pagination-button--active {
+  background-color: $trit-yellow !important;
+}

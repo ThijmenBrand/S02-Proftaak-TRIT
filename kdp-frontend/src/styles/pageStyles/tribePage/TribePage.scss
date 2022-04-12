@@ -28,7 +28,7 @@
   }
   .content-container {
     min-height: calc(100vh - 417px);
-    .articles-overview-title {
+    .articles-overview-title, .podcasts-overview-title {
       text-align: center;
       margin: 0;
       color: $trit-white;

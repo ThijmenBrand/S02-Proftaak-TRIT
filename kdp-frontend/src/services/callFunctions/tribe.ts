@@ -14,6 +14,9 @@ const tribeService = {
   getArticlesByTribe(tribeId: string): Promise<AxiosResponse<any, any>> {
     return API.get(`article/GetArticlesByTribe/${tribeId}`);
   },
+  getAllSpotifyByTribe(tribeId: string): Promise<AxiosResponse<any, any>> {
+    return API.get(`tribe/${tribeId}/spotify`);
+  },
 };
 
 export default tribeService;
