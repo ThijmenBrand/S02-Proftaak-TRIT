@@ -1,5 +1,9 @@
 <template>
-  <carousel :items-to-show="1" class="carousel-wrapper">
+  <carousel
+    v-if="spotifyLinks.length != 0"
+    :items-to-show="1"
+    class="carousel-wrapper"
+  >
     <slide v-for="(item, index) in spotifyLinks" :key="index" class="carousel">
       <iframe
         :src="item.spotifyLink + '&theme=black'"

@@ -52,6 +52,7 @@ import { useStore } from "vuex";
 import { RockstarShape } from "@/models/Rockstar";
 import { TribeShape } from "@/models/Tribe";
 import ArticleShape from "@/models/Article";
+import SpotifyShape from "@/models/Spotifiy";
 
 import ArticlePreview from "@/components/articlePreview/ArticlePreview.vue";
 import Profiletag from "@/components/profileTag/Profiletag.vue";
@@ -108,9 +109,11 @@ export default {
       return articles;
     });
 
-    let spotifyList = computed((): any[] => {
-      const spotify = store.getters["tribes/getAllSpotifyByTribe"];
+    let spotifyList = computed((): SpotifyShape[] => {
+      const spotify: SpotifyShape[] =
+        store.getters["tribes/getAllSpotifyByTribe"];
       console.log(spotify);
+
       return spotify;
     });
 
