@@ -19,12 +19,12 @@
       <div class="menu-box">
         <div class="menu-item">
           <router-link class="menu-item" to="/" @click="CloseTab">
-            {{ $t('menu.home') }}
+            {{ $t("menu.home") }}
           </router-link>
         </div>
         <div class="menu-item">
           <router-link class="menu-item" to="/tribes" @click="CloseTab">
-            {{ $t('menu.tribes') }}
+            {{ $t("menu.tribes") }}
           </router-link>
         </div>
         <div class="menu-item">
@@ -34,18 +34,17 @@
         </div>
         <div class="menu-item">
           <a class="menu-item" href="#" @click="CloseTab">
-            {{ $t('menu.vision') }}
+            {{ $t("menu.vision") }}
           </a>
         </div>
         <div class="menu-item">
           <a class="menu-item" href="#" @click="CloseTab">
-            {{ $t('menu.possibilities') }}
+            {{ $t("menu.possibilities") }}
           </a>
         </div>
 
         <LocaleSelector />
       </div>
-
     </div>
   </div>
 </template>

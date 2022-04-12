@@ -4,7 +4,11 @@
       <img
         src="@/assets/images/article-placeholder-image.jpg"
         class="preview article-image"
-        :alt="$t('explore-articles-page.article-thumbnail-alt-text', { articleName: this.name })"
+        :alt="
+          $t('explore-articles-page.article-thumbnail-alt-text', {
+            articleName: this.name,
+          })
+        "
       />
       <div>
         <h4 class="article-preview-title">{{ name }}</h4>
