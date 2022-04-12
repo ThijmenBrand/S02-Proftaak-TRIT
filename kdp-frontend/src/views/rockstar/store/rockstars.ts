@@ -19,6 +19,10 @@ const rockstar = {
         description: "",
         image: "",
         role: "",
+        linkedIn: "",
+        twitter: "",
+        email: "",
+        phone: "",
       },
       articles: [],
     };
@@ -48,6 +52,7 @@ const rockstar = {
         context.commit("SET_ARTICLES", data);
       }
     },
+
   },
   mutations: {
     SET_ROCKSTAR: (state: rockstarState, data: RockstarShape) => {
@@ -62,6 +67,8 @@ const rockstar = {
         state.rockstar.image = pfPlaceholder;
       }
     },
+
+
     CLEAR_ROCKSTAR: (state: rockstarState) => {
       state.articles = [];
       state.rockstar = {
@@ -70,6 +77,10 @@ const rockstar = {
         description: "",
         role: "",
         image: "",
+        linkedIn: "",
+        twitter: "",
+        email: "",
+        phone: "",
       };
     },
   },
