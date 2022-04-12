@@ -1,5 +1,5 @@
 <template>
-  <p>{{ articleContent }}</p>
+  <div v-html="articleContent" />
 </template>
 
 <script lang="ts">
