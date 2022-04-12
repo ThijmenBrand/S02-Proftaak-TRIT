@@ -110,6 +110,7 @@ export default {
 
     let spotifyList = computed((): any[] => {
       const spotify = store.getters["tribes/getAllSpotifyByTribe"];
+      console.log(spotify);
       return spotify;
     });
 
