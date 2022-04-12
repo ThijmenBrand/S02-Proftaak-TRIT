@@ -1,13 +1,27 @@
 <template>
   <div class="search-bar">
-    <input v-model="searchQuery" placeholder="Search.." class="search-input" />
+    <input
+      v-model="searchQuery"
+      :placeholder="$t('explore-articles-page.search-bar.placeholder')"
+      class="search-input"
+    />
     <div class="custom-select">
       <select class="select" v-model="selectedFilter">
-        <option class="select-item" value="">Select filter</option>
-        <option class="select-item" value="new">Sort by newest</option>
-        <option class="select-item" value="old">Sort by oldest</option>
-        <option class="select-item" value="a-z">Sort title by A-Z</option>
-        <option class="select-item" value="z-a">Sort title by Z-A</option>
+        <option class="select-item" value="">
+          {{ $t("explore-articles-page.search-bar.select-filter") }}
+        </option>
+        <option class="select-item" value="new">
+          {{ $t("explore-articles-page.search-bar.sort-newest") }}
+        </option>
+        <option class="select-item" value="old">
+          {{ $t("explore-articles-page.search-bar.sort-oldest") }}
+        </option>
+        <option class="select-item" value="a-z">
+          {{ $t("explore-articles-page.search-bar.sort-title-az") }}
+        </option>
+        <option class="select-item" value="z-a">
+          {{ $t("explore-articles-page.search-bar.sort-title-za") }}
+        </option>
       </select>
     </div>
   </div>
@@ -30,6 +44,7 @@
             :name="article.title"
             :content="article.content"
             :rockstarName="article.rockstarName"
+            :articlePublishDate="article.publishDate"
           />
         </router-link>
       </div>
@@ -60,8 +75,8 @@ export default {
 
     const loading = computed(() => store.getters["isLoading"]);
 
-    onMounted(() => {
-      store.dispatch("getAllArticles");
+    onMounted(async () => {
+      await store.dispatch("getAllArticles");
     });
 
     const articles = computed((): ArticleShape[] => {
@@ -85,46 +100,54 @@ export default {
         }
       });
       if (selectedFilter.value == "a-z") {
-        returnArray = returnArray.sort((a, b) => {
-          let fa = a.title.toLowerCase(),
-            fb = b.title.toLowerCase();
-          if (fa < fb) {
-            return -1;
+        returnArray = returnArray.sort(
+          (firstComparisonObject, seccondComparisonObject) => {
+            let firstObejctToLower = firstComparisonObject.title.toLowerCase(),
+              secondObjectToLower = seccondComparisonObject.title.toLowerCase();
+            if (firstObejctToLower < secondObjectToLower) {
+              return -1;
+            }
+            if (firstObejctToLower > secondObjectToLower) {
+              return 1;
+            }
+            return 0;
           }
-          if (fa > fb) {
-            return 1;
-          }
-          return 0;
-        });
+        );
       }
       if (selectedFilter.value == "z-a") {
-        returnArray = returnArray.sort((a, b) => {
-          let fa = a.title.toLowerCase(),
-            fb = b.title.toLowerCase();
-          if (fa < fb) {
-            return 1;
+        returnArray = returnArray.sort(
+          (firstComparisonObject, seccondComparisonObject) => {
+            let firstObjectToLower = firstComparisonObject.title.toLowerCase(),
+              secondObjectToLower = seccondComparisonObject.title.toLowerCase();
+            if (firstObjectToLower < secondObjectToLower) {
+              return 1;
+            }
+            if (firstObjectToLower > secondObjectToLower) {
+              return -1;
+            }
+            return 0;
           }
-          if (fa > fb) {
-            return -1;
-          }
-          return 0;
-        });
+        );
       }
       if (selectedFilter.value == "new") {
-        returnArray = returnArray.sort((a, b) => {
-          return (
-            new Date(a.publishDate).valueOf() -
-            new Date(b.publishDate).valueOf()
-          );
-        });
+        returnArray = returnArray.sort(
+          (firstComparisonObject, seccondComparisonObject) => {
+            return (
+              new Date(firstComparisonObject.publishDate.toString()).valueOf() -
+              new Date(seccondComparisonObject.publishDate.toString()).valueOf()
+            );
+          }
+        );
       }
       if (selectedFilter.value == "old") {
-        returnArray = returnArray.sort((a, b) => {
-          return (
-            new Date(b.publishDate).valueOf() -
-            new Date(a.publishDate).valueOf()
-          );
-        });
+        returnArray = returnArray.sort(
+          (firstComparisonObject, seccondComparisonObject) => {
+            return (
+              new Date(firstComparisonObject.publishDate.toString()).valueOf() -
+              new Date(seccondComparisonObject.publishDate.toString()).valueOf()
+            );
+          }
+        );
       }
       return returnArray;
     });

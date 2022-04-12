@@ -4,6 +4,11 @@
       <img
         src="@/assets/images/article-placeholder-image.jpg"
         class="preview article-image"
+        :alt="
+          $t('explore-articles-page.article-thumbnail-alt-text', {
+            articleName: this.name,
+          })
+        "
       />
       <div>
         <h4 class="article-preview-title">{{ name }}</h4>
@@ -12,6 +17,9 @@
         </p>
         <p class="rockstar-name">
           {{ rockstarName }}
+        </p>
+        <p class="publish-date">
+          {{ articlePublishDate }}
         </p>
       </div>
     </div>
@@ -25,6 +33,7 @@ export default {
     name: String,
     content: String,
     rockstarName: String,
+    articlePublishDate: String,
   },
   setup() {
     const limitContent = (content: string): string => {

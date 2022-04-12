@@ -8,13 +8,14 @@
   .profile-image-container {
     height: 60px;
     width: 60px;
-    background-color: white;
+    background-color: $trit-gray;
     border-radius: 50%;
     
     .profile-image {
       height: 60px;
       width: 60px;
       border-radius: 50%;
+      object-fit: cover;
     }
   }
 

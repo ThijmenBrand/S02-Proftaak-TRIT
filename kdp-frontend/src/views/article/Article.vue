@@ -6,12 +6,18 @@
         <h1>{{ articleDetails.title }}</h1>
       </div>
       <ProfileTag
+        :id="getRockstar.id"
         :name="getRockstar.name"
         :image="getRockstar.image"
       ></ProfileTag>
     </div>
   </div>
   <div class="background-container">
+    <div class="article-details">
+      <div class="publish-date">
+        <p>{{ articleDetails.publishDate }}</p>
+      </div>
+    </div>
     <div class="content-container article-content">
       <Blog :articleContent="articleDetails.content" />
     </div>
@@ -47,23 +53,28 @@ export default {
       return route.params.articleId;
     });
 
-    onMounted(() => {
-      store.commit("article/CLEAR_ARTICLE");
-      store
+    onMounted(async () => {
+      await store.commit("article/CLEAR_ARTICLE");
+      await store
         .dispatch("article/getArticle", articleId.value)
         .then(() => store.dispatch("article/getRockstar"));
     });
 
-    const articleDetails = computed(
-      (): ArticleShape => store.getters["article/getArticle"]
-    );
+    const articleDetails = computed((): ArticleShape => {
+      const article = store.getters["article/getArticle"];
+      return article;
+    });
 
     const getRockstar = computed((): RockstarShape => {
-      console.log(store.getters["article/getRockstar"]);
       return store.getters["article/getRockstar"];
     });
 
-    return { articleId, articleDetails, loading, getRockstar };
+    return {
+      articleId,
+      articleDetails,
+      loading,
+      getRockstar,
+    };
   },
 };
 </script>

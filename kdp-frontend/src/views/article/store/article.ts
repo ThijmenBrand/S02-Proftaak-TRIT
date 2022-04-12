@@ -3,6 +3,7 @@ import { RockstarShape } from "@/models/Rockstar";
 import articleService from "@/services/callFunctions/article";
 import rockstarService from "@/services/callFunctions/rockstar";
 import pfPlaceholder from "@/assets/profilePlaceholder";
+import SetProfilePicture from "@/services/profilePictureHelper";
 
 interface articleState {
   article: ArticleShape;
@@ -29,6 +30,10 @@ const tribes = {
         description: "",
         image: "",
         role: "",
+        linkedIn: "",
+        twitter: "",
+        email: "",
+        phone: "",
       },
     };
   },
@@ -53,7 +58,6 @@ const tribes = {
     getRockstar: async (context: any) => {
       context.rootState.loading = true;
       const rockstarId = context.state.article.rockstarId;
-      console.log(rockstarId);
       const { data, status } = await rockstarService.getRockstar(rockstarId);
 
       if (status >= 200 && status <= 299) {
@@ -72,16 +76,28 @@ const tribes = {
         title: "",
         tribeId: "",
         tribeName: "",
-        publishDate: new Date(),
+        publishDate: "",
       };
     },
     SET_ARTICLE: (state: articleState, data: ArticleShape) => {
       state.article = data;
+
+      let custom = data.publishDate;
+      if (data.publishDate != "") {
+        const language = navigator.language;
+        custom = new Date(data.publishDate.toString()).toLocaleDateString(
+          language
+        );
+      }
+
+      state.article.publishDate = custom;
     },
     SET_ROCKSTAR: (state: articleState, data: RockstarShape) => {
       state.rockstar = data;
       if (state.rockstar.image == null) {
         state.rockstar.image = pfPlaceholder;
+      } else {
+        state.rockstar.image = SetProfilePicture(data.image);
       }
     },
   },

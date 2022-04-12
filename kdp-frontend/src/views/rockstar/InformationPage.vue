@@ -2,6 +2,9 @@
   <RockstarView :rockstar="rockstar" />
   <div class="background-container">
     <div class="content-container DIN2014-Regular">
+      <h3 class="articles-overview-title">
+        {{ $t("articles-overview.header") }}
+      </h3>
       <div class="loader-container" v-if="loading">
         <Loader />
       </div>
@@ -50,19 +53,19 @@ export default {
     });
 
     // when loading the page, get the rockstar by id and their articles
-    onMounted(() => {
-      store.commit("rockstars/CLEAR_ROCKSTAR");
-      store.dispatch("rockstars/getRockstar", route.params.rockstarId);
-      store.dispatch("rockstars/getArticles", route.params.rockstarId);
+    onMounted(async () => {
+      await store.commit("rockstars/CLEAR_ROCKSTAR");
+      await store.dispatch("rockstars/getRockstar", route.params.rockstarId);
+      await store.dispatch("rockstars/getArticles", route.params.rockstarId);
     });
 
     // on every update, change the page title to the rockstar's name
-    onUpdated(() => {
+    onUpdated(async () => {
       document.title = rockstar.value.name;
 
       if (route.params.rockstarId !== rockstar.value.id) {
-        store.dispatch("rockstars/getRockstar", route.params.rockstarId);
-        store.dispatch("rockstars/getArticles", route.params.rockstarId);
+        await store.dispatch("rockstars/getRockstar", route.params.rockstarId);
+        await store.dispatch("rockstars/getArticles", route.params.rockstarId);
       }
     });
 

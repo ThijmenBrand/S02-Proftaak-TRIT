@@ -1,0 +1,48 @@
+@import "@/styles/variables.scss";
+@import "@/styles/componentStyles/navigation/navigation.scss";
+
+.locale-change-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  row-gap: 0.5em;
+
+  margin-top: auto;
+  transform: translateY(-6em);
+  height: 5em;
+  padding-left: 2.5em;
+
+  .locale-container-title {
+    height: 1.5em;
+    margin: 0;
+    padding: 0;
+    color: $trit-white;
+  }
+
+  .locale-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    column-gap: 0.5em;
+
+    height: 3em;
+
+    .locale-single {
+      height: 100%;
+      width: 3em;
+
+      img:hover {
+        cursor: pointer;
+      }
+
+      label {
+        position: relative;
+        top: -1.5em;
+      }
+
+      input[type="radio"]:checked + label {
+        box-shadow: $trit-yellow 0 5px;
+      }
+    }
+  }
+}

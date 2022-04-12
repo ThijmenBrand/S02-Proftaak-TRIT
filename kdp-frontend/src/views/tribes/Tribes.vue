@@ -1,6 +1,6 @@
 <template>
   <div class="content-container">
-    <h1>All tribes</h1>
+    <h1>{{ $t("tribes-overview-page.header") }}</h1>
   </div>
   <div class="background-container">
     <div class="content-container">
@@ -39,8 +39,8 @@ export default {
 
     const loading = computed(() => store.getters["isLoading"]);
 
-    onMounted(() => {
-      store.dispatch("tribes/getAllTribes");
+    onMounted(async () => {
+      await store.dispatch("tribes/getAllTribes");
     });
 
     const tribesList = computed((): TribeShape[] => {

@@ -6,6 +6,7 @@
           src="@/assets/logo.svg"
           class="shadow logo-style st0 st1 st5"
           id="rs-logo"
+          :alt="$t('rockstars-logo')"
         />
       </router-link>
     </div>
@@ -15,35 +16,45 @@
         <span></span>
       </label>
 
-      <ul class="menu-box">
-        <li>
-          <router-link class="menu-item" to="/" @click="CloseTab"
-            >HOME</router-link
-          >
-        </li>
-        <li>
-          <router-link class="menu-item" to="/tribes" @click="CloseTab"
-            >TRIBES</router-link
-          >
-        </li>
-        <li>
-          <router-link class="menu-item" to="/explore" @click="CloseTab"
-            >EXPLORE</router-link
-          >
-        </li>
-        <li><a class="menu-item" href="#" @click="CloseTab">OUR VISION</a></li>
-        <li>
-          <a class="menu-item" href="#" @click="CloseTab">YOUR POSSIBILITIES</a>
-        </li>
-      </ul>
+      <div class="menu-box">
+        <div class="menu-item">
+          <router-link class="menu-item" to="/" @click="CloseTab">
+            {{ $t("menu.home") }}
+          </router-link>
+        </div>
+        <div class="menu-item">
+          <router-link class="menu-item" to="/tribes" @click="CloseTab">
+            {{ $t("menu.tribes") }}
+          </router-link>
+        </div>
+        <div class="menu-item">
+          <router-link class="menu-item" to="/explore" @click="CloseTab">
+            {{ $t("menu.explore") }}
+          </router-link>
+        </div>
+        <div class="menu-item">
+          <a class="menu-item" href="#" @click="CloseTab">
+            {{ $t("menu.vision") }}
+          </a>
+        </div>
+        <div class="menu-item">
+          <a class="menu-item" href="#" @click="CloseTab">
+            {{ $t("menu.possibilities") }}
+          </a>
+        </div>
+
+        <LocaleSelector />
+      </div>
     </div>
   </div>
 </template>
 
 <script lang="ts">
 import { ref } from "vue";
+import LocaleSelector from "@/components/localeSelector/LocaleSelector.vue";
 
 export default {
+  components: { LocaleSelector },
   setup() {
     const isOpened = ref(false);
 

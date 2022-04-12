@@ -2,6 +2,7 @@
 import ArticleShape from "@/models/Article";
 import rockstarService from "@/services/callFunctions/rockstar";
 import pfPlaceholder from "@/assets/profilePlaceholder";
+import SetProfilePicture from "@/services/profilePictureHelper";
 
 interface rockstarState {
   rockstar: RockstarShape;
@@ -18,6 +19,10 @@ const rockstar = {
         description: "",
         image: "",
         role: "",
+        linkedIn: "",
+        twitter: "",
+        email: "",
+        phone: "",
       },
       articles: [],
     };
@@ -47,9 +52,13 @@ const rockstar = {
         context.commit("SET_ARTICLES", data);
       }
     },
+
   },
   mutations: {
     SET_ROCKSTAR: (state: rockstarState, data: RockstarShape) => {
+      if (data.image != null) {
+        data.image = SetProfilePicture(data.image);
+      }
       state.rockstar = data;
     },
     SET_ARTICLES: (state: rockstarState, data: ArticleShape[]) => {
@@ -58,6 +67,8 @@ const rockstar = {
         state.rockstar.image = pfPlaceholder;
       }
     },
+
+
     CLEAR_ROCKSTAR: (state: rockstarState) => {
       state.articles = [];
       state.rockstar = {
@@ -66,6 +77,10 @@ const rockstar = {
         description: "",
         role: "",
         image: "",
+        linkedIn: "",
+        twitter: "",
+        email: "",
+        phone: "",
       };
     },
   },

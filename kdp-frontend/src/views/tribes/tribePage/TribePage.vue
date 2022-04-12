@@ -3,31 +3,22 @@
     <div class="tribes-overview">
       <h3 class="tribe-title">{{ currentTribe.name }}</h3>
       <div class="profile-container">
-        <div class="lds-ripple" v-if="loading">
-          <div></div>
-          <div></div>
-        </div>
-        <router-link
-          v-else
+        <profiletag
           v-for="(rockstar, index) in rockstars"
           :key="index"
-          :to="{
-            name: 'rockstar',
-            params: { rockstarId: rockstar.id },
-          }"
-        >
-          <profiletag
-            :name="rockstar.name"
-            :image="rockstar.image"
-            :role="rockstar.role"
-            class="profile-tag"
-          />
-        </router-link>
+          :id="rockstar.id"
+          :name="rockstar.name"
+          :image="rockstar.image"
+          :role="rockstar.role"
+          class="profile-tag"
+        />
       </div>
     </div>
     <div class="background-container">
       <div class="content-container">
-        <h3 class="articles-overview-title">Articles</h3>
+        <h3 class="articles-overview-title">
+          {{ $t("articles-overview.header") }}
+        </h3>
         <div class="loader-container" v-if="loading">
           <Loader />
         </div>
@@ -42,6 +33,7 @@
               :name="article.title"
               :content="article.content"
               :rockstarName="article.rockstarName"
+              :articlePublishDate="article.publishDate"
             />
           </router-link>
         </div>
@@ -84,12 +76,11 @@ export default {
       return store.getters["tribes/getCurrentTribe"];
     });
 
-    onMounted(() => {
-      store.commit("tribes/EMPTY_STORE");
-      store.dispatch("tribes/getCurrentTribe", route.params.tribe);
-      store.dispatch("tribes/getRockstarsByTribe", route.params.tribe);
-      store.dispatch("tribes/getArticlesByTribe", route.params.tribe);
-      store.dispatch("tribes/getAllSpotifyByTribe", route.params.tribe)
+    onMounted(async () => {
+      await store.commit("tribes/EMPTY_STORE");
+      await store.dispatch("tribes/getCurrentTribe", route.params.tribe);
+      await store.dispatch("tribes/getRockstarsByTribe", route.params.tribe);
+      await store.dispatch("tribes/getArticlesByTribe", route.params.tribe);
     });
 
     const articles = computed((): ArticleShape[] => {
