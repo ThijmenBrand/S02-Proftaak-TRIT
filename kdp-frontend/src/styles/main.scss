@@ -1,8 +1,14 @@
 @import "./variables.scss";
 
-@import "./button/BaseButton.scss";
+@import "./componentStyles/button/BaseButton.scss";
 
-@import "./loader/loader.scss";
+@import "./componentStyles/loader/loader.scss";
+
+@import "./componentStyles/navigation/navigation.scss";
+
+@import "./componentStyles/profile-tag/profile-tag.scss";
+
+@import "./componentStyles/articlePreview/ArticlePreview.scss";
 
 html {
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
@@ -59,17 +65,6 @@ p {
 .content-container {
   bottom: 0;
   margin: 0 $page-margin;
-}
-
-.background-container {
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  p {
-    color: white;
-  }
 }
 
 .background-container {

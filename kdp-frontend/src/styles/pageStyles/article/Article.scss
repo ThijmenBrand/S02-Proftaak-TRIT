@@ -1,0 +1,29 @@
+@import "@/styles/variables";
+
+.content-container {
+    .article-header-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+  
+    .article-title-container {
+      display: inline-block;
+    }
+  }
+  
+  .article-content {
+    padding: 30px 0px;
+    color: white;
+    min-height: calc(100vh - 365.5px);
+  }
+
+  .article-details {
+    color:$trit-white;
+    background-color: $trit-gray;
+    padding-top: 2px;
+    margin: 0;
+  }
+  .publish-date {
+    margin-left: 50px;
+  }

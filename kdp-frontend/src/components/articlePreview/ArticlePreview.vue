@@ -1,14 +1,25 @@
 <template>
   <div>
-    <div class="article">
-      <img src="@/assets/images/article-placeholder-image.jpg" class="preview image" />
+    <div>
+      <img
+        src="@/assets/images/article-placeholder-image.jpg"
+        class="preview article-image"
+        :alt="
+          $t('explore-articles-page.article-thumbnail-alt-text', {
+            articleName: this.name,
+          })
+        "
+      />
       <div>
-        <h4 class="title">{{ name }}</h4>
+        <h4 class="article-preview-title">{{ name }}</h4>
         <p class="content">
           {{ limitContent(content) }}
         </p>
         <p class="rockstar-name">
           {{ rockstarName }}
+        </p>
+        <p class="publish-date">
+          {{ articlePublishDate }}
         </p>
       </div>
     </div>
@@ -16,13 +27,13 @@
 </template>
 
 <script lang="ts">
-import rockstar from "@/views/rockstars/store/rockstars";
 export default {
   name: "ArticlePreview",
   props: {
     name: String,
     content: String,
     rockstarName: String,
+    articlePublishDate: String,
   },
   setup() {
     const limitContent = (content: string): string => {
@@ -34,7 +45,4 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-@import "@/styles/variables.scss";
-@import "@/styles/ArticlePreview/ArticlePreview.scss";
-</style>
+<style lang="scss" scoped />
