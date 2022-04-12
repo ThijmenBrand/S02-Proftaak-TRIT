@@ -1,11 +1,12 @@
 <template>
   <Loader v-if="loading" />
   <div class="content-container" v-else>
-    <div class="header-wrapper">
-      <div class="title-category">
-        <h1 class="page-title">{{ articleDetails.title }}</h1>
+    <div class="article-header-container">
+      <div class="article-title-container">
+        <h1>{{ articleDetails.title }}</h1>
       </div>
       <ProfileTag
+        :id="getRockstar.id"
         :name="getRockstar.name"
         :image="getRockstar.image"
       ></ProfileTag>
@@ -19,16 +20,17 @@
 </template>
 
 <script lang="ts">
-import ProfileTag from "@/components/profileTag/Profiletag.vue";
-import ArticleShape from "@/models/Article";
-
-import Blog from "./components/Blog.vue";
-import Loader from "@/components/loader/Loader.vue";
-
 import { useRoute } from "vue-router";
 import { useStore } from "vuex";
 import { computed, onMounted } from "vue";
+
+import ArticleShape from "@/models/Article";
 import { RockstarShape } from "@/models/Rockstar";
+
+import Blog from "./components/Blog.vue";
+import Loader from "@/components/loader/Loader.vue";
+import ProfileTag from "@/components/profileTag/Profiletag.vue";
+
 export default {
   name: "Article-view",
   components: {
@@ -58,7 +60,6 @@ export default {
     );
 
     const getRockstar = computed((): RockstarShape => {
-      console.log(store.getters["article/getRockstar"]);
       return store.getters["article/getRockstar"];
     });
 
@@ -67,18 +68,4 @@ export default {
 };
 </script>
 
-<style scoped lang="scss">
-.header-wrapper {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.article-content {
-  padding: 30px 0px;
-  min-height: calc(100vh - 365.5px);
-}
-.title-category {
-  display: inline-block;
-}
-</style>
+<style scoped lang="scss" src="@/styles/pageStyles/article/Article.scss" />

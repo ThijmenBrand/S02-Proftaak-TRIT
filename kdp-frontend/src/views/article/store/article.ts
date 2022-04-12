@@ -3,6 +3,7 @@ import { RockstarShape } from "@/models/Rockstar";
 import articleService from "@/services/callFunctions/article";
 import rockstarService from "@/services/callFunctions/rockstar";
 import pfPlaceholder from "@/assets/profilePlaceholder";
+import SetProfilePicture from "@/services/profilePictureHelper";
 
 interface articleState {
   article: ArticleShape;
@@ -57,7 +58,6 @@ const tribes = {
     getRockstar: async (context: any) => {
       context.rootState.loading = true;
       const rockstarId = context.state.article.rockstarId;
-      console.log(rockstarId);
       const { data, status } = await rockstarService.getRockstar(rockstarId);
 
       if (status >= 200 && status <= 299) {
@@ -86,6 +86,8 @@ const tribes = {
       state.rockstar = data;
       if (state.rockstar.image == null) {
         state.rockstar.image = pfPlaceholder;
+      } else {
+        state.rockstar.image = SetProfilePicture(data.image);
       }
     },
   },

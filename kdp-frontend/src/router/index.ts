@@ -1,10 +1,10 @@
 import { createRouter, createWebHashHistory, RouteRecordRaw } from "vue-router";
 import Home from "../views/Home.vue";
 import tribes from "@/views/tribes/Tribes.vue";
-import tribe from "@/views/tribes/Tribe-Information-Page/InformationPage.vue";
+import tribe from "@/views/tribes/tribePage/TribePage.vue";
 import article from "@/views/article/Article.vue";
-import RockstarInformationPage from "@/views/rockstars/Rockstar-Information-Page/InformationPage.vue";
-import ExploreArticles from "@/views/Explore-Articles-Page/ExploreArticles.vue";
+import RockstarInformationPage from "@/views/rockstar/InformationPage.vue";
+import ExploreArticles from "@/views/explore/ExploreArticles.vue";
 
 const routes: Array<RouteRecordRaw> = [
   {

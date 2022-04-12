@@ -1,0 +1,40 @@
+@import "@/styles/variables.scss";
+.article {
+  height: auto;
+  width: 400px;
+  border: 1px solid #3e3e3e;
+  background-color: $trit-gray;
+  margin: 5px;
+  display: flex;
+  flex-direction: column;
+  align-content: space-between;
+  align-items: flex-start;
+}
+.content {
+  color: $trit-white;
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-top: 5px;
+  margin: 0px;
+}
+.rockstar-name {
+  font-size: 8;
+  margin-top: 15px;
+  margin-bottom: 5px;
+  padding-left: 15px;
+  color: $trit-yellow;
+}
+.article-preview-title {
+  color: $trit-yellow;
+  text-align: left;
+  padding-left: 15px;
+  text-transform: uppercase;
+  margin-top: 10px;
+  margin-bottom: 5px;
+}
+.article-image {
+  object-fit: scale-down;
+  object-position: top;
+  width: 400px;
+  max-height: 300px;
+}
