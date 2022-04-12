@@ -14,7 +14,7 @@
   <div class="background-container">
     <div class="article-details">
       <div class="publish-date">
-        <p>{{ customPublishDate }}</p>
+        <p>{{ articleDetails.publishDate }}</p>
       </div>
     </div>
     <div class="content-container article-content">
@@ -64,15 +64,6 @@ export default {
       return article;
     });
 
-    const customPublishDate = computed(() => {
-      const publishDate = articleDetails.value.publishDate;
-      const language = navigator.language;
-      const publishDateCustom = new Date(
-        publishDate.toString()
-      ).toLocaleDateString(language);
-      return publishDateCustom;
-    });
-
     const getRockstar = computed((): RockstarShape => {
       return store.getters["article/getRockstar"];
     });
@@ -82,7 +73,6 @@ export default {
       articleDetails,
       loading,
       getRockstar,
-      customPublishDate,
     };
   },
 };
