@@ -38,8 +38,7 @@
           </router-link>
         </div>
         <h3 class="podcasts-overview-title">Podcasts</h3>
-        <SpotifyCarousel
-            :spotify-links="spotifyList"/>
+        <SpotifyCarousel :spotify-links="spotifyList" />
       </div>
     </div>
   </div>
@@ -113,7 +112,14 @@ export default {
       return spotify;
     });
 
-    return { tribeArticles, articles, rockstars, currentTribe, loading, spotifyList, };
+    return {
+      tribeArticles,
+      articles,
+      rockstars,
+      currentTribe,
+      loading,
+      spotifyList,
+    };
   },
 };
 </script>
