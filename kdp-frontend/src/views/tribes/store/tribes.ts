@@ -9,6 +9,7 @@ interface tribesState {
   rockstarsList: RockstarShape[];
   articleList: ArticleShape[];
   currentTribe: TribeShape;
+  spotifyList: [];
 }
 
 const tribes = {
@@ -22,6 +23,7 @@ const tribes = {
       },
       rockstarsList: [],
       articleList: [],
+      spotifyList: [],
     };
   },
   getters: {
@@ -39,6 +41,9 @@ const tribes = {
     },
     getArticlesbByTribe: (state: tribesState): ArticleShape[] => {
       return state.articleList;
+    },
+    getAllSpotifyByTribe: (state: tribesState): [] => {
+      return state.spotifyList;
     },
   },
   actions: {
@@ -79,6 +84,12 @@ const tribes = {
         context.commit("SET_ARTICLES_BY_TRIBE", data);
       }
     },
+    getAllSpotifyByTribe: async (context: any, tribeId: string) => {
+      const { data, status } = await tribeService.getAllSpotifyByTribe(tribeId);
+      if (status >= 200 && status <= 299) {
+        context.commit("SET_SPOTIFY_BY_TRIBE", data);
+      }
+    },
   },
   mutations: {
     SET_TRIBE_LIST: (state: tribesState, data: TribeShape[]) => {
@@ -112,6 +123,9 @@ const tribes = {
     EMPTY_STORE: (state: tribesState) => {
       state.articleList = [];
       state.rockstarsList = [];
+    },
+    SET_SPOTIFY_BY_TRIBE: (state: tribesState, data: []) => {
+      state.spotifyList = data;
     },
   },
 };
