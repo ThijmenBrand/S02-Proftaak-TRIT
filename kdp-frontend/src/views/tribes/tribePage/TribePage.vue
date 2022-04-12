@@ -112,8 +112,6 @@ export default {
     let spotifyList = computed((): SpotifyShape[] => {
       const spotify: SpotifyShape[] =
         store.getters["tribes/getAllSpotifyByTribe"];
-      console.log(spotify);
-
       return spotify;
     });
 
