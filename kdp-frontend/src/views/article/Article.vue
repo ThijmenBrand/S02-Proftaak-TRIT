@@ -48,9 +48,9 @@ export default {
       return route.params.articleId;
     });
 
-    onMounted(() => {
-      store.commit("article/CLEAR_ARTICLE");
-      store
+    onMounted(async () => {
+      await store.commit("article/CLEAR_ARTICLE");
+      await store
         .dispatch("article/getArticle", articleId.value)
         .then(() => store.dispatch("article/getRockstar"));
     });

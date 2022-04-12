@@ -39,8 +39,8 @@ export default {
 
     const loading = computed(() => store.getters["isLoading"]);
 
-    onMounted(() => {
-      store.dispatch("tribes/getAllTribes");
+    onMounted(async () => {
+      await store.dispatch("tribes/getAllTribes");
     });
 
     const tribesList = computed((): TribeShape[] => {

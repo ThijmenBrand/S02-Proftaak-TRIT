@@ -74,8 +74,8 @@ export default {
 
     const loading = computed(() => store.getters["isLoading"]);
 
-    onMounted(() => {
-      store.dispatch("getAllArticles");
+    onMounted(async () => {
+      await store.dispatch("getAllArticles");
     });
 
     const articles = computed((): ArticleShape[] => {

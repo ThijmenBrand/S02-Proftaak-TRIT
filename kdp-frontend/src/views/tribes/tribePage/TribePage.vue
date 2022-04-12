@@ -70,11 +70,11 @@ export default {
       return store.getters["tribes/getCurrentTribe"];
     });
 
-    onMounted(() => {
-      store.commit("tribes/EMPTY_STORE");
-      store.dispatch("tribes/getCurrentTribe", route.params.tribe);
-      store.dispatch("tribes/getRockstarsByTribe", route.params.tribe);
-      store.dispatch("tribes/getArticlesByTribe", route.params.tribe);
+    onMounted(async () => {
+      await store.commit("tribes/EMPTY_STORE");
+      await store.dispatch("tribes/getCurrentTribe", route.params.tribe);
+      await store.dispatch("tribes/getRockstarsByTribe", route.params.tribe);
+      await store.dispatch("tribes/getArticlesByTribe", route.params.tribe);
     });
 
     const articles = computed((): ArticleShape[] => {
