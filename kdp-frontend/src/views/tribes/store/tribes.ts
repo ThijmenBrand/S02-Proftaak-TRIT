@@ -107,15 +107,13 @@ const tribes = {
           rockstar.image = SetProfilePicture(rockstar.image);
         }
       });
-      state.rockstarsList = data
-        .sort((a, b) => {
-          if (a.role < b.role) return -1;
+      state.rockstarsList = data.sort((a, b) => {
+        if (a.role < b.role) return -1;
 
-          if (a.role > b.role) return 1;
+        if (a.role > b.role) return 1;
 
-          return 0;
-        })
-        .reverse();
+        return 0;
+      });
     },
     SET_CURRENT_TRIBE: (state: tribesState, data: TribeShape) => {
       state.currentTribe = data;
