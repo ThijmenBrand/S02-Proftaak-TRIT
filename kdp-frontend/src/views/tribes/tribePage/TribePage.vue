@@ -80,6 +80,7 @@ export default {
       await store.dispatch("tribes/getCurrentTribe", route.params.tribe);
       await store.dispatch("tribes/getRockstarsByTribe", route.params.tribe);
       await store.dispatch("tribes/getArticlesByTribe", route.params.tribe);
+      await store.dispatch("tribes/getAllSpotifyByTribe", route.params.tribe);
     });
 
     const articles = computed((): ArticleShape[] => {
