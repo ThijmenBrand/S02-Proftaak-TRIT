@@ -5,7 +5,11 @@
         <img
           class="rockstar-profile-image"
           :src="rockstar.image"
-          :alt="$t('rockstar-page.profile-picture-alt-text', { name: rockstar.name })"
+          :alt="
+            $t('rockstar-page.profile-picture-alt-text', {
+              name: rockstar.name,
+            })
+          "
         />
       </div>
       <div class="col-information">

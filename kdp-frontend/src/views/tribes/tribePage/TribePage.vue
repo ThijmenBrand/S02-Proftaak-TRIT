@@ -3,19 +3,22 @@
     <div class="tribes-overview">
       <h3 class="tribe-title">{{ currentTribe.name }}</h3>
       <div class="profile-container">
-          <profiletag  v-for="(rockstar, index) in rockstars"
-            :key="index" 
-            :id="rockstar.id"
-            :name="rockstar.name"
-            :image="rockstar.image"
-            :role="rockstar.role"
-            class="profile-tag"
-          />
+        <profiletag
+          v-for="(rockstar, index) in rockstars"
+          :key="index"
+          :id="rockstar.id"
+          :name="rockstar.name"
+          :image="rockstar.image"
+          :role="rockstar.role"
+          class="profile-tag"
+        />
       </div>
     </div>
     <div class="background-container">
       <div class="content-container">
-        <h3 class="articles-overview-title">{{ $t('articles-overview.header') }}</h3>
+        <h3 class="articles-overview-title">
+          {{ $t("articles-overview.header") }}
+        </h3>
         <div class="loader-container" v-if="loading">
           <Loader />
         </div>

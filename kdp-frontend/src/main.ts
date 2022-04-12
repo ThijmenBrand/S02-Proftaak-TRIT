@@ -3,21 +3,21 @@ import App from "./App.vue";
 import router from "./router";
 import store from "./store";
 
-import {createI18n, I18nOptions} from "vue-i18n";
+import { createI18n, I18nOptions } from "vue-i18n";
 
 import nl from "@/locales/nl.json";
 import en from "@/locales/en.json";
 
 type MessageSchema = typeof nl;
 
-const i18n = createI18n<I18nOptions, [MessageSchema], 'nl' | 'en'>({
+const i18n = createI18n<I18nOptions, [MessageSchema], "nl" | "en">({
   legacy: false,
   globalInjection: true,
-  locale: 'nl',
-  fallbackLocale: 'en',
+  locale: "nl",
+  fallbackLocale: "en",
   messages: {
-    'nl' : nl,
-    'en' : en
+    nl: nl,
+    en: en,
   },
 });
 
