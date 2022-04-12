@@ -18,6 +18,9 @@
         <p class="rockstar-name">
           {{ rockstarName }}
         </p>
+        <p class="publish-date">
+          {{ articlePublishDate }}
+        </p>
       </div>
     </div>
   </div>
@@ -30,6 +33,7 @@ export default {
     name: String,
     content: String,
     rockstarName: String,
+    articlePublishDate: String,
   },
   setup() {
     const limitContent = (content: string): string => {

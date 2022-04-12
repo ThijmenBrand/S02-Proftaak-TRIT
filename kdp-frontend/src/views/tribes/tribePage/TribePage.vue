@@ -33,6 +33,7 @@
               :name="article.title"
               :content="article.content"
               :rockstarName="article.rockstarName"
+              :articlePublishDate="article.publishDate"
             />
           </router-link>
         </div>

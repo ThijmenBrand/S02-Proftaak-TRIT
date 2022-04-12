@@ -13,6 +13,11 @@
     </div>
   </div>
   <div class="background-container">
+    <div class="article-details">
+      <div class="publish-date">
+        <p>{{ articleDetails.publishDate }}</p>
+      </div>
+    </div>
     <div class="content-container article-content">
       <Blog :articleContent="articleDetails.content" />
     </div>
@@ -55,15 +60,21 @@ export default {
         .then(() => store.dispatch("article/getRockstar"));
     });
 
-    const articleDetails = computed(
-      (): ArticleShape => store.getters["article/getArticle"]
-    );
+    const articleDetails = computed((): ArticleShape => {
+      const article = store.getters["article/getArticle"];
+      return article;
+    });
 
     const getRockstar = computed((): RockstarShape => {
       return store.getters["article/getRockstar"];
     });
 
-    return { articleId, articleDetails, loading, getRockstar };
+    return {
+      articleId,
+      articleDetails,
+      loading,
+      getRockstar,
+    };
   },
 };
 </script>

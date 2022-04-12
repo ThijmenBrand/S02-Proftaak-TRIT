@@ -44,6 +44,7 @@
             :name="article.title"
             :content="article.content"
             :rockstarName="article.rockstarName"
+            :articlePublishDate="article.publishDate"
           />
         </router-link>
       </div>
@@ -99,46 +100,54 @@ export default {
         }
       });
       if (selectedFilter.value == "a-z") {
-        returnArray = returnArray.sort((a, b) => {
-          let fa = a.title.toLowerCase(),
-            fb = b.title.toLowerCase();
-          if (fa < fb) {
-            return -1;
+        returnArray = returnArray.sort(
+          (firstComparisonObject, seccondComparisonObject) => {
+            let firstObejctToLower = firstComparisonObject.title.toLowerCase(),
+              secondObjectToLower = seccondComparisonObject.title.toLowerCase();
+            if (firstObejctToLower < secondObjectToLower) {
+              return -1;
+            }
+            if (firstObejctToLower > secondObjectToLower) {
+              return 1;
+            }
+            return 0;
           }
-          if (fa > fb) {
-            return 1;
-          }
-          return 0;
-        });
+        );
       }
       if (selectedFilter.value == "z-a") {
-        returnArray = returnArray.sort((a, b) => {
-          let fa = a.title.toLowerCase(),
-            fb = b.title.toLowerCase();
-          if (fa < fb) {
-            return 1;
+        returnArray = returnArray.sort(
+          (firstComparisonObject, seccondComparisonObject) => {
+            let firstObjectToLower = firstComparisonObject.title.toLowerCase(),
+              secondObjectToLower = seccondComparisonObject.title.toLowerCase();
+            if (firstObjectToLower < secondObjectToLower) {
+              return 1;
+            }
+            if (firstObjectToLower > secondObjectToLower) {
+              return -1;
+            }
+            return 0;
           }
-          if (fa > fb) {
-            return -1;
-          }
-          return 0;
-        });
+        );
       }
       if (selectedFilter.value == "new") {
-        returnArray = returnArray.sort((a, b) => {
-          return (
-            new Date(a.publishDate).valueOf() -
-            new Date(b.publishDate).valueOf()
-          );
-        });
+        returnArray = returnArray.sort(
+          (firstComparisonObject, seccondComparisonObject) => {
+            return (
+              new Date(firstComparisonObject.publishDate.toString()).valueOf() -
+              new Date(seccondComparisonObject.publishDate.toString()).valueOf()
+            );
+          }
+        );
       }
       if (selectedFilter.value == "old") {
-        returnArray = returnArray.sort((a, b) => {
-          return (
-            new Date(b.publishDate).valueOf() -
-            new Date(a.publishDate).valueOf()
-          );
-        });
+        returnArray = returnArray.sort(
+          (firstComparisonObject, seccondComparisonObject) => {
+            return (
+              new Date(firstComparisonObject.publishDate.toString()).valueOf() -
+              new Date(seccondComparisonObject.publishDate.toString()).valueOf()
+            );
+          }
+        );
       }
       return returnArray;
     });

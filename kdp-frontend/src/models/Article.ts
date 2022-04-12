@@ -6,5 +6,5 @@ export default interface ArticleShape {
   rockstarName: string;
   title: string;
   content: string;
-  publishDate: Date;
+  publishDate: String | Date;
 }

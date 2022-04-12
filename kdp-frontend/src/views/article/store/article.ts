@@ -76,11 +76,21 @@ const tribes = {
         title: "",
         tribeId: "",
         tribeName: "",
-        publishDate: new Date(),
+        publishDate: "",
       };
     },
     SET_ARTICLE: (state: articleState, data: ArticleShape) => {
       state.article = data;
+
+      let custom = data.publishDate;
+      if (data.publishDate != "") {
+        const language = navigator.language;
+        custom = new Date(data.publishDate.toString()).toLocaleDateString(
+          language
+        );
+      }
+
+      state.article.publishDate = custom;
     },
     SET_ROCKSTAR: (state: articleState, data: RockstarShape) => {
       state.rockstar = data;
