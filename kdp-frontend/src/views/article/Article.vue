@@ -9,7 +9,6 @@
     </div>
   </div>
   <div class="background-container">
-<!--              <p>{{ articleDetails.publishDate }}</p>-->
     <div class="actions-bar">
       <div class="blog-action">
         <span>Hart</span>
@@ -20,46 +19,12 @@
     <div class="content-container">
       <div class="article-content">
         <Blog class="article-text" :articleContent="articleDetails.content"/>
+        <p>{{ articleDetails.publishDate }}</p>
         <div class="border"></div>
       </div>
-
-      
       <div class="side-bar">
-        <div class="rockstar">
-          <img class="rockstar-image" :src="getRockstar.image">
-          <div class="rockstar-info">
-            <p>{{getRockstar.name}}</p>
-            <div class="socials">
-              <a  v-if="getRockstar.twitter != null" class="social-component" :href="getRockstar.twitter">
-                <img class="social-image" src="@/assets/images/socials/twitter.svg" alt="Twitter"/>
-              </a>
-              <a v-if="getRockstar.linkedIn != null" class="social-component" :href="getRockstar.linkedIn">
-                <img class="social-image" src="@/assets/images/socials/linkedin.svg" alt="LinkedIn"/>
-              </a>
-              <a v-if="getRockstar.email != null" class="social-component" :href="'mailto:' + getRockstar.email">
-                <img class="social-image" src="@/assets/images/socials/email.svg" :alt="getRockstar.email"/>
-              </a>
-              <a v-if="getRockstar.phone != null" class="social-component" :href="'tel:' + getRockstar.phone">
-                <img class="social-image" src="@/assets/images/socials/phone.svg" :alt="getRockstar.phone"/>
-              </a>
-            </div>
-          </div>
-        </div>
-        <div class="recommended">
-          <h2 class="recommended-title">Ook interessant</h2>
-          <div class="recommended-article">
-            <img class="recommended-image" :src="getRockstar.image">
-            <h3 class="recommended-article-title">Dont use console.log anymore</h3>
-          </div>
-          <div class="recommended-article">
-            <img class="recommended-image" :src="getRockstar.image">
-            <h3 class="recommended-article-title">aukje is stiekem wel lekker</h3>
-          </div>
-          <div class="recommended-article">
-            <img class="recommended-image" :src="getRockstar.image">
-            <h3 class="recommended-article-title">Dont use console.log anymore</h3>
-          </div>
-        </div>
+        <RockstartView :rockstar="getRockstar" />
+        <Recommended/>
       </div>
     </div>
   </div>
@@ -73,6 +38,8 @@ import {computed, onMounted} from "vue";
 import ArticleShape from "@/models/Article";
 import {RockstarShape} from "@/models/Rockstar";
 
+import Recommended from "./components/Recommended.vue";
+import RockstartView from "./components/RockstartArticleView.vue";
 import Blog from "./components/Blog.vue";
 import Loader from "@/components/loader/Loader.vue";
 
@@ -80,6 +47,8 @@ export default {
   name: "Article-view",
   components: {
     Blog,
+    Recommended,
+    RockstartView,
     Loader,
   },
   setup() {
