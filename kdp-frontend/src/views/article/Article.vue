@@ -45,6 +45,21 @@
             </div>
           </div>
         </div>
+        <div class="recommended">
+          <h2 class="recommended-title">Ook interessant</h2>
+          <div class="recommended-article">
+            <img class="recommended-image" :src="getRockstar.image">
+            <h3 class="recommended-article-title">Dont use console.log anymore</h3>
+          </div>
+          <div class="recommended-article">
+            <img class="recommended-image" :src="getRockstar.image">
+            <h3 class="recommended-article-title">aukje is stiekem wel lekker</h3>
+          </div>
+          <div class="recommended-article">
+            <img class="recommended-image" :src="getRockstar.image">
+            <h3 class="recommended-article-title">Dont use console.log anymore</h3>
+          </div>
+        </div>
       </div>
     </div>
   </div>
