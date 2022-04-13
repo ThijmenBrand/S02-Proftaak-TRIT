@@ -22,6 +22,7 @@
         <p>{{ articleDetails.publishDate }}</p>
         <div class="border"></div>
         <!--   Todo: Comment section     -->
+        <Comments />
       </div>
       <div class="side-bar">
         <RockstartView :rockstar="getRockstar" />
@@ -39,6 +40,7 @@ import {computed, onMounted} from "vue";
 import ArticleShape from "@/models/Article";
 import {RockstarShape} from "@/models/Rockstar";
 
+import Comments from "./components/Comments.vue";
 import Recommended from "./components/Recommended.vue";
 import RockstartView from "./components/RockstartArticleView.vue";
 import Blog from "./components/Blog.vue";
@@ -49,6 +51,7 @@ export default {
   components: {
     Blog,
     Recommended,
+    Comments,
     RockstartView,
     Loader,
   },
