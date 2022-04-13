@@ -38,6 +38,23 @@
   }
 }
 
+@media screen and (max-width: 768px) {
+  .comments {
+    margin-right: 0;
+    width: 100%;
+    form {
+      .input-container {
+        .comment-input {
+          box-sizing: border-box;
+        }
+        .comment-button {
+          right: 1em;
+        }
+      }
+    }
+  }
+}
+
 textarea::-webkit-input-placeholder {
   font-family: "DIN 2014";
   font-size: 1em;
