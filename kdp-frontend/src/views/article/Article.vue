@@ -25,7 +25,7 @@
         <Comments />
       </div>
       <div class="side-bar">
-        <RockstartView :rockstar="getRockstar" />
+        <RockstarView :rockstar="getRockstar" />
         <Recommended/>
       </div>
     </div>
@@ -42,7 +42,7 @@ import {RockstarShape} from "@/models/Rockstar";
 
 import Comments from "./components/Comments.vue";
 import Recommended from "./components/Recommended.vue";
-import RockstartView from "./components/RockstartArticleView.vue";
+import RockstarView from "./components/RockstarArticleView.vue";
 import Blog from "./components/Blog.vue";
 import Loader from "@/components/loader/Loader.vue";
 
@@ -52,7 +52,7 @@ export default {
     Blog,
     Recommended,
     Comments,
-    RockstartView,
+    RockstarView,
     Loader,
   },
   setup() {

@@ -1,6 +1,8 @@
 ﻿<template>
   <div class="rockstar">
-    <img class="rockstar-image" :alt="rockstar.name" :src="rockstar.image">
+    <img class="rockstar-image" :alt="$t('article-page.rockstar-image', {
+              name: rockstar.name,
+            })" :src="rockstar.image">
     <div class="rockstar-info">
       <p>{{rockstar.name}}</p>
       <div class="socials">
@@ -25,7 +27,7 @@
 import { RockstarShape } from "@/models/Rockstar";
 
 export default {
-  name: "RockstartArticleView",
+  name: "RockstarArticleView",
   props: {
     rockstar: Object as () => RockstarShape,
   }
