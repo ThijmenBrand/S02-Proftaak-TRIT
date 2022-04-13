@@ -21,6 +21,7 @@
         <Blog class="article-text" :articleContent="articleDetails.content"/>
         <p>{{ articleDetails.publishDate }}</p>
         <div class="border"></div>
+        <!--   Todo: Comment section     -->
       </div>
       <div class="side-bar">
         <RockstartView :rockstar="getRockstar" />

@@ -24,7 +24,6 @@
     
     .content-container {
       display: flex;
-
       .article-header-container {
         display: flex;
         justify-content: space-between;
@@ -37,10 +36,7 @@
       
       .article-content {
         width: 75%;
-        margin-bottom: 2em;
-        padding-bottom: 2em;
         .border {
-          margin-top: 2em;
           height: 1px;
           background: $trit-white;
           margin-right: 5em;
@@ -66,4 +62,29 @@
   background-color: $trit-gray;
   padding-top: 2px;
   margin: 0;
+}
+
+@media screen and (max-width: 768px) {
+  .main-content {
+    .background-container {
+      .content-container {
+        flex-direction: column-reverse;
+        .article-content {
+          width: 100%;
+          .article-text {
+            padding: 0;
+          }
+          .border {
+            margin-right: 0;
+          }
+        }
+        .side-bar {
+          width: 100%;
+          display: flex;
+          flex-direction: row;
+
+        }
+      }
+    }
+  }
 }
