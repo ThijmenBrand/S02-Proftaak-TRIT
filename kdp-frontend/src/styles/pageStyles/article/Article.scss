@@ -1,29 +1,94 @@
 @import "@/styles/variables";
 
-.content-container {
-    .article-header-container {
+//Fixes background
+.background-container:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.main-content {
+  .background-container {
+    color: $trit-white;
+    .actions-bar {
+      margin: 0 50px 1em 50px;
+      height: 3em;
       display: flex;
       justify-content: space-between;
       align-items: center;
-    }
-  
-    .article-title-container {
-      display: inline-block;
-    }
-  }
-  
-  .article-content {
-    padding: 30px 0px;
-    color: white;
-    min-height: calc(100vh - 365.5px);
-  }
 
-  .article-details {
-    color:$trit-white;
-    background-color: $trit-gray;
-    padding-top: 2px;
-    margin: 0;
+      span:nth-child(1) {
+        margin-right: 2em;
+      }
+    }
+    
+    .content-container {
+      display: flex;
+
+      .article-header-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .article-title-container {
+        display: inline-block;
+      }
+      
+      .article-content {
+        width: 75%;
+        margin-bottom: 2em;
+        padding-bottom: 2em;
+        .border {
+          margin-top: 2em;
+          height: 1px;
+          background: $trit-white;
+          margin-right: 5em;
+        }
+        .article-text {
+          padding-right: 5em;
+        }
+      }
+
+      .side-bar {
+        flex: 1;
+        width: 20%;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        .rockstar {
+          float: right;
+          .rockstar-image {
+            width: 12em;
+            height: 12em;
+            object-fit: cover;
+          }
+
+          .rockstar-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            p {
+              margin: 0;
+              font-size: 1.5em;
+            }
+            .socials {
+              img {
+                margin-left: 5px;
+                width: 1.5em;
+                filter: invert(100%);
+              }
+            }
+          }
+        }
+      }
+    }
   }
-  .publish-date {
-    margin-left: 50px;
-  }
+}
+
+.article-details {
+  color: $trit-white;
+  background-color: $trit-gray;
+  padding-top: 2px;
+  margin: 0;
+}

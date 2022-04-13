@@ -1,46 +1,70 @@
 <template>
-  <Loader v-if="loading" />
+  <Loader v-if="loading"/>
   <div class="content-container" v-else>
     <div class="article-header-container">
       <div class="article-title-container">
         <h1>{{ articleDetails.title }}</h1>
       </div>
-      <ProfileTag
-        :id="getRockstar.id"
-        :name="getRockstar.name"
-        :image="getRockstar.image"
-      ></ProfileTag>
+
     </div>
   </div>
   <div class="background-container">
-    <div class="article-details">
-      <div class="publish-date">
-        <p>{{ articleDetails.publishDate }}</p>
+<!--              <p>{{ articleDetails.publishDate }}</p>-->
+    <div class="actions-bar">
+      <div class="blog-action">
+        <span>Hart</span>
+        <span>Comment</span>
       </div>
+      <span>Bookmark</span>
     </div>
-    <div class="content-container article-content">
-      <Blog :articleContent="articleDetails.content" />
+    <div class="content-container">
+      <div class="article-content">
+        <Blog class="article-text" :articleContent="articleDetails.content"/>
+        <div class="border"></div>
+      </div>
+
+      
+      <div class="side-bar">
+        <div class="rockstar">
+          <img class="rockstar-image" :src="getRockstar.image">
+          <div class="rockstar-info">
+            <p>{{getRockstar.name}}</p>
+            <div class="socials">
+              <a  v-if="getRockstar.twitter != null" class="social-component" :href="getRockstar.twitter">
+                <img class="social-image" src="@/assets/images/socials/twitter.svg" alt="Twitter"/>
+              </a>
+              <a v-if="getRockstar.linkedIn != null" class="social-component" :href="getRockstar.linkedIn">
+                <img class="social-image" src="@/assets/images/socials/linkedin.svg" alt="LinkedIn"/>
+              </a>
+              <a v-if="getRockstar.email != null" class="social-component" :href="'mailto:' + getRockstar.email">
+                <img class="social-image" src="@/assets/images/socials/email.svg" :alt="getRockstar.email"/>
+              </a>
+              <a v-if="getRockstar.phone != null" class="social-component" :href="'tel:' + getRockstar.phone">
+                <img class="social-image" src="@/assets/images/socials/phone.svg" :alt="getRockstar.phone"/>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { useRoute } from "vue-router";
-import { useStore } from "vuex";
-import { computed, onMounted } from "vue";
+import {useRoute} from "vue-router";
+import {useStore} from "vuex";
+import {computed, onMounted} from "vue";
 
 import ArticleShape from "@/models/Article";
-import { RockstarShape } from "@/models/Rockstar";
+import {RockstarShape} from "@/models/Rockstar";
 
 import Blog from "./components/Blog.vue";
 import Loader from "@/components/loader/Loader.vue";
-import ProfileTag from "@/components/profileTag/Profiletag.vue";
 
 export default {
   name: "Article-view",
   components: {
     Blog,
-    ProfileTag,
     Loader,
   },
   setup() {
@@ -56,8 +80,8 @@ export default {
     onMounted(async () => {
       await store.commit("article/CLEAR_ARTICLE");
       await store
-        .dispatch("article/getArticle", articleId.value)
-        .then(() => store.dispatch("article/getRockstar"));
+          .dispatch("article/getArticle", articleId.value)
+          .then(() => store.dispatch("article/getRockstar"));
     });
 
     const articleDetails = computed((): ArticleShape => {
@@ -79,4 +103,4 @@ export default {
 };
 </script>
 
-<style scoped lang="scss" src="@/styles/pageStyles/article/Article.scss" />
+<style scoped lang="scss" src="@/styles/pageStyles/article/Article.scss"/>
