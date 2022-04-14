@@ -46,8 +46,6 @@ namespace API_Rockstars.Controllers
                 article.ViewCount = viewCount.Count();
             }
             
-
-            
             return articles;
         }
 
@@ -104,6 +102,9 @@ namespace API_Rockstars.Controllers
                 {
                     article.RockstarName = rockstar.Name;
                 }
+                
+                var viewCount = await _context.ArticleViews.Where(x => x.ArticleId == article.Id).ToListAsync();
+                article.ViewCount = viewCount.Count();
             }
 
             return articles;
@@ -132,6 +133,9 @@ namespace API_Rockstars.Controllers
                 {
                     article.RockstarName = rockstar.Name;
                 }
+                
+                var viewCount = await _context.ArticleViews.Where(x => x.ArticleId == article.Id).ToListAsync();
+                article.ViewCount = viewCount.Count();
             }
 
             return articles;
@@ -145,6 +149,12 @@ namespace API_Rockstars.Controllers
             if (articles.Count == 0)
             {
                 return NoContent();
+            }
+
+            foreach (var article in articles)
+            {
+                var viewCount = await _context.ArticleViews.Where(x => x.ArticleId == article.Id).ToListAsync();
+                article.ViewCount = viewCount.Count();
             }
 
             return articles;
