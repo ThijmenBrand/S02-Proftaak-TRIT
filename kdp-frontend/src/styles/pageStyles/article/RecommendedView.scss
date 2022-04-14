@@ -1,0 +1,40 @@
+﻿@import "@/styles/variables.scss";
+
+.recommended {
+  justify-self: flex-end;
+  width: 15em;
+  margin-top: 5em;
+  .recommended-title {
+    display: inline-block;
+    font-size: 1.5em;
+    color: $trit-white;
+
+    font-weight: normal;
+  }
+
+  .recommended-article {
+    word-wrap: break-word;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1em;
+    .recommended-image {
+      width: 5em;
+      height: 5em;
+      object-fit: cover;
+    }
+    .recommended-article-title {
+      font-weight: normal;
+      margin: 0;
+      margin-left: 0.5em;
+      font-size: 1em;
+      color: $trit-white;
+      display: inline-block;
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .recommended {
+    display: none;
+  }
+}
