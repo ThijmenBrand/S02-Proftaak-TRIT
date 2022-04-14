@@ -4,6 +4,7 @@ import articleService from "@/services/callFunctions/article";
 import rockstarService from "@/services/callFunctions/rockstar";
 import pfPlaceholder from "@/assets/profilePlaceholder";
 import SetProfilePicture from "@/services/profilePictureHelper";
+import getCustomDateTime from "@/services/customDateTime"
 
 interface articleState {
   article: ArticleShape;
@@ -82,15 +83,8 @@ const tribes = {
     SET_ARTICLE: (state: articleState, data: ArticleShape) => {
       state.article = data;
 
-      let custom = data.publishDate;
-      if (data.publishDate != "") {
-        const language = navigator.language;
-        custom = new Date(data.publishDate.toString()).toLocaleDateString(
-          language
-        );
-      }
-
-      state.article.publishDate = custom;
+      const custom = data.publishDate.toString();
+      state.article.publishDate = getCustomDateTime(custom);
     },
     SET_ROCKSTAR: (state: articleState, data: RockstarShape) => {
       state.rockstar = data;
