@@ -6,6 +6,9 @@ const articleService = {
   getArticle(articleId: string): Promise<AxiosResponse<any, any>> {
     return API.get(`/article/${articleId}`);
   },
+  getComments(articleId: string): Promise<AxiosResponse<any, any>> {
+    return API.get(`/comment/articleId/${articleId}`);
+  },
   updateViewCount(viewCount: ViewCountShape): Promise<AxiosResponse<any, any>> {
     return API.post("/article/updateViewCount", JSON.stringify(viewCount));
   },

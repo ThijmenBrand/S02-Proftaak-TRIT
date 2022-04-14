@@ -35,5 +35,9 @@
 
   "article-page.recommended-title": "Also interesting",
   "article-page.recommended-image-alt": "Recommended article image",
-  "article-page.rockstar-image": "Image of {name}"
+  "article-page.rockstar-image": "Image of {name}",
+  "article-page.heart-image": "Like image",
+  "article-page.comment-image": "Comment image",
+  "article-page.view-image": "Views image",
+  "article-page.page-view-image": "Unique views bekeken image"
 }

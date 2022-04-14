@@ -6,11 +6,13 @@ import pfPlaceholder from "@/assets/profilePlaceholder";
 import SetProfilePicture from "@/services/profilePictureHelper";
 import { ViewCountShape } from "@/models/ViewCountShape";
 import getCustomDateTime from "@/services/customDateTime";
+import {CommentShape} from "@/models/Comment";
 
 interface articleState {
   article: ArticleShape;
   rockstar: RockstarShape;
   viewCount: ViewCountShape;
+  comments: CommentShape;
 }
 
 const tribes = {
@@ -42,6 +44,12 @@ const tribes = {
         frontendUserId: "",
         articleId: "",
       },
+      comments: {
+        id: "",
+        userId: "",
+        userName: "",
+        commentText: "", 
+      },
     };
   },
   getters: {
@@ -50,6 +58,9 @@ const tribes = {
     },
     getRockstar: (state: articleState): RockstarShape => {
       return state.rockstar;
+    },
+    getComments: (state: articleState): CommentShape => {
+      return state.comments;
     },
   },
   actions: {
@@ -78,6 +89,16 @@ const tribes = {
       viewCount.frontendUserId = localStorage.getItem("UUIDV4");
       const { data, status } = await articleService.updateViewCount(viewCount);
     },
+    getComments: async (context: any, articleId: string) => {
+      context.rootState.loading = true;
+      const { data, status } = await articleService.getComments(articleId);
+      console.log(data)
+      
+      if (status >= 200 && status <= 299) {
+        context.rootState.loading = false;
+        context.commit("SET_COMMENTS", data);
+      }
+    },
   },
   mutations: {
     CLEAR_ARTICLE: (state: articleState) => {
@@ -105,6 +126,10 @@ const tribes = {
       } else {
         state.rockstar.image = SetProfilePicture(data.image);
       }
+    },
+    SET_COMMENTS: (state: articleState, data: CommentShape) => {
+      console.log(data)
+      state.comments = data;
     },
   },
 };
