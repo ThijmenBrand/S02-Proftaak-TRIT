@@ -16,13 +16,29 @@
     </div>
     <div class="background-container">
       <div class="content-container">
-        <h3 class="articles-overview-title">
+        <h3 class="articles-overview-title" ref="articletop">
           {{ $t("articles-overview.header") }}
         </h3>
         <div class="loader-container" v-if="loading">
           <Loader />
         </div>
-        <div class="articles-container">
+
+        <div class="articles-container" v-if="ShowLess">
+          <router-link
+            :to="{ name: 'article', params: { articleId: article.id } }"
+            v-for="(article, index) in tribeArticles.slice(0, 3)"
+            :key="index"
+            class="article"
+          >
+            <article-preview
+              :name="article.title"
+              :content="article.content"
+              :rockstarName="article.rockstarName"
+              :articlePublishDate="article.publishDate"
+            />
+          </router-link>
+        </div>
+        <div class="articles-container" v-else>
           <router-link
             :to="{ name: 'article', params: { articleId: article.id } }"
             v-for="(article, index) in tribeArticles"
@@ -37,6 +53,9 @@
             />
           </router-link>
         </div>
+        
+        <a @click="toggleshow()" class="viewmore">{{ShowLess}}</a>
+
         <h3 class="podcasts-overview-title">Podcasts</h3>
         <SpotifyCarousel :spotify-links="spotifyList" />
       </div>
@@ -58,7 +77,37 @@ import ArticlePreview from "@/components/articlePreview/ArticlePreview.vue";
 import Profiletag from "@/components/profileTag/Profiletag.vue";
 import Loader from "@/components/loader/Loader.vue";
 import SpotifyCarousel from "@/components/carousel/Carousel.vue";
-export default {
+
+import { defineComponent } from "vue";
+
+
+
+export default defineComponent({
+  data () {
+    return {
+      ShowLess:true,
+      windowheigt:0
+    }
+  },
+  methods: {
+    async toggleshow() {
+      this.windowheigt = window.scrollY;
+
+      console.log(window.scrollY);
+
+      this.ShowLess = !this.ShowLess;
+      await this.sleep(1);
+      window.scrollTo(0, this.windowheigt);
+    },
+    async sleep(ms: number) {
+      return new Promise((resolve) => {
+      setTimeout(resolve, ms);
+    });
+}
+
+
+  },
+
   components: {
     SpotifyCarousel,
     Profiletag,
@@ -124,7 +173,7 @@ export default {
       spotifyList,
     };
   },
-};
+});
 </script>
 
 <style lang="scss" scoped src="@/styles/pageStyles/tribePage/TribePage.scss" />

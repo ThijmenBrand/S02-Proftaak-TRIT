@@ -26,6 +26,12 @@
       }
     }
   }
+
+  .viewmore {
+    color: $trit-yellow;
+    
+  }
+
   .content-container {
     min-height: calc(100vh - 417px);
     .articles-overview-title, .podcasts-overview-title {
