@@ -222,7 +222,7 @@ namespace API_Rockstars.Controllers
         }
         
         //Update viewcount
-        [HttpPost("/updateViewCount")]
+        [HttpPost("updateViewCount")]
         public async Task<IActionResult> UpdateArticleViewCount(ArticleView view)
         {
             var checkArticleView = await _context.ArticleViews.FirstOrDefaultAsync(x => x.FrontendUserId == view.FrontendUserId && x.ArticleId == view.ArticleId);
