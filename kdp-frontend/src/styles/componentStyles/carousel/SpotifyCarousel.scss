@@ -4,9 +4,10 @@
   overflow: hidden;
   width: 75%;
 }
-.carousel{
+
+.carousel {
   margin-top: 30px;
-  width: 100% ;
+  width: 100%;
 }
 
 .carousel__prev {
@@ -20,17 +21,29 @@
   right: 0;
   transform: translate(0, -50%) !important;
 }
+
 .carousel__next,
-.carousel__prev{
+.carousel__prev {
   background-color: $trit-yellow !important;
-  svg{
+
+  svg {
     fill: $trit-gray !important;
   }
 }
 
-.carousel__pagination-button{
+.carousel__pagination-button {
   background-color: $trit-white !important;
 }
+
 .carousel__pagination-button--active {
   background-color: $trit-yellow !important;
+}
+
+/*
+ * Ordered lists have a left padding attached to it.
+ * This places them slightly off-center.
+ * Removing the padding re-centers it.
+ */
+.carousel__pagination {
+  padding: 0;
 }
