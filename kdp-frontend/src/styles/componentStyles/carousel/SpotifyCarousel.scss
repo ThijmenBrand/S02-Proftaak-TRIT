@@ -42,8 +42,8 @@
 /*
  * Ordered lists have a left padding attached to it.
  * This places them slightly off-center.
- * Removing the padding re-centers it.
+ * Removing this padding re-centers it.
  */
 .carousel__pagination {
-  padding: 0;
+  padding: 0 0 0.5em;
 }
