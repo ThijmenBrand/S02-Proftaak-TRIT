@@ -58,6 +58,7 @@ export default {
       await store
         .dispatch("article/getArticle", articleId.value)
         .then(() => store.dispatch("article/getRockstar"));
+      await store.dispatch("article/updateViewCount", articleId.value);
     });
 
     const articleDetails = computed((): ArticleShape => {
