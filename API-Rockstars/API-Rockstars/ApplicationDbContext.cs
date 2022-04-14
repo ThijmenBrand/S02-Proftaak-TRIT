@@ -17,4 +17,5 @@ public class ApplicationDbContext : DbContext
     public DbSet<Role> Roles { get; set; }
     public DbSet<RockstarRole> RockstarRoles { get; set; }
     public DbSet<Article> Articles { get; set; }
+    public DbSet<ArticleView> ArticleViews { get; set; }
 }

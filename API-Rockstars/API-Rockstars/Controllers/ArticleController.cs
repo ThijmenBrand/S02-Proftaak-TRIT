@@ -41,7 +41,12 @@ namespace API_Rockstars.Controllers
                 {
                     article.RockstarName = rockstar.Name;
                 }
+                
+                var viewCount = await _context.ArticleViews.Where(x => x.ArticleId == article.Id).ToListAsync();
+                article.ViewCount = viewCount.Count();
             }
+            
+
             
             return articles;
         }
@@ -68,6 +73,10 @@ namespace API_Rockstars.Controllers
             {
                 article.RockstarName = rockstar.Name;
             }
+            
+            var viewCount = await _context.ArticleViews.Where(x => x.ArticleId == article.Id).ToListAsync();
+
+            article.ViewCount = viewCount.Count();
 
             return article;
         }
@@ -203,18 +212,17 @@ namespace API_Rockstars.Controllers
         }
         
         //Update viewcount
-        [HttpGet("/updateViewCount/{id}")]
-        public async Task<IActionResult> UpdateArticleViewCount(Guid id)
+        [HttpPost("/updateViewCount")]
+        public async Task<IActionResult> UpdateArticleViewCount(ArticleView view)
         {
-            var article = await _context.Articles.FindAsync(id);
-            if (article == null)
+            var checkArticleView = await _context.ArticleViews.FirstOrDefaultAsync(x => x.FrontendUserId == view.FrontendUserId && x.ArticleId == view.ArticleId);
+
+            if (checkArticleView != null)
             {
                 return NoContent();
             }
 
-            article.ViewCount += 1;
-
-            _context.Articles.Update(article);
+            _context.ArticleViews.Add(view);
             await _context.SaveChangesAsync();
 
             return NoContent();
