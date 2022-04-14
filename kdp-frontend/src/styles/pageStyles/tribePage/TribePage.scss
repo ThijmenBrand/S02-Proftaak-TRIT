@@ -1,5 +1,46 @@
 @import "@/styles/variables.scss";
 
+.search-bar {
+  margin-right: 45px;
+  display: flex;
+  justify-content: right;
+  margin-bottom: 30px;
+  .search-input {
+    outline: none;
+    padding: 10px;
+    width: 15%;
+    border: none;
+    background-color: transparent;
+    color: $trit-gray;
+    border-bottom: 1px solid $trit-gray;
+    &::-webkit-input-placeholder {
+      color: $trit-gray;
+    }
+    &::-moz-placeholder {
+      color: $trit-gray;
+    }
+  }
+  .custom-select {
+    border-bottom: 1px solid #232323;
+    display: flex;
+    .select {
+      border: none;
+      background: none;
+      &:focus {
+        outline: 0;
+      }
+      .select-item {
+        position: absolute;
+        background-color: $trit-gray;
+        color: $trit-yellow;
+        top: 100%;
+        left: 0;
+        right: 0;
+        z-index: 99;
+      }
+    }
+  }
+}
 .information-page-main {
   p {
     color: $trit-white;
