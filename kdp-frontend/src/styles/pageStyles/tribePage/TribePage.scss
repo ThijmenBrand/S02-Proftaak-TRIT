@@ -29,7 +29,10 @@
 
   .viewmore {
     color: $trit-yellow;
-    
+    text-decoration: underline;
+    font-size: 23px;
+    cursor: pointer;
+    margin-left: 40px;
   }
 
   .content-container {

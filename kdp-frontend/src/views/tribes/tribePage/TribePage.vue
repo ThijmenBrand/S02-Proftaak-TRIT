@@ -26,7 +26,7 @@
         <div class="articles-container" v-if="ShowLess">
           <router-link
             :to="{ name: 'article', params: { articleId: article.id } }"
-            v-for="(article, index) in tribeArticles.slice(0, 3)"
+            v-for="(article, index) in tribeArticles.slice(0, viewamount)"
             :key="index"
             class="article"
           >
@@ -49,12 +49,12 @@
               :name="article.title"
               :content="article.content"
               :rockstarName="article.rockstarName"
-              :articlePublishDate="article.publishDate"
+              :articlePublishDate="article.publishDate" 
             />
           </router-link>
         </div>
         
-        <a @click="toggleshow()" class="viewmore">{{ShowLess}}</a>
+        <a v-if="!loading" @click="toggleshow()" class="viewmore">{{viewtext}}</a>
 
         <h3 class="podcasts-overview-title">Podcasts</h3>
         <SpotifyCarousel :spotify-links="spotifyList" />
@@ -86,7 +86,8 @@ export default defineComponent({
   data () {
     return {
       ShowLess:true,
-      windowheigt:0
+      windowheigt:0,
+      viewtext:"View more..."
     }
   },
   methods: {
@@ -98,6 +99,14 @@ export default defineComponent({
       this.ShowLess = !this.ShowLess;
       await this.sleep(1);
       window.scrollTo(0, this.windowheigt);
+
+      if (this.ShowLess){
+        this.viewtext = "View more...";
+      }
+      else {
+        this.viewtext = "View less...";
+      }
+      
     },
     async sleep(ms: number) {
       return new Promise((resolve) => {
@@ -164,6 +173,19 @@ export default defineComponent({
       return spotify;
     });
 
+    const viewamount = computed(() => 
+      {
+        if (window.innerWidth > 520) 
+        {
+          return ((Math.floor(window.innerWidth / 420)) * 2);
+        }  
+        else 
+        {
+          return 3;
+        }
+      }
+    );
+
     return {
       tribeArticles,
       articles,
@@ -171,6 +193,7 @@ export default defineComponent({
       currentTribe,
       loading,
       spotifyList,
+      viewamount,
     };
   },
 });
