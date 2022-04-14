@@ -19,7 +19,7 @@
           {{ rockstarName }}
         </p>
         <p class="publish-date">
-          {{ articlePublishDate }}
+          {{ getCustomDateTime(articlePublishDate) }}
         </p>
       </div>
     </div>
@@ -27,6 +27,7 @@
 </template>
 
 <script lang="ts">
+import getCustomDateTime from "@/services/customDateTime"
 export default {
   name: "ArticlePreview",
   props: {
@@ -44,7 +45,8 @@ export default {
       return content.replace(/<\/?[^>]+(>|$)/g, "");
     }
 
-    return { limitContent, cleanText };
+
+    return { limitContent, cleanText, getCustomDateTime};
   },
 };
 </script>
