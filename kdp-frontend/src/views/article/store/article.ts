@@ -4,10 +4,13 @@ import articleService from "@/services/callFunctions/article";
 import rockstarService from "@/services/callFunctions/rockstar";
 import pfPlaceholder from "@/assets/profilePlaceholder";
 import SetProfilePicture from "@/services/profilePictureHelper";
+import { ViewCountShape } from "@/models/ViewCountShape";
+import getCustomDateTime from "@/services/customDateTime";
 
 interface articleState {
   article: ArticleShape;
   rockstar: RockstarShape;
+  viewCount: ViewCountShape;
 }
 
 const tribes = {
@@ -34,6 +37,10 @@ const tribes = {
         twitter: "",
         email: "",
         phone: "",
+      },
+      viewCount: {
+        frontendUserId: "",
+        articleId: "",
       },
     };
   },
@@ -65,6 +72,12 @@ const tribes = {
         context.commit("SET_ROCKSTAR", data);
       }
     },
+    updateViewCount: async (context: any, articleId: string) => {
+      const viewCount = context.state.viewCount;
+      viewCount.articleId = articleId;
+      viewCount.frontendUserId = localStorage.getItem("UUIDV4");
+      const { data, status } = await articleService.updateViewCount(viewCount);
+    },
   },
   mutations: {
     CLEAR_ARTICLE: (state: articleState) => {
@@ -82,15 +95,8 @@ const tribes = {
     SET_ARTICLE: (state: articleState, data: ArticleShape) => {
       state.article = data;
 
-      let custom = data.publishDate;
-      if (data.publishDate != "") {
-        const language = navigator.language;
-        custom = new Date(data.publishDate.toString()).toLocaleDateString(
-          language
-        );
-      }
-
-      state.article.publishDate = custom;
+      const custom = data.publishDate.toString();
+      state.article.publishDate = getCustomDateTime(custom);
     },
     SET_ROCKSTAR: (state: articleState, data: RockstarShape) => {
       state.rockstar = data;

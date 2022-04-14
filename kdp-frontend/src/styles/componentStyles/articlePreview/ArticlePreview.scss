@@ -1,4 +1,5 @@
 @import "@/styles/variables.scss";
+
 .article {
   height: auto;
   width: 400px;
@@ -10,27 +11,29 @@
   align-content: space-between;
   align-items: flex-start;
 }
+
 .content {
   color: $trit-white;
   padding-left: 15px;
   padding-right: 15px;
   padding-top: 5px;
-  margin: 0px;
+  margin: 0;
 }
+
 .rockstar-name {
-  font-size: 8;
   margin-top: 15px;
   margin-bottom: 5px;
   padding-left: 15px;
   color: $trit-yellow;
 }
+
 .publish-date {
-  font-size: 8;
   margin-top: 15px;
   margin-bottom: 5px;
   padding-left: 15px;
   color: $trit-white;
 }
+
 .article-preview-title {
   color: $trit-yellow;
   text-align: left;
@@ -39,9 +42,23 @@
   margin-top: 10px;
   margin-bottom: 5px;
 }
+
 .article-image {
   object-fit: scale-down;
   object-position: top;
   width: 400px;
   max-height: 300px;
+}
+
+@media only screen and (max-width: 1000px) {
+  /* for mobile screens < 1000px */
+  .article {
+    max-width: 100vw;
+    border-left: none;
+    border-right: none;
+
+    img {
+      width: 100%;
+    }
+  }
 }
