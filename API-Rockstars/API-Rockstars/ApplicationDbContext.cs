@@ -1,4 +1,4 @@
-﻿using API_Rockstars.Models;
+using API_Rockstars.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace API_Rockstars;
@@ -18,4 +18,5 @@ public class ApplicationDbContext : DbContext
     public DbSet<RockstarRole> RockstarRoles { get; set; }
     public DbSet<Article> Articles { get; set; }
     public DbSet<ArticleView> ArticleViews { get; set; }
+    public DbSet<API_Rockstars.Models.Comment> Comment { get; set; }
 }
