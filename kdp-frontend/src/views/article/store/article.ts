@@ -4,11 +4,13 @@ import articleService from "@/services/callFunctions/article";
 import rockstarService from "@/services/callFunctions/rockstar";
 import pfPlaceholder from "@/assets/profilePlaceholder";
 import SetProfilePicture from "@/services/profilePictureHelper";
-import getCustomDateTime from "@/services/customDateTime"
+import { ViewCountShape } from "@/models/ViewCountShape";
+import getCustomDateTime from "@/services/customDateTime";
 
 interface articleState {
   article: ArticleShape;
   rockstar: RockstarShape;
+  viewCount: ViewCountShape;
 }
 
 const tribes = {
@@ -35,6 +37,10 @@ const tribes = {
         twitter: "",
         email: "",
         phone: "",
+      },
+      viewCount: {
+        frontendUserId: "",
+        articleId: "",
       },
     };
   },
@@ -65,6 +71,12 @@ const tribes = {
         context.rootState.loading = false;
         context.commit("SET_ROCKSTAR", data);
       }
+    },
+    updateViewCount: async (context: any, articleId: string) => {
+      const viewCount = context.state.viewCount;
+      viewCount.articleId = articleId;
+      viewCount.frontendUserId = localStorage.getItem("UUIDV4");
+      const { data, status } = await articleService.updateViewCount(viewCount);
     },
   },
   mutations: {
