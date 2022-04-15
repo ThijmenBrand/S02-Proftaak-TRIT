@@ -4,7 +4,8 @@
   "rockstars-logo": "RockstarsIT logo",
 
   "menu.explore": "VERKEN",
-  "menu.vision": "ONZE VISIE",
+  "menu.login": "LOGIN",
+  "menu.account": "PROFIEL",
   "menu.possibilities": "UW MOGELIJKHEDEN",
   "menu.tribes": "TRIBES",
   "menu.home": "HOME",
@@ -27,5 +28,7 @@
   "explore-articles-page.search-bar.sort-newest": "Van nieuw naar oud",
   "explore-articles-page.search-bar.select-filter": "Selecteer filter",
   "explore-articles-page.search-bar.placeholder": "Zoeken...",
-  "explore-articles-page.article-thumbnail-alt-text": "Thumbnail van artikel genaamd '{articleName}'"
+  "explore-articles-page.article-thumbnail-alt-text": "Thumbnail van artikel genaamd '{articleName}'",
+
+  "login.login-button": "Rockstar login"
 }

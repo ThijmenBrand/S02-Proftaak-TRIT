@@ -33,14 +33,12 @@
           </router-link>
         </div>
         <div class="menu-item">
-          <a class="menu-item" href="#" @click="CloseTab">
-            {{ $t("menu.vision") }}
-          </a>
-        </div>
-        <div class="menu-item">
-          <a class="menu-item" href="#" @click="CloseTab">
-            {{ $t("menu.possibilities") }}
-          </a>
+          <router-link v-if="!IsAuthenticated" to="/account" class="menu-item" @click="showPopup">
+            {{ $t("menu.login") }}
+          </router-link>
+          <router-link v-else class="menu-item" to="/account" @click="CloseTab">
+            {{ $t("menu.account") }}
+          </router-link>
         </div>
 
         <LocaleSelector />
@@ -52,6 +50,8 @@
 <script lang="ts">
 import { ref } from "vue";
 import LocaleSelector from "@/components/localeSelector/LocaleSelector.vue";
+import { useIsAuthenticated, useMsal } from '@/services/msal/msal';
+import { loginRequest } from '@/config/authConfig';
 
 export default {
   components: { LocaleSelector },
@@ -68,10 +68,27 @@ export default {
       menuToggle.checked = false;
     };
 
+          const { instance } = useMsal();
+
+      const showPopup = () => {
+        instance.loginPopup(loginRequest).then(result => console.log(result.account));
+      }
+
+      const logoutPopup = () => {
+        instance.logoutPopup({
+          mainWindowRedirectUri: "/"
+        });
+      }
+
+      const IsAuthenticated = useIsAuthenticated();
+
     return {
       isOpened,
       CheckIfOpened,
       CloseTab,
+      showPopup,
+      logoutPopup,
+      IsAuthenticated
     };
   },
 };

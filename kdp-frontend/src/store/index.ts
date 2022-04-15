@@ -7,6 +7,7 @@ import tribes from "@/views/tribes/store/tribes";
 import ArticleShape from "@/models/Article";
 import rockstars from "@/views/rockstar/store/rockstars";
 import article from "@/views/article/store/article";
+import login from "@/views/login/store/login"
 
 interface IState {
   loading: boolean;
@@ -48,5 +49,6 @@ export default createStore({
     tribes: tribes,
     rockstars: rockstars,
     article: article,
+    login: login
   },
 });

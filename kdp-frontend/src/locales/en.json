@@ -4,7 +4,8 @@
   "rockstars-logo": "RockstarsIT logo",
 
   "menu.possibilities": "YOUR POSSIBILITIES",
-  "menu.vision": "OUR VISION",
+  "menu.login": "LOGIN",
+  "menu.account": "ACCOUNT",
   "menu.explore": "EXPLORE",
   "menu.tribes": "TRIBES",
   "menu.home": "HOME",
@@ -27,5 +28,7 @@
   "explore-articles-page.search-bar.sort-newest": "Sort by newest",
   "explore-articles-page.search-bar.select-filter": "Select filter",
   "explore-articles-page.search-bar.placeholder": "Search...",
-  "explore-articles-page.article-thumbnail-alt-text": "Thumbnail of article named '{articleName}'"
+  "explore-articles-page.article-thumbnail-alt-text": "Thumbnail of article named '{articleName}'",
+
+  "login.login-button": "Rockstar login"
 }

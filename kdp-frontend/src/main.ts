@@ -7,6 +7,9 @@ import { createI18n, I18nOptions } from "vue-i18n";
 
 import nl from "@/locales/nl.json";
 import en from "@/locales/en.json";
+import { msalInstance } from "./config/authConfig";
+import { msalPlugin } from "./services/msal/msalPlugin";
+
 
 type MessageSchema = typeof nl;
 
@@ -21,4 +24,5 @@ const i18n = createI18n<I18nOptions, [MessageSchema], "nl" | "en">({
   },
 });
 
-createApp(App).use(store).use(router).use(i18n).mount("#app");
+const app = createApp(App)
+app.use(store).use(router).use(i18n).use(msalPlugin, msalInstance).mount("#app");
