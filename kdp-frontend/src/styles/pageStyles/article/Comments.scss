@@ -9,30 +9,55 @@
   }
 
   form {
+    display: flex;
+    padding: 1em;
+    background: black;
     .input-container {
       position: relative;
-      width: auto;
+      height: 100%;
+      width: 85%;
       .comment-input{
+        background: black;
         border: none;
-        background-color: black;
+        resize: none;
         color: $trit-white;
         font-size: 1em;
-        font-family: "DIN 2014";
+        font-family: DIN2014-Regular;
         min-width: 100%;
         max-width: 100%;
-        padding: 1em;
         min-height: 5em;
         max-height: 5em;
+        width: 80%;
+        &:focus {
+          outline: none;
+        }
       }
+    }
+    .button-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 5em;
+      width: 20%;
       .comment-button {
-        color: $trit-gray;
-        position: absolute;
-        right: 0;
-        top: 50%;
-        transform: translateY(-50%);
+        padding: 1em;
         border: none;
-        width: 6em;
-        height: 3em;
+      }
+    }
+  }
+  .comment {
+    .user-title {
+      margin: 1em 0 0.5em 0;
+      color: $trit-white;
+      font-weight: normal;
+      font-size: 1.2em;
+    }
+    .comment-content {
+      background: black;
+      width: 100%;
+      min-height: 7em ;
+      .comment-text {
+        padding: 1em;
       }
     }
   }
@@ -46,6 +71,7 @@
       .input-container {
         .comment-input {
           box-sizing: border-box;
+          resize: none;
         }
         .comment-button {
           right: 1em;
@@ -56,31 +82,31 @@
 }
 
 textarea::-webkit-input-placeholder {
-  font-family: "DIN 2014";
+  font-family: DIN2014-Regular;
   font-size: 1em;
   color: $trit-white;
 }
 
-textarea:-moz-placeholder { /* Firefox 18- */
-  font-family: "DIN 2014";
+textarea::-moz-placeholder { /* Firefox 18- */
+  font-family: DIN2014-Regular;
   color: $trit-white;
   font-size: 1em;
 }
 
 textarea::-moz-placeholder {  /* Firefox 19+ */
-  font-family: "DIN 2014";
+  font-family: DIN2014-Regular;
   font-size: 1em;
   color: $trit-white;
 }
 
-textarea:-ms-input-placeholder {
-  font-family: "DIN 2014";
+textarea::-ms-input-placeholder {
+  font-family: DIN2014-Regular;
   font-size: 1em;
   color: $trit-white;
 }
 
 textarea::placeholder {
-  font-family: "DIN 2014";
+  font-family: DIN2014-Regular;
   font-size: 1em;
   color: white;
 }

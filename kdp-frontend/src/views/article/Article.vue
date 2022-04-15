@@ -10,18 +10,24 @@
   <div class="background-container">
     <div class="actions-bar">
       <div class="blog-action">
-        <span>Hart</span>
-        <span>Comment</span>
+        <img class="stats-image" src="@/assets/images/article/heart-solid.svg" :alt="$t('article-page.heart-image')">
+        <span class="stats">11</span>
+        <img class="stats-image" src="@/assets/images/article/message-solid.svg" :alt="$t('article-page.comment-image')">
+        <span class="stats">11</span>
       </div>
-      <span>Bookmark</span>
+      <div class="views">
+        <img class="stats-image" src="@/assets/images/article/eye-solid.svg" :alt="$t('article-page.view-image')">
+        <span class="stats">11</span>
+        <img class="stats-image" src="@/assets/images/article/file-solid.svg" :alt="$t('Unique views bekeken image')">
+        <span class="stats">11</span>
+      </div>
     </div>
     <div class="content-container">
       <div class="article-content">
         <Blog class="article-text" :articleContent="articleDetails.content" />
         <p>{{ articleDetails.publishDate }}</p>
         <div class="border"></div>
-        <!--   Todo: Comment section     -->
-        <Comments />
+        <Comments :comments="getComments" />
       </div>
       <div class="side-bar">
         <RockstarView :rockstar="getRockstar" />
@@ -37,13 +43,15 @@ import { useStore } from "vuex";
 import { computed, onMounted } from "vue";
 
 import ArticleShape from "@/models/Article";
-import { RockstarShape } from "@/models/Rockstar";
+import {RockstarShape} from "@/models/Rockstar";
+import {CommentShape} from "@/models/Comment";
 
 import Comments from "./components/Comments.vue";
 import Recommended from "./components/Recommended.vue";
 import RockstarView from "./components/RockstarArticleView.vue";
 import Blog from "./components/Blog.vue";
 import Loader from "@/components/loader/Loader.vue";
+
 
 export default {
   name: "Article-view",
@@ -70,6 +78,7 @@ export default {
         .dispatch("article/getArticle", articleId.value)
         .then(() => store.dispatch("article/getRockstar"));
       await store.dispatch("article/updateViewCount", articleId.value);
+      await store.dispatch("article/getComments", articleId.value);
     });
 
     const articleDetails = computed((): ArticleShape => {
@@ -80,12 +89,17 @@ export default {
     const getRockstar = computed((): RockstarShape => {
       return store.getters["article/getRockstar"];
     });
-
+    
+    const getComments = computed((): CommentShape => {
+      return store.getters["article/getComments"];
+    });
+    
     return {
       articleId,
       articleDetails,
       loading,
       getRockstar,
+      getComments
     };
   },
 };

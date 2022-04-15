@@ -12,12 +12,26 @@
         </button>
       </div>
     </form>
+    <div v-for="(comment, index) in comments" :key="index" class="comment">
+      <h4 class="user-title">{{ comment.userName }}</h4>
+      <div class="comment-content">
+        <p class="comment-text">{{ comment.commentText }}</p>
+      </div>
+    </div>
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import { CommentShape } from "@/models/Comment";
+
 export default {
   name: "Comments",
+  props: {
+    comments: {
+      type: Array as () => CommentShape[],
+      required: false,
+    },
+  },
 };
 </script>
 
