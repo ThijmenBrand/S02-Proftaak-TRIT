@@ -10,7 +10,6 @@ import en from "@/locales/en.json";
 import { msalInstance } from "./config/authConfig";
 import { msalPlugin } from "./services/msal/msalPlugin";
 
-
 type MessageSchema = typeof nl;
 
 SetLocalStorage();
@@ -26,5 +25,10 @@ const i18n = createI18n<I18nOptions, [MessageSchema], "nl" | "en">({
   },
 });
 
-const app = createApp(App)
-app.use(store).use(router).use(i18n).use(msalPlugin, msalInstance).mount("#app");
+const app = createApp(App);
+app
+  .use(store)
+  .use(router)
+  .use(i18n)
+  .use(msalPlugin, msalInstance)
+  .mount("#app");
