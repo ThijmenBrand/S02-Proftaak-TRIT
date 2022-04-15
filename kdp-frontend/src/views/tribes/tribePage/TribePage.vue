@@ -26,7 +26,7 @@
         <div class="articles-container" v-if="ShowLess">
           <router-link
             :to="{ name: 'article', params: { articleId: article.id } }"
-            v-for="(article, index) in tribeArticles.slice(0, viewamount)"
+            v-for="(article, index) in tribeArticles.slice(0, viewAmount)"
             :key="index"
             class="article"
           >
@@ -173,7 +173,7 @@ export default defineComponent({
       return spotify;
     });
 
-    const viewamount = computed(() => 
+    const viewAmount = computed(() => 
       {
         if (window.innerWidth > 520) 
         {
@@ -193,7 +193,7 @@ export default defineComponent({
       currentTribe,
       loading,
       spotifyList,
-      viewamount,
+      viewAmount,
     };
   },
 });
