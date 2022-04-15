@@ -35,5 +35,9 @@
   
   "article-page.recommended-title": "Ook interessant",
   "article-page.recommended-image-alt": "Voorgesteld artikel afbeelding",
-  "article-page.rockstar-image": "Afbeelding van {name}"
+  "article-page.rockstar-image": "Afbeelding van {name}",
+  "article-page.heart-image": "Like afbeelding",
+  "article-page.comment-image": "Reactie plaatje",
+  "article-page.view-image": "Hoeveelheid bekeken plaatje",
+  "article-page.page-view-image": "Unique keren bekeken plaatje"
 }
