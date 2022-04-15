@@ -92,7 +92,6 @@ export default {
     });
     
     const getComments = computed((): CommentShape => {
-      console.log(store.getters["article/getComments"])
       return store.getters["article/getComments"];
     });
     
