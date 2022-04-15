@@ -5,19 +5,12 @@ import tribe from "@/views/tribes/tribePage/TribePage.vue";
 import article from "@/views/article/Article.vue";
 import RockstarInformationPage from "@/views/rockstar/InformationPage.vue";
 import ExploreArticles from "@/views/explore/ExploreArticles.vue";
-import Account from "@/views/login/Login.vue";
-import { useIsAuthenticated } from "@/services/msal/msal";
 
 const routes: Array<RouteRecordRaw> = [
   {
     path: "/",
     name: "Home",
     component: Home,
-  },
-  {
-    path: "/account",
-    name: "Account",
-    component: Account
   },
   {
     path: "/tribes",
@@ -50,17 +43,5 @@ const router = createRouter({
   history: createWebHashHistory(),
   routes,
 });
-
-// router.beforeEach((to, from, next) => {
-//   const privatePages = ["/account"];
-//   const authRequired = privatePages.includes(to.path);
-//   const loggedIn = localStorage.getItem('user')
-
-//   if (authRequired && !loggedIn) {
-//     return next("/");
-//   }
-
-//   next();
-// });
 
 export default router;

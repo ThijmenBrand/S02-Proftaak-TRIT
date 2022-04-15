@@ -49,13 +49,13 @@ export function getAccountInfo(): AccountInfo[] {
 
 export type MsalAuthenticationResult = {
     acquireToken: any;
-    result: Ref<AuthenticationResult|null>;
+    result: any;
     error: Ref<AuthError|null>;
     inProgress: Ref<boolean>;
 }
 
-export function useMsalAuthentication(interactionType: InteractionType, request: PopupRequest|RedirectRequest|SilentRequest): any {
-    const {instance, inProgress} = useMsal();
+export function useMsalAuthentication(interactionType: InteractionType, request: PopupRequest|RedirectRequest|SilentRequest): MsalAuthenticationResult {
+    const { instance, inProgress } = useMsal();
 
     const localInProgress = ref<boolean>(false);
     const result = ref<AuthenticationResult|null>(null);
@@ -107,8 +107,8 @@ export function useMsalAuthentication(interactionType: InteractionType, request:
             }
             localInProgress.value = false;
         }
-    }   
-    
+    }
+
     const stopWatcher = watch(inProgress, () => {
         if (!result.value && !error.value) {
             acquireToken();

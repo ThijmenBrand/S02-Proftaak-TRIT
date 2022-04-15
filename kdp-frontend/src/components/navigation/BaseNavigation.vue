@@ -33,12 +33,12 @@
           </router-link>
         </div>
         <div class="menu-item">
-          <router-link v-if="!IsAuthenticated" to="/account" class="menu-item" @click="showPopup">
+          <a v-if="!IsAuthenticated" class="menu-item" @click="login">
             {{ $t("menu.login") }}
-          </router-link>
-          <router-link v-else class="menu-item" to="/account" @click="CloseTab">
-            {{ $t("menu.account") }}
-          </router-link>
+          </a>
+          <a v-else class="menu-item" @click="logout">
+            {{ $t("menu.logout") }}
+          </a>
         </div>
 
         <LocaleSelector />
@@ -49,13 +49,18 @@
 
 <script lang="ts">
 import { ref } from "vue";
-import LocaleSelector from "@/components/localeSelector/LocaleSelector.vue";
+import { useStore} from "vuex";
 import { useIsAuthenticated, useMsal } from '@/services/msal/msal';
 import { loginRequest } from '@/config/authConfig';
+
+import LocaleSelector from "@/components/localeSelector/LocaleSelector.vue";
+
+import LocalStorageHandler from "@/services/localStorageHelper/LocalStorageHelper"
 
 export default {
   components: { LocaleSelector },
   setup() {
+    const store = useStore();
     const isOpened = ref(false);
 
     const CheckIfOpened = (event: any) => {
@@ -68,27 +73,31 @@ export default {
       menuToggle.checked = false;
     };
 
-          const { instance } = useMsal();
+    const { instance } = useMsal();
 
-      const showPopup = () => {
-        instance.loginPopup(loginRequest).then(result => console.log(result.account));
-      }
-
-      const logoutPopup = () => {
-        instance.logoutPopup({
-          mainWindowRedirectUri: "/"
+    const login = () => {
+      instance.loginPopup(loginRequest).then(result => {
+        LocalStorageHandler.setItem('user', result); 
+        CloseTab()
         });
-      }
+    }
 
-      const IsAuthenticated = useIsAuthenticated();
+    const logout = () => {
+      localStorage.removeItem('user');
+      instance.logoutPopup({
+        mainWindowRedirectUri: "/"
+      });
+    }
+
+    const IsAuthenticated = useIsAuthenticated();
 
     return {
       isOpened,
       CheckIfOpened,
       CloseTab,
-      showPopup,
-      logoutPopup,
-      IsAuthenticated
+      login,
+      IsAuthenticated,
+      logout
     };
   },
 };

@@ -106,6 +106,9 @@
   font-weight: 600;
   text-decoration: none;
   transition-duration: 0.25s;
+  a {
+    cursor: pointer;
+  }
 }
 .menu-item:hover {
   transition: color 0.25s ease-in;

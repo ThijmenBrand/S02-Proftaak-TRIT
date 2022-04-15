@@ -7,19 +7,15 @@ export const msalConfig = {
         redirectUri: "http://localhost:8080/"//"https://kind-coast-0cd0e9110.1.azurestaticapps.net"
     },
     cache: {
-        cacheLocation: "sessionStorage",
-        storeAuthStateInCookie: false,
+        cacheLocation: "localStorage",
+        storeAuthStateInCookie: true,
     },
 };
 
 export const loginRequest = {
-    scopes: ['User.Read'],
-  };
+  scopes: ['User.Read'],
+};
 
-export const tokenRequest = {
-  scopes: ['Mail.Read']
-}
-  
 // Add here the endpoints for MS Graph API services you would like to use.
 export const graphConfig = {
   graphMeEndpoint: 'https://graph.microsoft.com/v1.0/me',

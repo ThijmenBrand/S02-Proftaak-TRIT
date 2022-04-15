@@ -53,12 +53,13 @@ export const msalPlugin = {
                 case EventType.SSO_SILENT_FAILURE:
                 case EventType.LOGOUT_END:
                 case EventType.ACQUIRE_TOKEN_SUCCESS:
-                case EventType.ACQUIRE_TOKEN_FAILURE:
+                case EventType.ACQUIRE_TOKEN_FAILURE: {
                     const currentAccounts = msalInstance.getAllAccounts();
                     if (!accountArraysAreEqual(currentAccounts, state.accounts)) {
                         state.accounts = currentAccounts;
                     }
                     break;
+                }
             }
             
             const status = EventMessageUtils.getInteractionStatusFromEvent(message, state.inProgress);
