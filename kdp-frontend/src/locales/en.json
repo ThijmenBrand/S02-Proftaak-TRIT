@@ -30,5 +30,11 @@
   "explore-articles-page.search-bar.placeholder": "Search...",
   "explore-articles-page.article-thumbnail-alt-text": "Thumbnail of article named '{articleName}'",
 
-  "login.login-button": "Rockstar login"
+  "article-page.comment-placeholder": "What did you think about this article?",
+  "article-page.button-text": "Comment",
+  "article-page.comment-title": "Comments",
+
+  "article-page.recommended-title": "Also interesting",
+  "article-page.recommended-image-alt": "Recommended article image",
+  "article-page.rockstar-image": "Image of {name}"
 }

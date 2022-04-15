@@ -1,29 +1,90 @@
 @import "@/styles/variables";
 
-.content-container {
-    .article-header-container {
+//Fixes background
+.background-container:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.main-content {
+  .background-container {
+    color: $trit-white;
+    .actions-bar {
+      margin: 0 50px 1em 50px;
+      height: 3em;
       display: flex;
       justify-content: space-between;
       align-items: center;
-    }
-  
-    .article-title-container {
-      display: inline-block;
-    }
-  }
-  
-  .article-content {
-    padding: 30px 0px;
-    color: white;
-    min-height: calc(100vh - 365.5px);
-  }
 
-  .article-details {
-    color:$trit-white;
-    background-color: $trit-gray;
-    padding-top: 2px;
-    margin: 0;
+      span:nth-child(1) {
+        margin-right: 2em;
+      }
+    }
+    
+    .content-container {
+      display: flex;
+      .article-header-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .article-title-container {
+        display: inline-block;
+      }
+      
+      .article-content {
+        width: 75%;
+        .border {
+          height: 1px;
+          background: $trit-white;
+          margin-right: 5em;
+        }
+        .article-text {
+          padding-right: 5em;
+        }
+      }
+
+      .side-bar {
+        flex: 1;
+        width: 20%;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+      }
+    }
   }
-  .publish-date {
-    margin-left: 50px;
+}
+
+.article-details {
+  color: $trit-white;
+  background-color: $trit-gray;
+  padding-top: 2px;
+  margin: 0;
+}
+
+@media screen and (max-width: 768px) {
+  .main-content {
+    .background-container {
+      .content-container {
+        flex-direction: column-reverse;
+        .article-content {
+          width: 100%;
+          .article-text {
+            padding: 0;
+          }
+          .border {
+            margin-right: 0;
+          }
+        }
+        .side-bar {
+          width: 100%;
+          display: flex;
+          flex-direction: row;
+
+        }
+      }
+    }
   }
+}

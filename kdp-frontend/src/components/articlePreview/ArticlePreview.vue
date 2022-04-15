@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <div>
+  <div class="article-container">
+    <div class="image-container">
       <img
         src="@/assets/images/article-placeholder-image.jpg"
         class="preview article-image"
@@ -10,16 +10,16 @@
           })
         "
       />
-      <div>
+      <div class="article-content-container">
         <h4 class="article-preview-title">{{ name }}</h4>
         <p class="content">
-          {{ limitContent(content) }}
+          {{limitContent(cleanText(content))}}
         </p>
         <p class="rockstar-name">
           {{ rockstarName }}
         </p>
         <p class="publish-date">
-          {{ articlePublishDate }}
+          {{ getCustomDateTime(articlePublishDate) }}
         </p>
       </div>
     </div>
@@ -27,6 +27,7 @@
 </template>
 
 <script lang="ts">
+import getCustomDateTime from "@/services/customDateTime"
 export default {
   name: "ArticlePreview",
   props: {
@@ -40,7 +41,12 @@ export default {
       return content.length < 250 ? content : content.substring(0, 250) + "...";
     };
 
-    return { limitContent };
+    const cleanText = (content: string): string => {
+      return content.replace(/<\/?[^>]+(>|$)/g, "");
+    }
+
+
+    return { limitContent, cleanText, getCustomDateTime};
   },
 };
 </script>

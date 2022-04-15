@@ -30,5 +30,11 @@
   "explore-articles-page.search-bar.placeholder": "Zoeken...",
   "explore-articles-page.article-thumbnail-alt-text": "Thumbnail van artikel genaamd '{articleName}'",
 
-  "login.login-button": "Rockstar login"
+  "article-page.comment-placeholder": "Wat vond jij van dit artikel?",
+  "article-page.button-text": "Plaats",
+  "article-page.comment-title": "Reacties",
+  
+  "article-page.recommended-title": "Ook interessant",
+  "article-page.recommended-image-alt": "Voorgesteld artikel afbeelding",
+  "article-page.rockstar-image": "Afbeelding van {name}"
 }

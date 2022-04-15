@@ -1,0 +1,30 @@
+﻿.rockstar {
+  .rockstar-image {
+    width: 15em;
+    height: 15em;
+    object-fit: cover;
+  }
+
+  .rockstar-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    p {
+      margin: 0;
+      font-size: 1.5em;
+    }
+    .socials {
+      img {
+        margin-left: 5px;
+        width: 1.5em;
+        filter: invert(100%);
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .rockstar {
+    margin-bottom: 2em;
+  }
+}
