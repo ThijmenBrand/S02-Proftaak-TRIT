@@ -92,7 +92,6 @@ const tribes = {
     getComments: async (context: any, articleId: string) => {
       context.rootState.loading = true;
       const { data, status } = await articleService.getComments(articleId);
-      console.log(data)
       
       if (status >= 200 && status <= 299) {
         context.rootState.loading = false;
@@ -128,7 +127,6 @@ const tribes = {
       }
     },
     SET_COMMENTS: (state: articleState, data: CommentShape) => {
-      console.log(data)
       state.comments = data;
     },
   },
