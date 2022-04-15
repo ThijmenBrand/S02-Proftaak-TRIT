@@ -6,6 +6,7 @@ import pfPlaceholder from "@/assets/profilePlaceholder";
 import SetProfilePicture from "@/services/profilePictureHelper";
 import { ViewCountShape } from "@/models/ViewCountShape";
 import getCustomDateTime from "@/services/customDateTime";
+import { ActionContext } from "vuex";
 import {CommentShape} from "@/models/Comment";
 
 interface articleState {
@@ -64,7 +65,10 @@ const tribes = {
     },
   },
   actions: {
-    getArticle: async (context: any, articleId: string) => {
+    getArticle: async (
+      context: ActionContext<string, any>,
+      articleId: string
+    ): Promise<void> => {
       context.rootState.loading = true;
       const { data, status } = await articleService.getArticle(articleId);
 
@@ -73,7 +77,7 @@ const tribes = {
         context.commit("SET_ARTICLE", data);
       }
     },
-    getRockstar: async (context: any) => {
+    getRockstar: async (context: any): Promise<void> => {
       context.rootState.loading = true;
       const rockstarId = context.state.article.rockstarId;
       const { data, status } = await rockstarService.getRockstar(rockstarId);
@@ -83,7 +87,7 @@ const tribes = {
         context.commit("SET_ROCKSTAR", data);
       }
     },
-    updateViewCount: async (context: any, articleId: string) => {
+    updateViewCount: async (context: any, articleId: string): Promise<void> => {
       const viewCount = context.state.viewCount;
       viewCount.articleId = articleId;
       viewCount.frontendUserId = localStorage.getItem("UUIDV4");
@@ -100,7 +104,7 @@ const tribes = {
     },
   },
   mutations: {
-    CLEAR_ARTICLE: (state: articleState) => {
+    CLEAR_ARTICLE: (state: articleState): void => {
       state.article = {
         content: "",
         id: "",
@@ -112,13 +116,13 @@ const tribes = {
         publishDate: "",
       };
     },
-    SET_ARTICLE: (state: articleState, data: ArticleShape) => {
+    SET_ARTICLE: (state: articleState, data: ArticleShape): void => {
       state.article = data;
 
       const custom = data.publishDate.toString();
       state.article.publishDate = getCustomDateTime(custom);
     },
-    SET_ROCKSTAR: (state: articleState, data: RockstarShape) => {
+    SET_ROCKSTAR: (state: articleState, data: RockstarShape): void => {
       state.rockstar = data;
       if (state.rockstar.image == null) {
         state.rockstar.image = pfPlaceholder;

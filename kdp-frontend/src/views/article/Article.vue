@@ -1,11 +1,10 @@
 <template>
-  <Loader v-if="loading"/>
+  <Loader v-if="loading" />
   <div class="content-container" v-else>
     <div class="article-header-container">
       <div class="article-title-container">
         <h1>{{ articleDetails.title }}</h1>
       </div>
-
     </div>
   </div>
   <div class="background-container">
@@ -25,23 +24,23 @@
     </div>
     <div class="content-container">
       <div class="article-content">
-        <Blog class="article-text" :articleContent="articleDetails.content"/>
+        <Blog class="article-text" :articleContent="articleDetails.content" />
         <p>{{ articleDetails.publishDate }}</p>
         <div class="border"></div>
         <Comments :comments="getComments" />
       </div>
       <div class="side-bar">
         <RockstarView :rockstar="getRockstar" />
-        <Recommended/>
+        <Recommended />
       </div>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import {useRoute} from "vue-router";
-import {useStore} from "vuex";
-import {computed, onMounted} from "vue";
+import { useRoute } from "vue-router";
+import { useStore } from "vuex";
+import { computed, onMounted } from "vue";
 
 import ArticleShape from "@/models/Article";
 import {RockstarShape} from "@/models/Rockstar";
@@ -106,4 +105,4 @@ export default {
 };
 </script>
 
-<style scoped lang="scss" src="@/styles/pageStyles/article/Article.scss"/>
+<style scoped lang="scss" src="@/styles/pageStyles/article/Article.scss" />

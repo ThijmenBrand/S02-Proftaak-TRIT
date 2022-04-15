@@ -13,8 +13,6 @@ export default {
     BaseNav,
   },
 };
-
-
 </script>
 
 <style lang="scss">

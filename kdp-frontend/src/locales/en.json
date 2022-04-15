@@ -4,7 +4,8 @@
   "rockstars-logo": "RockstarsIT logo",
 
   "menu.possibilities": "YOUR POSSIBILITIES",
-  "menu.vision": "OUR VISION",
+  "menu.login": "LOGIN",
+  "menu.logout": "LOGOUT",
   "menu.explore": "EXPLORE",
   "menu.tribes": "TRIBES",
   "menu.home": "HOME",

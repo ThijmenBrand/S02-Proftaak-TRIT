@@ -41,5 +41,13 @@
   "exclude": [
     "node_modules",
     "dist"
-  ]
+  ],
+  "overrides": [
+    {
+      "files": ["*.ts", "*.vue"],
+      "rules": {
+        "@typescript-eslint/explicit-module-boundary-types": ["off"]
+      },
+    },
+  ],
 }

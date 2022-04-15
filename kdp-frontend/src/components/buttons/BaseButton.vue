@@ -1,5 +1,5 @@
 <template>
-  <div class="btn btn-yellow">
+  <div class="btn" :class="'btn-'+color">
     <p>{{ btnContent.toUpperCase() }}</p>
   </div>
 </template>
@@ -9,6 +9,7 @@ export default {
   name: "BaseButton",
   props: {
     btnContent: String,
+    color: String
   },
 };
 </script>

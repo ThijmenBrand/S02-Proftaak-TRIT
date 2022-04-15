@@ -11,9 +11,14 @@
     "prettier-watch": "onchange 'src/**/*.ts' -- prettier --write {{changed}}"
   },
   "dependencies": {
+    "@azure/core-http": "^2.2.4",
+    "@azure/msal-browser": "^2.23.0",
+    "@azure/storage-blob": "^12.9.0",
     "@vue/cli": "^5.0.4",
     "axios": "^0.26.1",
     "core-js": "^3.6.5",
+    "msal": "^1.4.16",
+    "tiny-emitter": "^2.1.0",
     "vue": "^3.2.31",
     "vue-class-component": "^8.0.0-0",
     "vue-i18n": "^9.1.9",

@@ -4,7 +4,8 @@
   "rockstars-logo": "RockstarsIT logo",
 
   "menu.explore": "VERKEN",
-  "menu.vision": "ONZE VISIE",
+  "menu.login": "LOGIN",
+  "menu.logout": "LOG UIT",
   "menu.possibilities": "UW MOGELIJKHEDEN",
   "menu.tribes": "TRIBES",
   "menu.home": "HOME",
