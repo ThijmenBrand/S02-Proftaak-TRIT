@@ -4,7 +4,7 @@ export const msalConfig = {
   auth: {
     clientId: "d0b1fd93-02ac-44ce-94cc-6ed26b112ce1",
     authority: "https://login.microsoftonline.com/common",
-    redirectUri: "https://kind-coast-0cd0e9110.1.azurestaticapps.net",
+    redirectUri: process.env.VUE_APP_REDIRECT_URL,
   },
   cache: {
     cacheLocation: "localStorage",
