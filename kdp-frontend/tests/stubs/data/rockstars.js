@@ -1,0 +1,4 @@
+const rockstars = [
+    {Id: "f6fb6153-e728-4a93-929d-6adf61c1c5b1", Name: "Frank peters", Image: "5419370.webp", Description: "Frank is een echte fanaat", Role: "Rockstar", LinkedIn: "https://www.linkedin.com/login/nl?fromSignIn=true&trk=guest_homepage-basic_nav-header-signin", twitter: "https://www.bing.com/search?q=twitter&cvid=b07b0826f6ee49c38ba6236c519cfb7f&aqs=edge..69i57j0l8.743j0j9&FORM=ANAB01&PC=U531"},
+    {Id: "f6fb6153-e728-4a93-929d-6adf61c1c5b1", Name: "Peter", Image: "ey-dr-frank-de-jonghe-meta.jpg", Description: "Peter de schoen vreter", Role: "Special agent", LinkedIn: "https://www.linkedin.com/login/nl?fromSignIn=true&trk=guest_homepage-basic_nav-header-signin", phone: "0640018231"},
+]

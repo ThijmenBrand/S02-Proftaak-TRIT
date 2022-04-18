@@ -1,19 +1,15 @@
-const express = require('express');
-const app = express();
-const port = 3000;
-const bodyParser = require('body-parser');
-const cors = require('cors');
+var express = require('express');
+var bodyParser = require('body-parser');
+var cors = require('cors')
 
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cors);
+var app = express();
 
-app.get('/tribe', (req, res) => {
-    console.log("hoi");
-    res.set('Content-Type', 'application/json');
-    res.status(200);
-    res.json([{ id: "73bf4df5-364e-44ff-ba9e-f7089d09d521", name: "Vuejs", }, { id: "8d28d4f3-a1cf-488c-97af-8141f538e26c", name: "ASP.net", }]);
-})
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cors());
 
-app.listen(port, () => {
-  console.log(`Success! Your application is running on port ${port}.`);
-});
+var tribe = require('./tribe.js');
+
+app.use('/api/tribe', tribe);
+
+app.listen(3000, () => {console.log('Mock api running')});
