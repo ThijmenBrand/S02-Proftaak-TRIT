@@ -33,7 +33,7 @@ export default {
     onMounted(() => {
       SetLocalStorage();
     });
-  },
+
     function cookieClickedAccept() {
       store.commit("SET_COOKIE_ACCEPTED", true);
     }
@@ -43,9 +43,6 @@ export default {
     
     return {cookieClickedAccept, cookieClickedDecline}
   }
-
-    
-
 };
 </script>
 
