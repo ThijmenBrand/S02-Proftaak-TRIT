@@ -1,5 +1,5 @@
 module.exports = {
   devServer: {
-    proxy: process.env.VUE_APP_API_URL,
+    proxy: "https://rockstar-api.azurewebsites.net/api/",
   },
 };

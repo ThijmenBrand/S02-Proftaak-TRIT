@@ -1,3 +1,0 @@
-import tribes from './tribes';
-
-const spotify = [{Id: "6ec82e78-3242-4c97-bed5-cd48af48dc93", tribeId: tribes[0].Id, SpotifyLink: "<iframe style='border-radius:12px' src='https://open.spotify.com/embed/episode/5PHhZ2o37EokyGeqReThwD?utm_source=generator&t=0' width='100%' height='232' frameBorder='0' allowfullscreen='' allow='autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture'></iframe>"}]

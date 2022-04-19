@@ -1,1 +1,0 @@
-const articles = [{id: "be05ebb6-587c-409c-862c-f476c299aad0", TribeId: "e7588e32-d182-4e0c-914b-38cf5976b345", RockstarId: "b9fa9dde-981e-41b3-b09b-af1d57a5354d", Title: "test123456", Content: "<h1>HOi</h1><p>testkrirgjrigjgirjgirjigjrgiid vinfin</p><h4>sdfghjhgfdsdfghj</h4>", TribeName: "Vuejs", RockstarName: "Peter", ViewCount: 10, PublishDate: new Date() }];
