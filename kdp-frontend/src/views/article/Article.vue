@@ -21,7 +21,7 @@
           src="@/assets/images/article/message-solid.svg"
           :alt="$t('article-page.comment-image')"
         />
-        <span class="stats">11</span>
+        <span class="stats">{{ getComments.length }}</span>
       </div>
       <div class="views">
         <img
@@ -29,13 +29,13 @@
           src="@/assets/images/article/eye-solid.svg"
           :alt="$t('article-page.view-image')"
         />
-        <span class="stats">11</span>
+        <span class="stats">{{ articleDetails.viewCount }}</span>
         <img
           class="stats-image"
           src="@/assets/images/article/file-solid.svg"
           :alt="$t('article-page.page-view-image')"
         />
-        <span class="stats">11</span>
+        <span class="stats">{{ articleDetails.totalViewCount }}</span>
       </div>
     </div>
     <div class="content-container">
@@ -92,8 +92,8 @@ export default {
       await store
         .dispatch("article/getArticle", articleId.value)
         .then(() => store.dispatch("article/getRockstar"));
-      await store.dispatch("article/updateViewCount", articleId.value);
       await store.dispatch("article/getComments", articleId.value);
+      await store.dispatch("article/updateViewCount", articleId.value);
     });
 
     const articleDetails = computed((): ArticleShape => {
