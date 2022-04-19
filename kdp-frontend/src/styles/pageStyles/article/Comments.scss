@@ -8,11 +8,13 @@
     font-weight: normal;
   }
 
-  form {
+  .comment-input-container {
     display: flex;
     padding: 1em;
     background: black;
     .input-container {
+      display: flex;
+      align-items: center;
       position: relative;
       height: 100%;
       width: 85%;
@@ -40,6 +42,7 @@
       height: 5em;
       width: 20%;
       .comment-button {
+        cursor: pointer;
         padding: 1em;
         border: none;
       }
