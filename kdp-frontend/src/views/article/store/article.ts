@@ -28,6 +28,8 @@ const tribes = {
         title: "",
         tribeId: "",
         tribeName: "",
+        viewCount: 0,
+        totalViewCount: 0,
         publishDate: new Date(),
       },
       rockstar: {
@@ -113,6 +115,8 @@ const tribes = {
         title: "",
         tribeId: "",
         tribeName: "",
+        viewCount: 0,
+        totalViewCount: 0,
         publishDate: "",
       };
     },
