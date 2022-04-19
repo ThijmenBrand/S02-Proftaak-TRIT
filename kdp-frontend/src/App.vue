@@ -19,6 +19,9 @@
 <script>
 import BaseNav from "@/components/navigation/BaseNavigation.vue";
 import {useStore} from "vuex"
+import { onMounted } from "vue";
+import SetLocalStorage from "@/config/SetLocalstorage";
+
 
 export default {
   components: {
@@ -27,6 +30,10 @@ export default {
   setup() {
     const store = useStore();
     
+    onMounted(() => {
+      SetLocalStorage();
+    });
+  },
     function cookieClickedAccept() {
       store.commit("SET_COOKIE_ACCEPTED", true);
     }
@@ -36,6 +43,9 @@ export default {
     
     return {cookieClickedAccept, cookieClickedDecline}
   }
+
+    
+
 };
 </script>
 

@@ -14,8 +14,6 @@ import { msalPlugin } from "./services/msal/msalPlugin";
 
 type MessageSchema = typeof nl;
 
-SetLocalStorage();
-
 const i18n = createI18n<I18nOptions, [MessageSchema], "nl" | "en">({
   legacy: false,
   globalInjection: true,
