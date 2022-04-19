@@ -3,6 +3,7 @@
  * Generated on Fri, 15 Apr 2022 12:18:21 GMT.
  * For more information, check out https://ckeditor.com/docs/ckeditor5/latest/installation/advanced/content-styles.html
  */
+@import "./variables.scss";
 
  :root {
     --ck-color-image-caption-background: hsl(0, 0%, 97%);
@@ -19,6 +20,10 @@
 .ck-content {
     h1, h2, h3, h4, h5 {
         color: white;
+    }
+    a {
+        color: $trit-yellow;
+        text-decoration: underline;
     }
 }
 
