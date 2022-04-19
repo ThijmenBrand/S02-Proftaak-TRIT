@@ -11,5 +11,24 @@ router.get('/', function(req, res){
    res.status(200); 
    res.json(tribes);
  });
+router.get('/:id', (req, res) => {
+   res.status(200);
+   res.json(tribes[0]);
+})
+router.get('/GetAllRockstars/:id', (req, res) => {
+   res.status(200);
+   res.json([
+      {id: "b9fa9dde-981e-41b3-b09b-af1d57a5354d", name: "Frank peters", image: "5419370.webp", description: "Frank is een echte fanaat", role: "Rockstar", linkedIn: "https://www.linkedin.com/login/nl?fromSignIn=true&trk=guest_homepage-basic_nav-header-signin", twitter: "https://www.bing.com/search?q=twitter&cvid=b07b0826f6ee49c38ba6236c519cfb7f&aqs=edge..69i57j0l8.743j0j9&FORM=ANAB01&PC=U531"},
+      {id: "f6fb6153-e728-4a93-929d-6adf61c1c5b1", name: "Peter", image: "ey-dr-frank-de-jonghe-meta.jpg", description: "Peter de schoen vreter", role: "Special agent", linkedIn: "https://www.linkedin.com/login/nl?fromSignIn=true&trk=guest_homepage-basic_nav-header-signin", phone: "0640018231"},
+  ]);
+})
+router.get('/spotify/:id', (req, res) => {
+   res.status(200);
+   res.json([{Id: "6ec82e78-3242-4c97-bed5-cd48af48dc93", tribeId: tribes[0].Id, SpotifyLink: "<iframe style='border-radius:12px' src='https://open.spotify.com/embed/episode/5PHhZ2o37EokyGeqReThwD?utm_source=generator&t=0' width='100%' height='232' frameBorder='0' allowfullscreen='' allow='autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture'></iframe>"}]);
+})
+router.get('/:id/spotify', (req, res) => {
+   res.status(200);
+   res.json([{Id: "6ec82e78-3242-4c97-bed5-cd48af48dc93", tribeId: tribes[0].Id, SpotifyLink: "<iframe style='border-radius:12px' src='https://open.spotify.com/embed/episode/5PHhZ2o37EokyGeqReThwD?utm_source=generator&t=0' width='100%' height='232' frameBorder='0' allowfullscreen='' allow='autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture'></iframe>"}]);
+})
 
 module.exports = router;
