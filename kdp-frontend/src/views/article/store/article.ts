@@ -13,7 +13,7 @@ interface articleState {
   article: ArticleShape;
   rockstar: RockstarShape;
   viewCount: ViewCountShape;
-  comments: CommentShape;
+  comments: CommentShape[];
 }
 
 const tribes = {
@@ -45,12 +45,15 @@ const tribes = {
         frontendUserId: "",
         articleId: "",
       },
-      comments: {
-        id: "",
-        userId: "",
-        userName: "",
-        commentText: "",
-      },
+      comments: [
+        {
+          id: "",
+          userId: "",
+          userName: "",
+          commentText: "",
+          commentDate: "",
+        },
+      ],
     };
   },
   getters: {
@@ -60,7 +63,7 @@ const tribes = {
     getRockstar: (state: articleState): RockstarShape => {
       return state.rockstar;
     },
-    getComments: (state: articleState): CommentShape => {
+    getComments: (state: articleState): CommentShape[] => {
       return state.comments;
     },
   },
@@ -102,6 +105,13 @@ const tribes = {
         context.commit("SET_COMMENTS", data);
       }
     },
+    postComment: async (context: any, opts: CommentShape): Promise<void> => {
+      const { data, status } = await articleService.postComment(opts);
+
+      if (status >= 200 && status <= 299) {
+        context.commit("SET_COMMENTS", data);
+      }
+    },
   },
   mutations: {
     CLEAR_ARTICLE: (state: articleState): void => {
@@ -115,6 +125,16 @@ const tribes = {
         tribeName: "",
         publishDate: "",
       };
+      state.comments = [
+        {
+          commentText: "",
+          userId: "",
+          userName: "",
+          articleId: "",
+          commentDate: "",
+          id: "",
+        },
+      ];
     },
     SET_ARTICLE: (state: articleState, data: ArticleShape): void => {
       state.article = data;
@@ -130,7 +150,7 @@ const tribes = {
         state.rockstar.image = SetProfilePicture(data.image);
       }
     },
-    SET_COMMENTS: (state: articleState, data: CommentShape) => {
+    SET_COMMENTS: (state: articleState, data: CommentShape[]) => {
       state.comments = data;
     },
   },
