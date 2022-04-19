@@ -225,6 +225,15 @@ namespace API_Rockstars.Controllers
         [HttpPost("updateViewCount")]
         public async Task<IActionResult> UpdateArticleViewCount(ArticleView view)
         {
+            var article = await _context.Articles.FirstOrDefaultAsync(x => x.Id == view.ArticleId);
+
+            if (article != null)
+            {
+                article.TotalViewCount++;
+                _context.Articles.Update(article);
+                await _context.SaveChangesAsync();
+            }
+
             var checkArticleView = await _context.ArticleViews.FirstOrDefaultAsync(x => x.FrontendUserId == view.FrontendUserId && x.ArticleId == view.ArticleId);
 
             if (checkArticleView != null)
