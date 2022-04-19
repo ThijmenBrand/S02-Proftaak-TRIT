@@ -1,0 +1,28 @@
+.cookie {
+  bottom: 0;
+  background: $trit-gray!important;
+  color: white;
+  &__bar {
+    &__content {
+      a {
+        color: white;
+      }
+    }
+
+    &__buttons {
+      &__button {
+        &--accept {
+          background: $trit-yellow!important;
+          color: black!important;
+          border-radius: 0!important;
+        }
+
+        &--decline {
+          background: black!important;
+          color: white!important;
+          border-radius: 0!important;
+        }
+      }
+    }
+  }
+}
