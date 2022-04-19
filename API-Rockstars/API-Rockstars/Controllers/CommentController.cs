@@ -91,7 +91,7 @@ namespace API_Rockstars.Controllers
         // POST: api/Comment
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Comment>> PostComment(Comment comment)
+        public async Task<ActionResult<List<Comment>>> PostComment(Comment comment)
         {
             var articleExists = _context.Articles.FirstOrDefault(x => x.Id == comment.ArticleId);
 
@@ -105,7 +105,7 @@ namespace API_Rockstars.Controllers
             _context.Comment.Add(comment);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetComment", new { id = comment.Id }, comment);
+            return await _context.Comment.Where(x => x.ArticleId == comment.ArticleId).ToListAsync();
         }
 
         // DELETE: api/Comment/5
