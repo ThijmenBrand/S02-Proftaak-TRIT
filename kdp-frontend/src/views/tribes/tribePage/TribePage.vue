@@ -72,8 +72,6 @@ export default {
     const store = useStore();
     
     const cookie = computed(() => store.getters["cookieAccepted"]);
-    
-    console.log(cookie)
 
     const loading = computed(() => store.getters["isLoading"]);
 
