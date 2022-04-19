@@ -99,6 +99,8 @@ namespace API_Rockstars.Controllers
             {
                 return NoContent();
             }
+
+            comment.CommentDate = DateTime.Now.ToUniversalTime();
             
             _context.Comment.Add(comment);
             await _context.SaveChangesAsync();
