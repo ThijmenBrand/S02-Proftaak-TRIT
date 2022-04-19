@@ -1,4 +1,4 @@
-import { createApp } from "vue";
+import {createApp} from "vue";
 import App from "./App.vue";
 import router from "./router";
 import store from "./store";
@@ -11,21 +11,22 @@ import nl from "@/locales/nl.json";
 import en from "@/locales/en.json";
 import { msalInstance } from "./config/authConfig";
 import { msalPlugin } from "./services/msal/msalPlugin";
+import * as Cookies from 'tiny-cookie'
 
 type MessageSchema = typeof nl;
 
-const i18n = createI18n<I18nOptions, [MessageSchema], "nl" | "en">({
+store.commit("SET_COOKIE_ACCEPTED", window.localStorage.getItem("vue-cookie-accept-decline-cookie-banner") == "accept")
+
+const i18n =  createI18n<I18nOptions, [MessageSchema], "nl" | "en">({
   legacy: false,
   globalInjection: true,
-  locale: "nl",
+  locale: localStorage.getItem("vue-cookie-accept-decline-cookie-banner") == "accept" ? Cookies.getCookie("lang") || "en" : "en",
   fallbackLocale: "en",
   messages: {
     nl: nl,
     en: en,
   },
 });
-
-store.commit("SET_COOKIE_ACCEPTED", window.localStorage.getItem("vue-cookie-accept-decline-cookie-banner") == "accept")
 
 const app = createApp(App);
 
