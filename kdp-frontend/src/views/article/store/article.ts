@@ -7,7 +7,7 @@ import SetProfilePicture from "@/services/profilePictureHelper";
 import { ViewCountShape } from "@/models/ViewCountShape";
 import getCustomDateTime from "@/services/customDateTime";
 import { ActionContext } from "vuex";
-import {CommentShape} from "@/models/Comment";
+import { CommentShape } from "@/models/Comment";
 
 interface articleState {
   article: ArticleShape;
@@ -49,7 +49,7 @@ const tribes = {
         id: "",
         userId: "",
         userName: "",
-        commentText: "", 
+        commentText: "",
       },
     };
   },
@@ -90,13 +90,13 @@ const tribes = {
     updateViewCount: async (context: any, articleId: string): Promise<void> => {
       const viewCount = context.state.viewCount;
       viewCount.articleId = articleId;
-      viewCount.frontendUserId = localStorage.getItem("UUIDV4");
+      viewCount.frontendUserId = localStorage.getItem("UserId-uuid");
       const { data, status } = await articleService.updateViewCount(viewCount);
     },
     getComments: async (context: any, articleId: string) => {
       context.rootState.loading = true;
       const { data, status } = await articleService.getComments(articleId);
-      
+
       if (status >= 200 && status <= 299) {
         context.rootState.loading = false;
         context.commit("SET_COMMENTS", data);

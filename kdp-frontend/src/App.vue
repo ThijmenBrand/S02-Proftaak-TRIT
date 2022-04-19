@@ -7,10 +7,17 @@
 
 <script>
 import BaseNav from "@/components/navigation/BaseNavigation.vue";
+import { onMounted } from "vue";
+import SetLocalStorage from "@/config/SetLocalstorage";
 
 export default {
   components: {
     BaseNav,
+  },
+  setup() {
+    onMounted(() => {
+      SetLocalStorage();
+    });
   },
 };
 </script>
