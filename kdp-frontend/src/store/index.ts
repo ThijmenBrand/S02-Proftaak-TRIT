@@ -7,11 +7,13 @@ import tribes from "@/views/tribes/store/tribes";
 import ArticleShape from "@/models/Article";
 import rockstars from "@/views/rockstar/store/rockstars";
 import article from "@/views/article/store/article";
+import {FallbackLocale} from "vue-i18n";
 
 interface IState {
   loading: boolean;
   tribe: TribeShape[];
   articleList: ArticleShape[];
+  cookieAccepted: boolean;
 }
 
 export default createStore({
@@ -19,6 +21,7 @@ export default createStore({
     loading: false,
     tribe: Array<TribeShape>(),
     articleList: Array<ArticleShape>(),
+    cookieAccepted: false,
   },
   getters: {
     getAllArticles: (state: IState): ArticleShape[] => {
@@ -27,6 +30,9 @@ export default createStore({
     isLoading: (state: IState) => {
       return state.loading;
     },
+    cookieAccepted: (state: IState) => {
+      return state.cookieAccepted;
+    }
   },
   actions: {
     getAllArticles: async (context: any) => {
@@ -42,6 +48,9 @@ export default createStore({
   mutations: {
     SET_ALL_ARTICLES: (state, data: ArticleShape[]) => {
       state.articleList = data;
+    },
+    SET_COOKIE_ACCEPTED: (state, data: boolean) => {
+      state.cookieAccepted = data;
     },
   },
   modules: {
