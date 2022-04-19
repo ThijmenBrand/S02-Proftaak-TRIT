@@ -16,5 +16,6 @@ public class Article
     [NotMapped] public string? TribeName { get; set; }
     [NotMapped] public string? RockstarName { get; set; }
     [NotMapped] public int? ViewCount { get; set; }
+    public int TotalViewCount { get; set; }
     public DateTime PublishDate { get; set; }
 }
