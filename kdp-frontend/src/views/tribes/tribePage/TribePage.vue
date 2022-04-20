@@ -23,21 +23,6 @@
           <Loader />
         </div>
 
-        <div class="articles-container" v-if="ShowLess">
-          <router-link
-            :to="{ name: 'article', params: { articleId: article.id } }"
-            v-for="(article, index) in tribeArticles.slice(0, viewAmount)"
-            :key="index"
-            class="article"
-          >
-            <article-preview
-              :name="article.title"
-              :content="article.content"
-              :rockstarName="article.rockstarName"
-              :articlePublishDate="article.publishDate"
-            />
-          </router-link>
-        </div>
         <div class="articles-container" v-else>
           <router-link
             :to="{ name: 'article', params: { articleId: article.id } }"
@@ -54,7 +39,8 @@
           </router-link>
         </div>
         
-        <a v-if="!loading" @click="toggleshow()" class="viewmore">{{viewtext}}</a>
+        <a v-if="!loading && ShowLess" @click="toggleshow" class="viewmore">{{$t("articles-overview.viewmore")}}</a>
+        <a v-if="!loading && !ShowLess" @click="toggleshow" class="viewmore">{{$t("articles-overview.viewless")}}</a>
 
         <h3 class="podcasts-overview-title">Podcasts</h3>
         <SpotifyCarousel :spotify-links="spotifyList" />
@@ -64,7 +50,7 @@
 </template>
 
 <script lang="ts">
-import { computed, onMounted } from "vue";
+import { computed, onMounted, ref } from "vue";
 import { useRoute } from "vue-router";
 import { useStore } from "vuex";
 
@@ -78,44 +64,9 @@ import Profiletag from "@/components/profileTag/Profiletag.vue";
 import Loader from "@/components/loader/Loader.vue";
 import SpotifyCarousel from "@/components/carousel/Carousel.vue";
 
-import { defineComponent } from "vue";
 
 
-
-export default defineComponent({
-  data () {
-    return {
-      ShowLess:true,
-      windowheigt:0,
-      viewtext:this.$t("articles-overview.viewmore")
-    }
-  },
-  methods: {
-    async toggleshow() {
-      this.windowheigt = window.scrollY;
-
-      console.log(window.scrollY);
-
-      this.ShowLess = !this.ShowLess;
-      await this.sleep(1);
-      window.scrollTo(0, this.windowheigt);
-
-      if (this.ShowLess){
-        this.viewtext = this.$t("articles-overview.viewmore");
-      }
-      else {
-        this.viewtext = this.$t("articles-overview.viewless");
-      }
-      
-    },
-    async sleep(ms: number) {
-      return new Promise((resolve) => {
-      setTimeout(resolve, ms);
-    });
-}
-
-
-  },
+export default ({
 
   components: {
     SpotifyCarousel,
@@ -142,19 +93,30 @@ export default defineComponent({
       await store.dispatch("tribes/getAllSpotifyByTribe", route.params.tribe);
     });
 
+    
+      
+
+
     const articles = computed((): ArticleShape[] => {
       const applyingArticles: ArticleShape[] = [];
 
       const allArticles: ArticleShape[] =
+      
         store.getters["tribes/getAllArticles"];
 
       allArticles.forEach((article) => {
         article.tribeId === currentTribe.value.id
           ? applyingArticles.push(article)
           : "";
+
+      
       });
 
-      return applyingArticles;
+      if(ShowLess.value) {
+      return applyingArticles.slice(0, viewAmount);
+      } else {
+      return applyingArticles
+      }
     });
 
     const rockstars = computed((): RockstarShape[] => {
@@ -164,7 +126,12 @@ export default defineComponent({
 
     const tribeArticles = computed((): ArticleShape[] => {
       const articles = store.getters["tribes/getArticlesbByTribe"];
-      return articles;
+
+      if(ShowLess.value) {
+      return articles.slice(0, viewAmount);
+      } else {
+      return articles
+      }
     });
 
     let spotifyList = computed((): SpotifyShape[] => {
@@ -172,19 +139,15 @@ export default defineComponent({
         store.getters["tribes/getAllSpotifyByTribe"];
       return spotify;
     });
+    
+    let viewAmount = (Math.floor(window.innerWidth / 420)) * 2;
+    if (window.innerWidth < 520) { viewAmount = 3 }
 
-    const viewAmount = computed(() => 
-      {
-        if (window.innerWidth > 520) 
-        {
-          return ((Math.floor(window.innerWidth / 420)) * 2);
-        }  
-        else 
-        {
-          return 3;
-        }
-      }
-    );
+    let ShowLess = ref(true);
+
+    function toggleshow() {
+      ShowLess.value = !ShowLess.value;
+    }
 
     return {
       tribeArticles,
@@ -194,6 +157,8 @@ export default defineComponent({
       loading,
       spotifyList,
       viewAmount,
+      toggleshow,
+      ShowLess
     };
   },
 });
