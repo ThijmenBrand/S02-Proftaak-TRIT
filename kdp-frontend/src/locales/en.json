@@ -19,6 +19,9 @@
 
   "articles-overview.header": "Articles",
 
+  "articles-overview.viewmore": "Show more...",
+  "articles-overview.viewless": "Show less...",
+
   "rockstar-page.profile-picture-alt-text": "Profile picture of {name}",
 
   "explore-articles-page.search-bar.sort-title-za": "Sort title by Z-A",

@@ -19,6 +19,9 @@
 
   "articles-overview.header": "Artikelen",
 
+  "articles-overview.viewmore": "Laat meer zien...",
+  "articles-overview.viewless": "Laat minder zien...",
+
   "rockstar-page.profile-picture-alt-text": "Profielfoto van {name}",
 
   "explore-articles-page.search-bar.sort-title-za": "Sorteren op titel, Z-A",

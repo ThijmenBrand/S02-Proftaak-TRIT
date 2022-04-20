@@ -87,7 +87,7 @@ export default defineComponent({
     return {
       ShowLess:true,
       windowheigt:0,
-      viewtext:"View more..."
+      viewtext:this.$t("articles-overview.viewmore")
     }
   },
   methods: {
@@ -101,10 +101,10 @@ export default defineComponent({
       window.scrollTo(0, this.windowheigt);
 
       if (this.ShowLess){
-        this.viewtext = "View more...";
+        this.viewtext = this.$t("articles-overview.viewmore");
       }
       else {
-        this.viewtext = "View less...";
+        this.viewtext = this.$t("articles-overview.viewless");
       }
       
     },
