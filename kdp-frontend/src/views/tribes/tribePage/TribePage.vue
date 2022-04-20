@@ -163,7 +163,7 @@ export default {
       cookie
     };
   },
-});
+};
 </script>
 
 <style lang="scss" scoped src="@/styles/pageStyles/tribePage/TribePage.scss" />
