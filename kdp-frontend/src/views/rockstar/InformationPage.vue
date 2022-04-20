@@ -33,7 +33,7 @@ import { computed, onMounted, onUpdated } from "vue";
 import { RockstarShape } from "@/models/Rockstar";
 import ArticleShape from "@/models/Article";
 
-import RockstarView from "./components/RockstarView.vue";
+import RockstarView from "../../components/rockstarView/RockstarView.vue";
 import ArticlePreview from "@/components/articlePreview/ArticlePreview.vue";
 import Loader from "@/components/loader/Loader.vue";
 

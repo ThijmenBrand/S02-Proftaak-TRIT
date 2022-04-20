@@ -1,12 +1,4 @@
 @import "@/styles/variables";
-
-//Fixes background
-.background-container:after {
-  content: "";
-  display: table;
-  clear: both;
-}
-
 .main-content {
   .background-container {
     color: $trit-white;
@@ -16,9 +8,25 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
+      .blog-action {
+        display: flex;
+        align-items: center;
+        justify-content: center;
 
-      span:nth-child(1) {
-        margin-right: 2em;
+      }
+      .views {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      img {
+        filter: invert(100%);
+        width: 1.5em;
+        height: 1.5em;
+        margin-right: 0.5em;
+      }
+      .stats {
+        margin-right: 1em;
       }
     }
     
@@ -39,10 +47,10 @@
         .border {
           height: 1px;
           background: $trit-white;
-          margin-right: 5em;
+          margin-right: 7em;
         }
         .article-text {
-          padding-right: 5em;
+          padding-right: 7em;
         }
       }
 

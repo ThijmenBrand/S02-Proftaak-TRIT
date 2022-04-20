@@ -39,11 +39,12 @@
           </router-link>
         </div>
         
-        <a v-if="!loading && ShowLess" @click="toggleshow" class="viewmore">{{$t("articles-overview.viewmore")}}</a>
-        <a v-if="!loading && !ShowLess" @click="toggleshow" class="viewmore">{{$t("articles-overview.viewless")}}</a>
-
-        <h3 class="podcasts-overview-title">Podcasts</h3>
-        <SpotifyCarousel :spotify-links="spotifyList" />
+          <a v-if="!loading && ShowLess" @click="toggleshow" class="viewmore">{{$t("articles-overview.viewmore")}}</a>
+          <a v-if="!loading && !ShowLess" @click="toggleshow" class="viewmore">{{$t("articles-overview.viewless")}}</a>
+        
+          <h3 class="podcasts-overview-title">Podcasts</h3>
+          <SpotifyCarousel v-if="cookie" :spotify-links="spotifyList" />
+          <p class="cookie-error" v-else>Please enable cookies to view podcasts</p>
       </div>
     </div>
   </div>
@@ -65,9 +66,7 @@ import Loader from "@/components/loader/Loader.vue";
 import SpotifyCarousel from "@/components/carousel/Carousel.vue";
 
 
-
-export default ({
-
+export default {
   components: {
     SpotifyCarousel,
     Profiletag,
@@ -77,6 +76,8 @@ export default ({
   setup() {
     const route = useRoute();
     const store = useStore();
+    
+    const cookie = computed(() => store.getters["cookieAccepted"]);
 
     const loading = computed(() => store.getters["isLoading"]);
 
@@ -158,7 +159,8 @@ export default ({
       spotifyList,
       viewAmount,
       toggleshow,
-      ShowLess
+      ShowLess,
+      cookie
     };
   },
 });

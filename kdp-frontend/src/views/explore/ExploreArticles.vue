@@ -6,7 +6,7 @@
       class="search-input"
     />
     <div class="custom-select">
-      <select class="select" v-model="selectedFilter">
+      <select v-model="selectedFilter" class="select">
         <option class="select-item" value="">
           {{ $t("explore-articles-page.search-bar.select-filter") }}
         </option>
@@ -30,7 +30,7 @@
       <div v-if="loading">
         <Loader />
       </div>
-      <div class="articles-container" v-else>
+      <div v-else class="articles-container">
         <router-link
           v-for="(article, index) in filteredArticles"
           :key="index"
@@ -41,10 +41,10 @@
           class="article"
         >
           <article-preview
-            :name="article.title"
-            :content="article.content"
-            :rockstarName="article.rockstarName"
             :articlePublishDate="article.publishDate"
+            :content="article.content"
+            :name="article.title"
+            :rockstarName="article.rockstarName"
           />
         </router-link>
       </div>
@@ -131,7 +131,7 @@ export default {
       }
       if (selectedFilter.value == "new") {
         returnArray = returnArray.sort(
-          (firstComparisonObject, secondComparisonObject) => {
+          (secondComparisonObject, firstComparisonObject) => {
             return (
               new Date(firstComparisonObject.publishDate.toString()).valueOf() -
               new Date(secondComparisonObject.publishDate.toString()).valueOf()
@@ -141,7 +141,7 @@ export default {
       }
       if (selectedFilter.value == "old") {
         returnArray = returnArray.sort(
-          (secondComparisonObject, firstComparisonObject) => {
+          (firstComparisonObject, secondComparisonObject) => {
             return (
               new Date(firstComparisonObject.publishDate.toString()).valueOf() -
               new Date(secondComparisonObject.publishDate.toString()).valueOf()

@@ -4,7 +4,8 @@
   "rockstars-logo": "RockstarsIT logo",
 
   "menu.explore": "VERKEN",
-  "menu.vision": "ONZE VISIE",
+  "menu.login": "LOGIN",
+  "menu.logout": "LOG UIT",
   "menu.possibilities": "UW MOGELIJKHEDEN",
   "menu.tribes": "TRIBES",
   "menu.home": "HOME",
@@ -38,5 +39,9 @@
   
   "article-page.recommended-title": "Ook interessant",
   "article-page.recommended-image-alt": "Voorgesteld artikel afbeelding",
-  "article-page.rockstar-image": "Afbeelding van {name}"
+  "article-page.rockstar-image": "Afbeelding van {name}",
+  "article-page.heart-image": "Like afbeelding",
+  "article-page.comment-image": "Reactie plaatje",
+  "article-page.view-image": "Hoeveelheid bekeken plaatje",
+  "article-page.page-view-image": "Unique keren bekeken plaatje"
 }

@@ -13,7 +13,7 @@
       <div class="article-content-container">
         <h4 class="article-preview-title">{{ name }}</h4>
         <p class="content">
-          {{limitContent(cleanText(content))}}
+          {{ limitContent(cleanText(content)) }}
         </p>
         <p class="rockstar-name">
           {{ rockstarName }}
@@ -27,7 +27,7 @@
 </template>
 
 <script lang="ts">
-import getCustomDateTime from "@/services/customDateTime"
+import getCustomDateTime from "@/services/customDateTime";
 export default {
   name: "ArticlePreview",
   props: {
@@ -43,10 +43,9 @@ export default {
 
     const cleanText = (content: string): string => {
       return content.replace(/<\/?[^>]+(>|$)/g, "");
-    }
+    };
 
-
-    return { limitContent, cleanText, getCustomDateTime};
+    return { limitContent, cleanText, getCustomDateTime };
   },
 };
 </script>

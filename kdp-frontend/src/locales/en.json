@@ -4,7 +4,8 @@
   "rockstars-logo": "RockstarsIT logo",
 
   "menu.possibilities": "YOUR POSSIBILITIES",
-  "menu.vision": "OUR VISION",
+  "menu.login": "LOGIN",
+  "menu.logout": "LOGOUT",
   "menu.explore": "EXPLORE",
   "menu.tribes": "TRIBES",
   "menu.home": "HOME",
@@ -38,5 +39,9 @@
 
   "article-page.recommended-title": "Also interesting",
   "article-page.recommended-image-alt": "Recommended article image",
-  "article-page.rockstar-image": "Image of {name}"
+  "article-page.rockstar-image": "Image of {name}",
+  "article-page.heart-image": "Like image",
+  "article-page.comment-image": "Comment image",
+  "article-page.view-image": "Views image",
+  "article-page.page-view-image": "Unique views bekeken image"
 }

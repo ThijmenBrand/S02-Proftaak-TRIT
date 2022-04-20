@@ -1,5 +1,5 @@
 <template>
-  <div v-html="articleContent" />
+  <div v-html="articleContent" class="ck-content" />
 </template>
 
 <script lang="ts">
