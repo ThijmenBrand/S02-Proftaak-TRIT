@@ -6,7 +6,7 @@
       class="search-input"
     />
     <div class="custom-select">
-      <select v-model="selectedFilter" class="select">
+      <select class="select" v-model="selectedFilter">
         <option class="select-item" value="">
           {{ $t("explore-articles-page.search-bar.select-filter") }}
         </option>
@@ -30,7 +30,7 @@
       <div v-if="loading">
         <Loader />
       </div>
-      <div v-else class="articles-container">
+      <div class="articles-container" v-else-if="!loading && articles.length > 0">
         <router-link
           v-for="(article, index) in filteredArticles"
           :key="index"
@@ -41,13 +41,14 @@
           class="article"
         >
           <article-preview
-            :articlePublishDate="article.publishDate"
-            :content="article.content"
             :name="article.title"
+            :content="article.content"
             :rockstarName="article.rockstarName"
+            :articlePublishDate="article.publishDate"
           />
         </router-link>
       </div>
+      <p class="article-error" v-else>{{ $t("article.article-error") }}</p>
     </div>
   </div>
 </template>
@@ -101,9 +102,9 @@ export default {
       });
       if (selectedFilter.value == "a-z") {
         returnArray = returnArray.sort(
-          (firstComparisonObject, secondComparisonObject) => {
+          (firstComparisonObject, seccondComparisonObject) => {
             let firstObejctToLower = firstComparisonObject.title.toLowerCase(),
-              secondObjectToLower = secondComparisonObject.title.toLowerCase();
+              secondObjectToLower = seccondComparisonObject.title.toLowerCase();
             if (firstObejctToLower < secondObjectToLower) {
               return -1;
             }
@@ -116,9 +117,9 @@ export default {
       }
       if (selectedFilter.value == "z-a") {
         returnArray = returnArray.sort(
-          (firstComparisonObject, secondComparisonObject) => {
+          (firstComparisonObject, seccondComparisonObject) => {
             let firstObjectToLower = firstComparisonObject.title.toLowerCase(),
-              secondObjectToLower = secondComparisonObject.title.toLowerCase();
+              secondObjectToLower = seccondComparisonObject.title.toLowerCase();
             if (firstObjectToLower < secondObjectToLower) {
               return 1;
             }
@@ -131,20 +132,20 @@ export default {
       }
       if (selectedFilter.value == "new") {
         returnArray = returnArray.sort(
-          (secondComparisonObject, firstComparisonObject) => {
+          (firstComparisonObject, seccondComparisonObject) => {
             return (
               new Date(firstComparisonObject.publishDate.toString()).valueOf() -
-              new Date(secondComparisonObject.publishDate.toString()).valueOf()
+              new Date(seccondComparisonObject.publishDate.toString()).valueOf()
             );
           }
         );
       }
       if (selectedFilter.value == "old") {
         returnArray = returnArray.sort(
-          (firstComparisonObject, secondComparisonObject) => {
+          (firstComparisonObject, seccondComparisonObject) => {
             return (
               new Date(firstComparisonObject.publishDate.toString()).valueOf() -
-              new Date(secondComparisonObject.publishDate.toString()).valueOf()
+              new Date(seccondComparisonObject.publishDate.toString()).valueOf()
             );
           }
         );

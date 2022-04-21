@@ -8,7 +8,7 @@
       <div class="loader-container" v-if="loading">
         <Loader />
       </div>
-      <div class="articles-container" v-else>
+      <div class="articles-container" v-else-if="!loading && articles.length > 0">
         <router-link
           v-for="(article, index) in articles"
           :key="index"
@@ -21,6 +21,7 @@
           <article-preview :name="article.title" :content="article.content" />
         </router-link>
       </div>
+      <p class="article-error" v-else>{{ $t("article.article-error") }}</p>
     </div>
   </div>
 </template>

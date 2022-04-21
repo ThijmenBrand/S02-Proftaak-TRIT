@@ -22,7 +22,7 @@
         <div class="loader-container" v-if="loading">
           <Loader />
         </div>
-        <div class="articles-container">
+        <div class="articles-container" v-else-if="!loading && articles.length > 0">
           <router-link
             :to="{ name: 'article', params: { articleId: article.id } }"
             v-for="(article, index) in tribeArticles"
@@ -37,9 +37,11 @@
             />
           </router-link>
         </div>
-          <h3 class="podcasts-overview-title">Podcasts</h3>
-          <SpotifyCarousel v-if="cookie" :spotify-links="spotifyList" />
-          <p class="cookie-error" v-else>Please enable cookies to view podcasts</p>
+        <p class="cookie-error" v-else>{{ $t("article.article-error") }}</p>
+        <h3 class="podcasts-overview-title">Podcasts</h3>
+        <SpotifyCarousel v-if="cookie && spotifyList.length > 0" :spotify-links="spotifyList" />
+        <p class="cookie-error" v-else-if="!cookie && spotifyList.length > 0">{{ $t("tribe-page.cookie-error") }}</p>
+        <p class="cookie-error" v-else>{{ $t("tribe-page.spotify-error") }}</p>
       </div>
     </div>
   </div>
@@ -94,11 +96,13 @@ export default {
       const allArticles: ArticleShape[] =
         store.getters["tribes/getAllArticles"];
 
-      allArticles.forEach((article) => {
-        article.tribeId === currentTribe.value.id
-          ? applyingArticles.push(article)
-          : "";
-      });
+      if (allArticles.length > 0) {
+        allArticles.forEach((article) => {
+          article.tribeId === currentTribe.value.id
+              ? applyingArticles.push(article)
+              : "";
+        });
+      }
 
       return applyingArticles;
     });

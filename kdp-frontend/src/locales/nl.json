@@ -40,5 +40,9 @@
   "article-page.heart-image": "Like afbeelding",
   "article-page.comment-image": "Reactie plaatje",
   "article-page.view-image": "Hoeveelheid bekeken plaatje",
-  "article-page.page-view-image": "Unique keren bekeken plaatje"
+  "article-page.page-view-image": "Unique keren bekeken plaatje",
+  
+  "article.article-error": "Geen articles gevonden",
+  "tribe-page.cookie-error": "Accepteer cookies om podcast te bekijken",
+  "tribe-page.spotify-error": "Geen podcasts gevonden"
 }
