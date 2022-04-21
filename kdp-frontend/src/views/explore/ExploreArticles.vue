@@ -132,7 +132,7 @@ export default {
       }
       if (selectedFilter.value == "new") {
         returnArray = returnArray.sort(
-          (firstComparisonObject, secondComparisonObject) => {
+          (secondComparisonObject, firstComparisonObject) => {
             return (
               new Date(firstComparisonObject.publishDate.toString()).valueOf() -
               new Date(secondComparisonObject.publishDate.toString()).valueOf()
