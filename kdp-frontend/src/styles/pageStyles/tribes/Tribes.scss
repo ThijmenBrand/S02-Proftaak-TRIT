@@ -1,0 +1,28 @@
+@import "@/styles/variables.scss";
+
+.background-container {
+  .tribes-links-container {
+    min-height: calc(100vh - 264.5px);
+    .tribes-links-flexbox {
+      display: flex;
+      justify-content: center;
+      flex-direction: row;
+      flex-wrap: wrap;
+      h3 {
+        color: $trit-white;
+      }
+      .tribe-link {
+        color: $trit-white;
+        text-decoration: none;
+        padding: 20px;
+        margin: 10px;
+        transition: 500ms;
+      }
+
+      .tribe-link:hover {
+        color: $trit-yellow;
+        text-decoration: underline;
+      }
+    }
+  }
+}

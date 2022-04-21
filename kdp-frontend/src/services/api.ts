@@ -1,10 +1,10 @@
-import axios, { AxiosInstance, AxiosResponse } from "axios";
+import axios, { AxiosInstance } from "axios";
 
 const API: AxiosInstance = axios.create({
-    baseURL: "https://rockstar-api.azurewebsites.net/api/",
-    headers: {
-        "Content-type": "application/json",
-    },
+  baseURL: "https://rockstar-api.azurewebsites.net/api/",
+  headers: {
+    "Content-type": "application/json",
+  },
 });
 
 export default API;
