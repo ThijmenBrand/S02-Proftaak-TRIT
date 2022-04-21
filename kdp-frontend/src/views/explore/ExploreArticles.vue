@@ -102,9 +102,9 @@ export default {
       });
       if (selectedFilter.value == "a-z") {
         returnArray = returnArray.sort(
-          (firstComparisonObject, seccondComparisonObject) => {
+          (firstComparisonObject, secondComparisonObject) => {
             let firstObejctToLower = firstComparisonObject.title.toLowerCase(),
-              secondObjectToLower = seccondComparisonObject.title.toLowerCase();
+              secondObjectToLower = secondComparisonObject.title.toLowerCase();
             if (firstObejctToLower < secondObjectToLower) {
               return -1;
             }
@@ -117,9 +117,9 @@ export default {
       }
       if (selectedFilter.value == "z-a") {
         returnArray = returnArray.sort(
-          (firstComparisonObject, seccondComparisonObject) => {
+          (firstComparisonObject, secondComparisonObject) => {
             let firstObjectToLower = firstComparisonObject.title.toLowerCase(),
-              secondObjectToLower = seccondComparisonObject.title.toLowerCase();
+              secondObjectToLower = secondComparisonObject.title.toLowerCase();
             if (firstObjectToLower < secondObjectToLower) {
               return 1;
             }
@@ -132,20 +132,20 @@ export default {
       }
       if (selectedFilter.value == "new") {
         returnArray = returnArray.sort(
-          (firstComparisonObject, seccondComparisonObject) => {
+          (firstComparisonObject, secondComparisonObject) => {
             return (
               new Date(firstComparisonObject.publishDate.toString()).valueOf() -
-              new Date(seccondComparisonObject.publishDate.toString()).valueOf()
+              new Date(secondComparisonObject.publishDate.toString()).valueOf()
             );
           }
         );
       }
       if (selectedFilter.value == "old") {
         returnArray = returnArray.sort(
-          (firstComparisonObject, seccondComparisonObject) => {
+          (firstComparisonObject, secondComparisonObject) => {
             return (
               new Date(firstComparisonObject.publishDate.toString()).valueOf() -
-              new Date(seccondComparisonObject.publishDate.toString()).valueOf()
+              new Date(secondComparisonObject.publishDate.toString()).valueOf()
             );
           }
         );
