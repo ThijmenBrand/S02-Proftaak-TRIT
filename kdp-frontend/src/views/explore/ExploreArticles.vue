@@ -52,6 +52,13 @@
         </router-link>
       </div>
       <p class="article-error" v-else>{{ $t("article.article-error") }}</p>
+
+      <div>
+        <page-select :PageCount="12"/> 
+      </div>
+
+      <div style="color: white;"> {{CurrentPage}} </div>
+
     </div>
   </div>
 </template>
@@ -63,12 +70,16 @@ import { useStore } from "vuex";
 import ArticleShape from "@/models/Article";
 
 import ArticlePreview from "@/components/articlePreview/ArticlePreview.vue";
+
+
 import Loader from "@/components/loader/Loader.vue";
+import PageSelect from '@/components/PageSelect/PageSelect.vue';
 
 export default {
   components: {
     ArticlePreview,
     Loader,
+    PageSelect,
   },
 
   setup() {
@@ -85,6 +96,15 @@ export default {
 
     const articles = computed((): ArticleShape[] => {
       return store.getters["getAllArticles"];
+    });
+
+    function inputValue(data: any) {
+    console.log("test", data);
+    }
+
+
+    const CurrentPage = computed((): number => {
+      return store.getters["getcurrentpage"];
     });
 
     const filteredArticles = computed((): ArticleShape[] => {
@@ -156,7 +176,7 @@ export default {
       return returnArray;
     });
 
-    return { articles, filteredArticles, searchQuery, selectedFilter, loading };
+    return { articles, filteredArticles, searchQuery, selectedFilter, loading, CurrentPage };
   },
 };
 </script>

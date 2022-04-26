@@ -13,6 +13,7 @@ interface IState {
   tribe: TribeShape[];
   articleList: ArticleShape[];
   cookieAccepted: boolean;
+  currentpage: number;
 }
 
 export default createStore({
@@ -21,6 +22,7 @@ export default createStore({
     tribe: Array<TribeShape>(),
     articleList: Array<ArticleShape>(),
     cookieAccepted: false,
+    currentpage: 1,
   },
   getters: {
     getAllArticles: (state: IState): ArticleShape[] => {
@@ -31,6 +33,9 @@ export default createStore({
     },
     cookieAccepted: (state: IState) => {
       return state.cookieAccepted;
+    },
+    getcurrentpage: (state: IState) => {
+      return state.currentpage;
     },
   },
   actions: {
@@ -51,6 +56,10 @@ export default createStore({
     SET_COOKIE_ACCEPTED: (state, data: boolean) => {
       state.cookieAccepted = data;
     },
+    SET_CURRENT_PAGE: (state, data: number) => {
+      state.currentpage = data;
+    },
+
   },
   modules: {
     tribes: tribes,
