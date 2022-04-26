@@ -1,5 +1,4 @@
 <template>
-    <img 
   <div>{{ tribeName }}</div>
 </template>
 

@@ -10,8 +10,20 @@
 
 <script lang="ts">
 import { useStore } from "vuex";
+import { computed, onMounted } from "vue";
 export default {
+  name: "home",
+  setup() {
+    const store = useStore();
 
+    const highlightedTribes = computed(
+      () => store.getters["tribes/getTribesForHome"]
+    );
+
+    onMounted(() => {
+      store.dispatch("tribes/")
+    })
+  },
 };
 </script>
 
