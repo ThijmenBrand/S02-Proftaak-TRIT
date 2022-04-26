@@ -26,7 +26,7 @@ namespace API_Rockstars.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Comment>>> GetComment()
         {
-            return await _context.Comment.ToListAsync();
+            return await _context.Comment.Where(x => x.Apporved == true).ToListAsync();
         }
 
         // GET: api/Comment/5
@@ -47,7 +47,7 @@ namespace API_Rockstars.Controllers
         [HttpGet("articleId/{id}")]
         public async Task<ActionResult<List<Comment>>> GetCommentsByArticleId(Guid id)
         {
-            var comments = await _context.Comment.Where(x => x.ArticleId == id).ToListAsync();
+            var comments = await _context.Comment.Where(x => x.ArticleId == id && x.Apporved == true).ToListAsync();
 
             if (!comments.Any())
             {

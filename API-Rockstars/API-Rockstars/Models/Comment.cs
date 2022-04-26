@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace API_Rockstars.Models;
 
@@ -9,5 +10,6 @@ public class Comment
     public string UserId { get; set; }
     public string UserName { get; set; }
     public string CommentText { get; set; }
+    [DefaultValue(false)] public bool Apporved { get; set; }
     public DateTime CommentDate { get; set; }
 }
