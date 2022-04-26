@@ -101,6 +101,11 @@ namespace API_Rockstars.Controllers
             }
 
             comment.CommentDate = DateTime.Now.ToUniversalTime();
+
+            if (comment.CommentText != "")
+            {
+                return NoContent();
+            }
             
             _context.Comment.Add(comment);
             await _context.SaveChangesAsync();

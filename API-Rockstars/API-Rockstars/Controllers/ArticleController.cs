@@ -23,10 +23,12 @@ namespace API_Rockstars.Controllers
         }
 
         // GET: api/Article
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Article>>> GetArticles()
+        [HttpGet("start/{start}/limit/{limit}")]
+        public async Task<ActionResult<IEnumerable<Article>>> GetArticles(int start, int limit)
         {
-            List<Article> articles = await _context.Articles.ToListAsync();
+            start = start < 0 ? 0 : start;
+            List<Article> articles = await _context.Articles.Skip(start).Take(limit).ToListAsync();
+
 
             foreach (var article in articles)
             {
@@ -79,10 +81,11 @@ namespace API_Rockstars.Controllers
             return article;
         }
 
-        [HttpGet("GetArticlesByTribe/{id}")]
-        public async Task<ActionResult<List<Article>>> GetArticleByTribe(Guid id)
+        [HttpGet("GetArticlesByTribe/{id}/start/{start}/limit/{limit}")]
+        public async Task<ActionResult<List<Article>>> GetArticleByTribe(Guid id, int start, int limit)
         {
-            List<Article> articles = await _context.Articles.Where(x => x.TribeId == id).ToListAsync();
+            start = start < 0 ? 0 : start;
+            List<Article> articles = await _context.Articles.Where(x => x.TribeId == id).Skip(start).Take(limit).ToListAsync();
 
             if (articles.Count == 0)
             {
@@ -110,10 +113,11 @@ namespace API_Rockstars.Controllers
             return articles;
         }
         
-        [HttpGet("GetArticlesByRockstar/{id}")]
-        public async Task<ActionResult<List<Article>>> GetArticlesByRockstar(Guid id)
+        [HttpGet("GetArticlesByRockstar/{id}/start/{start}/limit/{limit}")]
+        public async Task<ActionResult<List<Article>>> GetArticlesByRockstar(Guid id, int start, int limit)
         {
-            List<Article> articles = await _context.Articles.Where(x => x.RockstarId == id).ToListAsync();
+            start = start < 0 ? 0 : start;
+            List<Article> articles = await _context.Articles.Where(x => x.RockstarId == id).Skip(start).Take(limit).ToListAsync();
 
             if (articles.Count == 0)
             {
@@ -141,10 +145,11 @@ namespace API_Rockstars.Controllers
             return articles;
         }
         
-        [HttpGet("GetArticles/TribeId/{tribeId}/RockstarId/{rockstarId}")]
-        public async Task<ActionResult<List<Article>>> GetArticlesByTribeAndRockstar(Guid tribeId, Guid rockstarId)
+        [HttpGet("GetArticles/TribeId/{tribeId}/RockstarId/{rockstarId}/start/{start}/limit/{limit}")]
+        public async Task<ActionResult<List<Article>>> GetArticlesByTribeAndRockstar(Guid tribeId, Guid rockstarId, int start, int limit)
         {
-            List<Article> articles = await _context.Articles.Where(x => x.RockstarId == rockstarId && x.TribeId == tribeId).ToListAsync();
+            start = start < 0 ? 0 : start;
+            List<Article> articles = await _context.Articles.Where(x => x.RockstarId == rockstarId && x.TribeId == tribeId).Skip(start).Take(limit).ToListAsync();
 
             if (articles.Count == 0)
             {
