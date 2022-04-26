@@ -27,7 +27,7 @@ namespace API_Rockstars.Controllers
         public async Task<ActionResult<IEnumerable<Article>>> GetArticles(int start, int limit)
         {
             start = start < 0 ? 0 : start;
-            List<Article> articles = await _context.Articles.Skip(start).Take(limit).ToListAsync();
+            List<Article> articles = await _context.Articles.Where(x => x.Published == true).Skip(start).Take(limit).ToListAsync();
 
 
             foreach (var article in articles)
@@ -85,7 +85,7 @@ namespace API_Rockstars.Controllers
         public async Task<ActionResult<List<Article>>> GetArticleByTribe(Guid id, int start, int limit)
         {
             start = start < 0 ? 0 : start;
-            List<Article> articles = await _context.Articles.Where(x => x.TribeId == id).Skip(start).Take(limit).ToListAsync();
+            List<Article> articles = await _context.Articles.Where(x => x.TribeId == id && x.Published == true).Skip(start).Take(limit).ToListAsync();
 
             if (articles.Count == 0)
             {
@@ -117,7 +117,7 @@ namespace API_Rockstars.Controllers
         public async Task<ActionResult<List<Article>>> GetArticlesByRockstar(Guid id, int start, int limit)
         {
             start = start < 0 ? 0 : start;
-            List<Article> articles = await _context.Articles.Where(x => x.RockstarId == id).Skip(start).Take(limit).ToListAsync();
+            List<Article> articles = await _context.Articles.Where(x => x.RockstarId == id && x.Published == true).Skip(start).Take(limit).ToListAsync();
 
             if (articles.Count == 0)
             {
@@ -149,7 +149,7 @@ namespace API_Rockstars.Controllers
         public async Task<ActionResult<List<Article>>> GetArticlesByTribeAndRockstar(Guid tribeId, Guid rockstarId, int start, int limit)
         {
             start = start < 0 ? 0 : start;
-            List<Article> articles = await _context.Articles.Where(x => x.RockstarId == rockstarId && x.TribeId == tribeId).Skip(start).Take(limit).ToListAsync();
+            List<Article> articles = await _context.Articles.Where(x => x.RockstarId == rockstarId && x.TribeId == tribeId && x.Published == true).Skip(start).Take(limit).ToListAsync();
 
             if (articles.Count == 0)
             {
