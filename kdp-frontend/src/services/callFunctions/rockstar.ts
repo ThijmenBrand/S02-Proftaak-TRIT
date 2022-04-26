@@ -6,7 +6,7 @@ const rockstarService = {
     return API.get(`/rockstar/${rockstarId}`);
   },
   getArticles(rockstarId: string): Promise<AxiosResponse<any, any>> {
-    return API.get(`/article/GetArticlesByRockstar/${rockstarId}`);
+    return API.get(`/article/GetArticlesByRockstar/${rockstarId}/start/0/limit/100`);
   },
 };
 

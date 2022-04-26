@@ -3,7 +3,7 @@ import { AxiosResponse } from "axios";
 
 const exploreService = {
   getAllArticles(): Promise<AxiosResponse<any, any>> {
-    return API.get(`/article`);
+    return API.get(`/article/start/0/limit/100`);
   },
 };
 

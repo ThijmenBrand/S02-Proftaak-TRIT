@@ -12,7 +12,7 @@ const tribeService = {
     return API.get(`/tribe/GetAllRockstars/${tribeId}`);
   },
   getArticlesByTribe(tribeId: string): Promise<AxiosResponse<any, any>> {
-    return API.get(`article/GetArticlesByTribe/${tribeId}`);
+    return API.get(`article/GetArticlesByTribe/${tribeId}/start/0/limit/100`);
   },
   getAllSpotifyByTribe(tribeId: string): Promise<AxiosResponse<any, any>> {
     return API.get(`tribe/${tribeId}/spotify`);
