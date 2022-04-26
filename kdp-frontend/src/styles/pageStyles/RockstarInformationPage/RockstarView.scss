@@ -79,7 +79,7 @@
     height: fit-content;
   }
   .rockstar-card {
-    margin: auto;
+    margin: auto auto;
     flex-direction: column;
   }
 
@@ -96,11 +96,17 @@
   }
 
   .col-socials {
-    margin-left: 1em;
+    margin-left: 0;
+    width: 100%;
+    justify-content: center;
+
+    .social-component {
+      margin: 0.25em;
+    }
   }
 
   .rockstar-card .col-image {
     margin: 0 auto 0 auto;
   }
-  
+
 }
