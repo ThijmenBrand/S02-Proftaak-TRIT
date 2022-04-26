@@ -22,7 +22,10 @@
         <div class="loader-container" v-if="loading">
           <Loader />
         </div>
-        <div class="articles-container" v-else-if="!loading && articles.length > 0">
+        <div
+          class="articles-container"
+          v-else-if="!loading && articles.length > 0"
+        >
           <router-link
             :to="{ name: 'article', params: { articleId: article.id } }"
             v-for="(article, index) in tribeArticles"
@@ -39,8 +42,13 @@
         </div>
         <p class="cookie-error" v-else>{{ $t("article.article-error") }}</p>
         <h3 class="podcasts-overview-title">Podcasts</h3>
-        <SpotifyCarousel v-if="cookie && spotifyList.length > 0" :spotify-links="spotifyList" />
-        <p class="cookie-error" v-else-if="!cookie && spotifyList.length > 0">{{ $t("tribe-page.cookie-error") }}</p>
+        <SpotifyCarousel
+          v-if="cookie && spotifyList.length > 0"
+          :spotify-links="spotifyList"
+        />
+        <p class="cookie-error" v-else-if="!cookie && spotifyList.length > 0">
+          {{ $t("tribe-page.cookie-error") }}
+        </p>
         <p class="cookie-error" v-else>{{ $t("tribe-page.spotify-error") }}</p>
       </div>
     </div>
@@ -72,7 +80,7 @@ export default {
   setup() {
     const route = useRoute();
     const store = useStore();
-    
+
     const cookie = computed(() => store.getters["cookieAccepted"]);
 
     const loading = computed(() => store.getters["isLoading"]);
@@ -99,8 +107,8 @@ export default {
       if (allArticles.length > 0) {
         allArticles.forEach((article) => {
           article.tribeId === currentTribe.value.id
-              ? applyingArticles.push(article)
-              : "";
+            ? applyingArticles.push(article)
+            : "";
         });
       }
 
@@ -130,7 +138,7 @@ export default {
       currentTribe,
       loading,
       spotifyList,
-      cookie
+      cookie,
     };
   },
 };

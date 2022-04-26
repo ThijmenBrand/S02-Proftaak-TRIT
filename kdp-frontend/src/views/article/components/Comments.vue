@@ -30,7 +30,7 @@
 </template>
 
 <script lang="ts">
-import { computed, Ref, ref } from "vue";
+import { Ref, ref } from "vue";
 import { useStore } from "vuex";
 import { useRoute } from "vue-router";
 import { CommentShape } from "@/models/Comment";

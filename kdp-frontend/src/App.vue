@@ -4,24 +4,23 @@
     <router-view />
   </div>
   <vue-cookie-accept-decline
-      :debug="false"
-      :disableDecline="false"
-      @clicked-accept="cookieClickedAccept"
-      @clicked-decline="cookieClickedDecline"
-      :showPostponeButton="false"
-      elementId="cookie-banner"
-      ref="cookieBanner"
-      transitionName="slideFromBottom"
-      type="bar"
+    :debug="false"
+    :disableDecline="false"
+    @clicked-accept="cookieClickedAccept"
+    @clicked-decline="cookieClickedDecline"
+    :showPostponeButton="false"
+    elementId="cookie-banner"
+    ref="cookieBanner"
+    transitionName="slideFromBottom"
+    type="bar"
   />
 </template>
 
 <script>
 import BaseNav from "@/components/navigation/BaseNavigation.vue";
-import {useStore} from "vuex"
+import { useStore } from "vuex";
 import { onMounted } from "vue";
 import SetLocalStorage from "@/config/SetLocalstorage";
-
 
 export default {
   components: {
@@ -29,7 +28,7 @@ export default {
   },
   setup() {
     const store = useStore();
-    
+
     onMounted(() => {
       SetLocalStorage();
     });
@@ -40,9 +39,9 @@ export default {
     function cookieClickedDecline() {
       store.commit("SET_COOKIE_ACCEPTED", false);
     }
-    
-    return {cookieClickedAccept, cookieClickedDecline}
-  }
+
+    return { cookieClickedAccept, cookieClickedDecline };
+  },
 };
 </script>
 

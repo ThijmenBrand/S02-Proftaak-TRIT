@@ -7,7 +7,6 @@ import tribes from "@/views/tribes/store/tribes";
 import ArticleShape from "@/models/Article";
 import rockstars from "@/views/rockstar/store/rockstars";
 import article from "@/views/article/store/article";
-import {FallbackLocale} from "vue-i18n";
 
 interface IState {
   loading: boolean;
@@ -32,7 +31,7 @@ export default createStore({
     },
     cookieAccepted: (state: IState) => {
       return state.cookieAccepted;
-    }
+    },
   },
   actions: {
     getAllArticles: async (context: any) => {

@@ -32,20 +32,23 @@
 </template>
 
 <script lang="ts">
-import * as Cookies from 'tiny-cookie'
+import * as Cookies from "tiny-cookie";
 
 export default {
   name: "LocaleSelector",
   setup() {
     const saveLanguage = (local: string) => {
-      if (localStorage.getItem("vue-cookie-accept-decline-cookie-banner") == "accept") {
-        Cookies.setCookie("lang", local)
+      if (
+        localStorage.getItem("vue-cookie-accept-decline-cookie-banner") ==
+        "accept"
+      ) {
+        Cookies.setCookie("lang", local);
       }
     };
     return {
-      saveLanguage
+      saveLanguage,
     };
-  }
+  },
 };
 </script>
 

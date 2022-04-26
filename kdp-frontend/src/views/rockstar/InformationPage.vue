@@ -8,7 +8,10 @@
       <div class="loader-container" v-if="loading">
         <Loader />
       </div>
-      <div class="articles-container" v-else-if="!loading && articles.length > 0">
+      <div
+        class="articles-container"
+        v-else-if="!loading && articles.length > 0"
+      >
         <router-link
           v-for="(article, index) in articles"
           :key="index"
