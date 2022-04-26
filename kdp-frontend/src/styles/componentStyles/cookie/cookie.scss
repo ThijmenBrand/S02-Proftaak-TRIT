@@ -1,3 +1,44 @@
+
+.cookie-banner-container {
+  position: sticky;
+  z-index: 100;
+  bottom: 0;
+  width: 100%;
+  background-color: $trit-gray;
+  border-top: 1px solid white;
+  .Cookie-banner-content-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    p {
+      margin-left: 10px;
+      color: white;
+      font-size: 17px;
+      .cookie-banner-learn-more {
+        cursor: pointer;
+        color: $trit-yellow;
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+    button {
+      cursor: pointer;
+      padding: 10px;
+      border-radius: 0px;
+      border: none;
+      margin: 10px;
+    }
+    .accept {
+      background-color: $trit-yellow;
+    }
+    .decline {
+      background-color: black;
+      color: white;
+    }
+  }
+}
+
 .cookie {
   bottom: 0;
   background: $trit-gray!important;

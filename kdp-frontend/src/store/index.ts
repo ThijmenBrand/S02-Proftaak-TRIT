@@ -1,5 +1,6 @@
 import { TribeShape } from "@/models/Tribe";
 import { createStore } from "vuex";
+import LocalStorageHandler from "@/services/localStorageHelper/LocalStorageHelper";
 
 import exporeService from "@/services/callFunctions/explore";
 
@@ -49,6 +50,10 @@ export default createStore({
       state.articleList = data;
     },
     SET_COOKIE_ACCEPTED: (state, data: boolean) => {
+      const types = {
+        allCookies: data,
+      };
+      LocalStorageHandler.setItem("cookieAccepted", types);
       state.cookieAccepted = data;
     },
   },

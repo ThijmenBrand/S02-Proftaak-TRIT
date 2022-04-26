@@ -3,21 +3,18 @@ import App from "./App.vue";
 import router from "./router";
 import store from "./store";
 import { createI18n, I18nOptions } from "vue-i18n";
-
-import VueCookieAcceptDecline from "vue-cookie-accept-decline/src/vue-cookie-accept-decline.vue";
-
 import nl from "@/locales/nl.json";
 import en from "@/locales/en.json";
 import { msalInstance } from "./config/authConfig";
 import { msalPlugin } from "./services/msal/msalPlugin";
 import * as Cookies from "tiny-cookie";
+import LocalStorageHandler from "./services/localStorageHelper/LocalStorageHelper";
 
 type MessageSchema = typeof nl;
 
 store.commit(
   "SET_COOKIE_ACCEPTED",
-  window.localStorage.getItem("vue-cookie-accept-decline-cookie-banner") ==
-    "accept"
+  LocalStorageHandler.getItem("cookieAccepted")
 );
 
 const i18n = createI18n<I18nOptions, [MessageSchema], "nl" | "en">({
@@ -35,8 +32,6 @@ const i18n = createI18n<I18nOptions, [MessageSchema], "nl" | "en">({
 });
 
 const app = createApp(App);
-
-app.component("vue-cookie-accept-decline", VueCookieAcceptDecline);
 
 app
   .use(store)
