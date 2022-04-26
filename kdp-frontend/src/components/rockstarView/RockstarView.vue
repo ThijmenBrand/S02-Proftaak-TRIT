@@ -33,7 +33,7 @@
             <img :alt="rockstar.phone" class="social-image" src="@/assets/images/socials/phone.svg"/>
           </a>
         </div>
-        <div class="row-ondemand">
+        <div id="open-ondemand-modal" class="row-ondemand" @click="OpenModal">
           <div class="col-ondemand-text">OnDemand aanvraag</div>
           <div class="col-ondemand-icon">
             <img src="@/assets/images/icon-fastforward.svg">
@@ -42,15 +42,54 @@
       </div>
     </div>
   </div>
+  <!-- MODAL START -->
+  <Modal
+      v-show="modalIsOpened"
+      @close="CloseModal">
+    <template v-slot:header>Rockstar OnDemand aanvragen</template>
+    <template v-slot:body>New Body</template>
+    <template v-slot:footer>
+      <button
+          class="btn-trit"
+          type="button"
+          @click="CloseModal">
+        Close
+      </button>
+    </template>
+  </Modal>
+  <!-- MODAL END   -->
 </template>
 
 <script lang="ts">
 import {RockstarShape} from "@/models/Rockstar";
+import {ref} from "vue";
+import Modal from "@/components/modal/Modal.vue";
 
 export default {
   name: "RockstarView",
   props: {
     rockstar: Object as () => RockstarShape,
+  },
+  components: {
+    Modal
+  },
+
+  setup() {
+    const modalIsOpened = ref(false);
+
+    const OpenModal = () => {
+      modalIsOpened.value = true;
+    }
+
+    const CloseModal = () => {
+      modalIsOpened.value = false;
+    }
+
+    return {
+      modalIsOpened,
+      OpenModal,
+      CloseModal,
+    }
   },
 };
 </script>
