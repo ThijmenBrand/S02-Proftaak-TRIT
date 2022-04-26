@@ -77,36 +77,34 @@
   /* for mobile screens <= 1000px width */
   .rockstar-pane {
     height: fit-content;
-  }
-  .rockstar-card {
-    margin: auto auto;
-    flex-direction: column;
-  }
 
-  .rockstar-card .col-information .row-description {
-    flex: 100%;
-  }
+    .rockstar-card {
+      margin: auto auto;
+      flex-direction: column;
 
-  .rockstar-card .col-information .row-name {
-    text-align: center;
-  }
+      .col-image {
+        margin: 0 auto 0 auto;
+      }
 
-  .rockstar-card .col-information .row-description {
-    text-align: center;
-  }
+      .col-information {
+        .row-name, .row-description {
+          text-align: center;
+        }
 
-  .col-socials {
-    margin-left: 0;
-    width: 100%;
-    justify-content: center;
+        .row-description {
+          flex: 100%;
+        }
 
-    .social-component {
-      margin: 0.25em;
+        .col-socials {
+          margin-left: 0;
+          width: 100%;
+          justify-content: center;
+
+          .social-component {
+            margin: 0.25em;
+          }
+        }
+      }
     }
   }
-
-  .rockstar-card .col-image {
-    margin: 0 auto 0 auto;
-  }
-
 }
