@@ -50,7 +50,7 @@
     <template v-slot:body>New Body</template>
     <template v-slot:footer>
       <button
-          class="btn-trit"
+          class="btn-modal-yellow"
           type="button"
           @click="CloseModal">
         Close
