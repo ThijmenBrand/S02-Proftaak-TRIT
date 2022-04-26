@@ -6,7 +6,7 @@
       class="search-input"
     />
     <div class="custom-select">
-      <select v-model="selectedFilter" class="select">
+      <select class="select" v-model="selectedFilter">
         <option class="select-item" value="">
           {{ $t("explore-articles-page.search-bar.select-filter") }}
         </option>
@@ -30,7 +30,10 @@
       <div v-if="loading">
         <Loader />
       </div>
-      <div v-else class="articles-container">
+      <div
+        class="articles-container"
+        v-else-if="!loading && articles.length > 0"
+      >
         <router-link
           v-for="(article, index) in filteredArticles"
           :key="index"
@@ -41,13 +44,14 @@
           class="article"
         >
           <article-preview
-            :articlePublishDate="article.publishDate"
-            :content="article.content"
             :name="article.title"
+            :content="article.content"
             :rockstarName="article.rockstarName"
+            :articlePublishDate="article.publishDate"
           />
         </router-link>
       </div>
+      <p class="article-error" v-else>{{ $t("article.article-error") }}</p>
     </div>
   </div>
 </template>

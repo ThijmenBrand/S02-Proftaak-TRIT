@@ -40,5 +40,9 @@
   "article-page.heart-image": "Like image",
   "article-page.comment-image": "Comment image",
   "article-page.view-image": "Views image",
-  "article-page.page-view-image": "Unique views bekeken image"
+  "article-page.page-view-image": "Unique views bekeken image",
+
+  "article.article-error": "No articles found",
+  "tribe-page.cookie-error": "Accept cookies to view podcasts",
+  "tribe-page.spotify-error": "No podcasts found"
 }
