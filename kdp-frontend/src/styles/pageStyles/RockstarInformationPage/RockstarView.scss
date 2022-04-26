@@ -5,73 +5,94 @@
   //height: 12em;
   background-color: $trit-yellow;
   margin-bottom: 1em;
+
+
+  .rockstar-card {
+    display: flex; /* flex container */
+    flex-direction: row;
+    gap: 1em;
+
+    height: 100%;
+    width: 50%;
+    max-width: fit-content;
+    margin: 0 auto 0 auto;
+
+    .col-image {
+      aspect-ratio: 1/1;
+      height: 12em;
+      background-color: $trit-gray;
+
+      .rockstar-profile-image {
+        width: 12em;
+        height: 12em;
+        object-fit: cover;
+      }
+    }
+
+    .col-information {
+      display: flex;
+      flex-direction: column;
+      flex-wrap: nowrap;
+      width: auto;
+
+      .row-name {
+        height: 33%;
+        font-weight: bold;
+        font-size: 2.5em;
+      }
+
+      .row-description {
+        height: 100%;
+      }
+
+      .col-socials {
+        width: fit-content;
+        margin: 5px 0 5px 0;
+        display: flex;
+        flex-direction: row;
+
+        .social-component {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          margin: 0 0.5em 0 0;
+
+          .social-image {
+            width: 1.7em;
+            height: 1.7em;
+          }
+
+          .social-text {
+            color: black;
+            font-size: 1.1rem;
+          }
+        }
+      }
+
+      .row-ondemand {
+        height: 2em;
+        display: flex;
+        justify-content: start;
+
+        .col-ondemand-icon {
+          height: 50%;
+          width: 1em;
+          margin-left: 0.5em;
+          margin-top: 0.25em;
+        }
+      }
+
+      .row-ondemand:hover {
+        cursor: pointer;
+
+        .col-ondemand-text {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
 }
 
-.rockstar-card {
-  display: flex; /* flex container */
-  flex-direction: row;
-  gap: 1em;
-
-  height: 100%;
-  width: 50%;
-  max-width: fit-content;
-  margin: 0 auto 0 auto;
-}
-
-.rockstar-profile-image {
-  width: 12em;
-  height: 12em;
-  object-fit: cover;
-}
-
-.social-image {
-  width: 1.7em;
-  height: 1.7em;
-}
-
-.social-text {
-  color: black;
-  font-size: 1.1rem;
-}
-
-.rockstar-card .col-image {
-  aspect-ratio: 1/1;
-  height: 12em;
-
-  background-color: $trit-gray;
-}
-
-.rockstar-card .col-information {
-  display: flex;
-  flex-direction: column;
-  flex-wrap: nowrap;
-  width: auto;
-}
-
-.rockstar-card .col-information .row-name {
-  height: 33%;
-  font-weight: bold;
-  font-size: 2.5em;
-}
-
-.rockstar-card .col-information .row-description {
-  height: 100%;
-}
-
-
-.col-socials {
-  width: fit-content;
-  margin: 5px 0 5px 0;
-  display: flex;
-  flex-direction: row;
-}
-
-.social-component {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  margin: 0 0.5em 0 0;
-}
 
 @media only screen and (max-width: 1000px) {
   /* for mobile screens <= 1000px width */
@@ -102,6 +123,22 @@
 
           .social-component {
             margin: 0.25em;
+          }
+        }
+
+        .row-ondemand {
+          width: 100%;
+          justify-content: center;
+
+          .col-ondemand-text {
+            align-self: center;
+          }
+
+          .col-ondemand-icon {
+            height: 50%;
+            width: 1em;
+            margin-left: 0.5em;
+            align-self: center;
           }
         }
       }
