@@ -46,6 +46,22 @@ const tribes = {
     getAllSpotifyByTribe: (state: tribesState): [] => {
       return state.spotifyList;
     },
+    getTribesForHome: (state: tribesState) => {
+      const returnArray: TribeShape[] = [];
+      for (let i = 0; i < 5; i++) {
+        const tribe =
+          state.tribesList[Math.floor(Math.random() * state.tribesList.length)];
+
+        if (returnArray.indexOf(tribe) == -1) {
+          returnArray.push(tribe);
+          if (state.tribesList.length - returnArray.length > i) {
+            i--;
+          }
+        }
+      }
+
+      return returnArray;
+    },
   },
   actions: {
     getAllTribes: async (context: any) => {

@@ -11,9 +11,7 @@
         <img
           class="profile-image"
           :src="image"
-          :alt="
-            $t('rockstar-page.profile-picture-alt-text', { name: this.name })
-          "
+          :alt="$t('rockstar-page.profile-picture-alt-text', { name: name })"
         />
         <p class="rockstar">{{ name }}</p>
         <p class="rockstar-role">{{ role }}</p>
@@ -37,4 +35,4 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped/>
+<style lang="scss" scoped />
