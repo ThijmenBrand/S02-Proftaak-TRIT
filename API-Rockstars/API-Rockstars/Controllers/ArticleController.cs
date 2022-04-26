@@ -21,6 +21,42 @@ namespace API_Rockstars.Controllers
         {
             _context = context;
         }
+        
+        // GET: api/Article/Count
+        [HttpGet("count")]
+        public async Task<ActionResult<int>> GetArticleCount()
+        {
+            int count = await _context.Articles.Where(x => x.Published == true).CountAsync();
+            
+            return count;
+        }
+        
+        // GET: api/Article/Count/Tribe/id
+        [HttpGet("count/tribe/{id}")]
+        public async Task<ActionResult<int>> GetArticleCountByTribeId(Guid id)
+        {
+            int count = await _context.Articles.Where(x => x.Published == true && x.TribeId == id).CountAsync();
+            
+            return count;
+        }
+        
+        // GET: api/Article/Count/Tribe/id/rockstar/id
+        [HttpGet("count/tribe/{id}/rockstar/{rockstar}")]
+        public async Task<ActionResult<int>> GetArticleCountByTribeId(Guid id, Guid rockstar)
+        {
+            int count = await _context.Articles.Where(x => x.Published == true && x.TribeId == id && x.RockstarId == rockstar).CountAsync();
+            
+            return count;
+        }
+        
+        // GET: api/Article/Count/rockstar/id
+        [HttpGet("count/rockstar/{id}")]
+        public async Task<ActionResult<int>> GetArticleCountByRockstarId(Guid id)
+        {
+            int count = await _context.Articles.Where(x => x.Published == true && x.RockstarId == id).CountAsync();
+            
+            return count;
+        }
 
         // GET: api/Article
         [HttpGet("start/{start}/limit/{limit}")]
