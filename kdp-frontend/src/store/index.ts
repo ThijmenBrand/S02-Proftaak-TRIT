@@ -13,7 +13,8 @@ interface IState {
   tribe: TribeShape[];
   articleList: ArticleShape[];
   cookieAccepted: boolean;
-  currentpage: number;
+  currentPage: number;
+  articleCount: number;
 }
 
 export default createStore({
@@ -22,7 +23,8 @@ export default createStore({
     tribe: Array<TribeShape>(),
     articleList: Array<ArticleShape>(),
     cookieAccepted: false,
-    currentpage: 1,
+    currentPage: 1,
+    articleCount: 0,
   },
   getters: {
     getAllArticles: (state: IState): ArticleShape[] => {
@@ -34,18 +36,30 @@ export default createStore({
     cookieAccepted: (state: IState) => {
       return state.cookieAccepted;
     },
-    getcurrentpage: (state: IState) => {
-      return state.currentpage;
+    getcurrentPage: (state: IState) => {
+      return state.currentPage;
+    },
+    getArticleCount: (state: IState) => {
+      return state.articleCount;
     },
   },
   actions: {
-    getAllArticles: async (context: any) => {
+    getAllArticles: async (context: any, payload: any) => {
       context.state.loading = true;
-      const { data, status } = await exporeService.getAllArticles();
+      const { data, status } = await exporeService.getAllArticles((context.state.currentPage - 1)*payload, payload);
 
       if (status >= 200 && status <= 299) {
         context.state.loading = false;
         context.commit("SET_ALL_ARTICLES", data);
+      }
+    },
+    getArticleCount: async (context: any) => {
+      context.state.loading = true;
+      const { data, status } = await exporeService.getArticleCount();
+
+      if (status >= 200 && status <= 299) {
+        context.state.loading = false;
+        context.commit("SET_ARTICLE_COUNT", data);
       }
     },
   },
@@ -57,7 +71,10 @@ export default createStore({
       state.cookieAccepted = data;
     },
     SET_CURRENT_PAGE: (state, data: number) => {
-      state.currentpage = data;
+      state.currentPage = data;
+    },
+    SET_ARTICLE_COUNT: (state, data: number) => {
+      state.articleCount = data;
     },
 
   },
@@ -67,3 +84,4 @@ export default createStore({
     article: article,
   },
 });
+

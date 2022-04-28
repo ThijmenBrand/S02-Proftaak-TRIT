@@ -2,8 +2,11 @@ import API from "../api";
 import { AxiosResponse } from "axios";
 
 const exploreService = {
-  getAllArticles(): Promise<AxiosResponse<any, any>> {
-    return API.get(`/article/start/0/limit/100`);
+  getAllArticles(start: number, limit: number): Promise<AxiosResponse<any, any>> {
+    return API.get(`/article/start/${start}/limit/${limit}`);
+  },
+  getArticleCount(): Promise<AxiosResponse<any, any>> {
+    return API.get(`/article/count`);
   },
 };
 

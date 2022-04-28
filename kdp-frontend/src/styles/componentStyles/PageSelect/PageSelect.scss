@@ -4,7 +4,7 @@
     display: flex;
     flex-direction: row;
     justify-content: center;
-    margin: auto 0;
+    margin: 1rem 0;
 }
 
 
@@ -28,13 +28,28 @@ img {
     align-items: center;
     justify-content: center;
     display: flex;
+    cursor: pointer;
 }
+
+
 
 .Page-btn-wide {
     width: 3em;
+    background-color: $trit-yellow;
+    color: black;
 }
+.Page-btn-selected-wide {
+    background-color: $trit-gray;
+    border: 1px solid $trit-yellow;
+    cursor: default;
 
+
+    img {
+        filter: invert(100%);
+    }
+}
 .Page-btn-selected {
     background-color: $trit-yellow;
     color: black;
+    cursor: default;
 }

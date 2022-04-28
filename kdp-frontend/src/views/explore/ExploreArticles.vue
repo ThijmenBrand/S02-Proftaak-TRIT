@@ -53,12 +53,10 @@
       </div>
       <p class="article-error" v-else>{{ $t("article.article-error") }}</p>
 
-      <div>
-        <page-select :PageCount="12"/> 
+      <div :style="{'display: hidden;': loading || pageCount <= 1,}">
+        <page-select :PageCount="pageCount" @current-page="SetCurrentPage"/> 
       </div>
-
-      <div style="color: white;"> {{CurrentPage}} </div>
-
+      <!-- {{CurrentPage}} -->
     </div>
   </div>
 </template>
@@ -85,30 +83,55 @@ export default {
   setup() {
     const store = useStore();
 
+
+    
+
     const searchQuery = ref("");
     const selectedFilter = ref("");
 
     const loading = computed(() => store.getters["isLoading"]);
 
+
+    const articlesPerPage = ref(6);
+
     onMounted(async () => {
-      await store.dispatch("getAllArticles");
+      store.commit('SET_CURRENT_PAGE', 1);
+      await store.dispatch("getArticleCount");
+      await store.dispatch("getAllArticles",articlesPerPage.value);
     });
 
     const articles = computed((): ArticleShape[] => {
       return store.getters["getAllArticles"];
     });
 
+
+
+
+    // const CurrentPage = computed((): number => {
+    //   store.dispatch("getAllArticles",articlesPerPage.value);
+    //   return store.getters["getcurrentPage"];
+    // });
+
     function inputValue(data: any) {
     console.log("test", data);
     }
 
+    const CurrentPage = ref(0);
 
-    const CurrentPage = computed((): number => {
-      return store.getters["getcurrentpage"];
-    });
+    const SetCurrentPage = (_page: number): void => {
+      store.dispatch("getAllArticles",articlesPerPage.value);
+      CurrentPage.value = _page;
+    };
+    
+    const pageCount = computed((): number => {
+       const articlecount = store.getters["getArticleCount"];
+       return Math.ceil(articlecount/articlesPerPage.value);
+    })
 
     const filteredArticles = computed((): ArticleShape[] => {
       let returnArray: ArticleShape[] = [];
+
+
       articles.value.forEach((article) => {
         if (article.rockstarName != null || article.tribeName != null) {
           if (
@@ -176,7 +199,7 @@ export default {
       return returnArray;
     });
 
-    return { articles, filteredArticles, searchQuery, selectedFilter, loading, CurrentPage };
+    return { articles,SetCurrentPage, filteredArticles, searchQuery, selectedFilter, loading, CurrentPage, pageCount };
   },
 };
 </script>

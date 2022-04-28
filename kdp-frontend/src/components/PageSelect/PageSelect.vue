@@ -3,7 +3,13 @@
     <div class="btns-container"> 
 
         <div class="btn-container">
-            <button class="Page-btn Page-btn-wide Page-btn-selected" v-on:click="setcurrentpage(CurrentPage-1)">  
+            <button 
+            class="Page-btn Page-btn-wide" 
+            :class="{
+            'Page-btn-selected-wide': CurrentPage == 1,
+            'Page-btn-wide': CurrentPage != 1,
+            }"
+            v-on:click="setcurrentpage(CurrentPage - 1)">  
                 <img src="@/assets/images/icon-fastforward.svg" id="prev-arrow"/>
             </button>
         </div>
@@ -14,39 +20,59 @@
         </div>
 
         <div class="btn-container">
-            <button class="Page-btn Page-btn-wide Page-btn-selected" v-on:click="setcurrentpage(CurrentPage+1)"> 
+            <button 
+            class="Page-btn Page-btn-wide" 
+            :class="{
+            'Page-btn-selected-wide': CurrentPage == PageCount,
+            'Page-btn-wide': CurrentPage != PageCount,
+            }" v-on:click="setcurrentpage(CurrentPage + 1)"> 
                 <img src="@/assets/images/icon-fastforward.svg"/> 
             </button>
         </div>
 
-
     </div>
-
-    {{CurrentPage}}
-
 </template>
 
 
 <script lang="ts">
 import { ref } from '@vue/reactivity';
 import store from '@/store';
+import { onMounted } from 'vue';
 
 export default {
   name: "PageSelect",
   props: {
     PageCount: Number,
   },
-  setup() {
-      
+  emits: ["current-page"],
+  setup(props: any, { emit }: any) {
+
+
     const CurrentPage = ref(1);
+
+
+    onMounted(async () => {
+      store.commit('SET_CURRENT_PAGE', store.getters("GetCurrentPage"));
+      CurrentPage.value = store.getters("GetCurrentPage");
+    });
+
+
+    
     
     function setcurrentpage(page: number) {
-        store.commit('SET_CURRENT_PAGE', page);
+      if (page > 0 &&  page <= props.PageCount) {
         CurrentPage.value = page;
+        store.commit('SET_CURRENT_PAGE', page);
+        emit("current-page", page);
+      }
+        
     }
   
     return{ CurrentPage, setcurrentpage }
     
+
+    
+
   }
 };
 </script>
@@ -55,4 +81,5 @@ export default {
   scoped
   lang="scss"
   src="@/styles/componentStyles/PageSelect/PageSelect.scss"
+
 />
