@@ -9,19 +9,21 @@ import { msalInstance } from "./config/authConfig";
 import { msalPlugin } from "./services/msal/msalPlugin";
 import * as Cookies from "tiny-cookie";
 import LocalStorageHandler from "./services/localStorageHelper/LocalStorageHelper";
+import CookieShape from "./models/Cookie";
 
 type MessageSchema = typeof nl;
 
-store.commit(
-  "SET_COOKIE_ACCEPTED",
-  LocalStorageHandler.getItem("cookieAccepted")
-);
+const cookies: CookieShape = LocalStorageHandler.getItem("cookieAccepted");
+const AcceptedFunctionalCookies =
+  cookies == null ? false : cookies.AcceptedFunctionalCookies;
+
+store.commit("SET_COOKIE_ACCEPTED", cookies);
 
 const i18n = createI18n<I18nOptions, [MessageSchema], "nl" | "en">({
   legacy: false,
   globalInjection: true,
   locale:
-    localStorage.getItem("vue-cookie-accept-decline-cookie-banner") == "accept"
+    cookies?.AcceptedAllCookies || AcceptedFunctionalCookies
       ? Cookies.getCookie("lang") || "en"
       : "en",
   fallbackLocale: "en",

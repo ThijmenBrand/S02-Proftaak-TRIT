@@ -1,3 +1,36 @@
+@import "@/styles/variables";
+
+.learn-more-modal {
+  position: fixed;
+  z-index: 200;
+  padding-top: 50px;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgb(0,0,0);
+  background-color: rgba(0,0,0,0.4); 
+  .learn-more-modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    .cookie-option {
+      display: flex;
+      justify-content: space-between;
+      margin: 0px 50px 0px 0px
+    }
+    .save-cookie-options {
+      padding: 10px;
+      border: none;
+      background-color: $trit-yellow;
+      font-weight: bold;
+      cursor: pointer;
+    }
+  }
+}
 
 .cookie-banner-container {
   position: sticky;

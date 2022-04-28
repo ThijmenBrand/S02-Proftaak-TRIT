@@ -1,9 +1,9 @@
 <template>
-  <BaseNav />
+  <BaseNav @open-cookie-selector="showCookieBannerAgain()" />
   <div class="main-content">
     <router-view />
   </div>
-  <bannerVue v-if="cookieAccepted" />
+  <bannerVue v-if="showCookieBanner" />
 </template>
 
 <script>
@@ -12,7 +12,6 @@ import { computed, onMounted } from "vue";
 import { useStore } from "vuex";
 import SetLocalStorage from "@/config/SetLocalstorage";
 import bannerVue from "./components/cookieBanner/banner.vue";
-import LocalStorageHandler from "./services/localStorageHelper/LocalStorageHelper";
 
 export default {
   components: {
@@ -21,15 +20,15 @@ export default {
   },
   setup() {
     const store = useStore();
-    const cookieAccepted = computed(
-      () => store.getters["cookieAccepted"] == ""
-    );
-
+    const showCookieBanner = computed(() => store.getters["showCookieBanner"]);
+    const showCookieBannerAgain = () => {
+      store.commit("SET_COOKIE_BANNER_SHOW_FALSE");
+    };
     onMounted(() => {
       SetLocalStorage();
     });
 
-    return { cookieAccepted };
+    return { showCookieBanner, showCookieBannerAgain };
   },
 };
 </script>

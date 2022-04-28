@@ -21,7 +21,7 @@ const LocalStorageHandler = {
         solution:
           "try to run 'LocalStorageHandler.getAllItems' or 'localStorageHandler.getAllKeys' to find what you want",
       });
-      return "";
+      return null;
     }
 
     return JSON.parse(localItem);
