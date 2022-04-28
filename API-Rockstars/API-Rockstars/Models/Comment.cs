@@ -10,6 +10,6 @@ public class Comment
     public string UserId { get; set; }
     public string UserName { get; set; }
     public string CommentText { get; set; }
-    [DefaultValue(false)] public bool Apporved { get; set; }
+    [DefaultValue(false)] public bool Approved { get; set; }
     public DateTime CommentDate { get; set; }
 }
