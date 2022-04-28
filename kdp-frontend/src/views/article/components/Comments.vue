@@ -1,12 +1,17 @@
 ﻿<template>
   <div class="comments">
     <h3 class="comments-title">{{ $t("article-page.comment-title") }}</h3>
+    <div class="error-message-container">
+      <p class="empty-post-error" v-if="EmptyPostError" >{{ $t("article-page.comment-error") }}</p>
+    </div>
     <div v-if="LoggedIn" class="comment-input-container">
       <div class="input-container">
         <textarea
           class="comment-input"
           :placeholder="$t('article-page.comment-placeholder')"
           v-model="commentContent"
+          maxlength="250"
+          @click="RemoveErrorMsg"
         ></textarea>
         <div class="button-container">
           <button
@@ -17,6 +22,20 @@
             {{ $t("article-page.button-text") }}
           </button>
         </div>
+      </div>
+        <div class="remaining-char-container">
+          <p class="remaining-char">{{GetRemainingChar()}} characters remaining</p>
+        </div>
+    </div>
+    <div class="login-message-container" v-else>
+      <p>{{ $t("article-page.comment-login-message")}} </p>
+      <div class="login-button-container">
+        <button class="login-button btn-yellow"
+          @click="login"
+          type="login"
+        >
+          Login
+        </button>
       </div>
     </div>
     <div v-for="(comment, index) in comments" :key="index" class="comment">
@@ -35,8 +54,10 @@ import { useStore } from "vuex";
 import { useRoute } from "vue-router";
 import { CommentShape } from "@/models/Comment";
 import getCustomDateTime from "@/services/customDateTime";
-import { getAccountInfo, useIsAuthenticated } from "@/services/msal/msal";
+import { getAccountInfo, useIsAuthenticated, useMsal } from "@/services/msal/msal";
 import { AccountInfo } from "@azure/msal-common";
+import LocalStorageHandler from "@/services/localStorageHelper/LocalStorageHelper"
+import { loginRequest } from '@/config/authConfig';
 
 export default {
   name: "Comments",
@@ -49,11 +70,16 @@ export default {
   setup() {
     const store = useStore();
     const route = useRoute();
+    const EmptyPostError = ref(false);
     const commentContent = ref<string>("");
     const LoggedIn: Ref<boolean> = useIsAuthenticated();
     const loggedUser: AccountInfo[] = getAccountInfo();
 
     const submitComment = () => {
+      if (commentContent.value == "") {
+        EmptyPostError.value = true;
+        return
+        };
       if (!LoggedIn) return;
 
       const commentParams: CommentShape = {
@@ -65,13 +91,31 @@ export default {
       store.dispatch("article/postComment", commentParams);
       commentContent.value = "";
     };
+    
     const date = (date: string): string => {
       if (date) {
         return getCustomDateTime(date);
       }
       return "";
     };
-    return { date, commentContent, submitComment, LoggedIn };
+    
+    function GetRemainingChar(){
+      var length = commentContent.value.length;
+      return 250-length;
+    }
+
+    function RemoveErrorMsg(){
+      EmptyPostError.value = false;
+    }
+    
+    const { instance } = useMsal();
+
+    const login = () => {
+      instance.loginPopup(loginRequest).then(result => {
+        LocalStorageHandler.setItem('user', result); 
+        });
+    }
+    return { date, commentContent, submitComment, LoggedIn, GetRemainingChar, login, RemoveErrorMsg, EmptyPostError };
   },
 };
 </script>

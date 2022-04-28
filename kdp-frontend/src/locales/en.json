@@ -33,6 +33,8 @@
   "article-page.comment-placeholder": "What did you think about this article?",
   "article-page.button-text": "Comment",
   "article-page.comment-title": "Comments",
+  "article-page.comment-error":"This is a required field!",
+  "article-page.comment-login-message":"Log in to post a comment.",
 
   "article-page.recommended-title": "Also interesting",
   "article-page.recommended-image-alt": "Recommended article image",
