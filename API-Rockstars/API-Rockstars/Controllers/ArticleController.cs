@@ -21,7 +21,37 @@ namespace API_Rockstars.Controllers
         {
             _context = context;
         }
-        
+
+        // GET: api/Article
+        [HttpGet("all")]
+        public async Task<ActionResult<IEnumerable<Article>>> GetAllArticles()
+        {
+
+            List<Article> articles = await _context.Articles.ToListAsync();
+
+
+            foreach (var article in articles)
+            {
+                Tribe tribe = await _context.Tribes.FindAsync(article.TribeId);
+                if (tribe != null)
+                {
+                    article.TribeName = tribe.Name;
+                }
+
+                Rockstar rockstar = await _context.Rockstars.FindAsync(article.RockstarId);
+                if (rockstar != null)
+                {
+                    article.RockstarName = rockstar.Name;
+                }
+
+                var viewCount = await _context.ArticleViews.Where(x => x.ArticleId == article.Id).ToListAsync();
+                article.ViewCount = viewCount.Count();
+            }
+
+            return articles;
+        }
+
+
         // GET: api/Article/Count
         [HttpGet("count")]
         public async Task<ActionResult<int>> GetArticleCount()
