@@ -32,19 +32,21 @@
 </template>
 
 <script lang="ts">
+import { useStore } from "vuex";
 import * as Cookies from "tiny-cookie";
+import CookieShape from "@/models/Cookie";
 
 export default {
   name: "LocaleSelector",
   setup() {
+    const store = useStore();
+    const cookies: CookieShape = store.getters["cookieAccepted"];
     const saveLanguage = (local: string) => {
-      if (
-        localStorage.getItem("vue-cookie-accept-decline-cookie-banner") ==
-        "accept"
-      ) {
+      if (cookies.AcceptedFunctionalCookies || cookies.AcceptedAllCookies) {
         Cookies.setCookie("lang", local);
       }
     };
+
     return {
       saveLanguage,
     };
