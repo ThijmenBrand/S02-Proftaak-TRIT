@@ -8,7 +8,6 @@ import tribes from "@/views/tribes/store/tribes";
 import ArticleShape from "@/models/Article";
 import rockstars from "@/views/rockstar/store/rockstars";
 import article from "@/views/article/store/article";
-import { CookieOptions } from "tiny-cookie";
 import CookieShape, { BaseCookieShape } from "@/models/Cookie";
 
 interface IState {
@@ -43,9 +42,6 @@ export default createStore({
     },
     cookieAccepted: (state: IState): CookieShape => {
       return state.cookieAccepted;
-    },
-    getcurrentPage: (state: IState) => {
-      return state.currentPage;
     },
     getArticleCount: (state: IState) => {
       return state.articleCount;

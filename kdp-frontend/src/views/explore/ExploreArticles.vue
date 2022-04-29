@@ -53,8 +53,8 @@
       </div>
       <p class="article-error" v-else>{{ $t("article.article-error") }}</p>
 
-      <div :style= "[loading || pageCount <= 1 ? {'display': 'none'} : {}]">
-        <page-select :PageCount="pageCount" @current-page="SetCurrentPage"/> 
+      <div :class="[loading || pageCount <= 1 ? { display: 'none' } : {}]">
+        <page-select :PageCount="pageCount" @current-page="SetCurrentPage" />
       </div>
     </div>
   </div>
@@ -68,9 +68,8 @@ import ArticleShape from "@/models/Article";
 
 import ArticlePreview from "@/components/articlePreview/ArticlePreview.vue";
 
-
 import Loader from "@/components/loader/Loader.vue";
-import PageSelect from '@/components/PageSelect/PageSelect.vue';
+import PageSelect from "@/components/PageSelect/PageSelect.vue";
 
 export default {
   components: {
@@ -82,37 +81,29 @@ export default {
   setup() {
     const store = useStore();
 
-
-    
-
     const searchQuery = ref("");
     const selectedFilter = ref("");
 
     const loading = computed(() => store.getters["isLoading"]);
 
-
-    
-
     onMounted(async () => {
-      store.commit('SET_CURRENT_PAGE', 1);
+      store.commit("SET_CURRENT_PAGE", 1);
       await store.dispatch("getArticleCount");
-      await store.dispatch("getAllArticles",articlesPerPage.value);
+      await store.dispatch("getAllArticles", articlesPerPage.value);
     });
 
-    const articlesPerPage = ref(6);
-    const CurrentPage = ref(0);
+    const articlesPerPage = ref<number>(6);
+    const CurrentPage = ref<number>(0);
 
     const SetCurrentPage = (_page: number): void => {
-      store.dispatch("getAllArticles",articlesPerPage.value);
+      store.dispatch("getAllArticles", articlesPerPage.value);
       CurrentPage.value = _page;
     };
-    
+
     const pageCount = computed((): number => {
-       const articlecount = store.getters["getArticleCount"];
-       return Math.ceil(articlecount/articlesPerPage.value);
+      const articlecount = store.getters["getArticleCount"];
+      return Math.ceil(articlecount / articlesPerPage.value);
     });
-
-
 
     const articles = computed((): ArticleShape[] => {
       return store.getters["getAllArticles"];
@@ -120,7 +111,6 @@ export default {
 
     const filteredArticles = computed((): ArticleShape[] => {
       let returnArray: ArticleShape[] = [];
-
 
       articles.value.forEach((article) => {
         if (article.rockstarName != null || article.tribeName != null) {
@@ -189,7 +179,16 @@ export default {
       return returnArray;
     });
 
-    return { articles, SetCurrentPage, filteredArticles, searchQuery, selectedFilter, loading, CurrentPage, pageCount };
+    return {
+      articles,
+      SetCurrentPage,
+      filteredArticles,
+      searchQuery,
+      selectedFilter,
+      loading,
+      CurrentPage,
+      pageCount,
+    };
   },
 };
 </script>
