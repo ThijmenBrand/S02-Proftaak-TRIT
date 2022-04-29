@@ -53,10 +53,9 @@
       </div>
       <p class="article-error" v-else>{{ $t("article.article-error") }}</p>
 
-      <div :style="{'display: hidden;': loading || pageCount <= 1,}">
+      <div :style= "[loading || pageCount <= 1 ? {'display': 'none'} : {}]">
         <page-select :PageCount="pageCount" @current-page="SetCurrentPage"/> 
       </div>
-      <!-- {{CurrentPage}} -->
     </div>
   </div>
 </template>
@@ -92,7 +91,7 @@ export default {
     const loading = computed(() => store.getters["isLoading"]);
 
 
-    const articlesPerPage = ref(6);
+    
 
     onMounted(async () => {
       store.commit('SET_CURRENT_PAGE', 1);
@@ -100,22 +99,7 @@ export default {
       await store.dispatch("getAllArticles",articlesPerPage.value);
     });
 
-    const articles = computed((): ArticleShape[] => {
-      return store.getters["getAllArticles"];
-    });
-
-
-
-
-    // const CurrentPage = computed((): number => {
-    //   store.dispatch("getAllArticles",articlesPerPage.value);
-    //   return store.getters["getcurrentPage"];
-    // });
-
-    function inputValue(data: any) {
-    console.log("test", data);
-    }
-
+    const articlesPerPage = ref(6);
     const CurrentPage = ref(0);
 
     const SetCurrentPage = (_page: number): void => {
@@ -126,7 +110,13 @@ export default {
     const pageCount = computed((): number => {
        const articlecount = store.getters["getArticleCount"];
        return Math.ceil(articlecount/articlesPerPage.value);
-    })
+    });
+
+
+
+    const articles = computed((): ArticleShape[] => {
+      return store.getters["getAllArticles"];
+    });
 
     const filteredArticles = computed((): ArticleShape[] => {
       let returnArray: ArticleShape[] = [];
@@ -199,7 +189,7 @@ export default {
       return returnArray;
     });
 
-    return { articles,SetCurrentPage, filteredArticles, searchQuery, selectedFilter, loading, CurrentPage, pageCount };
+    return { articles, SetCurrentPage, filteredArticles, searchQuery, selectedFilter, loading, CurrentPage, pageCount };
   },
 };
 </script>
