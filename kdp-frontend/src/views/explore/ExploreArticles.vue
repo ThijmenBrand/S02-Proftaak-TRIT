@@ -52,6 +52,10 @@
         </router-link>
       </div>
       <p class="article-error" v-else>{{ $t("article.article-error") }}</p>
+
+      <div :class="[loading || pageCount <= 1 ? { display: 'none' } : {}]">
+        <page-select :PageCount="pageCount" @current-page="SetCurrentPage" />
+      </div>
     </div>
   </div>
 </template>
@@ -63,12 +67,15 @@ import { useStore } from "vuex";
 import ArticleShape from "@/models/Article";
 
 import ArticlePreview from "@/components/articlePreview/ArticlePreview.vue";
+
 import Loader from "@/components/loader/Loader.vue";
+import PageSelect from "@/components/PageSelect/PageSelect.vue";
 
 export default {
   components: {
     ArticlePreview,
     Loader,
+    PageSelect,
   },
 
   setup() {
@@ -80,7 +87,22 @@ export default {
     const loading = computed(() => store.getters["isLoading"]);
 
     onMounted(async () => {
-      await store.dispatch("getAllArticles");
+      store.commit("SET_CURRENT_PAGE", 1);
+      await store.dispatch("getArticleCount");
+      await store.dispatch("getAllArticles", articlesPerPage.value);
+    });
+
+    const articlesPerPage = ref<number>(6);
+    const CurrentPage = ref<number>(0);
+
+    const SetCurrentPage = (_page: number): void => {
+      store.dispatch("getAllArticles", articlesPerPage.value);
+      CurrentPage.value = _page;
+    };
+
+    const pageCount = computed((): number => {
+      const articlecount = store.getters["getArticleCount"];
+      return Math.ceil(articlecount / articlesPerPage.value);
     });
 
     const articles = computed((): ArticleShape[] => {
@@ -89,6 +111,7 @@ export default {
 
     const filteredArticles = computed((): ArticleShape[] => {
       let returnArray: ArticleShape[] = [];
+
       articles.value.forEach((article) => {
         if (article.rockstarName != null || article.tribeName != null) {
           if (
@@ -156,7 +179,16 @@ export default {
       return returnArray;
     });
 
-    return { articles, filteredArticles, searchQuery, selectedFilter, loading };
+    return {
+      articles,
+      SetCurrentPage,
+      filteredArticles,
+      searchQuery,
+      selectedFilter,
+      loading,
+      CurrentPage,
+      pageCount,
+    };
   },
 };
 </script>

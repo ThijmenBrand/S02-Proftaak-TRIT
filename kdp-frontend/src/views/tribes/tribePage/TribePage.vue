@@ -40,7 +40,13 @@
             />
           </router-link>
         </div>
+
         <p class="cookie-error" v-else>{{ $t("article.article-error") }}</p>
+
+        <div :style="[loading || pageCount <= 1 ? { display: 'none' } : {}]">
+          <page-select :PageCount="pageCount" @current-page="SetCurrentPage" />
+        </div>
+
         <h3 class="podcasts-overview-title">Podcasts</h3>
         <SpotifyCarousel
           v-if="AcceptedFunctionalCookies && spotifyList.length > 0"
@@ -59,7 +65,7 @@
 </template>
 
 <script lang="ts">
-import { computed, onMounted } from "vue";
+import { computed, onMounted, ref } from "vue";
 import { useRoute } from "vue-router";
 import { useStore } from "vuex";
 
@@ -72,6 +78,7 @@ import ArticlePreview from "@/components/articlePreview/ArticlePreview.vue";
 import Profiletag from "@/components/profileTag/Profiletag.vue";
 import Loader from "@/components/loader/Loader.vue";
 import SpotifyCarousel from "@/components/carousel/Carousel.vue";
+import PageSelect from "@/components/PageSelect/PageSelect.vue";
 import CookieShape from "@/models/Cookie";
 
 export default {
@@ -80,6 +87,7 @@ export default {
     Profiletag,
     ArticlePreview,
     Loader,
+    PageSelect,
   },
   setup() {
     const route = useRoute();
@@ -95,11 +103,36 @@ export default {
     });
 
     onMounted(async () => {
-      await store.commit("tribes/EMPTY_STORE");
+      const tribeArticleParams = {
+        tribeId: route.params.tribe,
+        ArticlesPerPage: articlesPerPage.value,
+      };
+
+      store.commit("SET_CURRENT_PAGE", 1);
+      store.commit("tribes/EMPTY_STORE");
+      await store.dispatch("tribes/getArticlesByTribe", tribeArticleParams);
+      await store.dispatch("tribes/getArticleCount", route.params.tribe);
       await store.dispatch("tribes/getCurrentTribe", route.params.tribe);
       await store.dispatch("tribes/getRockstarsByTribe", route.params.tribe);
-      await store.dispatch("tribes/getArticlesByTribe", route.params.tribe);
       await store.dispatch("tribes/getAllSpotifyByTribe", route.params.tribe);
+    });
+
+    const articlesPerPage = ref(6);
+    const CurrentPage = ref(0);
+
+    const SetCurrentPage = (_page: number): void => {
+      const tribeArticleParams = {
+        tribeId: route.params.tribe,
+        ArticlesPerPage: articlesPerPage.value,
+      };
+
+      store.dispatch("tribes/getArticlesByTribe", tribeArticleParams);
+      CurrentPage.value = _page;
+    };
+
+    const pageCount = computed((): number => {
+      const articlecount = store.getters["tribes/getArticleCount"];
+      return Math.ceil(articlecount / articlesPerPage.value);
     });
 
     const articles = computed((): ArticleShape[] => {
@@ -138,6 +171,8 @@ export default {
       currentTribe,
       loading,
       spotifyList,
+      pageCount,
+      SetCurrentPage,
       AcceptedFunctionalCookies,
     };
   },
