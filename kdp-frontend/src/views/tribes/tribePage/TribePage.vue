@@ -43,10 +43,13 @@
         <p class="cookie-error" v-else>{{ $t("article.article-error") }}</p>
         <h3 class="podcasts-overview-title">Podcasts</h3>
         <SpotifyCarousel
-          v-if="cookie && spotifyList.length > 0"
+          v-if="AcceptedFunctionalCookies && spotifyList.length > 0"
           :spotify-links="spotifyList"
         />
-        <p class="cookie-error" v-else-if="!cookie && spotifyList.length > 0">
+        <p
+          class="cookie-error"
+          v-else-if="!AcceptedFunctionalCookies && spotifyList.length > 0"
+        >
           {{ $t("tribe-page.cookie-error") }}
         </p>
         <p class="cookie-error" v-else>{{ $t("tribe-page.spotify-error") }}</p>
@@ -69,6 +72,7 @@ import ArticlePreview from "@/components/articlePreview/ArticlePreview.vue";
 import Profiletag from "@/components/profileTag/Profiletag.vue";
 import Loader from "@/components/loader/Loader.vue";
 import SpotifyCarousel from "@/components/carousel/Carousel.vue";
+import CookieShape from "@/models/Cookie";
 
 export default {
   components: {
@@ -81,11 +85,11 @@ export default {
     const route = useRoute();
     const store = useStore();
 
-    const cookie = computed(() => store.getters["cookieAccepted"]);
-
+    const cookie = computed((): CookieShape => store.getters["cookieAccepted"]);
+    const AcceptedFunctionalCookies =
+      cookie.value.AcceptedAllCookies || cookie.value.AcceptedFunctionalCookies;
     const loading = computed(() => store.getters["isLoading"]);
 
-    //todo, op basis van id een request sturen met individuele tribe info en daarvan de data gebruiken.
     const currentTribe = computed((): TribeShape => {
       return store.getters["tribes/getCurrentTribe"];
     });
@@ -115,21 +119,17 @@ export default {
       return applyingArticles;
     });
 
-    const rockstars = computed((): RockstarShape[] => {
-      const rockstar = store.getters["tribes/getRockstarsByTribe"];
-      return rockstar;
-    });
+    const rockstars = computed(
+      (): RockstarShape[] => store.getters["tribes/getRockstarsByTribe"]
+    );
 
-    const tribeArticles = computed((): ArticleShape[] => {
-      const articles = store.getters["tribes/getArticlesbByTribe"];
-      return articles;
-    });
+    const tribeArticles = computed(
+      (): ArticleShape[] => store.getters["tribes/getArticlesbByTribe"]
+    );
 
-    let spotifyList = computed((): SpotifyShape[] => {
-      const spotify: SpotifyShape[] =
-        store.getters["tribes/getAllSpotifyByTribe"];
-      return spotify;
-    });
+    let spotifyList = computed(
+      (): SpotifyShape[] => store.getters["tribes/getAllSpotifyByTribe"]
+    );
 
     return {
       tribeArticles,
@@ -138,7 +138,7 @@ export default {
       currentTribe,
       loading,
       spotifyList,
-      cookie,
+      AcceptedFunctionalCookies,
     };
   },
 };

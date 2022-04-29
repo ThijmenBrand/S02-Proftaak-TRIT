@@ -44,5 +44,10 @@
 
   "article.article-error": "No articles found",
   "tribe-page.cookie-error": "Accept cookies to view podcasts",
-  "tribe-page.spotify-error": "No podcasts found"
+  "tribe-page.spotify-error": "No podcasts found",
+
+  "cookie-message": "To give you the best experience we make use of cookies",
+  "cookie-message.learn-more": "Learn more",
+  "cookie-message.accept": "Accept",
+  "cookie-message.decline": "Decline"
 }
