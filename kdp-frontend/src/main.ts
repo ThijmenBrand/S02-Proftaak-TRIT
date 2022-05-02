@@ -10,8 +10,11 @@ import { msalPlugin } from "./services/msal/msalPlugin";
 import * as Cookies from "tiny-cookie";
 import LocalStorageHandler from "./services/localStorageHelper/LocalStorageHelper";
 import CookieShape from "./models/Cookie";
+import getToken from "./services/msal/getApplicationToken";
 
 type MessageSchema = typeof nl;
+
+console.log(getToken());
 
 const cookies: CookieShape = LocalStorageHandler.getItem("cookieAccepted");
 const AcceptedFunctionalCookies =
