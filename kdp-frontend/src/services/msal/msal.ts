@@ -1,7 +1,9 @@
+import { loginRequest, msalInstance } from "@/config/authConfig";
 import {
   AccountInfo,
   AuthenticationResult,
   AuthError,
+  InteractionRequiredAuthError,
   InteractionStatus,
   InteractionType,
   PopupRequest,
@@ -10,12 +12,29 @@ import {
   SilentRequest,
 } from "@azure/msal-browser";
 import { getCurrentInstance, ref, Ref, toRefs, watch } from "vue";
+import sendGraphReq from "../graph/graph";
+import LocalStorageHandler from "../localStorageHelper/LocalStorageHelper";
+import * as Cookies from "tiny-cookie";
 
 export type MsalContext = {
   instance: PublicClientApplication;
   accounts: Ref<AccountInfo[]>;
   inProgress: Ref<InteractionStatus>;
 };
+
+export async function Userlogin() {
+  try {
+    await msalInstance.loginPopup(loginRequest).then((result) => {
+      console.log(result);
+    });
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+export function getCurrentUser(): AccountInfo[] {
+  return msalInstance.getAllAccounts();
+}
 
 export function useMsal(): MsalContext {
   const interalInstance = getCurrentInstance();
@@ -44,7 +63,7 @@ export function useMsal(): MsalContext {
   };
 }
 
-export function useIsAuthenticated(): Ref<boolean> {
+export function userIsAuthenticated(): Ref<boolean> {
   const { accounts } = useMsal();
   const isAuthenticated = ref(accounts.value.length > 0);
 
@@ -114,6 +133,7 @@ export function useMsalAuthentication(
           instance
             .loginPopup(tokenRequest)
             .then((response) => {
+              LocalStorageHandler.setItem("user", response);
               result.value = response;
               error.value = null;
             })

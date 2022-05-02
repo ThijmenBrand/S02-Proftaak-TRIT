@@ -40,7 +40,9 @@
             {{ $t("menu.logout") }}
           </a>
         </div>
-        <p class="reset-cookies" @click="$emit('open-cookie-selector')">Reset cookies</p>
+        <p class="reset-cookies" @click="$emit('open-cookie-selector')">
+          Reset cookies
+        </p>
         <LocaleSelector />
       </div>
     </div>
@@ -50,7 +52,7 @@
 <script lang="ts">
 import { ref } from "vue";
 import { useStore } from "vuex";
-import { useIsAuthenticated, useMsal } from "@/services/msal/msal";
+import { userIsAuthenticated, useMsal, Userlogin } from "@/services/msal/msal";
 import { loginRequest } from "@/config/authConfig";
 
 import LocaleSelector from "@/components/localeSelector/LocaleSelector.vue";
@@ -77,10 +79,7 @@ export default {
     const { instance } = useMsal();
 
     const login = () => {
-      instance.loginPopup(loginRequest).then((result) => {
-        LocalStorageHandler.setItem("user", result);
-        CloseTab();
-      });
+      Userlogin();
     };
 
     const logout = () => {
@@ -90,7 +89,7 @@ export default {
       });
     };
 
-    const IsAuthenticated = useIsAuthenticated();
+    const IsAuthenticated = userIsAuthenticated();
 
     return {
       isOpened,

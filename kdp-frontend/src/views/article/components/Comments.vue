@@ -35,7 +35,7 @@ import { useStore } from "vuex";
 import { useRoute } from "vue-router";
 import { CommentShape } from "@/models/Comment";
 import getCustomDateTime from "@/services/customDateTime";
-import { getAccountInfo, useIsAuthenticated } from "@/services/msal/msal";
+import { getAccountInfo, userIsAuthenticated } from "@/services/msal/msal";
 import { AccountInfo } from "@azure/msal-common";
 
 export default {
@@ -50,7 +50,7 @@ export default {
     const store = useStore();
     const route = useRoute();
     const commentContent = ref<string>("");
-    const LoggedIn: Ref<boolean> = useIsAuthenticated();
+    const LoggedIn: Ref<boolean> = userIsAuthenticated();
     const loggedUser: AccountInfo[] = getAccountInfo();
 
     const submitComment = () => {

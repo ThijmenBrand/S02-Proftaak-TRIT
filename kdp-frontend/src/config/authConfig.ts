@@ -1,9 +1,12 @@
 import { PublicClientApplication } from "@azure/msal-browser";
+import { Client } from "@microsoft/microsoft-graph-client";
+import TokenCredentialAuthenticationProvider from "@microsoft/microsoft-graph-client/authProviders/azureTokenCredentials";
 
 export const msalConfig = {
   auth: {
     clientId: "d0b1fd93-02ac-44ce-94cc-6ed26b112ce1",
     authority: "https://login.microsoftonline.com/common",
+    clientSecret: "fbc1976a-d0f7-4542-8d10-f28d446009c4",
     redirectUri: process.env.VUE_APP_REDIRECT_URL,
   },
   cache: {
@@ -13,7 +16,7 @@ export const msalConfig = {
 };
 
 export const loginRequest = {
-  scopes: ["User.Read"],
+  scopes: ["User.Read", "Calendars.ReadWrite", "Calendars.Read"],
 };
 
 // Add here the endpoints for MS Graph API services you would like to use.
