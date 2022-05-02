@@ -1,0 +1,149 @@
+﻿@import "@/styles/variables.scss";
+
+.comments {
+  margin-right: 7em;
+  
+  .comments-title {
+    color: $trit-white;
+    font-size: 1.5em;
+    font-weight: normal;
+  }
+
+  .error-message-container {
+    height: 1.2em;
+    .empty-post-error {
+      margin: 0em;
+      display: flex;
+      color: #ea4a57;
+    }
+  }
+
+  .comment-input-container {
+    display: flex;
+    padding: 1em;
+    background: black;
+    .input-container {
+      display: flex;
+      align-items: center;
+      position: relative;
+      height: 100%;
+      width: 85%;
+      .comment-input{
+        background: black;
+        border: none;
+        resize: none;
+        color: $trit-white;
+        font-size: 1em;
+        font-family: DIN2014-Regular;
+        min-width: 100%;
+        max-width: 100%;
+        min-height: 5em;
+        max-height: 5em;
+        width: 80%;
+        &:focus {
+          outline: none;
+        }
+      }
+    }
+    .button-container {
+      display: flex;
+      justify-content: right;
+      align-items: center;
+      height: 5em;
+      width: 20%;
+      .comment-button {
+        cursor: pointer;
+        padding: 1em;
+        border: none;
+      }
+    }
+    .remaining-char-container {
+      display: flex;
+      justify-content: right;
+      align-items: center;
+      padding-left: 0.2em;
+      margin-bottom: 0em;
+      margin-top: 4em;
+      .remaining-char {
+        margin-bottom: 0em;
+        font-size: 14px;
+      }
+    }
+  }
+
+  .login-message-container {
+    height: 5em;
+    width: 20%;
+    .login-button {
+      cursor: pointer;
+      padding: 1em;
+      border: none;
+      margin-bottom: 3em;
+    }
+  }
+
+  .comment {
+    .user-title {
+      margin: 1em 0 0.5em 0;
+      color: $trit-white;
+      font-weight: normal;
+      font-size: 1.2em;
+    }
+    .comment-content {
+      background: black;
+      width: 100%;
+      min-height: 7em ;
+      .comment-text {
+        padding: 1em;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .comments {
+    margin-right: 0;
+    width: 100%;
+    form {
+      .input-container {
+        .comment-input {
+          box-sizing: border-box;
+          resize: none;
+        }
+        .comment-button {
+          right: 1em;
+        }
+      }
+    }
+  }
+}
+
+textarea::-webkit-input-placeholder {
+  font-family: DIN2014-Regular;
+  font-size: 1em;
+  color: $trit-white;
+}
+
+textarea::-moz-placeholder { /* Firefox 18- */
+  font-family: DIN2014-Regular;
+  color: $trit-white;
+  font-size: 1em;
+}
+
+textarea::-moz-placeholder {  /* Firefox 19+ */
+  font-family: DIN2014-Regular;
+  font-size: 1em;
+  color: $trit-white;
+}
+
+textarea::-ms-input-placeholder {
+  font-family: DIN2014-Regular;
+  font-size: 1em;
+  color: $trit-white;
+}
+
+textarea::placeholder {
+  font-family: DIN2014-Regular;
+  font-size: 1em;
+  color: white;
+}

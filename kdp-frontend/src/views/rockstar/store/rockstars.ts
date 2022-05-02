@@ -7,6 +7,7 @@ import SetProfilePicture from "@/services/profilePictureHelper";
 interface rockstarState {
   rockstar: RockstarShape;
   articles: ArticleShape[];
+  articleCount: number;
 }
 
 const rockstar = {
@@ -25,6 +26,7 @@ const rockstar = {
         phone: "",
       },
       articles: [],
+      articleCount: 0,
     };
   },
   getters: {
@@ -33,6 +35,9 @@ const rockstar = {
     },
     getArticles: (state: rockstarState): ArticleShape[] => {
       return state.articles;
+    },
+    getArticleCount: (state: rockstarState): number => {
+      return state.articleCount;
     },
   },
   actions: {
@@ -45,14 +50,24 @@ const rockstar = {
         context.commit("SET_ROCKSTAR", data);
       }
     },
-    getArticles: async (context: any, rockstarId: string) => {
-      const { data, status } = await rockstarService.getArticles(rockstarId);
+    getArticles: async (context: any, rockstarparams: any) => {
+      context.rootState.loading = true;
+      const { data, status } = await rockstarService.getArticles(rockstarparams.tribeId, (context.rootState.currentPage - 1)*rockstarparams.ArticlesPerPage, rockstarparams.ArticlesPerPage);
 
       if (status >= 200 && status <= 299) {
+        context.rootState.loading = false;
         context.commit("SET_ARTICLES", data);
       }
     },
+    getArticleCount: async (context: any, tribeId: string) => {
+      context.state.loading = true;
+      const { data, status } = await rockstarService.getArticleCount(tribeId);
 
+      if (status >= 200 && status <= 299) {
+        context.state.loading = false;
+        context.commit("SET_ARTICLE_COUNT", data);
+      }
+    },
   },
   mutations: {
     SET_ROCKSTAR: (state: rockstarState, data: RockstarShape) => {
@@ -67,7 +82,9 @@ const rockstar = {
         state.rockstar.image = pfPlaceholder;
       }
     },
-
+    SET_ARTICLE_COUNT: (state: rockstarState, data: number) => {
+      state.articleCount = data;
+    },
 
     CLEAR_ROCKSTAR: (state: rockstarState) => {
       state.articles = [];

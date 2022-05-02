@@ -18,6 +18,7 @@
           :id="locale"
           v-model="$i18n.locale"
           :value="locale"
+          @click="saveLanguage(locale)"
         />
         <label :for="locale">
           <img
@@ -31,8 +32,25 @@
 </template>
 
 <script lang="ts">
+import { useStore } from "vuex";
+import * as Cookies from "tiny-cookie";
+import CookieShape from "@/models/Cookie";
+
 export default {
   name: "LocaleSelector",
+  setup() {
+    const store = useStore();
+    const cookies: CookieShape = store.getters["cookieAccepted"];
+    const saveLanguage = (local: string) => {
+      if (cookies.AcceptedFunctionalCookies || cookies.AcceptedAllCookies) {
+        Cookies.setCookie("lang", local);
+      }
+    };
+
+    return {
+      saveLanguage,
+    };
+  },
 };
 </script>
 

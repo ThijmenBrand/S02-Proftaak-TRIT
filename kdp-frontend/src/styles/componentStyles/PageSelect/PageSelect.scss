@@ -1,0 +1,55 @@
+@import "@/styles/variables.scss";
+
+.btns-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin: 1rem 0;
+}
+
+
+#prev-arrow {
+    transform: rotate(180deg);
+}
+
+img {
+    width: 1em;
+    align-self: center;
+    justify-self: center;
+}
+
+.Page-btn {
+    background-color: $trit-gray;
+    border: 1px solid $trit-yellow;
+    height: 2.5em;
+    width: 2.5em;
+    margin: 2px;
+    color: white;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    cursor: pointer;
+}
+
+
+
+.Page-btn-wide {
+    width: 3em;
+    background-color: $trit-yellow;
+    color: black;
+}
+.Page-btn-selected-wide {
+    background-color: $trit-gray;
+    border: 1px solid $trit-yellow;
+    cursor: default;
+
+
+    img {
+        filter: invert(90%);
+    }
+}
+.Page-btn-selected {
+    background-color: $trit-yellow;
+    color: black;
+    cursor: default;
+}

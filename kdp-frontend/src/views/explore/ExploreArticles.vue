@@ -30,7 +30,10 @@
       <div v-if="loading">
         <Loader />
       </div>
-      <div class="articles-container" v-else>
+      <div
+        class="articles-container"
+        v-else-if="!loading && articles.length > 0"
+      >
         <router-link
           v-for="(article, index) in filteredArticles"
           :key="index"
@@ -48,6 +51,11 @@
           />
         </router-link>
       </div>
+      <p class="article-error" v-else>{{ $t("article.article-error") }}</p>
+
+      <div :class="[loading || pageCount <= 1 ? { display: 'none' } : {}]">
+        <page-select :PageCount="pageCount" @current-page="SetCurrentPage" />
+      </div>
     </div>
   </div>
 </template>
@@ -59,12 +67,15 @@ import { useStore } from "vuex";
 import ArticleShape from "@/models/Article";
 
 import ArticlePreview from "@/components/articlePreview/ArticlePreview.vue";
+
 import Loader from "@/components/loader/Loader.vue";
+import PageSelect from "@/components/PageSelect/PageSelect.vue";
 
 export default {
   components: {
     ArticlePreview,
     Loader,
+    PageSelect,
   },
 
   setup() {
@@ -76,7 +87,22 @@ export default {
     const loading = computed(() => store.getters["isLoading"]);
 
     onMounted(async () => {
-      await store.dispatch("getAllArticles");
+      store.commit("SET_CURRENT_PAGE", 1);
+      await store.dispatch("getArticleCount");
+      await store.dispatch("getAllArticles", articlesPerPage.value);
+    });
+
+    const articlesPerPage = ref<number>(6);
+    const CurrentPage = ref<number>(0);
+
+    const SetCurrentPage = (_page: number): void => {
+      store.dispatch("getAllArticles", articlesPerPage.value);
+      CurrentPage.value = _page;
+    };
+
+    const pageCount = computed((): number => {
+      const articlecount = store.getters["getArticleCount"];
+      return Math.ceil(articlecount / articlesPerPage.value);
     });
 
     const articles = computed((): ArticleShape[] => {
@@ -85,6 +111,7 @@ export default {
 
     const filteredArticles = computed((): ArticleShape[] => {
       let returnArray: ArticleShape[] = [];
+
       articles.value.forEach((article) => {
         if (article.rockstarName != null || article.tribeName != null) {
           if (
@@ -101,9 +128,9 @@ export default {
       });
       if (selectedFilter.value == "a-z") {
         returnArray = returnArray.sort(
-          (firstComparisonObject, seccondComparisonObject) => {
+          (firstComparisonObject, secondComparisonObject) => {
             let firstObejctToLower = firstComparisonObject.title.toLowerCase(),
-              secondObjectToLower = seccondComparisonObject.title.toLowerCase();
+              secondObjectToLower = secondComparisonObject.title.toLowerCase();
             if (firstObejctToLower < secondObjectToLower) {
               return -1;
             }
@@ -116,9 +143,9 @@ export default {
       }
       if (selectedFilter.value == "z-a") {
         returnArray = returnArray.sort(
-          (firstComparisonObject, seccondComparisonObject) => {
+          (firstComparisonObject, secondComparisonObject) => {
             let firstObjectToLower = firstComparisonObject.title.toLowerCase(),
-              secondObjectToLower = seccondComparisonObject.title.toLowerCase();
+              secondObjectToLower = secondComparisonObject.title.toLowerCase();
             if (firstObjectToLower < secondObjectToLower) {
               return 1;
             }
@@ -131,20 +158,20 @@ export default {
       }
       if (selectedFilter.value == "new") {
         returnArray = returnArray.sort(
-          (firstComparisonObject, seccondComparisonObject) => {
+          (secondComparisonObject, firstComparisonObject) => {
             return (
               new Date(firstComparisonObject.publishDate.toString()).valueOf() -
-              new Date(seccondComparisonObject.publishDate.toString()).valueOf()
+              new Date(secondComparisonObject.publishDate.toString()).valueOf()
             );
           }
         );
       }
       if (selectedFilter.value == "old") {
         returnArray = returnArray.sort(
-          (firstComparisonObject, seccondComparisonObject) => {
+          (firstComparisonObject, secondComparisonObject) => {
             return (
               new Date(firstComparisonObject.publishDate.toString()).valueOf() -
-              new Date(seccondComparisonObject.publishDate.toString()).valueOf()
+              new Date(secondComparisonObject.publishDate.toString()).valueOf()
             );
           }
         );
@@ -152,7 +179,16 @@ export default {
       return returnArray;
     });
 
-    return { articles, filteredArticles, searchQuery, selectedFilter, loading };
+    return {
+      articles,
+      SetCurrentPage,
+      filteredArticles,
+      searchQuery,
+      selectedFilter,
+      loading,
+      CurrentPage,
+      pageCount,
+    };
   },
 };
 </script>

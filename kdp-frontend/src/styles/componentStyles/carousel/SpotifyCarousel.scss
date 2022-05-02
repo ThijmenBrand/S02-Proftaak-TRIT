@@ -1,0 +1,56 @@
+@import "@/styles/variables.scss";
+
+.spotify-iframe {
+  overflow: hidden;
+  width: 75%;
+}
+
+.carousel {
+  margin-top: 30px;
+  width: 100%;
+}
+
+.carousel__prev {
+  top: 50%;
+  left: 0;
+  transform: translate(0, -50%) !important;
+}
+
+.carousel__next {
+  top: 50%;
+  right: 0;
+  transform: translate(0, -50%) !important;
+}
+
+.carousel__next,
+.carousel__prev {
+  background-color: $trit-yellow !important;
+
+  svg {
+    fill: $trit-gray !important;
+  }
+}
+
+.carousel__pagination-button {
+  background-color: $trit-white !important;
+}
+
+.carousel__pagination-button--active {
+  background-color: $trit-yellow !important;
+}
+
+/*
+ * Ordered lists have a left padding attached to it.
+ * This places them slightly off-center.
+ * Removing this padding re-centers it.
+ */
+.carousel__pagination {
+  padding: 0 0 0.5em;
+}
+
+@media only screen and (max-width: 1000px) {
+  .spotify-iframe {
+    width: 80%;
+    height: 13em;
+  }
+}

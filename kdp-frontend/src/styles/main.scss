@@ -10,8 +10,12 @@
 
 @import "./componentStyles/articlePreview/ArticlePreview.scss";
 
+@import "./ckeditor.scss";
+
+@import "./componentStyles/cookie/cookie.scss";
+
 html {
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-family: DIN2014-Regular, "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   margin: 0;
 }
 
@@ -69,6 +73,7 @@ p {
 
 .background-container {
   background-color: $trit-gray;
+  padding-bottom: 5em;
 }
 
 /* fonts */

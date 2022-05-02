@@ -33,16 +33,14 @@
           </router-link>
         </div>
         <div class="menu-item">
-          <a class="menu-item" href="#" @click="CloseTab">
-            {{ $t("menu.vision") }}
+          <a v-if="!IsAuthenticated" class="menu-item" @click="login">
+            {{ $t("menu.login") }}
+          </a>
+          <a v-else class="menu-item" @click="logout">
+            {{ $t("menu.logout") }}
           </a>
         </div>
-        <div class="menu-item">
-          <a class="menu-item" href="#" @click="CloseTab">
-            {{ $t("menu.possibilities") }}
-          </a>
-        </div>
-
+        <p class="reset-cookies" @click="$emit('open-cookie-selector')">Reset cookies</p>
         <LocaleSelector />
       </div>
     </div>
@@ -51,11 +49,19 @@
 
 <script lang="ts">
 import { ref } from "vue";
+import { useStore } from "vuex";
+import { useIsAuthenticated, useMsal } from "@/services/msal/msal";
+import { loginRequest } from "@/config/authConfig";
+
 import LocaleSelector from "@/components/localeSelector/LocaleSelector.vue";
+
+import LocalStorageHandler from "@/services/localStorageHelper/LocalStorageHelper";
 
 export default {
   components: { LocaleSelector },
-  setup() {
+  emits: ["open-cookie-selector"],
+  setup(props: any, { emit }: any) {
+    const store = useStore();
     const isOpened = ref(false);
 
     const CheckIfOpened = (event: any) => {
@@ -68,10 +74,31 @@ export default {
       menuToggle.checked = false;
     };
 
+    const { instance } = useMsal();
+
+    const login = () => {
+      instance.loginPopup(loginRequest).then((result) => {
+        LocalStorageHandler.setItem("user", result);
+        CloseTab();
+      });
+    };
+
+    const logout = () => {
+      localStorage.removeItem("user");
+      instance.logoutPopup({
+        mainWindowRedirectUri: "/",
+      });
+    };
+
+    const IsAuthenticated = useIsAuthenticated();
+
     return {
       isOpened,
       CheckIfOpened,
       CloseTab,
+      login,
+      IsAuthenticated,
+      logout,
     };
   },
 };

@@ -10,6 +10,8 @@ interface tribesState {
   rockstarsList: RockstarShape[];
   articleList: ArticleShape[];
   currentTribe: TribeShape;
+  spotifyList: [];
+  articleCount: number;
 }
 
 const tribes = {
@@ -23,6 +25,8 @@ const tribes = {
       },
       rockstarsList: [],
       articleList: [],
+      spotifyList: [],
+      articleCount: 0,
     };
   },
   getters: {
@@ -40,6 +44,12 @@ const tribes = {
     },
     getArticlesbByTribe: (state: tribesState): ArticleShape[] => {
       return state.articleList;
+    },
+    getAllSpotifyByTribe: (state: tribesState): [] => {
+      return state.spotifyList;
+    },
+    getArticleCount: (state: tribesState): number => {
+      return state.articleCount;
     },
   },
   actions: {
@@ -72,12 +82,27 @@ const tribes = {
         context.commit("SET_ROCKSTARS_BY_TRIBE", data);
       }
     },
-    getArticlesByTribe: async (context: any, tribeId: string) => {
+    getArticlesByTribe: async (context: any, tribeparams: any) => {
       context.rootState.loading = true;
-      const { data, status } = await tribeService.getArticlesByTribe(tribeId);
+      const { data, status } = await tribeService.getArticlesByTribe(tribeparams.tribeId, (context.rootState.currentPage - 1)*tribeparams.ArticlesPerPage, tribeparams.ArticlesPerPage);
       if (status >= 200 && status <= 299) {
         context.rootState.loading = false;
         context.commit("SET_ARTICLES_BY_TRIBE", data);
+      }
+    },
+    getAllSpotifyByTribe: async (context: any, tribeId: string) => {
+      const { data, status } = await tribeService.getAllSpotifyByTribe(tribeId);
+      if (status >= 200 && status <= 299) {
+        context.commit("SET_SPOTIFY_BY_TRIBE", data);
+      }
+    },
+    getArticleCount: async (context: any, tribeId: string) => {
+      context.state.loading = true;
+      const { data, status } = await tribeService.getArticleCount(tribeId);
+
+      if (status >= 200 && status <= 299) {
+        context.state.loading = false;
+        context.commit("SET_ARTICLE_COUNT", data);
       }
     },
   },
@@ -96,15 +121,13 @@ const tribes = {
           rockstar.image = SetProfilePicture(rockstar.image);
         }
       });
-      state.rockstarsList = data
-        .sort((a, b) => {
-          if (a.role < b.role) return -1;
+      state.rockstarsList = data.sort((a, b) => {
+        if (a.role < b.role) return -1;
 
-          if (a.role > b.role) return 1;
+        if (a.role > b.role) return 1;
 
-          return 0;
-        })
-        .reverse();
+        return 0;
+      });
     },
     SET_CURRENT_TRIBE: (state: tribesState, data: TribeShape) => {
       state.currentTribe = data;
@@ -115,6 +138,12 @@ const tribes = {
     EMPTY_STORE: (state: tribesState) => {
       state.articleList = [];
       state.rockstarsList = [];
+    },
+    SET_SPOTIFY_BY_TRIBE: (state: tribesState, data: []) => {
+      state.spotifyList = data;
+    },
+    SET_ARTICLE_COUNT: (state: tribesState, data: number) => {
+      state.articleCount = data;
     },
   },
 };
