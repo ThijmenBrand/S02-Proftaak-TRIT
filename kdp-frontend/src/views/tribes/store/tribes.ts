@@ -84,7 +84,11 @@ const tribes = {
     },
     getArticlesByTribe: async (context: any, tribeparams: any) => {
       context.rootState.loading = true;
-      const { data, status } = await tribeService.getArticlesByTribe(tribeparams.tribeId, (context.rootState.currentPage - 1)*tribeparams.ArticlesPerPage, tribeparams.ArticlesPerPage);
+      const { data, status } = await tribeService.getArticlesByTribe(
+        tribeparams.tribeId,
+        (context.rootState.currentPage - 1) * tribeparams.ArticlesPerPage,
+        tribeparams.ArticlesPerPage
+      );
       if (status >= 200 && status <= 299) {
         context.rootState.loading = false;
         context.commit("SET_ARTICLES_BY_TRIBE", data);
@@ -138,6 +142,7 @@ const tribes = {
     EMPTY_STORE: (state: tribesState) => {
       state.articleList = [];
       state.rockstarsList = [];
+      state.spotifyList = [];
     },
     SET_SPOTIFY_BY_TRIBE: (state: tribesState, data: []) => {
       state.spotifyList = data;
