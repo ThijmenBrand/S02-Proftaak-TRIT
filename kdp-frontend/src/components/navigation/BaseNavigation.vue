@@ -17,35 +17,36 @@
       </label>
 
       <div class="menu-box">
-        <div class="menu-items"> 
-
-        <div class="menu-item">
-          <router-link class="menu-item" to="/" @click="CloseTab">
-            {{ $t("menu.home") }}
-          </router-link>
+        <div class="menu-items">
+          <div class="menu-item">
+            <router-link class="menu-item" to="/" @click="CloseTab">
+              {{ $t("menu.home") }}
+            </router-link>
+          </div>
+          <div class="menu-item">
+            <router-link class="menu-item" to="/tribes" @click="CloseTab">
+              {{ $t("menu.tribes") }}
+            </router-link>
+          </div>
+          <div class="menu-item">
+            <router-link class="menu-item" to="/explore" @click="CloseTab">
+              {{ $t("menu.explore") }}
+            </router-link>
+          </div>
+          <div class="menu-item">
+            <a v-if="!IsAuthenticated" class="menu-item" @click="login">
+              {{ $t("menu.login") }}
+            </a>
+            <a v-else class="menu-item" @click="logout">
+              {{ $t("menu.logout") }}
+            </a>
+          </div>
         </div>
-        <div class="menu-item">
-          <router-link class="menu-item" to="/tribes" @click="CloseTab">
-            {{ $t("menu.tribes") }}
-          </router-link>
-        </div>
-        <div class="menu-item">
-          <router-link class="menu-item" to="/explore" @click="CloseTab">
-            {{ $t("menu.explore") }}
-          </router-link>
-        </div>
-        <div class="menu-item">
-          <a v-if="!IsAuthenticated" class="menu-item" @click="login">
-            {{ $t("menu.login") }}
-          </a>
-          <a v-else class="menu-item" @click="logout">
-            {{ $t("menu.logout") }}
-          </a>
-        </div>
-        </div>
-        <div class="menu-options"> 
+        <div class="menu-options">
           <LocaleSelector />
-          <p class="reset-cookies" @click="$emit('open-cookie-selector')">Reset cookies</p>
+          <p class="reset-cookies" @click="$emit('open-cookie-selector')">
+            Reset cookies
+          </p>
         </div>
       </div>
     </div>
@@ -54,17 +55,18 @@
 
 <script lang="ts">
 import { ref } from "vue";
-import { useStore} from "vuex";
-import { useIsAuthenticated, useMsal } from '@/services/msal/msal';
-import { loginRequest } from '@/config/authConfig';
+import { useStore } from "vuex";
+import { useIsAuthenticated, useMsal } from "@/services/msal/msal";
+import { loginRequest } from "@/config/authConfig";
 
 import LocaleSelector from "@/components/localeSelector/LocaleSelector.vue";
 
-import LocalStorageHandler from "@/services/localStorageHelper/LocalStorageHelper"
+import LocalStorageHandler from "@/services/localStorageHelper/LocalStorageHelper";
 
 export default {
   components: { LocaleSelector },
-  setup() {
+  emits: ["open-cookie-selector"],
+  setup(props: any, { emit }: any) {
     const store = useStore();
     const isOpened = ref(false);
 
@@ -81,18 +83,18 @@ export default {
     const { instance } = useMsal();
 
     const login = () => {
-      instance.loginPopup(loginRequest).then(result => {
-        LocalStorageHandler.setItem('user', result); 
-        CloseTab()
-        });
-    }
+      instance.loginPopup(loginRequest).then((result) => {
+        LocalStorageHandler.setItem("user", result);
+        CloseTab();
+      });
+    };
 
     const logout = () => {
-      localStorage.removeItem('user');
+      localStorage.removeItem("user");
       instance.logoutPopup({
-        mainWindowRedirectUri: "/"
+        mainWindowRedirectUri: "/",
       });
-    }
+    };
 
     const IsAuthenticated = useIsAuthenticated();
 
@@ -102,7 +104,7 @@ export default {
       CloseTab,
       login,
       IsAuthenticated,
-      logout
+      logout,
     };
   },
 };
