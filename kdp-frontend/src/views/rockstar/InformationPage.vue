@@ -21,7 +21,11 @@
           }"
           class="article"
         >
-          <article-preview :name="article.title" :content="article.content"  />
+          <article-preview 
+          :name="article.title" 
+          :content="article.content" 
+          :articlePublishDate="article.publishDate"
+           />
         </router-link>
       </div>
       <p class="article-error" v-else>{{ $t("article.article-error") }}</p>
