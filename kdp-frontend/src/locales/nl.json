@@ -42,6 +42,9 @@
   "article-page.comment-placeholder": "Wat vond jij van dit artikel?",
   "article-page.button-text": "Plaats",
   "article-page.comment-title": "Reacties",
+  "article-page.comment-error":"Dit is een verplicht veld!",
+  "article-page.comment-login-message":"Log in om een reactie te plaatsen.",
+  
   "article-page.recommended-title": "Ook interessant",
   "article-page.recommended-image-alt": "Voorgesteld artikel afbeelding",
   "article-page.rockstar-image": "Afbeelding van {name}",
@@ -49,4 +52,21 @@
   "article-page.comment-image": "Reactie plaatje",
   "article-page.view-image": "Hoeveelheid bekeken plaatje",
   "article-page.page-view-image": "Unique keren bekeken plaatje"
+  "article-page.page-view-image": "Unique keren bekeken plaatje",
+
+  "article.article-error": "Geen articles gevonden",
+  "tribe-page.cookie-error": "Accepteer cookies om podcast te bekijken",
+  "tribe-page.spotify-error": "Geen podcasts gevonden",
+
+  "cookie-message": "Om u de beste ervaring te geven maken we gebruik van cookies",
+  "cookie-message.learn-more": "Lees meer",
+  "cookie-message.learn-more.info": "We gebruiken functionele en analytische cookies om je de beste ervaring te geven. Hier kun je kiezen welke u wilt accepteren",
+  "cookie-message.learn-more.header": "Rockstar IT cookies",
+  "cookie-message.learn-more.options.allcookies": "Alle cookies",
+  "cookie-message.learn-more.options.Analyticalcookies": "Analytische cookies",
+  "cookie-message.learn-more.options.Functionalcookies": "Functionele cookies",
+  "cookie-message.learn-more.save": "Preferenties opslaan",
+  "cookie-message.accept": "Accepteer",
+  "cookie-message.decline": "Weiger"
+
 }
