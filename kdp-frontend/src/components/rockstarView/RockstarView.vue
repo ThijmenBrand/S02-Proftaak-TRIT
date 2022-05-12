@@ -61,9 +61,9 @@
         <div class="ondemand-form-container">
           <div class="row-information">
             <div class="col-information">
-              <div>Name:</div>
-              <div>E-mail:</div>
-              <div>Date</div>
+              <div>{{ $t('rockstar-page.modal.form.name') }}</div>
+              <div>{{ $t('rockstar-page.modal.form.email') }}</div>
+              <div>{{ $t('rockstar-page.modal.form.date') }}</div>
             </div>
             <div class="col-information-input">
               <input name="name" required type="text">
@@ -72,23 +72,23 @@
             </div>
           </div>
           <div class="row-description">
-            <div>Request:</div>
+            <div>{{ $t('rockstar-page.modal.form.request') }}</div>
             <div class="row-description-input">
               <textarea maxlength="1000" name="request" required rows="5"></textarea>
             </div>
           </div>
           <div class="row-buttons">
             <button
-                class="btn-modal-yellow"
+                class="btn-modal-light-yellow"
                 type="button"
                 @click="CloseModal">
               {{ $t('rockstar-page.modal.footer.cancel-button-text') }}
             </button>
-            <button
+            <input
+                :value="$t('rockstar-page.modal.footer.submit-button-text')"
                 class="btn-modal-yellow"
-                type="button">
-              Sumbit
-            </button>
+                name="submit-request"
+                type="submit">
           </div>
         </div>
       </form>

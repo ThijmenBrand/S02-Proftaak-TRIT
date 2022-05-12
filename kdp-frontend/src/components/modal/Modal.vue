@@ -19,7 +19,6 @@
         </section>
         <footer class="modal-footer">
           <slot name="footer">
-            This is a default footer.
           </slot>
         </footer>
       </div>
