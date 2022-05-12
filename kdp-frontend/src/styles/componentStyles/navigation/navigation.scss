@@ -84,22 +84,24 @@
 .reset-cookies {
   color: red;
   font-size: small;
-  margin-left: 40px;
-  margin-top: 180px;
+  margin-left: 40px;  
+  margin-bottom: 10px;
   cursor: pointer;
+  
 }
 
 .menu-box {
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
 
   position: fixed;
   top: 0;
   right: -100%;
   width: 300px;
-  height: 100%;
+  height: calc(100% - 6em);
   margin: 0;
-  padding: 6em 0;
+  padding: 6em 0 0 0;
   list-style: none;
   background-color: $trit-gray;
   box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.4);
@@ -117,6 +119,20 @@
     cursor: pointer;
   }
 }
+
+.menu-items {
+  display: flex;
+  flex-direction: column;
+}
+
+.menu-options
+{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+
 .menu-item:hover {
   transition: color 0.25s ease-in;
   color: $trit-yellow;
