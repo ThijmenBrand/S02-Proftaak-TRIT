@@ -21,13 +21,10 @@
           }"
           class="article"
         >
-          <article-preview :name="article.title" :content="article.content" />
+          <article-preview :name="article.title" :content="article.content"  />
         </router-link>
       </div>
       <p class="article-error" v-else>{{ $t("article.article-error") }}</p>
-
-      
-
     </div>
 
     <div :style= "[loading || pageCount <= 1 ? {'display': 'none'} : {}]">
@@ -96,8 +93,6 @@ export default {
        const articlecount = store.getters["rockstars/getArticleCount"];
        return Math.ceil(articlecount/articlesPerPage.value);
     });
-
-
 
     // on every update, change the page title to the rockstar's name
     onUpdated(async () => {
