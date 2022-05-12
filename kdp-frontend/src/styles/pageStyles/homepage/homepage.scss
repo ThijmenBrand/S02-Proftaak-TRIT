@@ -2,7 +2,7 @@
 
 .main{
     background-color: $trit-black;
-    height:1000px;
+    height:100%;
 }
 
 .flex-container{
@@ -22,7 +22,15 @@
     margin-right:20%;
     padding-top: 20px;
     border-bottom: 1px solid $trit-yellow;
+    display: flex;
+    flex-direction: row;
 }
+
+.tribe-link{
+    color: $trit-yellow;
+    padding:20px;
+}
+
 
 .about-container{
     color: $trit-white;
@@ -37,6 +45,7 @@
 .highlighted-articles{
     margin-left: 20%;
     margin-right: 20%;
+    
 }
 .highlighted-articles h1{
     color: $trit-yellow
@@ -47,4 +56,28 @@
     width: 180px;
     height: 100%;
     color: $trit-white;
+}
+
+.content-container {
+    min-height: calc(100vh - 226.5px);
+    .articles-container {
+      margin-top: 30px;
+      display: grid;
+      justify-content: center;
+      grid-column: 1rem;
+      grid-row-gap: 1rem;
+      grid-template-columns: repeat(auto-fill, minmax(415px, 1fr));
+      a {
+        margin: 10px;
+        justify-self: center;
+      }
+    }
+  }
+
+.highlighted-articles{
+    margin: 0;
+    h1{
+        margin-left: 20%;
+        margin-left: 20%;
+    }
 }
