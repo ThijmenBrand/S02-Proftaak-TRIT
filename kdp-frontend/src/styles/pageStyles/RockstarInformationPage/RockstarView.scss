@@ -95,6 +95,40 @@
   }
 }
 
+.ondemand-form-container {
+  display: flex;
+  width: 100%;
+
+  .row-information {
+    display: flex;
+    width: 100%;
+  }
+
+  .col-information {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+    background-color: pink;
+    width: 30%;
+  }
+
+  .col-information-input {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+    background-color: blue;
+    width: 70%;
+  }
+
+  .row-description {
+
+  }
+
+  .row-description-input {
+
+  }
+}
+
 
 @media only screen and (max-width: 1000px) {
   /* for mobile screens <= 1000px width */

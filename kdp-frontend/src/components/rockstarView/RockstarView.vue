@@ -49,12 +49,32 @@
       </div>
     </div>
   </div>
+
   <!-- MODAL START -->
+
   <Modal
       v-show="modalIsOpened"
       @close="CloseModal">
     <template v-slot:header>{{ $t('rockstar-page.modal.header') }}</template>
-    <template v-slot:body>New Body</template>
+    <template v-slot:body>
+      <div class="ondemand-form-container">
+        <div class="row-information">
+          <div class="col-information">
+            <div>Name:</div>
+            <div>E-mail:</div>
+            <div>Date</div>
+          </div>
+          <div class="col-information-input">
+            <input name="name" required type="text">
+            <input name="email" required type="email">
+            <input name="date" required type="datetime-local">
+          </div>
+        </div>
+      </div>
+      <form action="#">
+
+      </form>
+    </template>
     <template v-slot:footer>
       <button
           class="btn-modal-yellow"
@@ -64,6 +84,7 @@
       </button>
     </template>
   </Modal>
+
   <!-- MODAL END   -->
 </template>
 
