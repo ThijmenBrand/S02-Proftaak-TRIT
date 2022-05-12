@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using API_Rockstars;
 using API_Rockstars.Models;
+using API_Rockstars.Azure;
 
 namespace API_Rockstars.Controllers
 {
@@ -26,7 +27,9 @@ namespace API_Rockstars.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Rockstar>>> GetRockstars()
         {
-            return await _context.Rockstars.ToListAsync();
+            AzureRequestMiddleware<AzureRockstar> apireq = new AzureRequestMiddleware<AzureRockstar>();
+            List<AzureRockstar> res = await apireq.sendAzureRequest("v1.0/users");
+            return res;
         }
 
         // GET: api/Rockstar/5
