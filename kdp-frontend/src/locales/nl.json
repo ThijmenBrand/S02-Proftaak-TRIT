@@ -42,11 +42,20 @@
   "article-page.comment-placeholder": "Wat vond jij van dit artikel?",
   "article-page.button-text": "Plaats",
   "article-page.comment-title": "Reacties",
+  "article-page.comment-error":"Dit is een verplicht veld!",
+  "article-page.comment-login-message":"Log in om een reactie te plaatsen.",
   "article-page.recommended-title": "Ook interessant",
   "article-page.recommended-image-alt": "Voorgesteld artikel afbeelding",
   "article-page.rockstar-image": "Afbeelding van {name}",
   "article-page.heart-image": "Like afbeelding",
   "article-page.comment-image": "Reactie plaatje",
   "article-page.view-image": "Hoeveelheid bekeken plaatje",
-  "article-page.page-view-image": "Unique keren bekeken plaatje"
+  "article-page.page-view-image": "Unique keren bekeken plaatje",
+  "article.article-error": "Geen articles gevonden",
+  "tribe-page.cookie-error": "Accepteer cookies om podcast te bekijken",
+  "tribe-page.spotify-error": "Geen podcasts gevonden",
+  "cookie-message": "Om u de beste ervaring te geven maken we gebruik van cookies",
+  "cookie-message.learn-more": "Lees meer",
+  "cookie-message.accept": "Accepteer",
+  "cookie-message.decline": "Weiger"
 }
