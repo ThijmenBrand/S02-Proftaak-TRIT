@@ -57,25 +57,33 @@
       @close="CloseModal">
     <template v-slot:header>{{ $t('rockstar-page.modal.header') }}</template>
     <template v-slot:body>
-      <form action="#">
+      <form>
         <div class="ondemand-form-container">
           <div class="row-information">
             <div class="col-information">
               <div>{{ $t('rockstar-page.modal.form.name') }}</div>
+              <small v-if="!formValidation.nameValid" class="validation">&nbsp;</small>
               <div>{{ $t('rockstar-page.modal.form.email') }}</div>
+              <small v-if="!formValidation.emailValid" class="validation">&nbsp;</small>
               <div>{{ $t('rockstar-page.modal.form.date') }}</div>
+              <small v-if="!formValidation.dateValid" class="validation">&nbsp;</small>
             </div>
             <div class="col-information-input">
-              <input name="name" required type="text">
-              <input name="email" required type="email">
-              <input name="date" required type="datetime-local">
+              <input v-model="onDemandRequest.name" name="name" type="text">
+              <small v-if="!formValidation.nameValid" class="validation">Please enter a username.</small>
+              <input v-model="onDemandRequest.email" name="email" type="email">
+              <small v-if="!formValidation.emailValid" class="validation">Please enter a valid email.</small>
+              <input v-model="onDemandRequest.date" name="date" type="datetime-local">
+              <small v-if="!formValidation.dateValid" class="validation">Please enter a valid date.</small>
             </div>
           </div>
           <div class="row-description">
             <div>{{ $t('rockstar-page.modal.form.request') }}</div>
             <div class="row-description-input">
-              <textarea maxlength="1000" name="request" required rows="5"></textarea>
+              <textarea v-model="onDemandRequest.description" maxlength="1000" name="request"
+                        rows="5"></textarea>
             </div>
+            <small v-if="!formValidation.descriptionValid" class="validation">Please enter a request.</small>
           </div>
           <div class="row-buttons">
             <button
@@ -88,13 +96,13 @@
                 :value="$t('rockstar-page.modal.footer.submit-button-text')"
                 class="btn-modal-yellow"
                 name="submit-request"
-                type="submit">
+                type="button"
+                @click="OnFormSubmit">
           </div>
         </div>
       </form>
     </template>
     <template v-slot:footer>
-
     </template>
   </Modal>
 
@@ -103,7 +111,7 @@
 
 <script lang="ts">
 import {RockstarShape} from "@/models/Rockstar";
-import {ref} from "vue";
+import {reactive, ref} from "vue";
 import Modal from "@/components/modal/Modal.vue";
 
 export default {
@@ -126,10 +134,54 @@ export default {
       modalIsOpened.value = false;
     }
 
+    const onDemandRequest = reactive({
+      name: "",
+      email: "",
+      date: new Date(0),
+      description: ""
+    });
+
+    const formValidation = reactive({
+      nameValid: true,
+      emailValid: true,
+      dateValid: true,
+      descriptionValid: true,
+    });
+
+    const OnFormSubmit = () => {
+      onDemandRequest.name == "" ?
+          formValidation.nameValid = false :
+          formValidation.nameValid = true;
+
+      const emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      emailRegex.test(onDemandRequest.email) ?
+          formValidation.emailValid = true :
+          formValidation.emailValid = false;
+
+      onDemandRequest.date < new Date() ?
+          formValidation.dateValid = false :
+          formValidation.dateValid = true;
+
+      onDemandRequest.description == "" ?
+          formValidation.descriptionValid = false :
+          formValidation.descriptionValid = true;
+
+      if (formValidation.nameValid &&
+          formValidation.emailValid &&
+          formValidation.dateValid &&
+          formValidation.descriptionValid) {
+        //window.location.href = "https://www.google.com";
+      }
+    }
+
+
     return {
       modalIsOpened,
       OpenModal,
       CloseModal,
+      onDemandRequest,
+      formValidation,
+      OnFormSubmit,
     }
   },
 };
