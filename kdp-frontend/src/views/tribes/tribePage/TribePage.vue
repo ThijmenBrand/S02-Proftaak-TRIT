@@ -37,16 +37,18 @@
             />
           </router-link>
         </div>
-          <h3 class="podcasts-overview-title">Podcasts</h3>
-          <SpotifyCarousel v-if="cookie" :spotify-links="spotifyList" />
-          <p class="cookie-error" v-else>Please enable cookies to view podcasts</p>
+        <h3 class="podcasts-overview-title">Podcasts</h3>
+        <SpotifyCarousel v-if="cookie" :spotify-links="spotifyList" />
+        <p class="cookie-error" v-else>
+          Please enable cookies to view podcasts
+        </p>
       </div>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { computed, onMounted } from "vue";
+import { computed, onMounted, ref } from "vue";
 import { useRoute } from "vue-router";
 import { useStore } from "vuex";
 
@@ -70,7 +72,9 @@ export default {
   setup() {
     const route = useRoute();
     const store = useStore();
-    
+
+    const articlesPerPage = ref(6);
+
     const cookie = computed(() => store.getters["cookieAccepted"]);
 
     const loading = computed(() => store.getters["isLoading"]);
@@ -134,7 +138,7 @@ export default {
       currentTribe,
       loading,
       spotifyList,
-      cookie
+      cookie,
     };
   },
 };
