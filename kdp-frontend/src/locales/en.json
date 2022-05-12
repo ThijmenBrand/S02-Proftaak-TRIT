@@ -50,6 +50,12 @@
 
   "cookie-message": "To give you the best experience we make use of cookies",
   "cookie-message.learn-more": "Learn more",
+  "cookie-message.learn-more.info": "We use functional and analytical cookies to give you the best experience. Here you can choose which one you want to accept",
+  "cookie-message.learn-more.header": "Rockstar IT cookies",
+  "cookie-message.learn-more.options.allcookies": "All cookies",
+  "cookie-message.learn-more.options.Analyticalcookies": "Analytical cookies",
+  "cookie-message.learn-more.options.Functionalcookies": "Functional cookies",
+  "cookie-message.learn-more.save": "Save preferences",
   "cookie-message.accept": "Accept",
   "cookie-message.decline": "Decline"
 }
