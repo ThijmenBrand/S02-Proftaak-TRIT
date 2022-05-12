@@ -152,6 +152,12 @@
   color: red;
 }
 
+.character-counter {
+  color: gray;
+  align-self: end;
+  margin-top: -0.5em;
+}
+
 
 @media only screen and (max-width: 1000px) {
   /* for mobile screens <= 1000px width */

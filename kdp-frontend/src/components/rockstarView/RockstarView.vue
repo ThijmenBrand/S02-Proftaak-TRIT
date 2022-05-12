@@ -88,6 +88,7 @@
             </div>
             <small v-if="!formValidation.descriptionValid"
                    class="validation">{{ $t('rockstar-page.modal.form.request-validation') }}</small>
+            <small class="character-counter">{{ onDemandRequest.description.length }}/1000</small>
           </div>
           <div class="row-buttons">
             <button
@@ -136,6 +137,11 @@ export default {
 
     const CloseModal = () => {
       modalIsOpened.value = false;
+
+      formValidation.nameValid = true;
+      formValidation.emailValid = true;
+      formValidation.dateValid = true;
+      formValidation.descriptionValid = true;
     }
 
     const onDemandRequest = reactive({
