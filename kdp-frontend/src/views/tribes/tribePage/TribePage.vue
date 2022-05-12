@@ -81,7 +81,15 @@ export default {
     });
 
     onMounted(async () => {
-      await store.commit("tribes/EMPTY_STORE");
+      const tribeArticleParams = {
+        tribeId: route.params.tribe,
+        ArticlesPerPage: articlesPerPage.value,
+      };
+
+      store.commit("SET_CURRENT_PAGE", 1);
+      store.commit("tribes/EMPTY_STORE");
+      await store.dispatch("tribes/getArticleCount", route.params.tribe);
+      await store.dispatch("tribes/getArticlesByTribe", tribeArticleParams);
       await store.dispatch("tribes/getCurrentTribe", route.params.tribe);
       await store.dispatch("tribes/getRockstarsByTribe", route.params.tribe);
       await store.dispatch("tribes/getArticlesByTribe", route.params.tribe);
