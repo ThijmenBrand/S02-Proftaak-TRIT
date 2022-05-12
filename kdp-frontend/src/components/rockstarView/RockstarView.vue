@@ -21,22 +21,29 @@
         </div>
         <div class="col-socials">
           <a v-if="rockstar.twitter != null" :href="rockstar.twitter" class="social-component">
-            <img alt="Twitter" class="social-image" src="@/assets/images/socials/twitter.svg"/>
+            <img :alt="$t('rockstar-page.socials.twitter-icon-alt-text')" class="social-image"
+                 src="@/assets/images/socials/twitter.svg"/>
           </a>
           <a v-if="rockstar.linkedIn != null" :href="rockstar.linkedIn" class="social-component">
-            <img alt="LinkedIn" class="social-image" src="@/assets/images/socials/linkedin.svg"/>
+            <img :alt="$t('rockstar-page.socials.linkedin-icon-alt-text')" class="social-image"
+                 src="@/assets/images/socials/linkedin.svg"/>
           </a>
           <a v-if="rockstar.email != null" :href="'mailto:' + rockstar.email" class="social-component">
-            <img :alt="rockstar.email" class="social-image" src="@/assets/images/socials/email.svg"/>
+            <img :alt="$t('rockstar-page.socials.email-icon-alt-text')" class="social-image"
+                 src="@/assets/images/socials/email.svg"/>
           </a>
           <a v-if="rockstar.phone != null" :href="'tel:' + rockstar.phone" class="social-component">
-            <img :alt="rockstar.phone" class="social-image" src="@/assets/images/socials/phone.svg"/>
+            <img :alt="$t('rockstar-page.socials.phone-icon-alt-text')" class="social-image"
+                 src="@/assets/images/socials/phone.svg"/>
           </a>
         </div>
         <div id="open-ondemand-modal" class="row-ondemand" @click="OpenModal">
-          <div class="col-ondemand-text">OnDemand aanvraag</div>
+          <div class="col-ondemand-text">{{ $t('rockstar-page.ondemand-button-text') }}</div>
           <div class="col-ondemand-icon">
-            <img src="@/assets/images/icon-fastforward.svg">
+            <img
+                :alt="$t('rockstar-page.ondemand-button-alt-text')"
+                src="@/assets/images/icon-fastforward.svg"
+            >
           </div>
         </div>
       </div>
@@ -46,14 +53,14 @@
   <Modal
       v-show="modalIsOpened"
       @close="CloseModal">
-    <template v-slot:header>Rockstar OnDemand aanvragen</template>
+    <template v-slot:header>{{ $t('rockstar-page.modal.header') }}</template>
     <template v-slot:body>New Body</template>
     <template v-slot:footer>
       <button
           class="btn-modal-yellow"
           type="button"
           @click="CloseModal">
-        Close
+        {{ $t('rockstar-page.modal.footer.cancel-button-text') }}
       </button>
     </template>
   </Modal>
