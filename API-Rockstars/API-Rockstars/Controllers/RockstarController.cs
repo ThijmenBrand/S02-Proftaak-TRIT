@@ -1,13 +1,16 @@
 #nullable disable
+using Microsoft.Identity.Client;
+using Newtonsoft.Json.Linq;
 using System;
-using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using API_Rockstars;
 using API_Rockstars.Models;
+using API_Rockstars.Azure;
+using Newtonsoft.Json;
 
 namespace API_Rockstars.Controllers
 {
@@ -24,9 +27,11 @@ namespace API_Rockstars.Controllers
 
         // GET: api/Rockstar
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Rockstar>>> GetRockstars()
+        public async Task<ActionResult<List<AzureRockstar>>> GetRockstars()
         {
-            return await _context.Rockstars.ToListAsync();
+            AzureRequestMiddleware<AzureRockstar> apireq = new AzureRequestMiddleware<AzureRockstar>();
+            List<AzureRockstar> res = await apireq.sendAzureRequest("v1.0/users");
+            return res;
         }
 
         // GET: api/Rockstar/5

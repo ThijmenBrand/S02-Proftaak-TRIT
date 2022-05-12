@@ -5,8 +5,9 @@ using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
+using API_Rockstars.Models;
 
-namespace daemon_console
+namespace API_Rockstars.Azure
 {
     public class ProtectedApiCallHelper
     {
@@ -17,7 +18,7 @@ namespace daemon_console
 
         protected HttpClient HttpClient { get; private set; }
 
-        public async Task CallWebApiAndProcessResultASync(string webApiUrl, string accessToken, Action<JObject> processResult)
+        public async Task<JObject> SendWebApiCall(string webApiUrl, string accessToken)
         {
             if (!string.IsNullOrEmpty(accessToken))
             {
@@ -33,18 +34,15 @@ namespace daemon_console
                 {
                     string json = await response.Content.ReadAsStringAsync();
                     JObject result = JsonConvert.DeserializeObject(json) as JObject;
-                    Console.ForegroundColor = ConsoleColor.Gray;
-                    processResult(result);
+                    return result;
                 }
                 else
                 {
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine($"Failed to call the web API: {response.StatusCode}");
-                    string content = await response.Content.ReadAsStringAsync();
-                    Console.WriteLine($"Content: {content}");
+                    return null;
                 }
-                Console.ResetColor();
             }
+
+            return null;
         }
     }
 }
