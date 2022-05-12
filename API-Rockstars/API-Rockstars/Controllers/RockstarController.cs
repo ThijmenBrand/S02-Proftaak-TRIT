@@ -25,7 +25,7 @@ namespace API_Rockstars.Controllers
 
         // GET: api/Rockstar
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Rockstar>>> GetRockstars()
+        public async Task<ActionResult<IEnumerable<AzureRockstar>>> GetRockstars()
         {
             AzureRequestMiddleware<AzureRockstar> apireq = new AzureRequestMiddleware<AzureRockstar>();
             List<AzureRockstar> res = await apireq.sendAzureRequest("v1.0/users");
