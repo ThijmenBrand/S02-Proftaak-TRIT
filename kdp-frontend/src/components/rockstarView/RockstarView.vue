@@ -70,11 +70,14 @@
             </div>
             <div class="col-information-input">
               <input v-model="onDemandRequest.name" name="name" type="text">
-              <small v-if="!formValidation.nameValid" class="validation">Please enter a username.</small>
+              <small v-if="!formValidation.nameValid"
+                     class="validation">{{ $t('rockstar-page.modal.form.name-validation') }}</small>
               <input v-model="onDemandRequest.email" name="email" type="email">
-              <small v-if="!formValidation.emailValid" class="validation">Please enter a valid email.</small>
+              <small v-if="!formValidation.emailValid"
+                     class="validation">{{ $t('rockstar-page.modal.form.email-validation') }}</small>
               <input v-model="onDemandRequest.date" name="date" type="datetime-local">
-              <small v-if="!formValidation.dateValid" class="validation">Please enter a valid date.</small>
+              <small v-if="!formValidation.dateValid"
+                     class="validation">{{ $t('rockstar-page.modal.form.date-validation') }}</small>
             </div>
           </div>
           <div class="row-description">
@@ -83,7 +86,8 @@
               <textarea v-model="onDemandRequest.description" maxlength="1000" name="request"
                         rows="5"></textarea>
             </div>
-            <small v-if="!formValidation.descriptionValid" class="validation">Please enter a request.</small>
+            <small v-if="!formValidation.descriptionValid"
+                   class="validation">{{ $t('rockstar-page.modal.form.request-validation') }}</small>
           </div>
           <div class="row-buttons">
             <button
