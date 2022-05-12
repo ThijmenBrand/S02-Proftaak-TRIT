@@ -1,35 +1,48 @@
 <template>
-  <BaseNav @open-cookie-selector="showCookieBannerAgain()" />
+  <BaseNav />
   <div class="main-content">
     <router-view />
   </div>
-  <bannerVue v-if="showCookieBanner" />
+  <vue-cookie-accept-decline
+      :debug="false"
+      :disableDecline="false"
+      @clicked-accept="cookieClickedAccept"
+      @clicked-decline="cookieClickedDecline"
+      :showPostponeButton="false"
+      elementId="cookie-banner"
+      ref="cookieBanner"
+      transitionName="slideFromBottom"
+      type="bar"
+  />
 </template>
 
 <script>
 import BaseNav from "@/components/navigation/BaseNavigation.vue";
-import { computed, onMounted } from "vue";
-import { useStore } from "vuex";
+import {useStore} from "vuex"
+import { onMounted } from "vue";
 import SetLocalStorage from "@/config/SetLocalstorage";
-import bannerVue from "./components/cookieBanner/banner.vue";
+
 
 export default {
   components: {
     BaseNav,
-    bannerVue,
   },
   setup() {
     const store = useStore();
-    const showCookieBanner = computed(() => store.getters["showCookieBanner"]);
-    const showCookieBannerAgain = () => {
-      store.commit("SET_COOKIE_BANNER_SHOW_FALSE");
-    };
+    
     onMounted(() => {
       SetLocalStorage();
     });
 
-    return { showCookieBanner, showCookieBannerAgain };
-  },
+    function cookieClickedAccept() {
+      store.commit("SET_COOKIE_ACCEPTED", true);
+    }
+    function cookieClickedDecline() {
+      store.commit("SET_COOKIE_ACCEPTED", false);
+    }
+    
+    return {cookieClickedAccept, cookieClickedDecline}
+  }
 };
 </script>
 

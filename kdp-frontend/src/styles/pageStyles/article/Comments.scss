@@ -1,21 +1,11 @@
 ﻿@import "@/styles/variables.scss";
-
 .comments {
   margin-right: 7em;
-  
+    
   .comments-title {
     color: $trit-white;
     font-size: 1.5em;
     font-weight: normal;
-  }
-
-  .error-message-container {
-    height: 1.2em;
-    .empty-post-error {
-      margin: 0em;
-      display: flex;
-      color: #ea4a57;
-    }
   }
 
   .comment-input-container {
@@ -47,7 +37,7 @@
     }
     .button-container {
       display: flex;
-      justify-content: right;
+      justify-content: center;
       align-items: center;
       height: 5em;
       width: 20%;
@@ -57,31 +47,7 @@
         border: none;
       }
     }
-    .remaining-char-container {
-      display: flex;
-      justify-content: right;
-      align-items: center;
-      padding-left: 0.2em;
-      margin-bottom: 0em;
-      margin-top: 4em;
-      .remaining-char {
-        margin-bottom: 0em;
-        font-size: 14px;
-      }
-    }
   }
-
-  .login-message-container {
-    height: 5em;
-    width: 20%;
-    .login-button {
-      cursor: pointer;
-      padding: 1em;
-      border: none;
-      margin-bottom: 3em;
-    }
-  }
-
   .comment {
     .user-title {
       margin: 1em 0 0.5em 0;

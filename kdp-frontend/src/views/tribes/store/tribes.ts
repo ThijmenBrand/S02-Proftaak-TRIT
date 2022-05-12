@@ -11,7 +11,6 @@ interface tribesState {
   articleList: ArticleShape[];
   currentTribe: TribeShape;
   spotifyList: [];
-  articleCount: number;
 }
 
 const tribes = {
@@ -26,7 +25,6 @@ const tribes = {
       rockstarsList: [],
       articleList: [],
       spotifyList: [],
-      articleCount: 0,
     };
   },
   getters: {
@@ -47,9 +45,6 @@ const tribes = {
     },
     getAllSpotifyByTribe: (state: tribesState): [] => {
       return state.spotifyList;
-    },
-    getArticleCount: (state: tribesState): number => {
-      return state.articleCount;
     },
   },
   actions: {
@@ -82,9 +77,9 @@ const tribes = {
         context.commit("SET_ROCKSTARS_BY_TRIBE", data);
       }
     },
-    getArticlesByTribe: async (context: any, tribeparams: any) => {
+    getArticlesByTribe: async (context: any, tribeId: string) => {
       context.rootState.loading = true;
-      const { data, status } = await tribeService.getArticlesByTribe(tribeparams.tribeId, (context.rootState.currentPage - 1)*tribeparams.ArticlesPerPage, tribeparams.ArticlesPerPage);
+      const { data, status } = await tribeService.getArticlesByTribe(tribeId);
       if (status >= 200 && status <= 299) {
         context.rootState.loading = false;
         context.commit("SET_ARTICLES_BY_TRIBE", data);
@@ -94,15 +89,6 @@ const tribes = {
       const { data, status } = await tribeService.getAllSpotifyByTribe(tribeId);
       if (status >= 200 && status <= 299) {
         context.commit("SET_SPOTIFY_BY_TRIBE", data);
-      }
-    },
-    getArticleCount: async (context: any, tribeId: string) => {
-      context.state.loading = true;
-      const { data, status } = await tribeService.getArticleCount(tribeId);
-
-      if (status >= 200 && status <= 299) {
-        context.state.loading = false;
-        context.commit("SET_ARTICLE_COUNT", data);
       }
     },
   },
@@ -141,9 +127,6 @@ const tribes = {
     },
     SET_SPOTIFY_BY_TRIBE: (state: tribesState, data: []) => {
       state.spotifyList = data;
-    },
-    SET_ARTICLE_COUNT: (state: tribesState, data: number) => {
-      state.articleCount = data;
     },
   },
 };

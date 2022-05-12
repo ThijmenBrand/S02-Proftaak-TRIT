@@ -40,7 +40,7 @@
             {{ $t("menu.logout") }}
           </a>
         </div>
-        <p class="reset-cookies" @click="$emit('open-cookie-selector')">Reset cookies</p>
+
         <LocaleSelector />
       </div>
     </div>
@@ -49,18 +49,17 @@
 
 <script lang="ts">
 import { ref } from "vue";
-import { useStore } from "vuex";
-import { useIsAuthenticated, useMsal } from "@/services/msal/msal";
-import { loginRequest } from "@/config/authConfig";
+import { useStore} from "vuex";
+import { useIsAuthenticated, useMsal } from '@/services/msal/msal';
+import { loginRequest } from '@/config/authConfig';
 
 import LocaleSelector from "@/components/localeSelector/LocaleSelector.vue";
 
-import LocalStorageHandler from "@/services/localStorageHelper/LocalStorageHelper";
+import LocalStorageHandler from "@/services/localStorageHelper/LocalStorageHelper"
 
 export default {
   components: { LocaleSelector },
-  emits: ["open-cookie-selector"],
-  setup(props: any, { emit }: any) {
+  setup() {
     const store = useStore();
     const isOpened = ref(false);
 
@@ -77,18 +76,18 @@ export default {
     const { instance } = useMsal();
 
     const login = () => {
-      instance.loginPopup(loginRequest).then((result) => {
-        LocalStorageHandler.setItem("user", result);
-        CloseTab();
-      });
-    };
+      instance.loginPopup(loginRequest).then(result => {
+        LocalStorageHandler.setItem('user', result); 
+        CloseTab()
+        });
+    }
 
     const logout = () => {
-      localStorage.removeItem("user");
+      localStorage.removeItem('user');
       instance.logoutPopup({
-        mainWindowRedirectUri: "/",
+        mainWindowRedirectUri: "/"
       });
-    };
+    }
 
     const IsAuthenticated = useIsAuthenticated();
 
@@ -98,7 +97,7 @@ export default {
       CloseTab,
       login,
       IsAuthenticated,
-      logout,
+      logout
     };
   },
 };

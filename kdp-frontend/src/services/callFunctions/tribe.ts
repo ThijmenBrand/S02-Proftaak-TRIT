@@ -11,14 +11,11 @@ const tribeService = {
   getRockstarsWithTribe(tribeId: string): Promise<AxiosResponse<any, any>> {
     return API.get(`/tribe/GetAllRockstars/${tribeId}`);
   },
-  getArticlesByTribe(tribeId: string, start: number, limit: number): Promise<AxiosResponse<any, any>> {
-    return API.get(`article/GetArticlesByTribe/${tribeId}/start/${start}/limit/${limit}`);
+  getArticlesByTribe(tribeId: string): Promise<AxiosResponse<any, any>> {
+    return API.get(`article/GetArticlesByTribe/${tribeId}`);
   },
   getAllSpotifyByTribe(tribeId: string): Promise<AxiosResponse<any, any>> {
     return API.get(`tribe/${tribeId}/spotify`);
-  },
-  getArticleCount(tribeId: string): Promise<AxiosResponse<any, any>> {
-    return API.get(`article/count/tribe/${tribeId}`);
   },
 };
 

@@ -21,7 +21,7 @@ const LocalStorageHandler = {
         solution:
           "try to run 'LocalStorageHandler.getAllItems' or 'localStorageHandler.getAllKeys' to find what you want",
       });
-      return null;
+      return;
     }
 
     return JSON.parse(localItem);
@@ -39,9 +39,6 @@ const LocalStorageHandler = {
   },
   getAllKeys(): string[] {
     return Object.keys(localStorage);
-  },
-  removeItem(key: string): void {
-    localStorage.removeItem(key);
   },
 };
 
