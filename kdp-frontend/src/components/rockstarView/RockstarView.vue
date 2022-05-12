@@ -57,31 +57,44 @@
       @close="CloseModal">
     <template v-slot:header>{{ $t('rockstar-page.modal.header') }}</template>
     <template v-slot:body>
-      <div class="ondemand-form-container">
-        <div class="row-information">
-          <div class="col-information">
-            <div>Name:</div>
-            <div>E-mail:</div>
-            <div>Date</div>
+      <form action="#">
+        <div class="ondemand-form-container">
+          <div class="row-information">
+            <div class="col-information">
+              <div>Name:</div>
+              <div>E-mail:</div>
+              <div>Date</div>
+            </div>
+            <div class="col-information-input">
+              <input name="name" required type="text">
+              <input name="email" required type="email">
+              <input name="date" required type="datetime-local">
+            </div>
           </div>
-          <div class="col-information-input">
-            <input name="name" required type="text">
-            <input name="email" required type="email">
-            <input name="date" required type="datetime-local">
+          <div class="row-description">
+            <div>Request:</div>
+            <div class="row-description-input">
+              <textarea maxlength="1000" name="request" required rows="5"></textarea>
+            </div>
+          </div>
+          <div class="row-buttons">
+            <button
+                class="btn-modal-yellow"
+                type="button"
+                @click="CloseModal">
+              {{ $t('rockstar-page.modal.footer.cancel-button-text') }}
+            </button>
+            <button
+                class="btn-modal-yellow"
+                type="button">
+              Sumbit
+            </button>
           </div>
         </div>
-      </div>
-      <form action="#">
-
       </form>
     </template>
     <template v-slot:footer>
-      <button
-          class="btn-modal-yellow"
-          type="button"
-          @click="CloseModal">
-        {{ $t('rockstar-page.modal.footer.cancel-button-text') }}
-      </button>
+
     </template>
   </Modal>
 

@@ -97,35 +97,53 @@
 
 .ondemand-form-container {
   display: flex;
+  flex-direction: column;
   width: 100%;
 
   .row-information {
     display: flex;
     width: 100%;
-  }
 
-  .col-information {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5em;
-    background-color: pink;
-    width: 30%;
-  }
+    .col-information {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5em;
+      background-color: pink;
+      width: 30%;
+    }
 
-  .col-information-input {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5em;
-    background-color: blue;
-    width: 70%;
+    .col-information-input {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5em;
+      background-color: blue;
+      width: 70%;
+    }
   }
 
   .row-description {
+    display: flex;
+    flex-direction: column;
 
+    .row-description-input {
+      height: 5em;
+      background-color: magenta;
+
+      textarea {
+        resize: none;
+        width: calc(100% - 0.4em);
+        height: calc(100% - 0.4em);
+      }
+    }
   }
 
-  .row-description-input {
-
+  .row-buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-content: center;
+    gap: 0.3em;
+    margin-top: 0.2em;
   }
 }
 
