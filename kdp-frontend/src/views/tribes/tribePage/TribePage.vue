@@ -22,7 +22,10 @@
         <div class="loader-container" v-if="loading">
           <Loader />
         </div>
-        <div class="articles-container">
+        <div
+          class="articles-container"
+          v-else-if="!loading && articles.length > 0"
+        >
           <router-link
             :to="{ name: 'article', params: { articleId: article.id } }"
             v-for="(article, index) in tribeArticles"
@@ -37,11 +40,25 @@
             />
           </router-link>
         </div>
+
+        <p class="cookie-error" v-else>{{ $t("article.article-error") }}</p>
+
+        <div :style="[loading || pageCount <= 1 ? { display: 'none' } : {}]">
+          <page-select :PageCount="pageCount" @current-page="SetCurrentPage" />
+        </div>
+
         <h3 class="podcasts-overview-title">Podcasts</h3>
-        <SpotifyCarousel v-if="cookie" :spotify-links="spotifyList" />
-        <p class="cookie-error" v-else>
-          Please enable cookies to view podcasts
+        <SpotifyCarousel
+          v-if="AcceptedFunctionalCookies && spotifyList.length > 0"
+          :spotify-links="spotifyList"
+        />
+        <p
+          class="cookie-error"
+          v-else-if="!AcceptedFunctionalCookies && spotifyList.length > 0"
+        >
+          {{ $t("tribe-page.cookie-error") }}
         </p>
+        <p class="cookie-error" v-else>{{ $t("tribe-page.spotify-error") }}</p>
       </div>
     </div>
   </div>
@@ -61,6 +78,8 @@ import ArticlePreview from "@/components/articlePreview/ArticlePreview.vue";
 import Profiletag from "@/components/profileTag/Profiletag.vue";
 import Loader from "@/components/loader/Loader.vue";
 import SpotifyCarousel from "@/components/carousel/Carousel.vue";
+import PageSelect from "@/components/PageSelect/PageSelect.vue";
+import CookieShape from "@/models/Cookie";
 
 export default {
   components: {
@@ -68,18 +87,17 @@ export default {
     Profiletag,
     ArticlePreview,
     Loader,
+    PageSelect,
   },
   setup() {
     const route = useRoute();
     const store = useStore();
 
-    const articlesPerPage = ref(6);
-
-    const cookie = computed(() => store.getters["cookieAccepted"]);
-
+    const cookie = computed((): CookieShape => store.getters["cookieAccepted"]);
+    const AcceptedFunctionalCookies =
+      cookie.value.AcceptedAllCookies || cookie.value.AcceptedFunctionalCookies;
     const loading = computed(() => store.getters["isLoading"]);
 
-    //todo, op basis van id een request sturen met individuele tribe info en daarvan de data gebruiken.
     const currentTribe = computed((): TribeShape => {
       return store.getters["tribes/getCurrentTribe"];
     });
@@ -96,8 +114,25 @@ export default {
       await store.dispatch("tribes/getArticlesByTribe", tribeArticleParams);
       await store.dispatch("tribes/getCurrentTribe", route.params.tribe);
       await store.dispatch("tribes/getRockstarsByTribe", route.params.tribe);
-      await store.dispatch("tribes/getArticlesByTribe", route.params.tribe);
       await store.dispatch("tribes/getAllSpotifyByTribe", route.params.tribe);
+    });
+
+    const articlesPerPage = ref(6);
+    const CurrentPage = ref(0);
+
+    const SetCurrentPage = (_page: number): void => {
+      const tribeArticleParams = {
+        tribeId: route.params.tribe,
+        ArticlesPerPage: articlesPerPage.value,
+      };
+
+      store.dispatch("tribes/getArticlesByTribe", tribeArticleParams);
+      CurrentPage.value = _page;
+    };
+
+    const pageCount = computed((): number => {
+      const articlecount = store.getters["tribes/getArticleCount"];
+      return Math.ceil(articlecount / articlesPerPage.value);
     });
 
     const articles = computed((): ArticleShape[] => {
@@ -106,30 +141,28 @@ export default {
       const allArticles: ArticleShape[] =
         store.getters["tribes/getAllArticles"];
 
-      allArticles.forEach((article) => {
-        article.tribeId === currentTribe.value.id
-          ? applyingArticles.push(article)
-          : "";
-      });
+      if (allArticles.length > 0) {
+        allArticles.forEach((article) => {
+          article.tribeId === currentTribe.value.id
+            ? applyingArticles.push(article)
+            : "";
+        });
+      }
 
       return applyingArticles;
     });
 
-    const rockstars = computed((): RockstarShape[] => {
-      const rockstar = store.getters["tribes/getRockstarsByTribe"];
-      return rockstar;
-    });
+    const rockstars = computed(
+      (): RockstarShape[] => store.getters["tribes/getRockstarsByTribe"]
+    );
 
-    const tribeArticles = computed((): ArticleShape[] => {
-      const articles = store.getters["tribes/getArticlesbByTribe"];
-      return articles;
-    });
+    const tribeArticles = computed(
+      (): ArticleShape[] => store.getters["tribes/getArticlesbByTribe"]
+    );
 
-    let spotifyList = computed((): SpotifyShape[] => {
-      const spotify: SpotifyShape[] =
-        store.getters["tribes/getAllSpotifyByTribe"];
-      return spotify;
-    });
+    let spotifyList = computed(
+      (): SpotifyShape[] => store.getters["tribes/getAllSpotifyByTribe"]
+    );
 
     return {
       tribeArticles,
@@ -138,7 +171,9 @@ export default {
       currentTribe,
       loading,
       spotifyList,
-      cookie,
+      pageCount,
+      SetCurrentPage,
+      AcceptedFunctionalCookies,
     };
   },
 };
