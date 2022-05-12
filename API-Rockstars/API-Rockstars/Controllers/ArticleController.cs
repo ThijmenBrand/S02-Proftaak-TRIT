@@ -30,23 +30,7 @@ namespace API_Rockstars.Controllers
             List<Article> articles = await _context.Articles.ToListAsync();
 
 
-            foreach (var article in articles)
-            {
-                Tribe tribe = await _context.Tribes.FindAsync(article.TribeId);
-                if (tribe != null)
-                {
-                    article.TribeName = tribe.Name;
-                }
-
-                Rockstar rockstar = await _context.Rockstars.FindAsync(article.RockstarId);
-                if (rockstar != null)
-                {
-                    article.RockstarName = rockstar.Name;
-                }
-
-                var viewCount = await _context.ArticleViews.Where(x => x.ArticleId == article.Id).ToListAsync();
-                article.ViewCount = viewCount.Count();
-            }
+            articles = await getAllAtributesFromArticles(articles);
 
             return articles;
         }
@@ -96,25 +80,51 @@ namespace API_Rockstars.Controllers
             List<Article> articles = await _context.Articles.Where(x => x.Published == true).Skip(start).Take(limit).ToListAsync();
 
 
-            foreach (var article in articles)
+            articles = await getAllAtributesFromArticles(articles);
+
+            return articles;
+        }
+
+        // GET: api/Article
+        [HttpGet("new/start/{start}/limit/{limit}")]
+        public async Task<ActionResult<IEnumerable<Article>>> CopyGetArticles(int start, int limit, string data)
+        {
+            start = start < 0 ? 0 : start;
+            List<Article> returnArticles = new List<Article>();
+            List<Article> articles = await _context.Articles.Where(x => x.Published == true).ToListAsync();
+
+            foreach(var article in articles)
             {
-                Tribe tribe = await _context.Tribes.FindAsync(article.TribeId);
-                if (tribe != null)
+                if(article.Title == data)
                 {
-                    article.TribeName = tribe.Name;
+                    returnArticles.Add(article);
                 }
-            
-                Rockstar rockstar = await _context.Rockstars.FindAsync(article.RockstarId);
-                if (rockstar != null)
+            }
+
+
+            articles = await getAllAtributesFromArticles(articles);
+
+            if (!string.IsNullOrEmpty(data))
+            {
+                foreach (var article in articles)
                 {
-                    article.RockstarName = rockstar.Name;
+                    if (article.Title.ToLower().Contains(data.ToLower()))
+                    {
+                        returnArticles.Add(article);
+                    }
+                    if (article.RockstarName.ToLower().Contains(data.ToLower()))
+                    {
+                        returnArticles.Add(article);
+                    }
                 }
-                
-                var viewCount = await _context.ArticleViews.Where(x => x.ArticleId == article.Id).ToListAsync();
-                article.ViewCount = viewCount.Count();
+            }
+            else
+            {
+                returnArticles = articles;
             }
             
-            return articles;
+
+            return returnArticles.Skip(start).Take(limit).ToList();
         }
 
         // GET: api/Article/5
@@ -158,23 +168,7 @@ namespace API_Rockstars.Controllers
                 return NoContent();
             }
 
-            foreach (var article in articles)
-            {
-                Tribe tribe = await _context.Tribes.FindAsync(article.TribeId);
-                if (tribe != null)
-                {
-                    article.TribeName = tribe.Name;
-                }
-            
-                Rockstar rockstar = await _context.Rockstars.FindAsync(article.RockstarId);
-                if (rockstar != null)
-                {
-                    article.RockstarName = rockstar.Name;
-                }
-                
-                var viewCount = await _context.ArticleViews.Where(x => x.ArticleId == article.Id).ToListAsync();
-                article.ViewCount = viewCount.Count();
-            }
+            articles = await getAllAtributesFromArticles(articles);
 
             return articles;
         }
@@ -189,24 +183,8 @@ namespace API_Rockstars.Controllers
             {
                 return NoContent();
             }
-            
-            foreach (var article in articles)
-            {
-                Tribe tribe = await _context.Tribes.FindAsync(article.TribeId);
-                if (tribe != null)
-                {
-                    article.TribeName = tribe.Name;
-                }
-            
-                Rockstar rockstar = await _context.Rockstars.FindAsync(article.RockstarId);
-                if (rockstar != null)
-                {
-                    article.RockstarName = rockstar.Name;
-                }
-                
-                var viewCount = await _context.ArticleViews.Where(x => x.ArticleId == article.Id).ToListAsync();
-                article.ViewCount = viewCount.Count();
-            }
+
+            articles = await getAllAtributesFromArticles(articles);
 
             return articles;
         }
@@ -322,6 +300,29 @@ namespace API_Rockstars.Controllers
         private bool ArticleExists(Guid id)
         {
             return _context.Articles.Any(e => e.Id == id);
+        }
+
+        private async Task<List<Article>> getAllAtributesFromArticles(List<Article> articles)
+        {
+            foreach (var article in articles)
+            {
+                Tribe tribe = await _context.Tribes.FindAsync(article.TribeId);
+                if (tribe != null)
+                {
+                    article.TribeName = tribe.Name;
+                }
+
+                Rockstar rockstar = await _context.Rockstars.FindAsync(article.RockstarId);
+                if (rockstar != null)
+                {
+                    article.RockstarName = rockstar.Name;
+                }
+
+                var viewCount = await _context.ArticleViews.Where(x => x.ArticleId == article.Id).ToListAsync();
+                article.ViewCount = viewCount.Count();
+            }
+
+            return articles;
         }
     }
 }
