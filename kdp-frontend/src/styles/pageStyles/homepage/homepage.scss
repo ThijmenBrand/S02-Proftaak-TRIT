@@ -2,7 +2,11 @@
 
 .main{
     background-color: $trit-black;
+<<<<<<< HEAD
     height:100%;
+=======
+    height:1000px;
+>>>>>>> e137f7e99dad98d02e4f3ed16ed84231c2d6c409
 }
 
 .flex-container{
@@ -22,6 +26,7 @@
     margin-right:20%;
     padding-top: 20px;
     border-bottom: 1px solid $trit-yellow;
+<<<<<<< HEAD
     display: flex;
     flex-direction: row;
 }
@@ -32,6 +37,10 @@
 }
 
 
+=======
+}
+
+>>>>>>> e137f7e99dad98d02e4f3ed16ed84231c2d6c409
 .about-container{
     color: $trit-white;
     margin-left: 20%;
@@ -45,7 +54,10 @@
 .highlighted-articles{
     margin-left: 20%;
     margin-right: 20%;
+<<<<<<< HEAD
     
+=======
+>>>>>>> e137f7e99dad98d02e4f3ed16ed84231c2d6c409
 }
 .highlighted-articles h1{
     color: $trit-yellow
@@ -56,6 +68,7 @@
     width: 180px;
     height: 100%;
     color: $trit-white;
+<<<<<<< HEAD
 }
 
 .content-container {
@@ -81,3 +94,6 @@
         margin-left: 20%;
     }
 }
+=======
+}
+>>>>>>> e137f7e99dad98d02e4f3ed16ed84231c2d6c409
