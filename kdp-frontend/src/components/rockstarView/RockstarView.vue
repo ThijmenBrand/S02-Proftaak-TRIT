@@ -181,11 +181,11 @@ export default {
     Modal,
   },
   setup() {
-    const modalIsOpened = ref(false);
-    const OpenModal = () => {
+    const modalIsOpened = ref<boolean>(false);
+    const OpenModal = (): void => {
       modalIsOpened.value = true;
     };
-    const CloseModal = () => {
+    const CloseModal = (): void => {
       modalIsOpened.value = false;
       formValidation.nameValid = true;
       formValidation.emailValid = true;
