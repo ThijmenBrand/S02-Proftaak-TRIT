@@ -25,15 +25,11 @@
         </router-link>
       </div>
       <p class="article-error" v-else>{{ $t("article.article-error") }}</p>
-
-      
-
     </div>
 
-    <div :style= "[loading || pageCount <= 1 ? {'display': 'none'} : {}]">
-      <page-select :PageCount="pageCount" @current-page="SetCurrentPage"/> 
+    <div :style="[loading || pageCount <= 1 ? { display: 'none' } : {}]">
+      <page-select :PageCount="pageCount" @current-page="SetCurrentPage" />
     </div>
-
   </div>
 </template>
 
@@ -45,10 +41,10 @@ import { computed, onMounted, onUpdated, ref } from "vue";
 import { RockstarShape } from "@/models/Rockstar";
 import ArticleShape from "@/models/Article";
 
-import RockstarView from "../../components/rockstarView/RockstarView.vue";
+import RockstarView from "@/components/rockstarView/RockstarView.vue";
 import ArticlePreview from "@/components/articlePreview/ArticlePreview.vue";
 import Loader from "@/components/loader/Loader.vue";
-import PageSelect from '@/components/PageSelect/PageSelect.vue';
+import PageSelect from "@/components/PageSelect/PageSelect.vue";
 
 export default {
   components: { RockstarView, ArticlePreview, Loader, PageSelect },
@@ -67,14 +63,16 @@ export default {
 
     // when loading the page, get the rockstar by id and their articles
     onMounted(async () => {
-
       const rockstarArticleParams = {
-      tribeId: route.params.rockstarId,
-      ArticlesPerPage: articlesPerPage.value,
+        tribeId: route.params.rockstarId,
+        ArticlesPerPage: articlesPerPage.value,
       };
       await store.commit("rockstars/CLEAR_ROCKSTAR");
       await store.dispatch("rockstars/getRockstar", route.params.rockstarId);
-      await store.dispatch("rockstars/getArticleCount", route.params.rockstarId);
+      await store.dispatch(
+        "rockstars/getArticleCount",
+        route.params.rockstarId
+      );
       await store.dispatch("rockstars/getArticles", rockstarArticleParams);
     });
 
@@ -84,34 +82,31 @@ export default {
 
     const SetCurrentPage = (_page: number): void => {
       const rockstarArticleParams = {
-      tribeId: route.params.rockstarId,
-      ArticlesPerPage: articlesPerPage.value,
+        tribeId: route.params.rockstarId,
+        ArticlesPerPage: articlesPerPage.value,
       };
-      
-      store.dispatch("rockstars/getArticles", rockstarArticleParams );
+
+      store.dispatch("rockstars/getArticles", rockstarArticleParams);
       CurrentPage.value = _page;
     };
-    
+
     const pageCount = computed((): number => {
-       const articlecount = store.getters["rockstars/getArticleCount"];
-       return Math.ceil(articlecount/articlesPerPage.value);
+      const articlecount = store.getters["rockstars/getArticleCount"];
+      return Math.ceil(articlecount / articlesPerPage.value);
     });
-
-
 
     // on every update, change the page title to the rockstar's name
     onUpdated(async () => {
       document.title = rockstar.value.name;
 
       if (route.params.rockstarId !== rockstar.value.id) {
+        const rockstarArticleParams = {
+          tribeId: route.params.rockstarId,
+          ArticlesPerPage: articlesPerPage.value,
+        };
 
-      const rockstarArticleParams = {
-      tribeId: route.params.rockstarId,
-      ArticlesPerPage: articlesPerPage.value,
-      };
-
-      await store.dispatch("rockstars/getRockstar", route.params.rockstarId);
-      await store.dispatch("rockstars/getArticles", rockstarArticleParams);
+        await store.dispatch("rockstars/getRockstar", route.params.rockstarId);
+        await store.dispatch("rockstars/getArticles", rockstarArticleParams);
       }
     });
 
