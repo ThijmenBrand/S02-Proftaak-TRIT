@@ -1,15 +1,9 @@
 #nullable disable
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using API_Rockstars;
 using API_Rockstars.Models;
 using API_Rockstars.Azure;
-using Microsoft.Graph.Models;
+
 
 namespace API_Rockstars.Controllers
 {
@@ -30,10 +24,10 @@ namespace API_Rockstars.Controllers
         [HttpGet]
         public async Task<ActionResult<List<AzureRockstar>>> GetRockstars()
         {
-            var apiRes = await _azure.GraphApi.Users.GetAsync();
+            var apiRes = await _azure.GraphApi.Users.Request().GetAsync();
             List<AzureRockstar> azureRockstars = new List<AzureRockstar>();
 
-            foreach (var user in apiRes.Value)
+            foreach (var user in apiRes)
             {
                 azureRockstars.Add(new AzureRockstar
                 {
@@ -50,7 +44,7 @@ namespace API_Rockstars.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<AzureRockstar>> GetRockstar(Guid id)
         {
-            var apiRes = await _azure.GraphApi.Users[id.ToString()].GetAsync();
+            var apiRes = await _azure.GraphApi.Users[id.ToString()].Request().GetAsync();
 
             AzureRockstar rockstar = new AzureRockstar
             {

@@ -1,15 +1,9 @@
 #nullable disable
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using API_Rockstars;
 using API_Rockstars.Azure;
 using API_Rockstars.Models;
+using Microsoft.Graph;
 
 namespace API_Rockstars.Controllers
 {
@@ -30,11 +24,11 @@ namespace API_Rockstars.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<AzureTribe>>> GetTribes()
         {
-            var groups = await _azure.GraphApi.Groups.GetAsync();
+            var groups = await _azure.GraphApi.Groups.Request().GetAsync();
 
             List<AzureTribe> tribes = new List<AzureTribe>();
 
-            foreach (var group in groups.Value)
+            foreach (var group in groups)
             {
                 tribes.Add(new AzureTribe
                 {
@@ -51,7 +45,7 @@ namespace API_Rockstars.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<AzureTribe>> GetTribe(Guid id)
         {
-            var group = await _azure.GraphApi.Groups[id.ToString()].GetAsync();
+            var group = await _azure.GraphApi.Groups[id.ToString()].Request().GetAsync();
 
             AzureTribe tribe = new AzureTribe
             {
@@ -67,13 +61,13 @@ namespace API_Rockstars.Controllers
         [HttpGet("GetAllRockstars/{id}")]
         public async Task<ActionResult<List<AzureRockstar>>> GetRockstarsByTribe(Guid id)
         {
-            var members = await _azure.GraphApi.Groups[id.ToString()].Members.GetAsync();
+            var members = await _azure.GraphApi.Groups[id.ToString()].Members.Request().GetAsync();
 
             List<AzureRockstar> rockstars = new List<AzureRockstar>();
 
-            foreach (var member in members.Value)
+            foreach (var member in members)
             {
-                var rockstarData = await _azure.GraphApi.Users[member.Id].GetAsync();
+                var rockstarData = await _azure.GraphApi.Users[member.Id].Request().GetAsync();
                 
                 RockstarRole rockstarRole = await _context.RockstarRoles.FirstOrDefaultAsync(x => x.TribeId == id && x.RockstarId.ToString() == rockstarData.Id);
 
@@ -108,19 +102,15 @@ namespace API_Rockstars.Controllers
         }
 
         [HttpPost("AddRockstar")]
-        public async Task<ActionResult<Tribe>> AddRockstartToTribe(TribeRockstar tribeRockstar)
+        public async Task<ActionResult> AddRockstartToTribe(TribeRockstar tribeRockstar)
         {
-            TribeRockstar checkDuplicate = _context.TribeRockstars.FirstOrDefault(x =>
-                x.RockstarId == tribeRockstar.RockstarId && x.TribeId == tribeRockstar.TribeId);
-
-            if (checkDuplicate != null)
+            var directoryObject = new DirectoryObject
             {
-                return BadRequest("Rockstar already in tribe!");
-            }
+                Id = tribeRockstar.RockstarId.ToString()
+            };
             
-            _context.TribeRockstars.Add(tribeRockstar);
-            await _context.SaveChangesAsync();
-            
+            await _azure.GraphApi.Groups[tribeRockstar.TribeId.ToString()].Members.References.Request().AddAsync(directoryObject);
+
             return Ok();
         }
         
