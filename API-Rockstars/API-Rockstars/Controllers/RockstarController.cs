@@ -49,14 +49,18 @@ namespace API_Rockstars.Controllers
 
         // GET: api/Rockstar/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Rockstar>> GetRockstar(Guid id)
+        public async Task<ActionResult<AzureRockstar>> GetRockstar(Guid id)
         {
-            var rockstar = await _context.Rockstars.FindAsync(id);
+            AzureConfiguration azure = new AzureConfiguration(_configuration);
 
-            if (rockstar == null)
+            var apiRes = await azure.GraphApi.Users[id.ToString()].GetAsync();
+
+            AzureRockstar rockstar = new AzureRockstar
             {
-                return NotFound();
-            }
+                id = apiRes.Id,
+                displayName = apiRes.DisplayName,
+                userPrincipalName = apiRes.UserPrincipalName
+            };
 
             return rockstar;
         }
