@@ -111,8 +111,8 @@ export default {
 
       store.commit("SET_CURRENT_PAGE", 1);
       store.commit("tribes/EMPTY_STORE");
-      await store.dispatch("tribes/getArticlesByTribe", tribeArticleParams);
       await store.dispatch("tribes/getArticleCount", route.params.tribe);
+      await store.dispatch("tribes/getArticlesByTribe", tribeArticleParams);
       await store.dispatch("tribes/getCurrentTribe", route.params.tribe);
       await store.dispatch("tribes/getRockstarsByTribe", route.params.tribe);
       await store.dispatch("tribes/getAllSpotifyByTribe", route.params.tribe);

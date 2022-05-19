@@ -40,8 +40,8 @@
 </template>
 
 <script lang="ts">
-import { ref } from "@vue/reactivity";
-import store from "@/store";
+import { ref } from "vue";
+import { useStore } from "vuex";
 
 export default {
   name: "PageSelect",
@@ -50,6 +50,7 @@ export default {
   },
   emits: ["current-page"],
   setup(props: any, { emit }: any) {
+    const store = useStore();
     const CurrentPage = ref<number>(1);
 
     function setcurrentpage(page: number) {

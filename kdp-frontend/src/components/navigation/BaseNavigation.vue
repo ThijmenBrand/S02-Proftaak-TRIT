@@ -17,6 +17,8 @@
       </label>
 
       <div class="menu-box">
+        <div class="menu-items"> 
+
         <div class="menu-item">
           <router-link class="menu-item" to="/" @click="CloseTab">
             {{ $t("menu.home") }}
@@ -40,8 +42,13 @@
             {{ $t("menu.logout") }}
           </a>
         </div>
-        <p class="reset-cookies" @click="$emit('open-cookie-selector')">Reset cookies</p>
-        <LocaleSelector />
+
+        </div>
+        <div class="menu-options"> 
+          <LocaleSelector />
+          <p class="reset-cookies" @click="$emit('open-cookie-selector')">Reset cookies</p>
+        </div>
+        
       </div>
     </div>
   </div>

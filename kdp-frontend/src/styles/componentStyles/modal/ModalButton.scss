@@ -1,0 +1,17 @@
+@import "@/styles/variables.scss";
+
+.btn-modal-yellow {
+  color: $trit-black;
+  background: $trit-yellow;
+  border: 2px solid $trit-black;
+  border-radius: 2px;
+  cursor: pointer;
+}
+
+.btn-modal-light-yellow {
+  color: $trit-black;
+  background: #ffec66;
+  border: 1px solid $trit-black;
+  border-radius: 2px;
+  cursor: pointer;
+}
