@@ -1,8 +1,6 @@
 {
   "hello-world": "hello world!",
-
   "rockstars-logo": "RockstarsIT logo",
-
   "menu.possibilities": "YOUR POSSIBILITIES",
   "menu.login": "LOGIN",
   "menu.logout": "LOGOUT",
@@ -13,15 +11,27 @@
   "menu.change-language-prompt.flags.usa": "Flag of the United States of America",
   "menu.change-language-prompt.flags.nl": "Flag of the Netherlands",
   "menu.change-language-prompt.flags.generic": "Country flag depicting a possible display language",
-
   "homepage.header": "Homepage",
-
   "tribes-overview-page.header": "All tribes",
-
   "articles-overview.header": "Articles",
-
   "rockstar-page.profile-picture-alt-text": "Profile picture of {name}",
-
+  "rockstar-page.socials.twitter-icon-alt-text": "Twitter icon",
+  "rockstar-page.socials.linkedin-icon-alt-text": "LinkedIn icon",
+  "rockstar-page.socials.email-icon-alt-text": "Email icon",
+  "rockstar-page.socials.phone-icon-alt-text": "Phone icon",
+  "rockstar-page.ondemand-button-text": "Request OnDemand",
+  "rockstar-page.ondemand-button-alt-text": "Fast-forward icon",
+  "rockstar-page.modal.header": "Request Rockstar OnDemand",
+  "rockstar-page.modal.form.name": "Name:",
+  "rockstar-page.modal.form.email": "E-mail:",
+  "rockstar-page.modal.form.date": "Date:",
+  "rockstar-page.modal.form.request": "Request:",
+  "rockstar-page.modal.form.name-validation": "Please enter your name.",
+  "rockstar-page.modal.form.email-validation": "Please enter a valid e-mail address.",
+  "rockstar-page.modal.form.date-validation": "Please enter a valid date.",
+  "rockstar-page.modal.form.request-validation": "Please enter your request.",
+  "rockstar-page.modal.footer.submit-button-text": "Submit",
+  "rockstar-page.modal.footer.cancel-button-text": "Cancel",
   "explore-articles-page.search-bar.sort-title-za": "Sort title by Z-A",
   "explore-articles-page.search-bar.sort-title-az": "Sort title by A-Z",
   "explore-articles-page.search-bar.sort-oldest": "Sort by oldest",
@@ -29,14 +39,13 @@
   "explore-articles-page.search-bar.select-filter": "Select filter",
   "explore-articles-page.search-bar.placeholder": "Search...",
   "explore-articles-page.article-thumbnail-alt-text": "Thumbnail of article named '{articleName}'",
-
   "article-page.comment-placeholder": "What did you think about this article?",
   "article-page.button-text": "Comment",
   "article-page.comment-title": "Comments",
-  "article-page.comment-error":"This is a required field!",
-  "article-page.comment-login-message":"Log in to post a comment.",
   "article-page.comment-remaining-char":"characters remaining",
 
+  "article-page.comment-error": "This is a required field!",
+  "article-page.comment-login-message": "Log in to post a comment.",
   "article-page.recommended-title": "Also interesting",
   "article-page.recommended-image-alt": "Recommended article image",
   "article-page.rockstar-image": "Image of {name}",
@@ -44,13 +53,17 @@
   "article-page.comment-image": "Comment image",
   "article-page.view-image": "Views image",
   "article-page.page-view-image": "Unique views bekeken image",
-
   "article.article-error": "No articles found",
   "tribe-page.cookie-error": "Accept cookies to view podcasts",
   "tribe-page.spotify-error": "No podcasts found",
-
   "cookie-message": "To give you the best experience we make use of cookies",
   "cookie-message.learn-more": "Learn more",
+  "cookie-message.learn-more.info": "We use functional and analytical cookies to give you the best experience. Here you can choose which one you want to accept",
+  "cookie-message.learn-more.header": "Rockstar IT cookies",
+  "cookie-message.learn-more.options.allcookies": "All cookies",
+  "cookie-message.learn-more.options.Analyticalcookies": "Analytical cookies",
+  "cookie-message.learn-more.options.Functionalcookies": "Functional cookies",
+  "cookie-message.learn-more.save": "Save preferences",
   "cookie-message.accept": "Accept",
   "cookie-message.decline": "Decline"
 }

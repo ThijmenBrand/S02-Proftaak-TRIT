@@ -1,8 +1,6 @@
 ﻿{
   "hello-world": "hallo wereld!",
-
   "rockstars-logo": "RockstarsIT logo",
-
   "menu.explore": "VERKEN",
   "menu.login": "LOGIN",
   "menu.logout": "LOG UIT",
@@ -12,16 +10,28 @@
   "menu.change-language-prompt": "Verander de weergavetaal",
   "menu.change-language-prompt.flags.usa": "Vlag van de Verenigde Staten",
   "menu.change-language-prompt.flags.nl": "Vlag van Nederland",
-  "menu.change-language-prompt.flags.generic" : "Landsvlad die een mogelijke weergevetaal weerspiegelt",
-
+  "menu.change-language-prompt.flags.generic": "Landsvlag die een mogelijke weergevetaal weerspiegelt",
   "homepage.header": "Hoofdpagina",
-
   "tribes-overview-page.header": "Alle tribes",
-
   "articles-overview.header": "Artikelen",
-
   "rockstar-page.profile-picture-alt-text": "Profielfoto van {name}",
-
+  "rockstar-page.socials.twitter-icon-alt-text": "Twitter icoontje",
+  "rockstar-page.socials.linkedin-icon-alt-text": "LinkedIn icoontje",
+  "rockstar-page.socials.email-icon-alt-text": "Email icoontje",
+  "rockstar-page.socials.phone-icon-alt-text": "Phone icoontje",
+  "rockstar-page.ondemand-button-text": "OnDemand aanvragen",
+  "rockstar-page.ondemand-button-alt-text": "Fast-forward icoontje",
+  "rockstar-page.modal.header": "Rockstar OnDemand aanvragen",
+  "rockstar-page.modal.form.name": "Naam:",
+  "rockstar-page.modal.form.email": "E-mail:",
+  "rockstar-page.modal.form.date": "Datum:",
+  "rockstar-page.modal.form.request": "Aanvraag:",
+  "rockstar-page.modal.form.name-validation": "Vul uw naam in.",
+  "rockstar-page.modal.form.email-validation": "Vul een geldig email adres in.",
+  "rockstar-page.modal.form.date-validation": "Vul een geldige datum in.",
+  "rockstar-page.modal.form.request-validation": "Vul uw aanvraag in.",
+  "rockstar-page.modal.footer.submit-button-text": "Aanvragen",
+  "rockstar-page.modal.footer.cancel-button-text": "Annuleren",
   "explore-articles-page.search-bar.sort-title-za": "Sorteren op titel, Z-A",
   "explore-articles-page.search-bar.sort-title-az": "Sorteren op titel, A-Z",
   "explore-articles-page.search-bar.sort-oldest": "Van oud naar nieuw",
@@ -29,7 +39,6 @@
   "explore-articles-page.search-bar.select-filter": "Selecteer filter",
   "explore-articles-page.search-bar.placeholder": "Zoeken...",
   "explore-articles-page.article-thumbnail-alt-text": "Thumbnail van artikel genaamd '{articleName}'",
-
   "article-page.comment-placeholder": "Wat vond jij van dit artikel?",
   "article-page.button-text": "Plaats",
   "article-page.comment-title": "Reacties",
@@ -44,13 +53,19 @@
   "article-page.comment-image": "Reactie plaatje",
   "article-page.view-image": "Hoeveelheid bekeken plaatje",
   "article-page.page-view-image": "Unique keren bekeken plaatje",
-  
+
   "article.article-error": "Geen articles gevonden",
   "tribe-page.cookie-error": "Accepteer cookies om podcast te bekijken",
   "tribe-page.spotify-error": "Geen podcasts gevonden",
 
   "cookie-message": "Om u de beste ervaring te geven maken we gebruik van cookies",
   "cookie-message.learn-more": "Lees meer",
+  "cookie-message.learn-more.info": "We gebruiken functionele en analytische cookies om je de beste ervaring te geven. Hier kun je kiezen welke u wilt accepteren",
+  "cookie-message.learn-more.header": "Rockstar IT cookies",
+  "cookie-message.learn-more.options.allcookies": "Alle cookies",
+  "cookie-message.learn-more.options.Analyticalcookies": "Analytische cookies",
+  "cookie-message.learn-more.options.Functionalcookies": "Functionele cookies",
+  "cookie-message.learn-more.save": "Preferenties opslaan",
   "cookie-message.accept": "Accepteer",
   "cookie-message.decline": "Weiger"
 }

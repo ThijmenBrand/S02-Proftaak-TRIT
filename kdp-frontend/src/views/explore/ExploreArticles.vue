@@ -53,7 +53,7 @@
       </div>
       <p class="article-error" v-else>{{ $t("article.article-error") }}</p>
 
-      <div :class="[loading || pageCount <= 1 ? { display: 'none' } : {}]">
+      <div :style="[loading || pageCount <= 1 ? { display: 'none' } : {}]">
         <page-select :PageCount="pageCount" @current-page="SetCurrentPage" />
       </div>
     </div>
