@@ -12,14 +12,14 @@
 
 .left-flexbox{
     justify-content: left;
+    margin-left: 20%;
+    margin-right: 20%;
 }
 .right-flexbox{
     justify-content: right;
 }
 .interesting-tribes-container{
     color:white;
-    margin-left: 20%;
-    margin-right:20%;
     padding-top: 20px;
     border-bottom: 1px solid $trit-yellow;
     display: flex;
@@ -34,8 +34,6 @@
 
 .about-container{
     color: $trit-white;
-    margin-left: 20%;
-    margin-right: 20%;
     
 }
 .about-container h1{
@@ -43,8 +41,6 @@
 }
 
 .highlighted-articles{
-    margin-left: 20%;
-    margin-right: 20%;
     
 }
 .highlighted-articles h1{
@@ -56,15 +52,14 @@
     width: 180px;
     height: 100%;
     color: $trit-white;
+    
 }
 
-.content-container {
+.articles-wrapper {
     min-height: calc(100vh - 226.5px);
     .articles-container {
       margin-top: 30px;
       display: grid;
-      justify-content: center;
-      grid-column: 1rem;
       grid-row-gap: 1rem;
       grid-template-columns: repeat(auto-fill, minmax(415px, 1fr));
       a {
@@ -76,8 +71,4 @@
 
 .highlighted-articles{
     margin: 0;
-    h1{
-        margin-left: 20%;
-        margin-left: 20%;
-    }
 }

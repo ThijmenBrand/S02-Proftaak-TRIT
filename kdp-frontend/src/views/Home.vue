@@ -32,7 +32,7 @@
           <h1>
             {{ $t("highlighted-articles") }}
           </h1>
-          <div class="content-container">
+          <div class="articles-wrapper">
             <div v-if="loading">
               <Loader />
             </div>
