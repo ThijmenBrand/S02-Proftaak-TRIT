@@ -15,8 +15,10 @@
             $t('rockstar-page.profile-picture-alt-text', { name: this.name })
           "
         />
-        <p class="rockstar">{{ name }}</p>
-        <p class="rockstar-role">{{ role }}</p>
+        <div v-if="viewDetails">
+          <p class="rockstar">{{ name }}</p>
+          <p class="rockstar-role">{{ role }}</p>
+        </div>
       </div>
     </div>
   </router-link>
@@ -33,8 +35,12 @@ export default {
       type: String,
       default: "",
     },
+    viewDetails: {
+      type: Boolean,
+      default: true,
+    },
   },
 };
 </script>
 
-<style lang="scss" scoped/>
+<style lang="scss" scoped />

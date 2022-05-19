@@ -1,7 +1,7 @@
 @import "@/styles/variables.scss";
 
 .main{
-    background-color: $trit-black;
+    background-color: $trit-gray;
     height:100%;
 }
 
@@ -48,11 +48,14 @@
 }
 
 .highlighted-rockstars{
-    float:right;
-    width: 180px;
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    right: 0;
     height: 100%;
     color: $trit-white;
-    
+    margin-right: 2em;
+    margin-top: 2em;
 }
 
 .articles-wrapper {
@@ -107,6 +110,9 @@
       max-width: 100%;
     }
 
+    .article {
+      border: none;
+    }
 
   }
 }
