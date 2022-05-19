@@ -66,7 +66,6 @@
 
       <div class="right-flexbox">
         <div class="highlighted-rockstars">
-          <p>hier komen highlighted rockstars</p>
           <profiletag
           v-for="(rockstar, index) in rockstars"
           :key="index"
@@ -74,6 +73,7 @@
           :name="rockstar.name"
           :image="rockstar.image"
           :role="rockstar.role"
+          :view-details="false"
           class="profile-tag"
         />
         </div>
@@ -114,21 +114,16 @@ export default {
       return store.getters["getAllArticles"];
     });
 
-    
-    
     const rockstars = computed((): RockstarShape[] => {
       return store.getters["getAllRockstars"];
     }
     );
-    
-    
 
     const tribesList = computed((): TribeShape[] => {
       const list = store.getters["tribes/getAllTribesList"];
       return list;
     });
 
-    console.log(rockstars);
     return { store, articles, loading, tribesList, rockstars };
   },
 };
