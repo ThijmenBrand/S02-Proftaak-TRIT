@@ -28,7 +28,7 @@
         </div>
     </div>
     <div class="login-message-container" v-else>
-      <p>{{ $t("article-page.comment-login-message")}} </p>
+      <p class="login-message">{{ $t("article-page.comment-login-message")}} </p>
       <div class="login-button-container">
         <button class="login-button btn-yellow"
           @click="login"

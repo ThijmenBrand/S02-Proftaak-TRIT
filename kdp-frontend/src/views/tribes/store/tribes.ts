@@ -143,6 +143,10 @@ const tribes = {
       state.articleList = [];
       state.rockstarsList = [];
       state.spotifyList = [];
+      state.currentTribe = {
+        id: "",
+        name: "",
+      };
     },
     SET_SPOTIFY_BY_TRIBE: (state: tribesState, data: []) => {
       state.spotifyList = data;
