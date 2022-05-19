@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using API_Rockstars;
+using API_Rockstars.Azure;
 using API_Rockstars.Models;
 
 namespace API_Rockstars.Controllers
@@ -17,71 +18,89 @@ namespace API_Rockstars.Controllers
     public class TribeController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
+        private readonly AzureConfiguration _azure;
 
-        public TribeController(ApplicationDbContext context)
+        public TribeController(ApplicationDbContext context, IConfiguration configuration)
         {
             _context = context;
+            _azure = new AzureConfiguration(configuration);
         }
 
         // GET: api/Tribe
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Tribe>>> GetTribes()
+        public async Task<ActionResult<IEnumerable<AzureTribe>>> GetTribes()
         {
-            return await _context.Tribes.ToListAsync();
+            var groups = await _azure.GraphApi.Groups.GetAsync();
+
+            List<AzureTribe> tribes = new List<AzureTribe>();
+
+            foreach (var group in groups.Value)
+            {
+                tribes.Add(new AzureTribe
+                {
+                    id = group.Id,
+                    displayName = group.DisplayName,
+                    description = group.Description
+                });
+            }
+
+            return tribes;
         }
 
         // GET: api/Tribe/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Tribe>> GetTribe(Guid id)
+        public async Task<ActionResult<AzureTribe>> GetTribe(Guid id)
         {
-            var tribe = await _context.Tribes.FindAsync(id);
+            var group = await _azure.GraphApi.Groups[id.ToString()].GetAsync();
 
-            if (tribe == null)
+            AzureTribe tribe = new AzureTribe
             {
-                return NotFound();
-            }
+                id = group.Id,
+                displayName = group.DisplayName,
+                description = group.Description
+            };
 
             return tribe;
         }
         
         // GET: api/Tribe/5
         [HttpGet("GetAllRockstars/{id}")]
-        public async Task<ActionResult<List<Rockstar>>> GetRockstarsByTribe(Guid id)
+        public async Task<ActionResult<List<AzureRockstar>>> GetRockstarsByTribe(Guid id)
         {
-            var tribe = await _context.Tribes.FindAsync(id);
+            var members = await _azure.GraphApi.Groups[id.ToString()].Members.GetAsync();
 
-            if (tribe == null)
+            List<AzureRockstar> rockstars = new List<AzureRockstar>();
+
+            foreach (var member in members.Value)
             {
-                return NoContent();
-            }
-            
-            Task<List<TribeRockstar>> tribeRockstars = _context.TribeRockstars.Where(x => x.TribeId == id).ToListAsync();
-
-            if (tribeRockstars.Result.Count == 0)
-            {
-                return NoContent();
-            }
-
-            List<Rockstar> rockstars = new List<Rockstar>();
-
-            foreach (var rockstar in tribeRockstars.Result)
-            {
-                rockstars.Add(await _context.Rockstars.FindAsync(rockstar.RockstarId));
-            }
-
-            if (rockstars.Count == 0)
-            {
-                return NoContent();
-            }
-
-            foreach (var rockstar in rockstars)
-            {
-                RockstarRole rockstarRole = await _context.RockstarRoles.FirstOrDefaultAsync(x => x.TribeId == id && x.RockstarId == rockstar.Id);
+                var rockstarData = await _azure.GraphApi.Users[member.Id].GetAsync();
+                
+                RockstarRole rockstarRole = await _context.RockstarRoles.FirstOrDefaultAsync(x => x.TribeId == id && x.RockstarId.ToString() == rockstarData.Id);
 
                 if (rockstarRole != null)
                 {
-                    Role role = await _context.Roles.FindAsync(rockstarRole.RoleId);
-                    rockstar.Role = role.Name;
+                    Role role = await _context.Roles.FindAsync(rockstarRole.Id);
+                    if (role != null)
+                    {
+                        rockstars.Add(new AzureRockstar
+                        {
+                            id = rockstarData.Id,
+                            displayName = rockstarData.DisplayName,
+                            userPrincipalName = rockstarData.UserPrincipalName,
+                            role = role.Name
+                        });
+                    }
+                    else
+                    {
+                        rockstars.Add(new AzureRockstar
+                        {
+                            id = rockstarData.Id,
+                            displayName = rockstarData.DisplayName,
+                            userPrincipalName = rockstarData.UserPrincipalName,
+                            role = "Rockstar"
+                        });
+                    }
+
                 }
             }
 
