@@ -21,7 +21,11 @@
           }"
           class="article"
         >
-          <article-preview :name="article.title" :content="article.content" />
+          <article-preview 
+          :name="article.title" 
+          :content="article.content" 
+          :articlePublishDate="article.publishDate"
+           />
         </router-link>
       </div>
       <p class="article-error" v-else>{{ $t("article.article-error") }}</p>
@@ -63,16 +67,14 @@ export default {
 
     // when loading the page, get the rockstar by id and their articles
     onMounted(async () => {
+      store.commit("rockstars/CLEAR_ROCKSTAR");
+      await store.dispatch("rockstars/getRockstar", route.params.rockstarId);
       const rockstarArticleParams = {
         tribeId: route.params.rockstarId,
         ArticlesPerPage: articlesPerPage.value,
       };
-      await store.commit("rockstars/CLEAR_ROCKSTAR");
-      await store.dispatch("rockstars/getRockstar", route.params.rockstarId);
-      await store.dispatch(
-        "rockstars/getArticleCount",
-        route.params.rockstarId
-      );
+      
+      store.dispatch("rockstars/getArticleCount", route.params.rockstarId);
       await store.dispatch("rockstars/getArticles", rockstarArticleParams);
     });
 

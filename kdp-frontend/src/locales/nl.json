@@ -42,9 +42,10 @@
   "article-page.comment-placeholder": "Wat vond jij van dit artikel?",
   "article-page.button-text": "Plaats",
   "article-page.comment-title": "Reacties",
-  "article-page.comment-error": "Dit is een verplicht veld!",
-  "article-page.comment-login-message": "Log in om een reactie te plaatsen.",
-
+  "article-page.comment-error":"Dit is een verplicht veld!",
+  "article-page.comment-login-message":"Log in om een reactie te plaatsen.",
+  "article-page.comment-remaining-char":"karakters over",
+  
   "article-page.recommended-title": "Ook interessant",
   "article-page.recommended-image-alt": "Voorgesteld artikel afbeelding",
   "article-page.rockstar-image": "Afbeelding van {name}",
