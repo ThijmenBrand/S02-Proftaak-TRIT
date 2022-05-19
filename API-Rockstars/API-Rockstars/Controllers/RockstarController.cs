@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using API_Rockstars;
 using API_Rockstars.Models;
 using API_Rockstars.Azure;
+using Microsoft.Graph.Models;
 
 namespace API_Rockstars.Controllers
 {
@@ -17,19 +18,33 @@ namespace API_Rockstars.Controllers
     public class RockstarController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
+        private readonly IConfiguration _configuration;
 
-        public RockstarController(ApplicationDbContext context)
+        public RockstarController(ApplicationDbContext context, IConfiguration configuration)
         {
             _context = context;
+            _configuration = configuration;
         }
 
         // GET: api/Rockstar
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<AzureRockstar>>> GetRockstars()
+        public async Task<ActionResult<List<AzureRockstar>>> GetRockstars()
         {
-            AzureRequestMiddleware<AzureRockstar> apireq = new AzureRequestMiddleware<AzureRockstar>();
-            List<AzureRockstar> res = await apireq.sendAzureRequest("v1.0/users");
-            return res;
+            AzureConfiguration azure = new AzureConfiguration(_configuration);
+            var apiRes = await azure.GraphApi.Users.GetAsync();
+            List<AzureRockstar> azureRockstars = new List<AzureRockstar>();
+
+            foreach (var user in apiRes.Value)
+            {
+                azureRockstars.Add(new AzureRockstar
+                {
+                    id = user.Id,
+                    displayName = user.DisplayName,
+                    userPrincipalName = user.UserPrincipalName
+                });
+            }
+
+            return azureRockstars;
         }
 
         // GET: api/Rockstar/5
