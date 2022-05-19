@@ -4,6 +4,7 @@
       v-model="searchQuery"
       :placeholder="$t('explore-articles-page.search-bar.placeholder')"
       class="search-input"
+      @keyup.enter="computeArticles()"
     />
     <div class="custom-select">
       <select class="select" v-model="selectedFilter">
@@ -75,7 +76,7 @@ export default {
   components: {
     ArticlePreview,
     Loader,
-    PageSelect,
+    PageSelect
   },
 
   setup() {
@@ -89,14 +90,14 @@ export default {
     onMounted(async () => {
       store.commit("SET_CURRENT_PAGE", 1);
       await store.dispatch("getArticleCount");
-      await store.dispatch("getAllArticles", articlesPerPage.value);
+      await store.dispatch("getFoundedArticles", articlesPerPage.value);
     });
 
     const articlesPerPage = ref<number>(6);
     const CurrentPage = ref<number>(0);
 
     const SetCurrentPage = (_page: number): void => {
-      store.dispatch("getAllArticles", articlesPerPage.value);
+      store.dispatch("getFoundedArticles", articlesPerPage.value);
       CurrentPage.value = _page;
     };
 
@@ -106,25 +107,19 @@ export default {
     });
 
     const articles = computed((): ArticleShape[] => {
-      return store.getters["getAllArticles"];
+      return store.getters["getFoundedArticles"];
     });
 
+    const computeArticles = () => {
+      store.dispatch("getFoundedArticles", articlesPerPage.value);
+    };
+
     const filteredArticles = computed((): ArticleShape[] => {
+      store.commit("SET_SEARCH_DATA", searchQuery.value);
       let returnArray: ArticleShape[] = [];
 
       articles.value.forEach((article) => {
-        if (article.rockstarName != null || article.tribeName != null) {
-          if (
-            article.title
-              .toLowerCase()
-              .indexOf(searchQuery.value.toLowerCase()) > -1 ||
-            article.rockstarName
-              .toLowerCase()
-              .indexOf(searchQuery.value.toLowerCase()) > -1
-          ) {
-            returnArray.push(article);
-          }
-        }
+        returnArray.push(article);
       });
       if (selectedFilter.value == "a-z") {
         returnArray = returnArray.sort(
@@ -188,8 +183,9 @@ export default {
       loading,
       CurrentPage,
       pageCount,
+      computeArticles,
     };
-  },
+  }
 };
 </script>
 
