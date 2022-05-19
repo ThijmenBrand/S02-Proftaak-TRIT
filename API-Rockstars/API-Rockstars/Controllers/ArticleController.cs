@@ -72,21 +72,8 @@ namespace API_Rockstars.Controllers
             return count;
         }
 
-        // GET: api/Article
+        // GET: api/Article with searchdata
         [HttpGet("start/{start}/limit/{limit}")]
-        public async Task<ActionResult<IEnumerable<Article>>> GetArticles(int start, int limit)
-        {
-            start = start < 0 ? 0 : start;
-            List<Article> articles = await _context.Articles.Where(x => x.Published == true).Skip(start).Take(limit).ToListAsync();
-
-
-            articles = await getAllAtributesFromArticles(articles);
-
-            return articles;
-        }
-
-        // GET: api/Article
-        [HttpGet("new/start/{start}/limit/{limit}")]
         public async Task<ActionResult<IEnumerable<Article>>> CopyGetArticles(int start, int limit, string data)
         {
             start = start < 0 ? 0 : start;
