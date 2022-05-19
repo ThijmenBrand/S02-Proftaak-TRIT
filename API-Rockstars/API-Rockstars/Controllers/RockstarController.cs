@@ -18,20 +18,19 @@ namespace API_Rockstars.Controllers
     public class RockstarController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
-        private readonly IConfiguration _configuration;
+        private readonly AzureConfiguration _azure;
 
         public RockstarController(ApplicationDbContext context, IConfiguration configuration)
         {
             _context = context;
-            _configuration = configuration;
+            _azure = new(configuration);
         }
 
         // GET: api/Rockstar
         [HttpGet]
         public async Task<ActionResult<List<AzureRockstar>>> GetRockstars()
         {
-            AzureConfiguration azure = new AzureConfiguration(_configuration);
-            var apiRes = await azure.GraphApi.Users.GetAsync();
+            var apiRes = await _azure.GraphApi.Users.GetAsync();
             List<AzureRockstar> azureRockstars = new List<AzureRockstar>();
 
             foreach (var user in apiRes.Value)
@@ -51,9 +50,7 @@ namespace API_Rockstars.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<AzureRockstar>> GetRockstar(Guid id)
         {
-            AzureConfiguration azure = new AzureConfiguration(_configuration);
-
-            var apiRes = await azure.GraphApi.Users[id.ToString()].GetAsync();
+            var apiRes = await _azure.GraphApi.Users[id.ToString()].GetAsync();
 
             AzureRockstar rockstar = new AzureRockstar
             {
@@ -66,7 +63,7 @@ namespace API_Rockstars.Controllers
         }
 
         [HttpPost("AddRollToRockstar")]
-        public async Task<ActionResult<Rockstar>> AddRoleToRockstar(RockstarRole rockstarRole)
+        public async Task<ActionResult> AddRoleToRockstar(RockstarRole rockstarRole)
         {
             RockstarRole checkDuplicate = _context.RockstarRoles.FirstOrDefault(x =>
                 x.TribeId == rockstarRole.TribeId && x.RoleId == rockstarRole.RoleId &&
