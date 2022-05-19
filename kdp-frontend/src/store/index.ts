@@ -1,19 +1,24 @@
 import { TribeShape } from "@/models/Tribe";
 import { createStore } from "vuex";
 import LocalStorageHandler from "@/services/localStorageHelper/LocalStorageHelper";
+import pfPlaceholder from "@/assets/profilePlaceholder";
 
 import exporeService from "@/services/callFunctions/explore";
+import rockstarService from "@/services/callFunctions/rockstar"
 
 import tribes from "@/views/tribes/store/tribes";
 import ArticleShape from "@/models/Article";
 import rockstars from "@/views/rockstar/store/rockstars";
 import article from "@/views/article/store/article";
 import CookieShape, { BaseCookieShape } from "@/models/Cookie";
+import { RockstarShape } from "@/models/Rockstar";
+import SetProfilePicture from "@/services/profilePictureHelper";
 
 interface IState {
   loading: boolean;
   tribe: TribeShape[];
   articleList: ArticleShape[];
+  rockstarList: RockstarShape[];
   currentPage: number;
   articleCount: number;
   cookieAccepted: CookieShape;
@@ -26,6 +31,7 @@ export default createStore({
     loading: false,
     tribe: Array<TribeShape>(),
     articleList: Array<ArticleShape>(),
+    rockstarList: Array<RockstarShape>(),
     currentPage: 1,
     articleCount: 0,
     cookieAccepted: new BaseCookieShape({
@@ -40,6 +46,9 @@ export default createStore({
   getters: {
     getAllArticles: (state: IState): ArticleShape[] => {
       return state.articleList;
+    },
+    getAllRockstars: (state: IState): RockstarShape[] => {
+      return state.rockstarList;
     },
     isLoading: (state: IState) => {
       return state.loading;
@@ -70,6 +79,15 @@ export default createStore({
         context.commit("SET_ALL_ARTICLES", data);
       }
     },
+    getAllRockstars: async (context: any) => {
+      context.state.loading = true;
+      const { data, status } = await rockstarService.getAllRockstars();
+
+      if (status >= 200 && status <= 299) {
+        context.state.loading = false;
+        context.commit("SET_ALL_ROCKSTARS", data);
+      }
+    },
     getArticleCount: async (context: any) => {
       context.state.loading = true;
       const { data, status } = await exporeService.getArticleCount();
@@ -95,6 +113,16 @@ export default createStore({
     },
   },
   mutations: {
+    SET_ALL_ROCKSTARS: (state, data: RockstarShape[]) => {
+      data.forEach((rockstar) => {
+        if (rockstar.image == null) {
+          rockstar.image = pfPlaceholder;
+        } else {
+          rockstar.image = SetProfilePicture(rockstar.image);
+        }
+      });
+      state.rockstarList = data;
+    },
     SET_ALL_ARTICLES: (state, data: ArticleShape[]) => {
       state.articleList = data;
     },

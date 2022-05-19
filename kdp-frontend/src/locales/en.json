@@ -65,5 +65,8 @@
   "cookie-message.learn-more.options.Functionalcookies": "Functional cookies",
   "cookie-message.learn-more.save": "Save preferences",
   "cookie-message.accept": "Accept",
-  "cookie-message.decline": "Decline"
+  "cookie-message.decline": "Decline",
+
+  "highlighted-articles": "Highlighted articles",
+  "about-us": "About us"
 }

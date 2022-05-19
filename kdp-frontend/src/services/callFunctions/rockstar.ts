@@ -11,6 +11,9 @@ const rockstarService = {
   getArticleCount(rockstarId: string): Promise<AxiosResponse<any, any>> {
     return API.get(`article/count/rockstar/${rockstarId}`);
   },
+  getAllRockstars(): Promise<AxiosResponse<any, any>> {
+    return API.get(`/rockstar`);
+  },
 };
 
 export default rockstarService;

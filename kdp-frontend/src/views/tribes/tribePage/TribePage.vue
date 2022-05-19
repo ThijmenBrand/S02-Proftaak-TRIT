@@ -10,6 +10,7 @@
           :name="rockstar.name"
           :image="rockstar.image"
           :role="rockstar.role"
+          :view-details="true"
           class="profile-tag"
         />
       </div>
