@@ -72,7 +72,7 @@ namespace API_Rockstars.Controllers
             return count;
         }
 
-        // GET: api/Article with searchdata
+        // GET: api/Article with data
         [HttpGet("start/{start}/limit/{limit}")]
         public async Task<ActionResult<IEnumerable<Article>>> CopyGetArticles(int start, int limit, string data)
         {
