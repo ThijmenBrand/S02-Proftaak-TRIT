@@ -17,6 +17,8 @@ interface IState {
   currentPage: number;
   articleCount: number;
   cookieAccepted: CookieShape;
+  searchData: string;
+  foundedArticles: ArticleShape[];
 }
 
 export default createStore({
@@ -32,6 +34,8 @@ export default createStore({
       AcceptedAnalyticalCookies: false,
       AcceptedFunctionalCookies: false,
     }),
+    searchData: "",
+    foundedArticles: Array<ArticleShape>(),
   },
   getters: {
     getAllArticles: (state: IState): ArticleShape[] => {
@@ -48,6 +52,9 @@ export default createStore({
     },
     showCookieBanner: (state: IState) => {
       return state.cookieAccepted.ShowCookieBanner;
+    },
+    getFoundedArticles: (state: IState): ArticleShape[] => {
+      return state.foundedArticles;
     },
   },
   actions: {
@@ -70,6 +77,20 @@ export default createStore({
       if (status >= 200 && status <= 299) {
         context.state.loading = false;
         context.commit("SET_ARTICLE_COUNT", data);
+      }
+    },
+    getFoundedArticles: async (context: any, payload: any) => {
+      context.state.loading = true;
+      const { data, status } = await exporeService.getFoundedArticles(
+        (context.state.currentPage - 1) * payload,
+        payload,
+        context.state.searchData
+      );
+      console.log(context.state.foundedArticles);
+      console.log(data);
+      if (status >= 200 && status <= 299) {
+        context.state.loading = false;
+        context.commit("SET_FOUNDED_ARTICLES", data);
       }
     },
   },
@@ -100,6 +121,12 @@ export default createStore({
     },
     SET_COOKIE_BANNER_SHOW_FALSE: (state: IState) => {
       state.cookieAccepted.ShowCookieBanner = true;
+    },
+    SET_SEARCH_DATA: (state: IState, data: string) => {
+      state.searchData = data;
+    },
+    SET_FOUNDED_ARTICLES: (state: IState, data: ArticleShape[]) => {
+      state.foundedArticles = data;
     },
   },
   modules: {

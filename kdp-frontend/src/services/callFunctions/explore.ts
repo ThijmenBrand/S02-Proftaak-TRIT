@@ -8,6 +8,15 @@ const exploreService = {
   getArticleCount(): Promise<AxiosResponse<any, any>> {
     return API.get(`/article/count`);
   },
+  getFoundedArticles(
+    start: number,
+    limit: number,
+    searchData: string
+  ): Promise<AxiosResponse<any, any>> {
+    return API.get(`/article/start/${start}/limit/${limit}`, {
+      params: { data: searchData },
+    });
+  },
 };
 
 export default exploreService;
