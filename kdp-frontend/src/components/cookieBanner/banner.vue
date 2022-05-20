@@ -1,33 +1,44 @@
 <template>
   <div class="learn-more-modal" v-if="showLearnMoreModal">
     <div class="learn-more-modal-content">
-      <div class="learn-more-modal-header-container" >
-        <h1 class="learn-more-modal-header">{{ $t("cookie-message.learn-more.header") }}</h1>
-        <button class="learn-more-modal-button" @click="openLearnMore()">+</button>
+      <div class="learn-more-modal-header-container">
+        <h1 class="learn-more-modal-header">
+          {{ $t("cookie-message.learn-more.header") }}
+        </h1>
+        <button class="learn-more-modal-button" @click="openLearnMore()">
+          +
+        </button>
       </div>
       <p>
         {{ $t("cookie-message.learn-more.info") }}
       </p>
       <div class="learn-more-choises">
         <div class="cookie-option">
-
-          <label class="checkbox-container"> {{ $t("cookie-message.learn-more.options.allcookies") }}
+          <label class="checkbox-container">
+            {{ $t("cookie-message.learn-more.options.allcookies") }}
             <input type="checkbox" id="checkbox" v-model="allCookies" />
             <span class="checkmark"></span>
           </label>
         </div>
 
-        <div class="spacer"/>
+        <div class="spacer" />
 
         <div class="cookie-option">
-          <label class="checkbox-container">{{ $t("cookie-message.learn-more.options.Analyticalcookies") }}
+          <label class="checkbox-container"
+            >{{ $t("cookie-message.learn-more.options.Analyticalcookies") }}
             <input type="checkbox" id="checkbox" v-model="analyticalCookies" />
             <span class="checkmark"></span>
           </label>
         </div>
         <div class="cookie-option">
-          <label class="checkbox-container">{{ $t("cookie-message.learn-more.options.Functionalcookies") }}
-            <input type="checkbox" id="checkbox" v-model="functionalCookies" />
+          <label class="checkbox-container"
+            >{{ $t("cookie-message.learn-more.options.Functionalcookies") }}
+            <input
+              disabled
+              type="checkbox"
+              id="checkbox"
+              v-model="functionalCookies"
+            />
             <span class="checkmark"></span>
           </label>
         </div>
@@ -73,7 +84,7 @@ export default {
       },
       set(value: boolean) {
         analyticalCookies.value = value;
-        functionalCookies.value = value;
+        functionalCookies.value = true;
       },
     });
     const noCookies = computed({
@@ -82,7 +93,7 @@ export default {
       },
       set() {
         analyticalCookies.value = false;
-        functionalCookies.value = false;
+        functionalCookies.value = true;
       },
     });
     const savePreferences = () => {
@@ -125,4 +136,4 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped src="@/styles/componentStyles/cookie/cookie.scss"/>
+<style lang="scss" scoped src="@/styles/componentStyles/cookie/cookie.scss" />
