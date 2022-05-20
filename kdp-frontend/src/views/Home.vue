@@ -5,7 +5,7 @@
       <div class="left-pannel">
         <div class="interesting-tribes-container">
           <div class="interesting-tribes">
-            <p>Interesting tribes</p>
+            <p>{{ $t("home.interesting-tribes") }}</p>
             <div
               v-for="(tribe, index) in tribesList"
               :key="index"
@@ -67,7 +67,7 @@
         </div>
       </div>
       <div class="right-pannel">
-        <h3>Interesting rockstars</h3>
+        <h3>{{ $t("home.featured-rockstars") }}</h3>
         <div class="highlighted-rockstars">
           <profiletag
             v-for="(rockstar, index) in rockstars"
