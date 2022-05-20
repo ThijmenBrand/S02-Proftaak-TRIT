@@ -92,7 +92,7 @@ namespace API_Rockstars.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!RockstarExists(id))
+                if (!await RockstarExists(id))
                 {
                     return NotFound();
                 }
@@ -101,33 +101,6 @@ namespace API_Rockstars.Controllers
                     throw;
                 }
             }
-
-            return NoContent();
-        }
-
-        // POST: api/Rockstar
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost]
-        public async Task<ActionResult<Rockstar>> PostRockstar(Rockstar rockstar)
-        {
-            _context.Rockstars.Add(rockstar);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetRockstar", new {id = rockstar.Id}, rockstar);
-        }
-
-        // DELETE: api/Rockstar/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteRockstar(Guid id)
-        {
-            var rockstar = await _context.Rockstars.FindAsync(id);
-            if (rockstar == null)
-            {
-                return NotFound();
-            }
-
-            _context.Rockstars.Remove(rockstar);
-            await _context.SaveChangesAsync();
 
             return NoContent();
         }
@@ -152,9 +125,10 @@ namespace API_Rockstars.Controllers
             return role;
         }
 
-        private bool RockstarExists(Guid id)
+        private async Task<bool> RockstarExists(Guid id)
         {
-            return _context.Rockstars.Any(e => e.Id == id);
+            var rockstar = await _azure.GraphApi.Users[id.ToString()].Request().GetAsync();
+            return rockstar != null;
         }
     }
 }

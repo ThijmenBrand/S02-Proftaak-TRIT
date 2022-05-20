@@ -2,7 +2,7 @@
 
 public class AzureTribe
 {
-    public string id { get; set; }
+    public Guid? id { get; set; }
     public string displayName { get; set; }
     public string description { get; set; }
 }

@@ -19,7 +19,8 @@ namespace API_Rockstars.Controllers
             _context = context;
             _azure = new AzureConfiguration(configuration);
         }
-
+        
+        //Get all tribes
         // GET: api/Tribe
         [HttpGet]
         public async Task<ActionResult<IEnumerable<AzureTribe>>> GetTribes()
@@ -32,7 +33,7 @@ namespace API_Rockstars.Controllers
             {
                 tribes.Add(new AzureTribe
                 {
-                    id = group.Id,
+                    id = Guid.Parse(group.Id),
                     displayName = group.DisplayName,
                     description = group.Description
                 });
@@ -41,6 +42,7 @@ namespace API_Rockstars.Controllers
             return tribes;
         }
 
+        //Get a tribe by id
         // GET: api/Tribe/5
         [HttpGet("{id}")]
         public async Task<ActionResult<AzureTribe>> GetTribe(Guid id)
@@ -49,7 +51,7 @@ namespace API_Rockstars.Controllers
 
             AzureTribe tribe = new AzureTribe
             {
-                id = group.Id,
+                id = Guid.Parse(group.Id),
                 displayName = group.DisplayName,
                 description = group.Description
             };
@@ -57,10 +59,16 @@ namespace API_Rockstars.Controllers
             return tribe;
         }
         
+        //Get all rockstars in tribe by id
         // GET: api/Tribe/5
         [HttpGet("GetAllRockstars/{id}")]
         public async Task<ActionResult<List<AzureRockstar>>> GetRockstarsByTribe(Guid id)
         {
+            if(!await TribeExists(id))
+            {
+                return BadRequest("No tribe with given ID");
+            }
+
             var members = await _azure.GraphApi.Groups[id.ToString()].Members.Request().GetAsync();
 
             var rockstars = new List<AzureRockstar>();
@@ -99,6 +107,7 @@ namespace API_Rockstars.Controllers
             return rockstars;
         }
 
+        //Add rockstar to tribe
         [HttpPost("AddRockstar")]
         public async Task<ActionResult> AddRockstartToTribe(TribeRockstar tribeRockstar)
         {
@@ -111,72 +120,79 @@ namespace API_Rockstars.Controllers
 
             return Ok();
         }
-        
-        // PUT: api/Tribe/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutTribe(Guid id, Tribe tribe)
+
+        //Create tribe
+        // POST: api/Tribe
+        [HttpPost]
+        public async Task<ActionResult<AzureTribe>> PostTribe(AzureTribe tribe)
         {
-            if (id != tribe.Id)
+            var group = new Group
+            {
+                Description = tribe.description,
+                DisplayName = tribe.displayName,
+                MailEnabled = false,
+                MailNickname = tribe.displayName,
+                SecurityEnabled = true,
+            };
+
+            await _azure.GraphApi.Groups.Request().AddAsync(group);
+
+            return Ok();
+        }
+
+        //Update tribe
+        // PUT: api/Tribe
+        [HttpPut]
+        public async Task<IActionResult> PutTribe(AzureTribe tribe)
+        {
+            if (tribe.id == null)
             {
                 return BadRequest();
             }
 
-            _context.Entry(tribe).State = EntityState.Modified;
-
-            try
+            var group = new Group
             {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!TribeExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+                Description = tribe.description,
+                DisplayName = tribe.displayName,
+                MailEnabled = false,
+                MailNickname = tribe.displayName,
+                SecurityEnabled = true,
+            };
 
-            return NoContent();
-        }
-
-        // POST: api/Tribe
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost]
-        public async Task<ActionResult<Tribe>> PostTribe(Tribe tribe)
-        {
-            _context.Tribes.Add(tribe);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetTribe", new { id = tribe.Id }, tribe);
-        }
-
-        // DELETE: api/Tribe/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteTribe(Guid id)
-        {
-            var tribe = await _context.Tribes.FindAsync(id);
-            if (tribe == null)
+            if (!await TribeExists(tribe.id ?? default))
             {
                 return NotFound();
             }
 
-            _context.Tribes.Remove(tribe);
-            await _context.SaveChangesAsync();
+            await _azure.GraphApi.Groups[tribe.id.ToString()].Request().UpdateAsync(group);
 
-            return NoContent();
+            return Ok();
         }
 
-        private bool TribeExists(Guid id)
+        //Delete tribe
+        // DELETE: api/Tribe/5
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteTribe(Guid id)
         {
-            return _context.Tribes.Any(e => e.Id == id);
+            if (!await TribeExists(id))
+            {
+                return NotFound();
+            }
+            await _azure.GraphApi.Groups[id.ToString()]
+                .Request()
+                .DeleteAsync();
+
+            return Ok();
+        }
+
+        //Check if tribe exists
+        private async Task<bool> TribeExists(Guid id)
+        {
+            var group = await _azure.GraphApi.Groups[id.ToString()].Request().GetAsync();
+            return group != null;
         }
         
         //Spotify calls in tribe
-        
         [HttpGet("spotify/{id}")]
         public async Task<ActionResult<TribeSpotify>> GetTribeSpotify(Guid id)
         {
@@ -206,7 +222,7 @@ namespace API_Rockstars.Controllers
         [HttpPost("spotify")]
         public async Task<IActionResult> AddSpotifyToTribe(TribeSpotify tribeSpotify)
         {
-            if (!TribeExists(tribeSpotify.TribeId))
+            if (! await TribeExists(tribeSpotify.TribeId))
             {
                 return BadRequest("Tribe does not exists");
             }
