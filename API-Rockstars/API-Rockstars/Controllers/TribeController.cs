@@ -63,39 +63,37 @@ namespace API_Rockstars.Controllers
         {
             var members = await _azure.GraphApi.Groups[id.ToString()].Members.Request().GetAsync();
 
-            List<AzureRockstar> rockstars = new List<AzureRockstar>();
-
+            var rockstars = new List<AzureRockstar>();
+            
+            //Make list of all members with props
             foreach (var member in members)
             {
                 var rockstarData = await _azure.GraphApi.Users[member.Id].Request().GetAsync();
                 
-                RockstarRole rockstarRole = await _context.RockstarRoles.FirstOrDefaultAsync(x => x.TribeId == id && x.RockstarId.ToString() == rockstarData.Id);
-
-                if (rockstarRole != null)
+                rockstars.Add(new AzureRockstar
                 {
-                    Role role = await _context.Roles.FindAsync(rockstarRole.Id);
-                    if (role != null)
-                    {
-                        rockstars.Add(new AzureRockstar
-                        {
-                            id = rockstarData.Id,
-                            displayName = rockstarData.DisplayName,
-                            userPrincipalName = rockstarData.UserPrincipalName,
-                            role = role.Name
-                        });
-                    }
-                    else
-                    {
-                        rockstars.Add(new AzureRockstar
-                        {
-                            id = rockstarData.Id,
-                            displayName = rockstarData.DisplayName,
-                            userPrincipalName = rockstarData.UserPrincipalName,
-                            role = "Rockstar"
-                        });
-                    }
+                    id = rockstarData.Id,
+                    displayName = rockstarData.DisplayName,
+                    userPrincipalName = rockstarData.UserPrincipalName,
+                });
+            }
 
+            //Get role per rockstar in list
+            foreach (var rockstar in rockstars)
+            {
+                var rockstarRole =
+                    await _context.RockstarRoles.FirstOrDefaultAsync(x => x.TribeId == id && x.RockstarId.ToString() == rockstar.id);
+
+                if (rockstarRole == null)
+                {
+                    rockstar.role = "Rockstar";
                 }
+                else
+                {
+                    var role = await _context.Roles.FindAsync(rockstarRole.RoleId);
+                    rockstar.role = role != null ? role.Name : "Rockstar";
+                }
+                
             }
 
             return rockstars;
