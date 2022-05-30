@@ -1,0 +1,25 @@
+@import "@/styles/variables.scss";
+
+.profile-tag-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: baseline;
+  color: white;
+
+  .profile-image {
+    height: 100px;
+    width: 100px;
+    object-fit: cover;
+  }
+  .details-container {
+    margin-left: 5%;
+    .rockstar-role {
+      color: $trit-gray;
+      font-size: 0.7em;
+      margin-top: -10px;
+    }
+    .rockstar {
+      font-size: 20px;
+    }
+  }
+}

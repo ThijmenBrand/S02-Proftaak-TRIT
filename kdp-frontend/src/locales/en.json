@@ -13,6 +13,9 @@
   "menu.change-language-prompt.flags.generic": "Country flag depicting a possible display language",
   "homepage.header": "Homepage",
   "tribes-overview-page.header": "All tribes",
+  "home.interesting-tribes": "Interesting tribes",
+  "home.featured-rockstars": "Featured rockstars",
+  "home.highlighted-articles": "Highlighted-articles",
   "articles-overview.header": "Articles",
   "rockstar-page.profile-picture-alt-text": "Profile picture of {name}",
   "rockstar-page.socials.twitter-icon-alt-text": "Twitter icon",
@@ -42,7 +45,7 @@
   "article-page.comment-placeholder": "What did you think about this article?",
   "article-page.button-text": "Comment",
   "article-page.comment-title": "Comments",
-  "article-page.comment-remaining-char":"characters remaining",
+  "article-page.comment-remaining-char": "characters remaining",
 
   "article-page.comment-error": "This is a required field!",
   "article-page.comment-login-message": "Log in to post a comment.",

@@ -43,4 +43,8 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped />
+<style
+  lang="scss"
+  scoped
+  src="@/styles/componentStyles/profile-tag/profile-tag.scss"
+/>

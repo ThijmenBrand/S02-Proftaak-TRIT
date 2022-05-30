@@ -1,23 +1,33 @@
 <template>
-  <div class="main">
-    <div class="flex-container">
-      <div class="left-flexbox">
+  <div class="background-container">
+    <Loader v-if="loading" />
+    <div v-else class="content-container">
+      <div class="left-pannel">
         <div class="interesting-tribes-container">
-          <Loader v-if="loading" />
-          <h3 v-else v-for="(tribe, index) in tribesList" :key="index">
-            <router-link
-              :to="{
-                name: 'tribe',
-                params: { tribe: tribe.id },
-              }"
-              class="tribe-link"
+          <div class="interesting-tribes">
+            <p>{{ $t("home.interesting-tribes") }}</p>
+            <div
+              v-for="(tribe, index) in tribesList"
+              :key="index"
+              class="tribe-item"
             >
-              {{ tribe.name }}
-            </router-link>
-          </h3>
+              <router-link
+                :to="{
+                  name: 'tribe',
+                  params: { tribe: tribe.id },
+                }"
+                class="tribe-link"
+              >
+                <img src="@/assets/images/icon-fastforward.svg" />
+                {{ tribe.name }}
+              </router-link>
+            </div>
+          </div>
+
+          <hr />
         </div>
         <div class="about-container">
-          <h1>{{$t("about-us")}}</h1>
+          <h3>{{ $t("about-us") }}</h3>
           <p>
             Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quisquam
             aperiam cumque repudiandae qui libero ab accusamus deleniti nulla ad
@@ -27,19 +37,12 @@
             velit harum consequuntur.
           </p>
         </div>
-
         <div class="highlighted-articles">
-          <h1>
+          <h3>
             {{ $t("highlighted-articles") }}
-          </h1>
+          </h3>
           <div class="articles-wrapper">
-            <div v-if="loading">
-              <Loader />
-            </div>
-            <div
-              class="articles-container"
-              v-else-if="!loading && articles.length > 0"
-            >
+            <div class="articles-container" v-if="articles.length > 0">
               <router-link
                 v-for="(article, index) in articles"
                 :key="index"
@@ -63,19 +66,20 @@
           </div>
         </div>
       </div>
-
-      <div class="right-flexbox">
+      <div class="right-pannel">
+        <h3>{{ $t("home.featured-rockstars") }}</h3>
         <div class="highlighted-rockstars">
           <profiletag
-          v-for="(rockstar, index) in rockstars"
-          :key="index"
-          :id="rockstar.id"
-          :name="rockstar.name"
-          :image="rockstar.image"
-          :role="rockstar.role"
-          :view-details="false"
-          class="profile-tag"
-        />
+            v-for="(rockstar, index) in rockstars"
+            :key="index"
+            :id="rockstar.id"
+            :name="rockstar.name"
+            :image="rockstar.image"
+            :desc="rockstar.description"
+            :role="rockstar.role"
+            :view-details="false"
+            class="profile-tag"
+          />
         </div>
       </div>
     </div>
@@ -83,20 +87,20 @@
 </template>
 
 <script lang="ts">
-import { computed, onMounted, ref } from "vue";
+import { computed, onMounted } from "vue";
 import { useStore } from "vuex";
-import Loader from "@/components/loader/Loader.vue";
 import ArticleShape from "@/models/Article";
 import ArticlePreview from "@/components/articlePreview/ArticlePreview.vue";
-import { TribeShape } from '@/models/Tribe';
-import { RockstarShape } from '@/models/Rockstar';
-import profiletag from "@/components/profileTag/Profiletag.vue"
+import { TribeShape } from "@/models/Tribe";
+import { RockstarShape } from "@/models/Rockstar";
+import profiletag from "@/components/profileTag/square-tag.vue";
+import Loader from "@/components/loader/Loader.vue";
 
 export default {
   components: {
     ArticlePreview,
-    Loader,
     profiletag,
+    Loader,
   },
 
   setup() {
@@ -116,8 +120,7 @@ export default {
 
     const rockstars = computed((): RockstarShape[] => {
       return store.getters["getAllRockstars"];
-    }
-    );
+    });
 
     const tribesList = computed((): TribeShape[] => {
       const list = store.getters["tribes/getAllTribesList"];
