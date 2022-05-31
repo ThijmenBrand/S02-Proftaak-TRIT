@@ -1,13 +1,9 @@
 #nullable disable
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using API_Rockstars;
 using API_Rockstars.Models;
+using API_Rockstars.Azure;
+
 
 namespace API_Rockstars.Controllers
 {
@@ -16,35 +12,52 @@ namespace API_Rockstars.Controllers
     public class RockstarController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
+        private readonly AzureConfiguration _azure;
 
-        public RockstarController(ApplicationDbContext context)
+        public RockstarController(ApplicationDbContext context, IConfiguration configuration)
         {
             _context = context;
+            _azure = new(configuration);
         }
 
         // GET: api/Rockstar
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Rockstar>>> GetRockstars()
+        public async Task<ActionResult<List<AzureRockstar>>> GetRockstars()
         {
-            return await _context.Rockstars.ToListAsync();
+            var apiRes = await _azure.GraphApi.Users.Request().GetAsync();
+            List<AzureRockstar> azureRockstars = new List<AzureRockstar>();
+
+            foreach (var user in apiRes)
+            {
+                azureRockstars.Add(new AzureRockstar
+                {
+                    id = user.Id,
+                    displayName = user.DisplayName,
+                    userPrincipalName = user.UserPrincipalName
+                });
+            }
+
+            return azureRockstars;
         }
 
         // GET: api/Rockstar/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Rockstar>> GetRockstar(Guid id)
+        public async Task<ActionResult<AzureRockstar>> GetRockstar(Guid id)
         {
-            var rockstar = await _context.Rockstars.FindAsync(id);
+            var apiRes = await _azure.GraphApi.Users[id.ToString()].Request().GetAsync();
 
-            if (rockstar == null)
+            AzureRockstar rockstar = new AzureRockstar
             {
-                return NotFound();
-            }
+                id = apiRes.Id,
+                displayName = apiRes.DisplayName,
+                userPrincipalName = apiRes.UserPrincipalName
+            };
 
             return rockstar;
         }
 
         [HttpPost("AddRollToRockstar")]
-        public async Task<ActionResult<Rockstar>> AddRoleToRockstar(RockstarRole rockstarRole)
+        public async Task<ActionResult> AddRoleToRockstar(RockstarRole rockstarRole)
         {
             RockstarRole checkDuplicate = _context.RockstarRoles.FirstOrDefault(x =>
                 x.TribeId == rockstarRole.TribeId && x.RoleId == rockstarRole.RoleId &&
@@ -79,7 +92,7 @@ namespace API_Rockstars.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!RockstarExists(id))
+                if (!await RockstarExists(id))
                 {
                     return NotFound();
                 }
@@ -88,33 +101,6 @@ namespace API_Rockstars.Controllers
                     throw;
                 }
             }
-
-            return NoContent();
-        }
-
-        // POST: api/Rockstar
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost]
-        public async Task<ActionResult<Rockstar>> PostRockstar(Rockstar rockstar)
-        {
-            _context.Rockstars.Add(rockstar);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetRockstar", new {id = rockstar.Id}, rockstar);
-        }
-
-        // DELETE: api/Rockstar/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteRockstar(Guid id)
-        {
-            var rockstar = await _context.Rockstars.FindAsync(id);
-            if (rockstar == null)
-            {
-                return NotFound();
-            }
-
-            _context.Rockstars.Remove(rockstar);
-            await _context.SaveChangesAsync();
 
             return NoContent();
         }
@@ -139,9 +125,10 @@ namespace API_Rockstars.Controllers
             return role;
         }
 
-        private bool RockstarExists(Guid id)
+        private async Task<bool> RockstarExists(Guid id)
         {
-            return _context.Rockstars.Any(e => e.Id == id);
+            var rockstar = await _azure.GraphApi.Users[id.ToString()].Request().GetAsync();
+            return rockstar != null;
         }
     }
 }
