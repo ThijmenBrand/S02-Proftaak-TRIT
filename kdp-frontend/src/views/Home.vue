@@ -1,3 +1,4 @@
+
 <template>
   <div class="background-container">
     <Loader v-if="loading" />
@@ -24,7 +25,7 @@
             </div>
           </div>
 
-          <hr />
+          <hr class="line" />
         </div>
         <div class="about-container">
           <h3>{{ $t("about-us") }}</h3>

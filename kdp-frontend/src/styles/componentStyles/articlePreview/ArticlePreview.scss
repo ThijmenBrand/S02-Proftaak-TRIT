@@ -62,3 +62,10 @@
     }
   }
 }
+
+@media only screen and (max-width: 480px) {
+  /* for mobile screens < 1000px */
+  .content {
+    word-break: break-all;
+  }
+}

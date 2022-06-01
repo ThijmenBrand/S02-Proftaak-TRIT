@@ -36,7 +36,9 @@ export default {
   },
   setup() {
     const cutDesc = (desc: string) => {
-      return desc.length < 50 ? desc : desc.slice(0, 50);
+      if (desc != null){
+        return desc.length < 50 ? desc : desc.slice(0, 50);
+      }
     };
 
     return { cutDesc };
