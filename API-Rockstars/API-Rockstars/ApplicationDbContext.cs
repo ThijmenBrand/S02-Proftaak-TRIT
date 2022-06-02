@@ -19,4 +19,5 @@ public class ApplicationDbContext : DbContext
     public DbSet<Article> Articles { get; set; }
     public DbSet<ArticleView> ArticleViews { get; set; }
     public DbSet<API_Rockstars.Models.Comment> Comment { get; set; }
+    public DbSet<ArticleLike> ArticleLike { get; set; }
 }
