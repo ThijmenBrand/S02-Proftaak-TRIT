@@ -19,5 +19,6 @@ public class Article
     [DefaultValue(false)] public bool Published { get; set; }
     [DefaultValue(false)]public bool Concept { get; set; }
     public int TotalViewCount { get; set; }
+    public int LikeCount { get; set; }
     public DateTime PublishDate { get; set; }
 }

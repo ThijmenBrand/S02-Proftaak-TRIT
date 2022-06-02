@@ -116,7 +116,7 @@ namespace API_Rockstars.Controllers
 
             comment.CommentDate = DateTime.Now.ToUniversalTime();
 
-            if (comment.CommentText != "")
+            if (comment.CommentText == "")
             {
                 return NoContent();
             }
