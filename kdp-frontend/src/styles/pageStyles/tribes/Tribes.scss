@@ -26,3 +26,10 @@
     }
   }
 }
+
+@media only screen and (max-width: 480px) {
+  .content-container {
+    display: flex;
+    justify-content: center;
+  }
+}
