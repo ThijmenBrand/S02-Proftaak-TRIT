@@ -148,7 +148,7 @@ namespace API_Rockstars.Controllers
             return role;
         }
 
-        [HttpGet("getimage")]
+        [HttpGet("getimage/{id}")]
         public async Task<ActionResult<byte[]>> GetRockstarImage(Guid id)
         {
             var apiRes = await _azure.GraphApi.Users[id.ToString()].Photo.Content.Request().GetAsync();
