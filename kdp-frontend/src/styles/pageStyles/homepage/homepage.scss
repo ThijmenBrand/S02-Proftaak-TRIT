@@ -75,9 +75,8 @@
   .right-pannel {
     display: none;
   }
-  .interesting-tribes {
-    flex-direction: column;
-    align-items: center;
+  .interesting-tribes-container {
+    display: none;
   }
   .content-container {
     .left-pannel {
@@ -98,5 +97,4 @@
     margin: 0;
     width: 100%;
   }
-
 }
