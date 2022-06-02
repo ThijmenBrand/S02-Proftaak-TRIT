@@ -3,8 +3,10 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using API_Rockstars.Models;
 using API_Rockstars.Azure;
+using Microsoft.Graph;
 using SendGrid;
 using SendGrid.Helpers.Mail;
+using EmailAddress = SendGrid.Helpers.Mail.EmailAddress;
 
 namespace API_Rockstars.Controllers
 {
@@ -144,6 +146,21 @@ namespace API_Rockstars.Controllers
             }
 
             return role;
+        }
+
+        [HttpGet("getimage")]
+        public async Task<ActionResult<byte[]>> GetRockstarImage(Guid id)
+        {
+            var apiRes = await _azure.GraphApi.Users[id.ToString()].Photo.Content.Request().GetAsync();
+            var stream = new byte[] {};
+
+            using(var memoryStream = new MemoryStream())
+            { 
+                await apiRes.CopyToAsync(memoryStream);
+                stream = memoryStream.ToArray();
+            }
+            
+            return stream;
         }
 
         private async Task<bool> RockstarExists(Guid id)
