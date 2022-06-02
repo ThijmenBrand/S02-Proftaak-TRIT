@@ -115,13 +115,10 @@ export default {
     });
 
     const articles = computed((): ArticleShape[] => {
-      console.log(store.getters["getAllArticles"]);
       return store.getters["getAllArticles"];
     });
 
     const rockstars = computed((): RockstarShape[] => {
-      console.log(store.getters["getAllRockstars"]);
-
       return store.getters["getAllRockstars"];
     });
 
