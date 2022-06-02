@@ -30,6 +30,7 @@ const tribes = {
         tribeName: "",
         viewCount: 0,
         totalViewCount: 0,
+        likes: 0,
         publishDate: new Date(),
       },
       rockstar: {
@@ -98,6 +99,12 @@ const tribes = {
       viewCount.frontendUserId = localStorage.getItem("UserId-uuid");
       const { data, status } = await articleService.updateViewCount(viewCount);
     },
+    incrementViewCount: async (context: any, articleId: string): Promise<void> => {
+      const likeCount = context.state.likeCount;
+      likeCount.articleId = articleId;
+      likeCount.frontendUserId = localStorage.getItem("UserId-uuid");
+      const {data, status} = await articleService.likeArticle(likeCount);
+    }
     getComments: async (context: any, articleId: string) => {
       context.rootState.loading = true;
       const { data, status } = await articleService.getComments(articleId);
@@ -127,6 +134,7 @@ const tribes = {
         tribeName: "",
         viewCount: 0,
         totalViewCount: 0,
+        likes: 0,
         publishDate: "",
       };
       state.comments = [
