@@ -284,7 +284,66 @@ namespace API_Rockstars.Controllers
 
             return NoContent();
         }
-        
+
+        [HttpPut("incrementLikeCount")]
+        public async Task<IActionResult> IncrementLikeCount(string userId, Guid articleId)
+        {
+            //Check if article exists
+            if (!ArticleExists(articleId))
+            {
+                return BadRequest("Article does not exist.");
+            }
+            //Check if article has already been liked
+            var isAlreadyLiked = await _context.ArticleLike.AnyAsync(al => al.FrontendUserId == userId && al.ArticleId == articleId);
+            if (isAlreadyLiked)
+            {
+                return BadRequest("Article has already been liked by this user.");
+            }
+            //Create articleLike
+            var articleLike = new ArticleLike
+            {
+                ArticleId = articleId,
+                FrontendUserId = userId
+            };
+            //Add articleLike
+            _context.ArticleLike.Add(articleLike);
+            
+            //Increment LikeCount in article
+            Article article = await _context.Articles.FirstOrDefaultAsync(a => a.Id == articleId);
+            article.LikeCount++;
+
+            //Save changes
+            await _context.SaveChangesAsync();
+            return Ok();
+        }
+
+        [HttpPut("decrementLikeCount")]
+        public async Task<IActionResult> DecrementLikeCount(string userId, Guid articleId)
+        {
+            //Check if article exists
+            if (!ArticleExists(articleId))
+            {
+                return BadRequest("Article does not exist.");
+            }
+            //Check if article has already been liked
+            var isAlreadyLiked = await _context.ArticleLike.AnyAsync(al => al.FrontendUserId == userId && al.ArticleId == articleId);
+            if (!isAlreadyLiked)
+            {
+                return BadRequest("Article has not yet been liked, thus cannot be unliked.");
+            }
+            //Remove articleLike
+            ArticleLike articleLike = await _context.ArticleLike.FirstOrDefaultAsync(a => a.FrontendUserId == userId && a.ArticleId == articleId);
+            _context.ArticleLike.Remove(articleLike);
+            
+
+            //Decrement LikeCount in article
+            Article article = await _context.Articles.FirstOrDefaultAsync(a => a.Id == articleId);
+            article.LikeCount--;
+
+            //Save changes
+            await _context.SaveChangesAsync();
+            return Ok();
+        }
 
         private bool ArticleExists(Guid id)
         {
@@ -313,5 +372,7 @@ namespace API_Rockstars.Controllers
 
             return articles;
         }
+
+
     }
 }
