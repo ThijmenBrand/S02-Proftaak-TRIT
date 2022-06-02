@@ -10,7 +10,7 @@
       :src="rockstar.image"
     />
     <div class="rockstar-info">
-      <p>{{ rockstar.name }}</p>
+      <p>{{ rockstar.displayName }}</p>
       <div class="socials">
         <a
           v-if="rockstar.twitter != null"
