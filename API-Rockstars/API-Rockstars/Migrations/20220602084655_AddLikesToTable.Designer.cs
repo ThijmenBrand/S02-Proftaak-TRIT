@@ -4,6 +4,7 @@ using API_Rockstars;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace API_Rockstars.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220602084655_AddLikesToTable")]
+    partial class AddLikesToTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -27,9 +29,6 @@ namespace API_Rockstars.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
-
-                    b.Property<bool>("Concept")
-                        .HasColumnType("bit");
 
                     b.Property<string>("Content")
                         .IsRequired()
@@ -63,24 +62,6 @@ namespace API_Rockstars.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Articles");
-                });
-
-            modelBuilder.Entity("API_Rockstars.Models.ArticleLike", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("ArticleId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("FrontendUserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("ArticleLike");
                 });
 
             modelBuilder.Entity("API_Rockstars.Models.ArticleView", b =>
