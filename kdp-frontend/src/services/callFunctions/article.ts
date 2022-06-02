@@ -16,6 +16,9 @@ const articleService = {
   postComment(opts: CommentShape): Promise<AxiosResponse<any, any>> {
     return API.post("/comment", opts);
   },
+  likeArticle(userId: string, articleId: string): Promise<AxiosResponse<any, any>>{
+    return API.put("/article/incrementLikeCount", )
+  }
 };
 
 export default articleService;
