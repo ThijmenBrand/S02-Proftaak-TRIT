@@ -7,9 +7,9 @@
     }"
   >
     <div class="profile-tag-container">
-      <img
+      <img v-if="image != null"
         class="profile-image"
-        :src="image"
+        :src="`data:image/png;base64,${image}`"
         :alt="$t('rockstar-page.profile-picture-alt-text', { name: this.name })"
       />
       <div class="details-container">

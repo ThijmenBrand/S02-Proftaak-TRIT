@@ -2,8 +2,6 @@ import ArticleShape from "@/models/Article";
 import { RockstarShape } from "@/models/Rockstar";
 import articleService from "@/services/callFunctions/article";
 import rockstarService from "@/services/callFunctions/rockstar";
-import pfPlaceholder from "@/assets/profilePlaceholder";
-import SetProfilePicture from "@/services/profilePictureHelper";
 import { ViewCountShape } from "@/models/ViewCountShape";
 import getCustomDateTime from "@/services/customDateTime";
 import { ActionContext } from "vuex";
@@ -148,11 +146,11 @@ const tribes = {
     },
     SET_ROCKSTAR: (state: articleState, data: RockstarShape): void => {
       state.rockstar = data;
-      if (state.rockstar.image == null) {
-        state.rockstar.image = pfPlaceholder;
-      } else {
-        state.rockstar.image = SetProfilePicture(data.image);
-      }
+      // if (state.rockstar.image == null) {
+      //   state.rockstar.image = pfPlaceholder;
+      // } else {
+      //   state.rockstar.image = SetProfilePicture(data.image);
+      // }
     },
     SET_COMMENTS: (state: articleState, data: CommentShape[]) => {
       state.comments = data;
