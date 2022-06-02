@@ -151,8 +151,18 @@ namespace API_Rockstars.Controllers
         [HttpGet("getimage/{id}")]
         public async Task<ActionResult<byte[]>> GetRockstarImage(Guid id)
         {
-            var apiRes = await _azure.GraphApi.Users[id.ToString()].Photo.Content.Request().GetAsync();
-            var stream = new byte[] {};
+            Stream apiRes;
+            try
+            {
+                apiRes = await _azure.GraphApi.Users[id.ToString()].Photo.Content.Request().GetAsync();
+            }
+            catch 
+            {
+                return NoContent();
+            }
+            
+            
+            byte[] stream;
 
             using(var memoryStream = new MemoryStream())
             { 
