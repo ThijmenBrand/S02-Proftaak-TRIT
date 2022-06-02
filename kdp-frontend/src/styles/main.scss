@@ -49,6 +49,7 @@ h3 {
   font-size: 36px;
   line-height: 88.89%;
   font-weight: bold;
+  text-transform: uppercase;
 }
 
 h4 {
@@ -93,4 +94,11 @@ p {
 
 a {
   text-decoration: none;
+}
+
+@media only screen and (max-width: 480px) {
+  h3, p {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
 }
