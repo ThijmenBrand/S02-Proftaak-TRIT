@@ -36,7 +36,7 @@ export default {
   },
   setup() {
     const cutDesc = (desc: string) => {
-      if (desc != null){
+      if (desc != null) {
         return desc.length < 50 ? desc : desc.slice(0, 50);
       }
     };

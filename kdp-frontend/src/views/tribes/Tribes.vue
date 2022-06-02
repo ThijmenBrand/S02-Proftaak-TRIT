@@ -15,7 +15,7 @@
               }"
               class="tribe-link"
             >
-              {{ tribe.name }}
+              {{ tribe.displayName }}
             </router-link>
           </h3>
         </div>
@@ -44,7 +44,7 @@ export default {
     });
 
     const tribesList = computed((): TribeShape[] => {
-      const list = store.getters["tribes/getAllTribesList"];
+      const list = store.getters["tribes/getAllTribesList"];  
       return list;
     });
 
