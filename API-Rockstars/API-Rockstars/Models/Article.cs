@@ -18,5 +18,6 @@ public class Article
     [NotMapped] public int? ViewCount { get; set; }
     [DefaultValue(false)] public bool Published { get; set; }
     public int TotalViewCount { get; set; }
+    public int LikeCount { get; set; }
     public DateTime PublishDate { get; set; }
 }
