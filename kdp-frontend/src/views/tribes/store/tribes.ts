@@ -2,8 +2,6 @@ import ArticleShape from "@/models/Article";
 import { RockstarShape } from "@/models/Rockstar";
 import { TribeShape } from "@/models/Tribe";
 import tribeService from "@/services/callFunctions/tribe";
-import pfPlaceholder from "@/assets/profilePlaceholder";
-import SetProfilePicture from "@/services/profilePictureHelper";
 
 interface tribesState {
   tribesList: TribeShape[];
@@ -118,11 +116,6 @@ const tribes = {
       data.forEach((rockstar) => {
         if (!rockstar.role) {
           rockstar.role = "Rockstar";
-        }
-        if (rockstar.image == null) {
-          rockstar.image = pfPlaceholder;
-        } else {
-          rockstar.image = SetProfilePicture(rockstar.image);
         }
       });
       state.rockstarsList = data.sort((a, b) => {
