@@ -28,15 +28,8 @@
           <hr class="line" />
         </div>
         <div class="about-container">
-          <h3>{{ $t("about-us") }}</h3>
-          <p>
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quisquam
-            aperiam cumque repudiandae qui libero ab accusamus deleniti nulla ad
-            facilis adipisci rem aliquam repellendus, quas, esse, quos commodi
-            labore vitae praesentium odit ea necessitatibus minus. Vel eius ab
-            dicta perferendis eos esse, labore laudantium aperiam facilis culpa
-            velit harum consequuntur.
-          </p>
+          <h3>{{ $t("home.about-us.header") }}</h3>
+          <p>{{ $t("home.about-us.text") }}</p>
         </div>
         <div class="highlighted-articles">
           <h3>
