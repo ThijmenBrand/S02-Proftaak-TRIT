@@ -3,11 +3,15 @@
 .background-container {
   .tribes-links-container {
     min-height: calc(100vh - 264.5px);
+    padding-top: 1em;
+
     .tribes-links-flexbox {
       display: flex;
       justify-content: center;
       flex-direction: row;
       flex-wrap: wrap;
+      gap: 1em;
+
       h3 {
         color: $trit-white;
       }
