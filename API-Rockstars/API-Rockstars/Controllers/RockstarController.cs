@@ -14,11 +14,13 @@ namespace API_Rockstars.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly AzureConfiguration _azure;
+        private IConfiguration _configuration;
 
         public RockstarController(ApplicationDbContext context, IConfiguration configuration)
         {
             _context = context;
             _azure = new(configuration);
+            _configuration = configuration;
         }
 
         // GET: api/Rockstar
@@ -60,7 +62,8 @@ namespace API_Rockstars.Controllers
         [HttpPost("SendRockstarOnDemand")]
         public async Task<ActionResult> SendRockstarOndemandRequest(RockstarOndemand rockstarOndemand)
         {
-            var client = new SendGridClient("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");
+            var key = _configuration.GetValue<string>("SendGridKey");
+            var client = new SendGridClient(key);
             var from = new EmailAddress("OnDemandRequest@rockstarmailtest.tk", rockstarOndemand.Name);
             var subject = "Rockstar OnDemand request from: " + rockstarOndemand.Name;
             var to = new EmailAddress(rockstarOndemand.ReceiverEmail, "");
@@ -68,7 +71,6 @@ namespace API_Rockstars.Controllers
             var htmlContent = "<strong>" + rockstarOndemand.Message + "</strong> <div> Preffered date:  " + rockstarOndemand.Date.ToLongDateString() + "</div> <div> From: " + rockstarOndemand.ReceiverEmail + "</div>";
             var msg = MailHelper.CreateSingleEmail(from, to, subject, plainTextContent, htmlContent);
             var response = await client.SendEmailAsync(msg);
-            Console.WriteLine(response.StatusCode);
 
             return Ok();
         }
