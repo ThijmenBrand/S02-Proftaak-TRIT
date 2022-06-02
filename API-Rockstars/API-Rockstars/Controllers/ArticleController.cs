@@ -128,20 +128,19 @@ namespace API_Rockstars.Controllers
                 return NoContent();
             }
 
-            Tribe tribe = await _context.Tribes.FindAsync(article.TribeId);
-            if (tribe != null)
+            var group = await _azure.GraphApi.Groups[article.TribeId.ToString()].Request().GetAsync();
+            if (group != null)
             {
-                article.TribeName = tribe.Name;
+                article.TribeName = group.DisplayName;
             }
-            
-            Rockstar rockstar = await _context.Rockstars.FindAsync(article.RockstarId);
+
+            var rockstar = await _azure.GraphApi.Users[article.RockstarId.ToString()].Request().GetAsync();
             if (rockstar != null)
             {
-                article.RockstarName = rockstar.Name;
+                article.RockstarName = rockstar.DisplayName;
             }
-            
-            var viewCount = await _context.ArticleViews.Where(x => x.ArticleId == article.Id).ToListAsync();
 
+            var viewCount = await _context.ArticleViews.Where(x => x.ArticleId == article.Id).ToListAsync();
             article.ViewCount = viewCount.Count();
 
             return article;
