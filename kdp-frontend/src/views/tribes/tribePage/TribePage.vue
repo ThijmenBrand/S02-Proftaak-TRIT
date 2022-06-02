@@ -1,13 +1,13 @@
 <template>
   <div class="information-page-main">
     <div class="tribes-overview">
-      <h3 class="tribe-title">{{ currentTribe.name }}</h3>
+      <h3 class="tribe-title">{{ currentTribe.displayName }}</h3>
       <div class="profile-container">
         <profiletag
           v-for="(rockstar, index) in rockstars"
           :key="index"
           :id="rockstar.id"
-          :name="rockstar.name"
+          :name="rockstar.displayName"
           :image="rockstar.image"
           :role="rockstar.role"
           :view-details="true"

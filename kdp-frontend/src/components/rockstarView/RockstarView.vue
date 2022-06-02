@@ -14,12 +14,8 @@
       </div>
       <div class="col-information">
         <div class="row-name">
-          <a class="DIN2014-Bold">{{ rockstar.name }}</a>
+          <a class="DIN2014-Bold">{{ rockstar.displayName }}</a>
         </div>
-        <div class="row-description">
-          <a class="DIN2014-Regular">{{ rockstar.description }}</a>
-        </div>
-
         <div class="col-socials">
           <a
             v-if="rockstar.twitter != null"

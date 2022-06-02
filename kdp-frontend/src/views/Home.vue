@@ -20,7 +20,7 @@
                 class="tribe-link"
               >
                 <img src="@/assets/images/icon-fastforward.svg" />
-                {{ tribe.name }}
+                {{ tribe.displayName }}
               </router-link>
             </div>
           </div>
@@ -74,9 +74,8 @@
             v-for="(rockstar, index) in rockstars"
             :key="index"
             :id="rockstar.id"
-            :name="rockstar.name"
+            :name="rockstar.displayName"
             :image="rockstar.image"
-            :desc="rockstar.description"
             :role="rockstar.role"
             :view-details="false"
             class="profile-tag"
@@ -116,10 +115,13 @@ export default {
     });
 
     const articles = computed((): ArticleShape[] => {
+      console.log(store.getters["getAllArticles"]);
       return store.getters["getAllArticles"];
     });
 
     const rockstars = computed((): RockstarShape[] => {
+      console.log(store.getters["getAllRockstars"]);
+
       return store.getters["getAllRockstars"];
     });
 
