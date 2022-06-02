@@ -14,6 +14,9 @@ const rockstarService = {
   getAllRockstars(): Promise<AxiosResponse<any, any>> {
     return API.get(`/rockstar`);
   },
+  getRockstarImage(id: string): Promise<AxiosResponse<any, any>> {
+    return API.get(`/rockstar/getimage/${id}`);
+  },
 };
 
 export default rockstarService;

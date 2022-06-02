@@ -1,9 +1,8 @@
 import { TribeShape } from "@/models/Tribe";
 import { createStore } from "vuex";
 import LocalStorageHandler from "@/services/localStorageHelper/LocalStorageHelper";
-import pfPlaceholder from "@/assets/profilePlaceholder";
 
-import exporeService from "@/services/callFunctions/explore";
+import exploreService from "@/services/callFunctions/explore";
 import rockstarService from "@/services/callFunctions/rockstar"
 
 import tribes from "@/views/tribes/store/tribes";
@@ -12,7 +11,6 @@ import rockstars from "@/views/rockstar/store/rockstars";
 import article from "@/views/article/store/article";
 import CookieShape, { BaseCookieShape } from "@/models/Cookie";
 import { RockstarShape } from "@/models/Rockstar";
-import SetProfilePicture from "@/services/profilePictureHelper";
 
 interface IState {
   loading: boolean;
@@ -69,7 +67,7 @@ export default createStore({
   actions: {
     getAllArticles: async (context: any, payload: any) => {
       context.state.loading = true;
-      const { data, status } = await exporeService.getAllArticles(
+      const { data, status } = await exploreService.getAllArticles(
         (context.state.currentPage - 1) * payload,
         payload
       );
@@ -82,15 +80,20 @@ export default createStore({
     getAllRockstars: async (context: any) => {
       context.state.loading = true;
       const { data, status } = await rockstarService.getAllRockstars();
-
+    
       if (status >= 200 && status <= 299) {
+
+        await data.forEach((data: any) => {
+          data.image = rockstarService.getRockstarImage(data.id);
+        });
+        
         context.state.loading = false;
         context.commit("SET_ALL_ROCKSTARS", data);
       }
     },
     getArticleCount: async (context: any) => {
       context.state.loading = true;
-      const { data, status } = await exporeService.getArticleCount();
+      const { data, status } = await exploreService.getArticleCount();
 
       if (status >= 200 && status <= 299) {
         context.state.loading = false;
@@ -99,7 +102,7 @@ export default createStore({
     },
     getFoundedArticles: async (context: any, payload: any) => {
       context.state.loading = true;
-      const { data, status } = await exporeService.getFoundedArticles(
+      const { data, status } = await exploreService.getFoundedArticles(
         (context.state.currentPage - 1) * payload,
         payload,
         context.state.searchData
@@ -114,13 +117,6 @@ export default createStore({
   },
   mutations: {
     SET_ALL_ROCKSTARS: (state, data: RockstarShape[]) => {
-      data.forEach((rockstar) => {
-        if (rockstar.image == null) {
-          rockstar.image = pfPlaceholder;
-        } else {
-          rockstar.image = SetProfilePicture(rockstar.image);
-        }
-      });
       state.rockstarList = data;
     },
     SET_ALL_ARTICLES: (state, data: ArticleShape[]) => {
@@ -129,7 +125,7 @@ export default createStore({
     SET_COOKIE_ACCEPTED: (state, data: CookieShape) => {
       console.log(data);
       let types: CookieShape;
-      if (data == null || data.ShowCookieBanner == true) {
+      if (data == null || data.ShowCookieBanner) {
         types = {
           ShowCookieBanner: true,
           AcceptedAllCookies: false,

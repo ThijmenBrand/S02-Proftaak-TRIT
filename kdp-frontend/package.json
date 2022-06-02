@@ -15,6 +15,7 @@
     "@azure/core-http": "^2.2.4",
     "@azure/msal-browser": "^2.23.0",
     "@azure/storage-blob": "^12.9.0",
+    "@microsoft/microsoft-graph-client": "^3.0.2",
     "@vue/cli": "^5.0.4",
     "axios": "^0.26.1",
     "body-parser": "^1.20.0",

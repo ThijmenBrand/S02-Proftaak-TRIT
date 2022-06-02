@@ -49,7 +49,7 @@
                 :key="index"
                 :to="{
                   name: 'article',
-                  params: { articleId: article.id },
+                  params: { articleId: article.id }
                 }"
                 class="article"
               >
@@ -115,13 +115,10 @@ export default {
     });
 
     const articles = computed((): ArticleShape[] => {
-      console.log(store.getters["getAllArticles"]);
       return store.getters["getAllArticles"];
     });
 
     const rockstars = computed((): RockstarShape[] => {
-      console.log(store.getters["getAllRockstars"]);
-
       return store.getters["getAllRockstars"];
     });
 
