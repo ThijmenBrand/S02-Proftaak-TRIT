@@ -3,7 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using API_Rockstars.Models;
 using API_Rockstars.Azure;
-
+using SendGrid;
+using SendGrid.Helpers.Mail;
 
 namespace API_Rockstars.Controllers
 {
@@ -55,6 +56,24 @@ namespace API_Rockstars.Controllers
 
             return rockstar;
         }
+
+        [HttpPost("SendRockstarOnDemand")]
+        public async Task<ActionResult> SendRockstarOndemandRequest(RockstarOndemand rockstarOndemand)
+        {
+            var client = new SendGridClient("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");
+            var from = new EmailAddress("OnDemandRequest@rockstarmailtest.tk", rockstarOndemand.Name);
+            var subject = "Rockstar OnDemand request from: " + rockstarOndemand.Name;
+            var to = new EmailAddress(rockstarOndemand.ReceiverEmail, "");
+            var plainTextContent = rockstarOndemand.Message;
+            var htmlContent = "<strong>" + rockstarOndemand.Message + "</strong> <div> Preffered date:  " + rockstarOndemand.Date.ToLongDateString() + "</div> <div> From: " + rockstarOndemand.ReceiverEmail + "</div>";
+            var msg = MailHelper.CreateSingleEmail(from, to, subject, plainTextContent, htmlContent);
+            var response = await client.SendEmailAsync(msg);
+            Console.WriteLine(response.StatusCode);
+
+            return Ok();
+        }
+
+
 
         [HttpPost("AddRollToRockstar")]
         public async Task<ActionResult> AddRoleToRockstar(RockstarRole rockstarRole)
