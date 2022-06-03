@@ -2,6 +2,8 @@ import ArticleShape from "@/models/Article";
 import { RockstarShape } from "@/models/Rockstar";
 import { TribeShape } from "@/models/Tribe";
 import tribeService from "@/services/callFunctions/tribe";
+import rockstarService from "@/services/callFunctions/rockstar";
+import PfPlaceholder from "@/assets/PfPlaceholder";
 
 interface tribesState {
   tribesList: TribeShape[];
@@ -76,6 +78,15 @@ const tribes = {
       );
 
       if (status >= 200 && status <= 299) {
+        for (const rockstar of data) {
+
+          const rockstarImage = await rockstarService.getImage(rockstar.id);
+          if (rockstarImage.data != "") {
+            rockstar.image = rockstarImage.data;
+          } else {
+            rockstar.image = PfPlaceholder
+          }
+        }
         context.rootState.loading = false;
         context.commit("SET_ROCKSTARS_BY_TRIBE", data);
       }

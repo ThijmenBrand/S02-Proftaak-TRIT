@@ -6,6 +6,7 @@ import { ViewCountShape } from "@/models/ViewCountShape";
 import getCustomDateTime from "@/services/customDateTime";
 import { ActionContext } from "vuex";
 import { CommentShape } from "@/models/Comment";
+import PfPlaceholder from "@/assets/PfPlaceholder";
 
 interface articleState {
   article: ArticleShape;
@@ -86,6 +87,12 @@ const tribes = {
       const { data, status } = await rockstarService.getRockstar(rockstarId);
 
       if (status >= 200 && status <= 299) {
+          const rockstarImage = await rockstarService.getImage(data.id);
+          if (rockstarImage.data != "") {
+            data.image = rockstarImage.data;
+          } else {
+            data.image = PfPlaceholder
+          }
         context.rootState.loading = false;
         context.commit("SET_ROCKSTAR", data);
       }

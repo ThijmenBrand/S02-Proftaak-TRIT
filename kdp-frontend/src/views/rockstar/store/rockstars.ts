@@ -1,6 +1,7 @@
 ﻿import { RockstarShape } from "@/models/Rockstar";
 import ArticleShape from "@/models/Article";
 import rockstarService from "@/services/callFunctions/rockstar";
+import PfPlaceholder from "@/assets/PfPlaceholder";
 
 interface rockstarState {
   rockstar: RockstarShape;
@@ -44,6 +45,13 @@ const rockstar = {
       const { data, status } = await rockstarService.getRockstar(rockstarId);
 
       if (status >= 200 && status <= 299) {
+          const rockstarImage = await rockstarService.getImage(data.id);
+          if (rockstarImage.data != "") {
+            data.image = rockstarImage.data;
+          } else {
+            data.image = PfPlaceholder
+          }
+          
         context.rootState.loading = false;
         context.commit("SET_ROCKSTAR", data);
       }

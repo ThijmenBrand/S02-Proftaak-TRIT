@@ -5,10 +5,10 @@
         <img
           :alt="
             $t('rockstar-page.profile-picture-alt-text', {
-              name: rockstar.name,
+              name: rockstar.displayName,
             })
           "
-          :src="rockstar.image"
+          :src="`data:image/png;base64,${rockstar.image}`"
           class="rockstar-profile-image"
         />
       </div>
