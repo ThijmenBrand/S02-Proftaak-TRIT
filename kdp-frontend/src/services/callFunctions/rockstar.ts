@@ -1,5 +1,6 @@
 ﻿import API from "../api";
 import { AxiosResponse } from "axios";
+import  RockstarOnDemandRequest from "@/models/RockstarOnDemandRequest";
 
 const rockstarService = {
   getRockstar(rockstarId: string): Promise<AxiosResponse<any, any>> {
@@ -14,6 +15,10 @@ const rockstarService = {
   getAllRockstars(): Promise<AxiosResponse<any, any>> {
     return API.get(`/rockstar`);
   },
+  SendOnDemandRequest(OnDemandRequest: RockstarOnDemandRequest): Promise<AxiosResponse<any, any>> {
+    return API.post(`/rockstar/SendRockstarOnDemand`, OnDemandRequest);
+  },
+
 };
 
 export default rockstarService;

@@ -167,6 +167,8 @@
 import { RockstarShape } from "@/models/Rockstar";
 import { reactive, ref } from "vue";
 import Modal from "@/components/modal/Modal.vue";
+import rockstarService from "@/services/callFunctions/rockstar";
+import  RockstarOnDemandRequest from "@/models/RockstarOnDemandRequest";
 
 export default {
   name: "RockstarView",
@@ -221,7 +223,14 @@ export default {
         formValidation.dateValid &&
         formValidation.descriptionValid
       ) {
-        //window.location.href = "https://www.google.com";
+
+
+        rockstarService.SendOnDemandRequest( {
+          receiverEmail: "teun.mos@gmail.com",
+          senderEmail: onDemandRequest.email,
+          name: onDemandRequest.name,
+          message: onDemandRequest.description,
+          date: onDemandRequest.date.toString()} );
       }
     };
     return {
