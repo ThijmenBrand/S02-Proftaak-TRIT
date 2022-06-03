@@ -202,7 +202,7 @@ export default {
       dateValid: true,
       descriptionValid: true,
     });
-    const OnFormSubmit = () => {
+    const OnFormSubmit = async () => {
       onDemandRequest.name == ""
         ? (formValidation.nameValid = false)
         : (formValidation.nameValid = true);
@@ -225,12 +225,16 @@ export default {
       ) {
 
 
-        rockstarService.SendOnDemandRequest( {
+        const { data, status } = await rockstarService.SendOnDemandRequest( {
           receiverEmail: "teun.mos@gmail.com",
           senderEmail: onDemandRequest.email,
           name: onDemandRequest.name,
           message: onDemandRequest.description,
           date: onDemandRequest.date.toString()} );
+
+        if (status >= 200 && status <= 299) {
+          CloseModal();
+        }
       }
     };
     return {
