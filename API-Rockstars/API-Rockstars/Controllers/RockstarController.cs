@@ -3,10 +3,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using API_Rockstars.Models;
 using API_Rockstars.Azure;
-using Microsoft.Graph;
-using SendGrid;
-using SendGrid.Helpers.Mail;
-using EmailAddress = SendGrid.Helpers.Mail.EmailAddress;
+using Azure;
+using Azure.Communication.Email;
+using Azure.Communication.Email.Models;
 
 namespace API_Rockstars.Controllers
 {
@@ -64,19 +63,20 @@ namespace API_Rockstars.Controllers
         [HttpPost("SendRockstarOnDemand")]
         public async Task<ActionResult> SendRockstarOndemandRequest(RockstarOndemand rockstarOndemand)
         {
-            var key = _configuration.GetValue<string>("SendGridKey");
-            var client = new SendGridClient(key);
-            var from = new EmailAddress("OnDemandRequest@rockstarmailtest.tk", rockstarOndemand.Name);
-            var subject = "Rockstar OnDemand request from: " + rockstarOndemand.Name;
-            var to = new EmailAddress(rockstarOndemand.ReceiverEmail, "");
-            var plainTextContent = rockstarOndemand.Message;
-            var htmlContent = "<strong>" + rockstarOndemand.Message + "</strong> <div> Preffered date:  " + rockstarOndemand.Date.ToLongDateString() + "</div> <div> From: " + rockstarOndemand.ReceiverEmail + "</div>";
-            var msg = MailHelper.CreateSingleEmail(from, to, subject, plainTextContent, htmlContent);
-            var response = await client.SendEmailAsync(msg);
+            string connectionString = _configuration.GetValue<string>("ConnectionStrings:EmailSender");
+            EmailClient emailClient = new EmailClient(connectionString);
+
+            
+            EmailContent emailContent = new EmailContent("New rockstar Ondemand request from: " + rockstarOndemand.Name);
+            emailContent.PlainText = rockstarOndemand.Message;
+            emailContent.Html = "<strong>" + rockstarOndemand.Message + "</strong> <div style=\"margin - top: 30px;\" >Preferred date:  " + rockstarOndemand.Date.ToLongDateString() + " " + rockstarOndemand.Date.ToShortTimeString() + " UTC</div> <div> From: " + rockstarOndemand.SenderEmail + "</div>";
+            List<EmailAddress> emailAddresses = new List<EmailAddress> { new EmailAddress(rockstarOndemand.ReceiverEmail) { DisplayName = rockstarOndemand.Name } };
+            EmailRecipients emailRecipients = new EmailRecipients(emailAddresses);
+            EmailMessage emailMessage = new EmailMessage("DoNotReply@rockstarmailtest.tk", emailContent, emailRecipients);
+            SendEmailResult emailResult = emailClient.Send(emailMessage, CancellationToken.None);
 
             return Ok();
         }
-
 
 
         [HttpPost("AddRollToRockstar")]
