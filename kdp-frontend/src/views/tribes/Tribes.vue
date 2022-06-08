@@ -7,17 +7,13 @@
       <div class="tribes-links-container">
         <div class="tribes-links-flexbox">
           <Loader v-if="loading" />
-          <h3 v-else v-for="(tribe, index) in tribesList" :key="index">
-            <router-link
-              :to="{
-                name: 'tribe',
-                params: { tribe: tribe.id },
-              }"
-              class="tribe-link"
-            >
-              {{ tribe.displayName }}
-            </router-link>
-          </h3>
+          <TribeCard
+            v-else
+            v-for="(tribe, index) in tribesList"
+            :key="index"
+            :name="tribe.displayName"
+            :id="tribe.id"
+          />
         </div>
       </div>
     </div>
@@ -27,13 +23,15 @@
 <script lang="ts">
 import { computed, onMounted } from "vue";
 import { useStore } from "vuex";
+import TribeCard from "@/components/TribeCard/TribeCard.vue";
 
 import { TribeShape } from "@/models/Tribe";
 
 import Loader from "@/components/loader/Loader.vue";
+import Tribe from "@/services/callFunctions/tribe";
 export default {
   name: "Tribes",
-  components: { Loader },
+  components: { Loader, TribeCard },
   setup() {
     const store = useStore();
 
@@ -44,7 +42,7 @@ export default {
     });
 
     const tribesList = computed((): TribeShape[] => {
-      const list = store.getters["tribes/getAllTribesList"];  
+      const list = store.getters["tribes/getAllTribesList"];
       return list;
     });
 
