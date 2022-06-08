@@ -7,7 +7,7 @@
           name: rockstar.name,
         })
       "
-      :src="rockstar.image"
+      :src="`data:image/png;base64,${rockstar.image}`"
     />
     <div class="rockstar-info">
       <p>{{ rockstar.displayName }}</p>

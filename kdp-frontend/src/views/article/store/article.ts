@@ -2,12 +2,11 @@ import ArticleShape from "@/models/Article";
 import { RockstarShape } from "@/models/Rockstar";
 import articleService from "@/services/callFunctions/article";
 import rockstarService from "@/services/callFunctions/rockstar";
-import pfPlaceholder from "@/assets/profilePlaceholder";
-import SetProfilePicture from "@/services/profilePictureHelper";
 import { ViewCountShape } from "@/models/ViewCountShape";
 import getCustomDateTime from "@/services/customDateTime";
 import { ActionContext } from "vuex";
 import { CommentShape } from "@/models/Comment";
+import PfPlaceholder from "@/assets/PfPlaceholder";
 
 interface articleState {
   article: ArticleShape;
@@ -88,6 +87,12 @@ const tribes = {
       const { data, status } = await rockstarService.getRockstar(rockstarId);
 
       if (status >= 200 && status <= 299) {
+          const rockstarImage = await rockstarService.getImage(data.id);
+          if (rockstarImage.data != "") {
+            data.image = rockstarImage.data;
+          } else {
+            data.image = PfPlaceholder
+          }
         context.rootState.loading = false;
         context.commit("SET_ROCKSTAR", data);
       }
@@ -108,11 +113,7 @@ const tribes = {
       }
     },
     postComment: async (context: any, opts: CommentShape): Promise<void> => {
-      const { data, status } = await articleService.postComment(opts);
-
-      if (status >= 200 && status <= 299) {
-        context.commit("SET_COMMENTS", data);
-      }
+      await articleService.postComment(opts);
     },
   },
   mutations: {
@@ -148,11 +149,6 @@ const tribes = {
     },
     SET_ROCKSTAR: (state: articleState, data: RockstarShape): void => {
       state.rockstar = data;
-      if (state.rockstar.image == null) {
-        state.rockstar.image = pfPlaceholder;
-      } else {
-        state.rockstar.image = SetProfilePicture(data.image);
-      }
     },
     SET_COMMENTS: (state: articleState, data: CommentShape[]) => {
       state.comments = data;

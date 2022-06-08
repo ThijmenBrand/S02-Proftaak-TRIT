@@ -72,6 +72,8 @@
   "cookie-message.accept": "Accepteer",
   "cookie-message.decline": "Weiger",
 
+  "article-page.comment-success": "Reactie succesvol verstuurd voor goedkeuring",
+
   "highlighted-articles": "Uitgelichte artikelen",
   "about-us": "Over ons"
 }
