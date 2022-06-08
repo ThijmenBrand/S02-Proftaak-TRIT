@@ -71,6 +71,8 @@
   "cookie-message.learn-more.save": "Save preferences",
   "cookie-message.accept": "Accept",
   "cookie-message.decline": "Decline",
+  
+  "article-page.comment-success": "Comment successfully sent for approval",
 
   "highlighted-articles": "Highlighted articles",
   "about-us": "About us"

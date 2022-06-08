@@ -1,7 +1,6 @@
 import { TribeShape } from "@/models/Tribe";
 import { createStore } from "vuex";
 import LocalStorageHandler from "@/services/localStorageHelper/LocalStorageHelper";
-import pfPlaceholder from "@/assets/profilePlaceholder";
 
 import exporeService from "@/services/callFunctions/explore";
 import rockstarService from "@/services/callFunctions/rockstar"
@@ -12,7 +11,7 @@ import rockstars from "@/views/rockstar/store/rockstars";
 import article from "@/views/article/store/article";
 import CookieShape, { BaseCookieShape } from "@/models/Cookie";
 import { RockstarShape } from "@/models/Rockstar";
-import SetProfilePicture from "@/services/profilePictureHelper";
+import PfPlaceholder from "@/assets/PfPlaceholder";
 
 interface IState {
   loading: boolean;
@@ -84,6 +83,16 @@ export default createStore({
       const { data, status } = await rockstarService.getAllRockstars();
 
       if (status >= 200 && status <= 299) {
+        for (const rockstar of data) {
+          
+          const rockstarImage = await rockstarService.getImage(rockstar.id);
+          if (rockstarImage.data != "") {
+            rockstar.image = rockstarImage.data;
+          } else {
+            rockstar.image = PfPlaceholder
+          }
+        }
+
         context.state.loading = false;
         context.commit("SET_ALL_ROCKSTARS", data);
       }
@@ -114,13 +123,6 @@ export default createStore({
   },
   mutations: {
     SET_ALL_ROCKSTARS: (state, data: RockstarShape[]) => {
-      data.forEach((rockstar) => {
-        if (rockstar.image == null) {
-          rockstar.image = pfPlaceholder;
-        } else {
-          rockstar.image = SetProfilePicture(rockstar.image);
-        }
-      });
       state.rockstarList = data;
     },
     SET_ALL_ARTICLES: (state, data: ArticleShape[]) => {
