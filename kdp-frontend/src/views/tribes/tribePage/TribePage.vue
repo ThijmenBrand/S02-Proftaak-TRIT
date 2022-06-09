@@ -1,6 +1,6 @@
 <template>
   <div class="information-page-main">
-    <div class="tribes-overview">
+    <div v-if="!loading" class="tribes-overview">
       <h3 class="tribe-title">{{ currentTribe.displayName }}</h3>
       <div class="profile-container">
         <profiletag
@@ -16,17 +16,14 @@
       </div>
     </div>
     <div class="background-container">
-      <div class="content-container">
+      <div class="loader-container" v-if="loading">
+        <Loader />
+      </div>
+      <div :style="[loading ? { display: 'none' } : {}]" class="content-container">
         <h3 class="articles-overview-title">
           {{ $t("articles-overview.header") }}
         </h3>
-        <div class="loader-container" v-if="loading">
-          <Loader />
-        </div>
-        <div
-          class="articles-container"
-          v-else-if="!loading && articles.length > 0"
-        >
+        <div class="articles-container">
           <router-link
             :to="{ name: 'article', params: { articleId: article.id } }"
             v-for="(article, index) in tribeArticles"
@@ -41,8 +38,7 @@
             />
           </router-link>
         </div>
-
-        <p class="cookie-error" v-else>{{ $t("article.article-error") }}</p>
+      <p v-if="articles.length < 1" class="cookie-error">{{ $t("article.article-error") }}</p>
 
         <div :style="[loading || pageCount <= 1 ? { display: 'none' } : {}]">
           <page-select :PageCount="pageCount" @current-page="SetCurrentPage" />
@@ -93,41 +89,48 @@ export default {
   setup() {
     const route = useRoute();
     const store = useStore();
+    const loading = ref(true);
 
     const cookie = computed((): CookieShape => store.getters["cookieAccepted"]);
     const AcceptedFunctionalCookies =
       cookie.value.AcceptedAllCookies || cookie.value.AcceptedFunctionalCookies;
-    const loading = computed(() => store.getters["isLoading"]);
 
     const currentTribe = computed((): TribeShape => {
-      return store.getters["tribes/getCurrentTribe"];
+      const tribe = store.getters["tribes/getCurrentTribe"];
+      document.title = tribe.displayName;
+      return tribe;
     });
 
     onMounted(async () => {
+      document.title = "Loading...";
       store.commit("tribes/EMPTY_STORE");
       const tribeArticleParams = {
         tribeId: route.params.tribe,
         ArticlesPerPage: articlesPerPage.value,
       };
       store.commit("SET_CURRENT_PAGE", 1);
-      store.dispatch("tribes/getArticleCount", route.params.tribe);
+      await store.dispatch("tribes/getArticleCount", route.params.tribe);
       await store.dispatch("tribes/getArticlesByTribe", tribeArticleParams);
-      store.dispatch("tribes/getCurrentTribe", route.params.tribe);
-      store.dispatch("tribes/getRockstarsByTribe", route.params.tribe);
-      store.dispatch("tribes/getAllSpotifyByTribe", route.params.tribe);
+      await store.dispatch("tribes/getCurrentTribe", route.params.tribe);
+      await store.dispatch("tribes/getRockstarsByTribe", route.params.tribe);
+      await store.dispatch("tribes/getAllSpotifyByTribe", route.params.tribe);
+      
+      loading.value = false;
     });
 
     const articlesPerPage = ref(6);
-    const CurrentPage = ref(0);
+    const CurrentPage = ref(1);
 
-    const SetCurrentPage = (_page: number): void => {
+    const SetCurrentPage = async (_page: number) => {
+      loading.value = true;
       const tribeArticleParams = {
         tribeId: route.params.tribe,
         ArticlesPerPage: articlesPerPage.value,
       };
 
-      store.dispatch("tribes/getArticlesByTribe", tribeArticleParams);
+      await store.dispatch("tribes/getArticlesByTribe", tribeArticleParams);
       CurrentPage.value = _page;
+      loading.value = false;
     };
 
     const pageCount = computed((): number => {

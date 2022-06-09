@@ -2,8 +2,8 @@ import ArticleShape from "@/models/Article";
 import { RockstarShape } from "@/models/Rockstar";
 import { TribeShape } from "@/models/Tribe";
 import tribeService from "@/services/callFunctions/tribe";
-import pfPlaceholder from "@/assets/profilePlaceholder";
-import SetProfilePicture from "@/services/profilePictureHelper";
+import rockstarService from "@/services/callFunctions/rockstar";
+import PfPlaceholder from "@/assets/PfPlaceholder";
 
 interface tribesState {
   tribesList: TribeShape[];
@@ -54,43 +54,44 @@ const tribes = {
   },
   actions: {
     getAllTribes: async (context: any) => {
-      context.rootState.loading = true;
       const { data, status } = await tribeService.getAllTribes();
 
       if (status >= 200 && status <= 299) {
-        context.rootState.loading = false;
         context.commit("SET_TRIBE_LIST", data);
       }
     },
     getCurrentTribe: async (context: any, tribeId: string) => {
-      context.rootState.loading = true;
       const { data, status } = await tribeService.getSpecificTribe(tribeId);
 
       if (status >= 200 && status <= 299) {
-        context.rootState.loading = false;
         context.commit("SET_CURRENT_TRIBE", data);
       }
     },
     getRockstarsByTribe: async (context: any, tribeId: string) => {
-      context.rootState.loading = true;
       const { data, status } = await tribeService.getRockstarsWithTribe(
         tribeId
       );
 
       if (status >= 200 && status <= 299) {
-        context.rootState.loading = false;
+        for (const rockstar of data) {
+
+          const rockstarImage = await rockstarService.getImage(rockstar.id);
+          if (rockstarImage.data != "") {
+            rockstar.image = rockstarImage.data;
+          } else {
+            rockstar.image = PfPlaceholder
+          }
+        }
         context.commit("SET_ROCKSTARS_BY_TRIBE", data);
       }
     },
     getArticlesByTribe: async (context: any, tribeparams: any) => {
-      context.rootState.loading = true;
       const { data, status } = await tribeService.getArticlesByTribe(
         tribeparams.tribeId,
         (context.rootState.currentPage - 1) * tribeparams.ArticlesPerPage,
         tribeparams.ArticlesPerPage
       );
       if (status >= 200 && status <= 299) {
-        context.rootState.loading = false;
         context.commit("SET_ARTICLES_BY_TRIBE", data);
       }
     },
@@ -101,11 +102,9 @@ const tribes = {
       }
     },
     getArticleCount: async (context: any, tribeId: string) => {
-      context.state.loading = true;
       const { data, status } = await tribeService.getArticleCount(tribeId);
 
       if (status >= 200 && status <= 299) {
-        context.state.loading = false;
         context.commit("SET_ARTICLE_COUNT", data);
       }
     },
@@ -119,11 +118,11 @@ const tribes = {
         if (!rockstar.role) {
           rockstar.role = "Rockstar";
         }
-        if (rockstar.image == null) {
-          rockstar.image = pfPlaceholder;
-        } else {
-          rockstar.image = SetProfilePicture(rockstar.image);
-        }
+        // if (rockstar.image == null) {
+        //   rockstar.image = pfPlaceholder;
+        // } else {
+        //   rockstar.image = SetProfilePicture(rockstar.image);
+        // }
       });
       state.rockstarsList = data.sort((a, b) => {
         if (a.role < b.role) return -1;

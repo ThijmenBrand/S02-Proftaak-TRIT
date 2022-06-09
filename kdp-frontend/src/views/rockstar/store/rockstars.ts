@@ -1,8 +1,7 @@
 ﻿import { RockstarShape } from "@/models/Rockstar";
 import ArticleShape from "@/models/Article";
 import rockstarService from "@/services/callFunctions/rockstar";
-import pfPlaceholder from "@/assets/profilePlaceholder";
-import SetProfilePicture from "@/services/profilePictureHelper";
+import PfPlaceholder from "@/assets/PfPlaceholder";
 
 interface rockstarState {
   rockstar: RockstarShape;
@@ -46,7 +45,15 @@ const rockstar = {
       const { data, status } = await rockstarService.getRockstar(rockstarId);
 
       if (status >= 200 && status <= 299) {
+          const rockstarImage = await rockstarService.getImage(data.id);
+          if (rockstarImage.data != "") {
+            data.image = rockstarImage.data;
+          } else {
+            data.image = PfPlaceholder
+          }
+          
         context.rootState.loading = false;
+        data.email = data.userPrincipalName;
         context.commit("SET_ROCKSTAR", data);
       }
     },
@@ -71,16 +78,12 @@ const rockstar = {
   },
   mutations: {
     SET_ROCKSTAR: (state: rockstarState, data: RockstarShape) => {
-      if (data.image != null) {
-        data.image = SetProfilePicture(data.image);
-      }
+
+      
       state.rockstar = data;
     },
     SET_ARTICLES: (state: rockstarState, data: ArticleShape[]) => {
       state.articles = data;
-      if (state.rockstar.image == null) {
-        state.rockstar.image = pfPlaceholder;
-      }
     },
     SET_ARTICLE_COUNT: (state: rockstarState, data: number) => {
       state.articleCount = data;
