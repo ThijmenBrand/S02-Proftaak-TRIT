@@ -21,7 +21,7 @@
 </template>
 
 <script lang="ts">
-import { computed, onMounted } from "vue";
+import {computed, onMounted, ref} from "vue";
 import { useStore } from "vuex";
 import TribeCard from "@/components/TribeCard/TribeCard.vue";
 
@@ -34,11 +34,11 @@ export default {
   components: { Loader, TribeCard },
   setup() {
     const store = useStore();
-
-    const loading = computed(() => store.getters["isLoading"]);
-
+    const loading = ref(true);
+    
     onMounted(async () => {
       await store.dispatch("tribes/getAllTribes");
+      loading.value = false;
     });
 
     const tribesList = computed((): TribeShape[] => {

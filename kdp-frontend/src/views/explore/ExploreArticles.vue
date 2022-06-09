@@ -85,12 +85,13 @@ export default {
     const searchQuery = ref("");
     const selectedFilter = ref("");
 
-    const loading = computed(() => store.getters["isLoading"]);
+    const loading = ref(true);
 
     onMounted(async () => {
       store.commit("SET_CURRENT_PAGE", 1);
       await store.dispatch("getArticleCount");
       await store.dispatch("getFoundedArticles", articlesPerPage.value);
+      loading.value = false;
     });
 
     const articlesPerPage = ref<number>(6);

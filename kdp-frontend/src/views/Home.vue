@@ -81,7 +81,7 @@
 </template>
 
 <script lang="ts">
-import { computed, onMounted } from "vue";
+import {computed, onMounted, ref} from "vue";
 import { useStore } from "vuex";
 import ArticleShape from "@/models/Article";
 import ArticlePreview from "@/components/articlePreview/ArticlePreview.vue";
@@ -99,13 +99,15 @@ export default {
 
   setup() {
     const store = useStore();
-    const loading = computed(() => store.getters["isLoading"]);
+    const loading = ref(true);
 
     onMounted(async () => {
       store.commit("SET_CURRENT_PAGE", 1);
       await store.dispatch("getAllArticles", 6);
       await store.dispatch("getAllRockstars");
       await store.dispatch("tribes/getAllTribes");
+      
+      loading.value = false;
     });
 
     const articles = computed((): ArticleShape[] => {
@@ -120,9 +122,9 @@ export default {
       const list = store.getters["tribes/getAllTribesList"];
       return list;
     });
-
+    
     return { store, articles, loading, tribesList, rockstars };
-  },
+  }
 };
 </script>
 
