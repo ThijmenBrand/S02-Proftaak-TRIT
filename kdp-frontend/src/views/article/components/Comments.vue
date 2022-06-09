@@ -3,6 +3,7 @@
     <h3 class="comments-title">{{ $t("article-page.comment-title") }}</h3>
     <div class="error-message-container">
       <p class="empty-post-error" v-if="EmptyPostError" >{{ $t("article-page.comment-error") }}</p>
+      <p class="success-post-message" v-if="successMessage">{{ $t("article-page.comment-success") }}</p>
     </div>
     <div v-if="LoggedIn" class="comment-input-container">
       <div class="input-container">
@@ -74,12 +75,13 @@ export default {
     const commentContent = ref<string>("");
     const LoggedIn: Ref<boolean> = useIsAuthenticated();
     const loggedUser: AccountInfo[] = getAccountInfo();
+    const successMessage = ref(false);
 
     const submitComment = () => {
       if (commentContent.value == "") {
         EmptyPostError.value = true;
         return
-        };
+      }
       if (!LoggedIn) return;
 
       const commentParams: CommentShape = {
@@ -90,6 +92,8 @@ export default {
       };
       store.dispatch("article/postComment", commentParams);
       commentContent.value = "";
+      successMessage.value = true;
+      RemoveSuccessMsg();
     };
     
     const date = (date: string): string => {
@@ -103,6 +107,12 @@ export default {
       var length = commentContent.value.length;
       return 250-length;
     }
+    
+    function RemoveSuccessMsg() {
+      setInterval(function () {
+        successMessage.value = false;
+      }, 4000);
+    }
 
     function RemoveErrorMsg(){
       EmptyPostError.value = false;
@@ -115,7 +125,7 @@ export default {
         LocalStorageHandler.setItem('user', result); 
         });
     }
-    return { date, commentContent, submitComment, LoggedIn, GetRemainingChar, login, RemoveErrorMsg, EmptyPostError };
+    return { date, commentContent, submitComment, LoggedIn, GetRemainingChar, login, RemoveErrorMsg, EmptyPostError, successMessage };
   },
 };
 </script>

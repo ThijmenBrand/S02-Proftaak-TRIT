@@ -18,7 +18,9 @@ const rockstarService = {
   SendOnDemandRequest(OnDemandRequest: RockstarOnDemandRequest): Promise<AxiosResponse<any, any>> {
     return API.post(`/rockstar/SendRockstarOnDemand`, OnDemandRequest);
   },
-
+  getImage(id: string): Promise<AxiosResponse<any, any>> {
+    return API.get(`/rockstar/getimage/${id}`);
+  },
 };
 
 export default rockstarService;
