@@ -88,10 +88,12 @@ export default {
     const loading = ref(true);
 
     onMounted(async () => {
+      document.title = "Loading...";
       store.commit("SET_CURRENT_PAGE", 1);
       await store.dispatch("getArticleCount");
       await store.dispatch("getFoundedArticles", articlesPerPage.value);
       loading.value = false;
+      document.title = "Articles";
     });
 
     const articlesPerPage = ref<number>(6);
