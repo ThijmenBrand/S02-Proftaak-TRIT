@@ -98,6 +98,7 @@ export default {
 
     const articleDetails = computed((): ArticleShape => {
       const article = store.getters["article/getArticle"];
+      document.title = article.title;
       return article;
     });
 

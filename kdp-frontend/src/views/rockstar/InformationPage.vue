@@ -58,7 +58,9 @@ export default {
     const loading = ref(true);
     
     const rockstar = computed((): RockstarShape => {
-      return store.getters["rockstars/getRockstar"];
+      const rs = store.getters["rockstars/getRockstar"];
+      document.title = rs.displayName;
+      return rs;
     });
     const articles = computed((): ArticleShape[] => {
       return store.getters["rockstars/getArticles"];
@@ -66,6 +68,7 @@ export default {
 
     // when loading the page, get the rockstar by id and their articles
     onMounted(async () => {
+      document.title = "Loading...";
       store.commit("rockstars/CLEAR_ROCKSTAR");
       await store.dispatch("rockstars/getRockstar", route.params.rockstarId);
       const rockstarArticleParams = {
@@ -101,8 +104,6 @@ export default {
 
     // on every update, change the page title to the rockstar's name
     onUpdated(async () => {
-      document.title = rockstar.value.name;
-
       if (route.params.rockstarId !== rockstar.value.id) {
         const rockstarArticleParams = {
           tribeId: route.params.rockstarId,
