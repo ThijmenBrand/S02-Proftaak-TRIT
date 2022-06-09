@@ -4,6 +4,9 @@
   background-color: $trit-gray;
   height: 100%;
 }
+.background-container {
+  min-height: calc(100vh - 160px - 5em);
+}
 
 .content-container {
   display: flex;
