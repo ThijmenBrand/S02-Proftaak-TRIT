@@ -8,12 +8,14 @@ import { ViewCountShape } from "@/models/ViewCountShape";
 import getCustomDateTime from "@/services/customDateTime";
 import { ActionContext } from "vuex";
 import { CommentShape } from "@/models/Comment";
+import { LikeCountShape } from "@/models/LikeCountShape";
 
 interface articleState {
   article: ArticleShape;
   rockstar: RockstarShape;
   viewCount: ViewCountShape;
   comments: CommentShape[];
+  likeCount: LikeCountShape;
 }
 
 const tribes = {
@@ -57,6 +59,10 @@ const tribes = {
           commentDate: "",
         },
       ],
+      likeCount: {
+        frontendUserId: "",
+        articleId: "",
+      },
     };
   },
   getters: {
@@ -102,9 +108,18 @@ const tribes = {
     incrementLikeCount: async (context: any, articleId: string): Promise<void> => {
       const likeCount = context.state.likeCount;
       likeCount.articleId = articleId;
-      const localstrorageData= JSON.parse(localStorage.getItem("user") || "{}");
-      console.log(localstrorageData["account"]["localAccountId"]);
-      // const {data, status} = await articleService;
+      const localstrorageData = localStorage.getItem("user");
+      const userData = JSON.parse(localstrorageData || "{}");
+      likeCount.frontendUserId = userData.account.localAccountId;
+      const { data, status } = await articleService.likeArticle(likeCount);
+    },
+    decrementLikeCount: async (context: any, articleId: string): Promise<void> => {
+      const likeCount = context.state.likeCount;
+      likeCount.articleId = articleId;
+      const localstrorageData = localStorage.getItem("user");
+      const userData = JSON.parse(localstrorageData || "{}");
+      likeCount.frontendUserId = userData.account.localAccountId;
+      const { data, status } = await articleService.dislikeArticle(likeCount);
     },
     getComments: async (context: any, articleId: string) => {
       context.rootState.loading = true;

@@ -2,6 +2,7 @@ import API from "../api";
 import { AxiosResponse } from "axios";
 import { ViewCountShape } from "@/models/ViewCountShape";
 import { CommentShape } from "@/models/Comment";
+import { LikeCountShape } from "@/models/LikeCountShape";
 
 const articleService = {
   getArticle(articleId: string): Promise<AxiosResponse<any, any>> {
@@ -16,9 +17,16 @@ const articleService = {
   postComment(opts: CommentShape): Promise<AxiosResponse<any, any>> {
     return API.post("/comment", opts);
   },
-  likeArticle(userId: string, articleId: string): Promise<AxiosResponse<any, any>>{
-    return API.put(`/article/incrementLikeCount?userId=${userId}&articleId=${articleId}`);
-  }
+  likeArticle(likeCount: LikeCountShape): Promise<AxiosResponse<any, any>> {
+    return API.put(
+      `/article/incrementLikeCount?userId=${likeCount.frontendUserId}&articleId=${likeCount.articleId}`
+    );
+  },
+  dislikeArticle(likeCount: LikeCountShape): Promise<AxiosResponse<any, any>> {
+    return API.put(
+      `/article/decrementLikeCount?userId=${likeCount.frontendUserId}&articleId=${likeCount.articleId}`
+    );
+  },
 };
 
 export default articleService;

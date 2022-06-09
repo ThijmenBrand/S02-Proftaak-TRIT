@@ -94,7 +94,6 @@ export default {
         .then(() => store.dispatch("article/getRockstar"));
       await store.dispatch("article/getComments", articleId.value);
       await store.dispatch("article/updateViewCount", articleId.value);
-      await store.dispatch("article/incrementLikeCount", articleId.value)
     });
 
     const articleDetails = computed((): ArticleShape => {
