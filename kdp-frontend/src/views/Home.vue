@@ -102,14 +102,14 @@ export default {
     const loading = ref(true);
 
     onMounted(async () => {
-      document.title = "RockstarsIT KDP";
+      document.title = "KDP Loading...";
       store.commit("SET_CURRENT_PAGE", 1);
       await store.dispatch("getAllArticles", 6);
       await store.dispatch("getAllRockstars");
       await store.dispatch("tribes/getAllTribes");
       
       loading.value = false;
-
+      document.title = "RockstarsIT KDP";
     });
 
     const articles = computed((): ArticleShape[] => {
