@@ -4,7 +4,7 @@
       v-model="searchQuery"
       :placeholder="$t('explore-articles-page.search-bar.placeholder')"
       class="search-input"
-      @keyup.enter="computeArticles()"
+      @keyup.enter="computeArticles"
     />
     <div class="custom-select">
       <select class="select" v-model="selectedFilter">
@@ -97,9 +97,11 @@ export default {
     const articlesPerPage = ref<number>(6);
     const CurrentPage = ref<number>(0);
 
-    const SetCurrentPage = (_page: number): void => {
-      store.dispatch("getFoundedArticles", articlesPerPage.value);
+    const SetCurrentPage = async(_page: number) => {
+      loading.value = true;
+      await store.dispatch("getFoundedArticles", articlesPerPage.value);
       CurrentPage.value = _page;
+      loading.value = false;
     };
 
     const pageCount = computed((): number => {
@@ -111,8 +113,10 @@ export default {
       return store.getters["getFoundedArticles"];
     });
 
-    const computeArticles = () => {
-      store.dispatch("getFoundedArticles", articlesPerPage.value);
+    const computeArticles = async () => {
+      loading.value = true;
+      await store.dispatch("getFoundedArticles", articlesPerPage.value);
+      loading.value = false;
     };
 
     const filteredArticles = computed((): ArticleShape[] => {

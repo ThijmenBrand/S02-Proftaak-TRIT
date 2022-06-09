@@ -19,7 +19,7 @@
       <div class="loader-container" v-if="loading">
         <Loader />
       </div>
-      <div v-else-if="!loading && articles.length > 0" class="content-container">
+      <div :style="[loading ? { display: 'none' } : {}]" class="content-container">
         <h3 class="articles-overview-title">
           {{ $t("articles-overview.header") }}
         </h3>
@@ -38,7 +38,7 @@
             />
           </router-link>
         </div>
-      <p class="cookie-error">{{ $t("article.article-error") }}</p>
+      <p v-if="articles.length < 1" class="cookie-error">{{ $t("article.article-error") }}</p>
 
         <div :style="[loading || pageCount <= 1 ? { display: 'none' } : {}]">
           <page-select :PageCount="pageCount" @current-page="SetCurrentPage" />
@@ -116,16 +116,18 @@ export default {
     });
 
     const articlesPerPage = ref(6);
-    const CurrentPage = ref(0);
+    const CurrentPage = ref(1);
 
-    const SetCurrentPage = (_page: number): void => {
+    const SetCurrentPage = async (_page: number) => {
+      loading.value = true;
       const tribeArticleParams = {
         tribeId: route.params.tribe,
         ArticlesPerPage: articlesPerPage.value,
       };
 
-      store.dispatch("tribes/getArticlesByTribe", tribeArticleParams);
+      await store.dispatch("tribes/getArticlesByTribe", tribeArticleParams);
       CurrentPage.value = _page;
+      loading.value = false;
     };
 
     const pageCount = computed((): number => {
