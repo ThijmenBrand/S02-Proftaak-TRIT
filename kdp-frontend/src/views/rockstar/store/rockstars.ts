@@ -53,6 +53,7 @@ const rockstar = {
           }
           
         context.rootState.loading = false;
+        data.email = data.userPrincipalName;
         context.commit("SET_ROCKSTAR", data);
       }
     },
@@ -77,16 +78,12 @@ const rockstar = {
   },
   mutations: {
     SET_ROCKSTAR: (state: rockstarState, data: RockstarShape) => {
-      // if (data.image != null) {
-      //   data.image = SetProfilePicture(data.image);
-      // }
+
+      
       state.rockstar = data;
     },
     SET_ARTICLES: (state: rockstarState, data: ArticleShape[]) => {
       state.articles = data;
-      // if (state.rockstar.image == null) {
-      //   state.rockstar.image = pfPlaceholder;
-      // }
     },
     SET_ARTICLE_COUNT: (state: rockstarState, data: number) => {
       state.articleCount = data;
