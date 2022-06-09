@@ -99,12 +99,13 @@ const tribes = {
       viewCount.frontendUserId = localStorage.getItem("UserId-uuid");
       const { data, status } = await articleService.updateViewCount(viewCount);
     },
-    incrementViewCount: async (context: any, articleId: string): Promise<void> => {
+    incrementLikeCount: async (context: any, articleId: string): Promise<void> => {
       const likeCount = context.state.likeCount;
       likeCount.articleId = articleId;
-      likeCount.frontendUserId = localStorage.getItem("UserId-uuid");
-      const {data, status} = await articleService.likeArticle(likeCount);
-    }
+      const localstrorageData= JSON.parse(localStorage.getItem("user") || "{}");
+      console.log(localstrorageData["account"]["localAccountId"]);
+      // const {data, status} = await articleService;
+    },
     getComments: async (context: any, articleId: string) => {
       context.rootState.loading = true;
       const { data, status } = await articleService.getComments(articleId);

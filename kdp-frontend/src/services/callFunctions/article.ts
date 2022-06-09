@@ -17,7 +17,7 @@ const articleService = {
     return API.post("/comment", opts);
   },
   likeArticle(userId: string, articleId: string): Promise<AxiosResponse<any, any>>{
-    return API.put("/article/incrementLikeCount", )
+    return API.put(`/article/incrementLikeCount?userId=${userId}&articleId=${articleId}`);
   }
 };
 
