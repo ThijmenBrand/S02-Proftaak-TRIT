@@ -28,6 +28,13 @@ namespace API_Rockstars.Controllers
         {
             return await _context.Comment.Where(x => x.Approved == true).ToListAsync();
         }
+        
+        // GET: api/Comment
+        [HttpGet("notapproved")]
+        public async Task<ActionResult<IEnumerable<Comment>>> GetCommentNotApproved()
+        {
+            return await _context.Comment.Where(x => x.Approved == false).ToListAsync();
+        }
 
         // GET: api/Comment/5
         [HttpGet("{id}")]
