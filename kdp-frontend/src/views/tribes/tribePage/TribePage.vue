@@ -96,10 +96,13 @@ export default {
       cookie.value.AcceptedAllCookies || cookie.value.AcceptedFunctionalCookies;
 
     const currentTribe = computed((): TribeShape => {
-      return store.getters["tribes/getCurrentTribe"];
+      const tribe = store.getters["tribes/getCurrentTribe"];
+      document.title = tribe.displayName;
+      return tribe;
     });
 
     onMounted(async () => {
+      document.title = "Loading...";
       store.commit("tribes/EMPTY_STORE");
       const tribeArticleParams = {
         tribeId: route.params.tribe,
