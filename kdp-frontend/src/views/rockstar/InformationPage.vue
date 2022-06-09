@@ -82,14 +82,16 @@ export default {
     const articlesPerPage = ref(6);
     const CurrentPage = ref(0);
 
-    const SetCurrentPage = (_page: number): void => {
+    const SetCurrentPage = async (_page: number)=> {
+      loading.value = true;
       const rockstarArticleParams = {
         tribeId: route.params.rockstarId,
         ArticlesPerPage: articlesPerPage.value,
       };
 
-      store.dispatch("rockstars/getArticles", rockstarArticleParams);
+      await store.dispatch("rockstars/getArticles", rockstarArticleParams);
       CurrentPage.value = _page;
+      loading.value = false;
     };
 
     const pageCount = computed((): number => {
