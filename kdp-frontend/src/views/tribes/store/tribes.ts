@@ -54,25 +54,20 @@ const tribes = {
   },
   actions: {
     getAllTribes: async (context: any) => {
-      context.rootState.loading = true;
       const { data, status } = await tribeService.getAllTribes();
 
       if (status >= 200 && status <= 299) {
-        context.rootState.loading = false;
         context.commit("SET_TRIBE_LIST", data);
       }
     },
     getCurrentTribe: async (context: any, tribeId: string) => {
-      context.rootState.loading = true;
       const { data, status } = await tribeService.getSpecificTribe(tribeId);
 
       if (status >= 200 && status <= 299) {
-        context.rootState.loading = false;
         context.commit("SET_CURRENT_TRIBE", data);
       }
     },
     getRockstarsByTribe: async (context: any, tribeId: string) => {
-      context.rootState.loading = true;
       const { data, status } = await tribeService.getRockstarsWithTribe(
         tribeId
       );
@@ -87,19 +82,16 @@ const tribes = {
             rockstar.image = PfPlaceholder
           }
         }
-        context.rootState.loading = false;
         context.commit("SET_ROCKSTARS_BY_TRIBE", data);
       }
     },
     getArticlesByTribe: async (context: any, tribeparams: any) => {
-      context.rootState.loading = true;
       const { data, status } = await tribeService.getArticlesByTribe(
         tribeparams.tribeId,
         (context.rootState.currentPage - 1) * tribeparams.ArticlesPerPage,
         tribeparams.ArticlesPerPage
       );
       if (status >= 200 && status <= 299) {
-        context.rootState.loading = false;
         context.commit("SET_ARTICLES_BY_TRIBE", data);
       }
     },
@@ -110,11 +102,9 @@ const tribes = {
       }
     },
     getArticleCount: async (context: any, tribeId: string) => {
-      context.state.loading = true;
       const { data, status } = await tribeService.getArticleCount(tribeId);
 
       if (status >= 200 && status <= 299) {
-        context.state.loading = false;
         context.commit("SET_ARTICLE_COUNT", data);
       }
     },

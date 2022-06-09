@@ -14,7 +14,6 @@ import { RockstarShape } from "@/models/Rockstar";
 import PfPlaceholder from "@/assets/PfPlaceholder";
 
 interface IState {
-  loading: boolean;
   tribe: TribeShape[];
   articleList: ArticleShape[];
   rockstarList: RockstarShape[];
@@ -27,7 +26,6 @@ interface IState {
 
 export default createStore({
   state: {
-    loading: false,
     tribe: Array<TribeShape>(),
     articleList: Array<ArticleShape>(),
     rockstarList: Array<RockstarShape>(),
@@ -49,9 +47,6 @@ export default createStore({
     getAllRockstars: (state: IState): RockstarShape[] => {
       return state.rockstarList;
     },
-    isLoading: (state: IState) => {
-      return state.loading;
-    },
     cookieAccepted: (state: IState): CookieShape => {
       return state.cookieAccepted;
     },
@@ -67,19 +62,16 @@ export default createStore({
   },
   actions: {
     getAllArticles: async (context: any, payload: any) => {
-      context.state.loading = true;
       const { data, status } = await exporeService.getAllArticles(
         (context.state.currentPage - 1) * payload,
         payload
       );
 
       if (status >= 200 && status <= 299) {
-        context.state.loading = false;
         context.commit("SET_ALL_ARTICLES", data);
       }
     },
     getAllRockstars: async (context: any) => {
-      context.state.loading = true;
       const { data, status } = await rockstarService.getAllRockstars();
 
       if (status >= 200 && status <= 299) {
@@ -92,31 +84,24 @@ export default createStore({
             rockstar.image = PfPlaceholder
           }
         }
-
-        context.state.loading = false;
+        
         context.commit("SET_ALL_ROCKSTARS", data);
       }
     },
     getArticleCount: async (context: any) => {
-      context.state.loading = true;
       const { data, status } = await exporeService.getArticleCount();
 
       if (status >= 200 && status <= 299) {
-        context.state.loading = false;
         context.commit("SET_ARTICLE_COUNT", data);
       }
     },
     getFoundedArticles: async (context: any, payload: any) => {
-      context.state.loading = true;
       const { data, status } = await exporeService.getFoundedArticles(
         (context.state.currentPage - 1) * payload,
         payload,
         context.state.searchData
       );
-      console.log(context.state.foundedArticles);
-      console.log(data);
       if (status >= 200 && status <= 299) {
-        context.state.loading = false;
         context.commit("SET_FOUNDED_ARTICLES", data);
       }
     },
@@ -129,7 +114,6 @@ export default createStore({
       state.articleList = data;
     },
     SET_COOKIE_ACCEPTED: (state, data: CookieShape) => {
-      console.log(data);
       let types: CookieShape;
       if (data == null || data.ShowCookieBanner == true) {
         types = {

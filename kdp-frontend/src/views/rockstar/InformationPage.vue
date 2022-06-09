@@ -1,16 +1,15 @@
 ﻿<template>
-  <RockstarView :rockstar="rockstar" />
+  <RockstarView v-if="!loading" :rockstar="rockstar" />
   <div class="background-container">
-    <div class="content-container DIN2014-Regular">
+    <div class="loader-container" v-if="loading">
+      <Loader />
+    </div>
+    <div v-else-if="!loading && articles.length > 0" class="content-container DIN2014-Regular">
       <h3 class="articles-overview-title">
         {{ $t("articles-overview.header") }}
       </h3>
-      <div class="loader-container" v-if="loading">
-        <Loader />
-      </div>
       <div
         class="articles-container"
-        v-else-if="!loading && articles.length > 0"
       >
         <router-link
           v-for="(article, index) in articles"
@@ -28,9 +27,10 @@
            />
         </router-link>
       </div>
-      <p class="article-error" v-else>{{ $t("article.article-error") }}</p>
     </div>
+    <p class="article-error" v-else>{{ $t("article.article-error") }}</p>
 
+    
     <div :style="[loading || pageCount <= 1 ? { display: 'none' } : {}]">
       <page-select :PageCount="pageCount" @current-page="SetCurrentPage" />
     </div>
@@ -55,9 +55,8 @@ export default {
   setup() {
     const route = useRoute();
     const store = useStore();
-
-    const loading = computed(() => store.getters["isLoading"]);
-
+    const loading = ref(true);
+    
     const rockstar = computed((): RockstarShape => {
       return store.getters["rockstars/getRockstar"];
     });
@@ -74,8 +73,9 @@ export default {
         ArticlesPerPage: articlesPerPage.value,
       };
       
-      store.dispatch("rockstars/getArticleCount", route.params.rockstarId);
+      await store.dispatch("rockstars/getArticleCount", route.params.rockstarId);
       await store.dispatch("rockstars/getArticles", rockstarArticleParams);
+      loading.value = false;
     });
 
     //pagination
