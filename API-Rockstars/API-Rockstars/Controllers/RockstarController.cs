@@ -63,6 +63,9 @@ namespace API_Rockstars.Controllers
         [HttpPost("SendRockstarOnDemand")]
         public async Task<ActionResult> SendRockstarOndemandRequest(RockstarOndemand rockstarOndemand)
         {
+            string CC = _configuration.GetValue<string>("CCOnDemandEmail");
+
+
             string connectionString = _configuration.GetValue<string>("ConnectionStrings:EmailSender");
             EmailClient emailClient = new EmailClient(connectionString);
 
@@ -70,7 +73,7 @@ namespace API_Rockstars.Controllers
             EmailContent emailContent = new EmailContent("New rockstar Ondemand request from: " + rockstarOndemand.Name);
             emailContent.PlainText = rockstarOndemand.Message;
             emailContent.Html = "<strong>" + rockstarOndemand.Message + "</strong> <div style=\"margin - top: 30px;\" >Preferred date:  " + rockstarOndemand.Date.ToLongDateString() + " " + rockstarOndemand.Date.ToShortTimeString() + " UTC</div> <div> From: " + rockstarOndemand.SenderEmail + "</div>";
-            List<EmailAddress> emailAddresses = new List<EmailAddress> { new EmailAddress(rockstarOndemand.ReceiverEmail) { DisplayName = rockstarOndemand.Name } };
+            List<EmailAddress> emailAddresses = new List<EmailAddress> { new EmailAddress(rockstarOndemand.ReceiverEmail) { DisplayName = rockstarOndemand.Name }, new EmailAddress(CC) { DisplayName = CC.Remove(CC.IndexOf('@'), CC.Length - CC.IndexOf('@'))  } };
             EmailRecipients emailRecipients = new EmailRecipients(emailAddresses);
             EmailMessage emailMessage = new EmailMessage("DoNotReply@rockstarmailtest.tk", emailContent, emailRecipients);
             SendEmailResult emailResult = emailClient.Send(emailMessage, CancellationToken.None);
