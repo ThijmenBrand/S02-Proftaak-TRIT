@@ -67,7 +67,7 @@
         </div>
 
         <div v-if="FormSucces">
-            <p class="email-succes">OnDemand request succesfully send!</p>
+            <p class="email-succes">{{$t("rockstar-page.modal.form.request-succes") }}</p>
         </div>
 
         <div id="open-ondemand-modal" class="row-ondemand" @click="OpenModal">
@@ -146,7 +146,7 @@
             >
 
             <div v-if="FormFailed">
-              <p>Request failed</p>
+              <p>{{$t("rockstar-page.modal.form.request-failed") }}</p>
             </div>
 
           </div>
@@ -178,7 +178,7 @@ import { RockstarShape } from "@/models/Rockstar";
 import { reactive, ref } from "vue";
 import Modal from "@/components/modal/Modal.vue";
 import rockstarService from "@/services/callFunctions/rockstar";
-import  RockstarOnDemandRequest from "@/models/RockstarOnDemandRequest";
+import RockstarOnDemandRequest from "@/models/RockstarOnDemandRequest";
 import rockstar from '@/views/rockstar/store/rockstars';
 
 export default {

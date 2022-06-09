@@ -35,6 +35,8 @@
   "rockstar-page.modal.form.email-validation": "Please enter a valid e-mail address.",
   "rockstar-page.modal.form.date-validation": "Please enter a valid date.",
   "rockstar-page.modal.form.request-validation": "Please enter your request.",
+  "rockstar-page.modal.form.request-succes": "OnDemand request succesfully send!",
+  "rockstar-page.modal.form.request-failed": "request failed to send!",
   "rockstar-page.modal.footer.submit-button-text": "Submit",
   "rockstar-page.modal.footer.cancel-button-text": "Cancel",
   "explore-articles-page.search-bar.sort-title-za": "Sort title by Z-A",
