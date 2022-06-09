@@ -12,10 +12,12 @@
   "menu.change-language-prompt.flags.nl": "Flag of the Netherlands",
   "menu.change-language-prompt.flags.generic": "Country flag depicting a possible display language",
   "homepage.header": "Homepage",
-  "tribes-overview-page.header": "All tribes",
-  "home.interesting-tribes": "Interesting tribes",
+  "tribes-overview-page.header": "Tribes",
+  "home.featured-tribes": "Featured tribes",
   "home.featured-rockstars": "Featured rockstars",
   "home.highlighted-articles": "Highlighted-articles",
+  "home.about-us.header": "About us",
+  "home.about-us.text": "We believe that the biggest impact at companies is made by happy developers, regardless of the type of project, the developer's ambitions and the client's requests. That is why we commit ourselves to 100% DevHappiness: happy developers, high impact.",
   "articles-overview.header": "Articles",
   "rockstar-page.profile-picture-alt-text": "Profile picture of {name}",
   "rockstar-page.socials.twitter-icon-alt-text": "Twitter icon",
@@ -33,6 +35,8 @@
   "rockstar-page.modal.form.email-validation": "Please enter a valid e-mail address.",
   "rockstar-page.modal.form.date-validation": "Please enter a valid date.",
   "rockstar-page.modal.form.request-validation": "Please enter your request.",
+  "rockstar-page.modal.form.request-succes": "OnDemand request succesfully send!",
+  "rockstar-page.modal.form.request-failed": "request failed to send!",
   "rockstar-page.modal.footer.submit-button-text": "Submit",
   "rockstar-page.modal.footer.cancel-button-text": "Cancel",
   "explore-articles-page.search-bar.sort-title-za": "Sort title by Z-A",
@@ -69,6 +73,8 @@
   "cookie-message.learn-more.save": "Save preferences",
   "cookie-message.accept": "Accept",
   "cookie-message.decline": "Decline",
+  
+  "article-page.comment-success": "Comment successfully sent for approval",
 
   "highlighted-articles": "Highlighted articles",
   "about-us": "About us"

@@ -1,16 +1,15 @@
 ﻿<template>
-  <RockstarView :rockstar="rockstar" />
+  <RockstarView v-if="!loading" :rockstar="rockstar" />
   <div class="background-container">
-    <div class="content-container DIN2014-Regular">
+    <div class="loader-container" v-if="loading">
+      <Loader />
+    </div>
+    <div v-else-if="!loading && articles.length > 0" class="content-container DIN2014-Regular">
       <h3 class="articles-overview-title">
         {{ $t("articles-overview.header") }}
       </h3>
-      <div class="loader-container" v-if="loading">
-        <Loader />
-      </div>
       <div
         class="articles-container"
-        v-else-if="!loading && articles.length > 0"
       >
         <router-link
           v-for="(article, index) in articles"
@@ -28,9 +27,10 @@
            />
         </router-link>
       </div>
-      <p class="article-error" v-else>{{ $t("article.article-error") }}</p>
     </div>
+    <p class="article-error" v-else>{{ $t("article.article-error") }}</p>
 
+    
     <div :style="[loading || pageCount <= 1 ? { display: 'none' } : {}]">
       <page-select :PageCount="pageCount" @current-page="SetCurrentPage" />
     </div>
@@ -55,11 +55,12 @@ export default {
   setup() {
     const route = useRoute();
     const store = useStore();
-
-    const loading = computed(() => store.getters["isLoading"]);
-
+    const loading = ref(true);
+    
     const rockstar = computed((): RockstarShape => {
-      return store.getters["rockstars/getRockstar"];
+      const rs = store.getters["rockstars/getRockstar"];
+      document.title = rs.displayName;
+      return rs;
     });
     const articles = computed((): ArticleShape[] => {
       return store.getters["rockstars/getArticles"];
@@ -67,6 +68,7 @@ export default {
 
     // when loading the page, get the rockstar by id and their articles
     onMounted(async () => {
+      document.title = "Loading...";
       store.commit("rockstars/CLEAR_ROCKSTAR");
       await store.dispatch("rockstars/getRockstar", route.params.rockstarId);
       const rockstarArticleParams = {
@@ -74,22 +76,25 @@ export default {
         ArticlesPerPage: articlesPerPage.value,
       };
       
-      store.dispatch("rockstars/getArticleCount", route.params.rockstarId);
+      await store.dispatch("rockstars/getArticleCount", route.params.rockstarId);
       await store.dispatch("rockstars/getArticles", rockstarArticleParams);
+      loading.value = false;
     });
 
     //pagination
     const articlesPerPage = ref(6);
     const CurrentPage = ref(0);
 
-    const SetCurrentPage = (_page: number): void => {
+    const SetCurrentPage = async (_page: number)=> {
+      loading.value = true;
       const rockstarArticleParams = {
         tribeId: route.params.rockstarId,
         ArticlesPerPage: articlesPerPage.value,
       };
 
-      store.dispatch("rockstars/getArticles", rockstarArticleParams);
+      await store.dispatch("rockstars/getArticles", rockstarArticleParams);
       CurrentPage.value = _page;
+      loading.value = false;
     };
 
     const pageCount = computed((): number => {
@@ -99,8 +104,6 @@ export default {
 
     // on every update, change the page title to the rockstar's name
     onUpdated(async () => {
-      document.title = rockstar.value.name;
-
       if (route.params.rockstarId !== rockstar.value.id) {
         const rockstarArticleParams = {
           tribeId: route.params.rockstarId,

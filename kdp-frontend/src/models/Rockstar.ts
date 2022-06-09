@@ -1,7 +1,7 @@
 interface SocialMediaTypes {
   linkedIn?:string;
   twitter?:string;
-  email?:string;
+  email:string;
   phone?:string;
 }
 
@@ -18,9 +18,9 @@ export class RockstarShape implements BaseRockstarShape, SocialMediaTypes{
   role: string;
   linkedIn?:string;
   twitter?:string;
-  email?:string;
+  email:string;
   phone?:string;
-  constructor(id: string, name: string, image: string, description: string, role: string, linkedIn?:string, twitter?:string, email?:string, phone?:string,) {
+  constructor(id: string, name: string, image: string, description: string, role: string, email:string, linkedIn?:string, twitter?:string, phone?:string,) {
     this.id = id;
     this.name = name;
     this.image = image;

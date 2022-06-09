@@ -36,6 +36,8 @@ h1 {
   line-height: 83.33%;
   font-weight: 800;
   font-style: normal;
+  text-transform: uppercase;
+  font-family: DIN2014-Bold;
 }
 
 h2 {
@@ -49,11 +51,14 @@ h3 {
   font-size: 36px;
   line-height: 88.89%;
   font-weight: bold;
+  text-transform: uppercase;
 }
 
 h4 {
   font-size: 24px;
   font-weight: bold;
+  color: $trit-yellow;
+  text-transform: uppercase;
 }
 
 h5 {
@@ -93,4 +98,11 @@ p {
 
 a {
   text-decoration: none;
+}
+
+@media only screen and (max-width: 480px) {
+  h3, p {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
 }

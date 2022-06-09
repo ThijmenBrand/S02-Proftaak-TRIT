@@ -4,39 +4,33 @@
     <Loader v-if="loading" />
     <div v-else class="content-container">
       <div class="left-pannel">
-        <div class="interesting-tribes-container">
-          <div class="interesting-tribes">
-            <p>{{ $t("home.interesting-tribes") }}</p>
-            <div
-              v-for="(tribe, index) in tribesList"
-              :key="index"
-              class="tribe-item"
-            >
-              <router-link
-                :to="{
+        <div class="featured-tribes-container">
+          <div class="featured-tribes">
+            <h4 class="featured-tribes-header">{{ $t("home.featured-tribes") }}</h4>
+            <div class="featured-tribes-content">
+              <div
+                  v-for="(tribe, index) in tribesList.slice(0, 3)"
+                  :key="index"
+                  class="tribe-item"
+              >
+                <router-link
+                    :to="{
                   name: 'tribe',
                   params: { tribe: tribe.id },
                 }"
-                class="tribe-link"
-              >
-                <img src="@/assets/images/icon-fastforward.svg" />
-                {{ tribe.displayName }}
-              </router-link>
+                    class="tribe-link"
+                >
+                  {{ tribe.displayName }}
+                </router-link>
+              </div>
             </div>
           </div>
 
           <hr class="line" />
         </div>
         <div class="about-container">
-          <h3>{{ $t("about-us") }}</h3>
-          <p>
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quisquam
-            aperiam cumque repudiandae qui libero ab accusamus deleniti nulla ad
-            facilis adipisci rem aliquam repellendus, quas, esse, quos commodi
-            labore vitae praesentium odit ea necessitatibus minus. Vel eius ab
-            dicta perferendis eos esse, labore laudantium aperiam facilis culpa
-            velit harum consequuntur.
-          </p>
+          <h3>{{ $t("home.about-us.header") }}</h3>
+          <p>{{ $t("home.about-us.text") }}</p>
         </div>
         <div class="highlighted-articles">
           <h3>
@@ -87,7 +81,7 @@
 </template>
 
 <script lang="ts">
-import { computed, onMounted } from "vue";
+import {computed, onMounted, ref} from "vue";
 import { useStore } from "vuex";
 import ArticleShape from "@/models/Article";
 import ArticlePreview from "@/components/articlePreview/ArticlePreview.vue";
@@ -105,13 +99,17 @@ export default {
 
   setup() {
     const store = useStore();
-    const loading = computed(() => store.getters["isLoading"]);
+    const loading = ref(true);
 
     onMounted(async () => {
+      document.title = "KDP Loading...";
       store.commit("SET_CURRENT_PAGE", 1);
       await store.dispatch("getAllArticles", 6);
       await store.dispatch("getAllRockstars");
       await store.dispatch("tribes/getAllTribes");
+      
+      loading.value = false;
+      document.title = "RockstarsIT KDP";
     });
 
     const articles = computed((): ArticleShape[] => {
@@ -126,9 +124,9 @@ export default {
       const list = store.getters["tribes/getAllTribesList"];
       return list;
     });
-
+    
     return { store, articles, loading, tribesList, rockstars };
-  },
+  }
 };
 </script>
 
