@@ -37,9 +37,10 @@ export default {
     const loading = ref(true);
     
     onMounted(async () => {
-      document.title = "Tribes";
+      document.title = "Loading...";
       await store.dispatch("tribes/getAllTribes");
       loading.value = false;
+      document.title = "Tribes";
     });
 
     const tribesList = computed((): TribeShape[] => {
