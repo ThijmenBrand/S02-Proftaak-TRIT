@@ -21,7 +21,7 @@
     .col-image {
       aspect-ratio: 1/1;
       height: 12em;
-      background-color: $trit-gray;
+      filter: drop-shadow(0px 1px 1px #000000) drop-shadow(0px 4px 8px rgba(0, 0, 0, 0.05));
 
       .rockstar-profile-image {
         width: 12em;
