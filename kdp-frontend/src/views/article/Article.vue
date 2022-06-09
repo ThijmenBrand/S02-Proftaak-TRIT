@@ -11,9 +11,11 @@
     <div class="actions-bar">
       <div class="blog-action">
         <img
-          class="stats-image"
+          class="stats-image liked"
+          id="like-button"
           src="@/assets/images/article/heart-solid.svg"
           :alt="$t('article-page.heart-image')"
+          v-on:click="updateLikeState"
         />
         <span class="stats">11</span>
         <img
@@ -94,6 +96,7 @@ export default {
         .then(() => store.dispatch("article/getRockstar"));
       await store.dispatch("article/getComments", articleId.value);
       await store.dispatch("article/updateViewCount", articleId.value);
+      await store.dispatch("article/checkIfArticleIsLiked", articleId.value);
     });
 
     const articleDetails = computed((): ArticleShape => {
@@ -110,12 +113,21 @@ export default {
       (): CommentShape => store.getters["article/getComments"]
     );
 
+    const updateLikeState = async () => {
+      if (store.getters["article/getLikeState"]) {
+        await store.dispatch("article/decrementLikeCount", articleId.value);
+      } else {
+        await store.dispatch("article/incrementLikeCount", articleId.value);
+      }
+    };
+
     return {
       articleId,
       articleDetails,
       loading,
       getRockstar,
       getComments,
+      updateLikeState,
     };
   },
 };
