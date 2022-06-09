@@ -37,6 +37,7 @@ export default {
     const loading = ref(true);
     
     onMounted(async () => {
+      document.title = "Tribes";
       await store.dispatch("tribes/getAllTribes");
       loading.value = false;
     });
