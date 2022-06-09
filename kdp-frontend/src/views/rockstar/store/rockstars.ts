@@ -47,6 +47,7 @@ const rockstar = {
 
       if (status >= 200 && status <= 299) {
         context.rootState.loading = false;
+        data.email = data.userPrincipalName;
         context.commit("SET_ROCKSTAR", data);
       }
     },
@@ -71,6 +72,10 @@ const rockstar = {
   },
   mutations: {
     SET_ROCKSTAR: (state: rockstarState, data: RockstarShape) => {
+      console.log(data);
+
+      console.log(data);
+
       if (data.image != null) {
         data.image = SetProfilePicture(data.image);
       }

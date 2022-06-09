@@ -65,6 +65,11 @@
             />
           </a>
         </div>
+
+        <div v-if="FormSucces">
+            <p class="email-succes">OnDemand request succesfully send!</p>
+        </div>
+
         <div id="open-ondemand-modal" class="row-ondemand" @click="OpenModal">
           <div class="col-ondemand-text">
             {{ $t("rockstar-page.ondemand-button-text") }}
@@ -139,6 +144,11 @@
             <small class="character-counter"
               >{{ onDemandRequest.description.length }}/1000</small
             >
+
+            <div v-if="FormFailed">
+              <p>Request failed</p>
+            </div>
+
           </div>
           <div class="row-buttons">
             <button
@@ -169,6 +179,7 @@ import { reactive, ref } from "vue";
 import Modal from "@/components/modal/Modal.vue";
 import rockstarService from "@/services/callFunctions/rockstar";
 import  RockstarOnDemandRequest from "@/models/RockstarOnDemandRequest";
+import rockstar from '@/views/rockstar/store/rockstars';
 
 export default {
   name: "RockstarView",
@@ -178,10 +189,14 @@ export default {
   components: {
     Modal,
   },
-  setup() {
+  setup(props: any) {
     const modalIsOpened = ref<boolean>(false);
+    const FormFailed = ref<boolean>(false);
+    const FormSucces = ref<boolean>(false);
+
     const OpenModal = (): void => {
       modalIsOpened.value = true;
+      FormSucces.value = false;
     };
     const CloseModal = (): void => {
       modalIsOpened.value = false;
@@ -203,6 +218,9 @@ export default {
       descriptionValid: true,
     });
     const OnFormSubmit = async () => {
+
+      FormFailed.value = false;
+
       onDemandRequest.name == ""
         ? (formValidation.nameValid = false)
         : (formValidation.nameValid = true);
@@ -224,9 +242,8 @@ export default {
         formValidation.descriptionValid
       ) {
 
-
         const { data, status } = await rockstarService.SendOnDemandRequest( {
-          receiverEmail: "teun.mos@gmail.com",
+          receiverEmail: props.rockstar.email,
           senderEmail: onDemandRequest.email,
           name: onDemandRequest.name,
           message: onDemandRequest.description,
@@ -234,8 +251,16 @@ export default {
 
         if (status >= 200 && status <= 299) {
           CloseModal();
+          FormSucces.value = true;
+          setInterval(function () {FormSucces.value = false;}, 4000);
         }
+        else {
+          FormFailed.value = true;
+        }
+
+        
       }
+
     };
     return {
       modalIsOpened,
@@ -244,6 +269,8 @@ export default {
       onDemandRequest,
       formValidation,
       OnFormSubmit,
+      FormFailed,
+      FormSucces,
     };
   },
 };
