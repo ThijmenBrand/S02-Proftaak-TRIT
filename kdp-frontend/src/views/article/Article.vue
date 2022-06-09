@@ -15,7 +15,7 @@
           id="like-button"
           src="@/assets/images/article/heart-solid.svg"
           :alt="$t('article-page.heart-image')"
-          v-on:click="test"
+          v-on:click="updateLikeState"
         />
         <span class="stats">11</span>
         <img
@@ -112,7 +112,7 @@ export default {
       (): CommentShape => store.getters["article/getComments"]
     );
 
-    const test = async () => {
+    const updateLikeState = async () => {
       if (store.getters["article/getLikeState"]) {
         await store.dispatch("article/decrementLikeCount", articleId.value);
       } else {
@@ -126,7 +126,7 @@ export default {
       loading,
       getRockstar,
       getComments,
-      test,
+      updateLikeState,
     };
   },
 };

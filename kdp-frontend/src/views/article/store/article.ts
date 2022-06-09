@@ -111,7 +111,6 @@ const tribes = {
       const { data, status } = await articleService.updateViewCount(viewCount);
     },
     incrementLikeCount: async (context: any, articleId: string): Promise<void> => {
-      console.log("Increment");
       const likeCount = context.state.likeCount;
       likeCount.articleId = articleId;
       const localstrorageData = localStorage.getItem("user");
@@ -124,7 +123,6 @@ const tribes = {
       likeButton?.classList.add("liked");
     },
     decrementLikeCount: async (context: any, articleId: string): Promise<void> => {
-      console.log("Decrement");
       const likeCount = context.state.likeCount;
       likeCount.articleId = articleId;
       const localstrorageData = localStorage.getItem("user");
