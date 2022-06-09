@@ -12,7 +12,12 @@
         display: flex;
         align-items: center;
         justify-content: center;
-
+        #like-button:hover{
+          cursor: pointer;
+        }
+      }
+      .liked{
+        filter: invert(14%) sepia(95%) saturate(7491%) hue-rotate(3deg) brightness(97%) contrast(119%);
       }
       .views {
         display: flex;

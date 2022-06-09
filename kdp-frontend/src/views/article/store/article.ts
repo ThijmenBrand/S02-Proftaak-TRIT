@@ -16,6 +16,7 @@ interface articleState {
   viewCount: ViewCountShape;
   comments: CommentShape[];
   likeCount: LikeCountShape;
+  likeState: boolean;
 }
 
 const tribes = {
@@ -63,6 +64,7 @@ const tribes = {
         frontendUserId: "",
         articleId: "",
       },
+      likeState: false,
     };
   },
   getters: {
@@ -74,6 +76,9 @@ const tribes = {
     },
     getComments: (state: articleState): CommentShape[] => {
       return state.comments;
+    },
+    getLikeState: (state: articleState): boolean => {
+      return state.likeState;
     },
   },
   actions: {
@@ -106,20 +111,43 @@ const tribes = {
       const { data, status } = await articleService.updateViewCount(viewCount);
     },
     incrementLikeCount: async (context: any, articleId: string): Promise<void> => {
+      console.log("Increment");
       const likeCount = context.state.likeCount;
       likeCount.articleId = articleId;
       const localstrorageData = localStorage.getItem("user");
       const userData = JSON.parse(localstrorageData || "{}");
       likeCount.frontendUserId = userData.account.localAccountId;
       const { data, status } = await articleService.likeArticle(likeCount);
+      context.commit("SET_LIKE_STATE", true);
+
+      const likeButton = document.getElementById("like-button");
+      likeButton?.classList.add("liked");
     },
     decrementLikeCount: async (context: any, articleId: string): Promise<void> => {
+      console.log("Decrement");
       const likeCount = context.state.likeCount;
       likeCount.articleId = articleId;
       const localstrorageData = localStorage.getItem("user");
       const userData = JSON.parse(localstrorageData || "{}");
       likeCount.frontendUserId = userData.account.localAccountId;
       const { data, status } = await articleService.dislikeArticle(likeCount);
+
+      context.commit("SET_LIKE_STATE", false);
+
+      const likeButton = document.getElementById("like-button");
+      likeButton?.classList.remove("liked");
+    },
+    checkIfArticleIsLiked: async (context: any, articleId: string) => {
+      const localstrorageData = localStorage.getItem("user");
+      const userData = JSON.parse(localstrorageData || "{}");
+      const likeCount = context.state.likeCount;
+      likeCount.articleId = articleId;
+      likeCount.frontendUserId = userData.account.localAccountId;
+      const { data, status } = await articleService.getLikedState(likeCount);
+      if (status >= 200 && status <= 299) {
+        context.rootState.loading = false;
+        context.commit("SET_LIKE_STATE", data);
+      }
     },
     getComments: async (context: any, articleId: string) => {
       context.rootState.loading = true;
@@ -180,6 +208,9 @@ const tribes = {
     },
     SET_COMMENTS: (state: articleState, data: CommentShape[]) => {
       state.comments = data;
+    },
+    SET_LIKE_STATE: (state: articleState, data: boolean) => {
+      state.likeState = data;
     },
   },
 };

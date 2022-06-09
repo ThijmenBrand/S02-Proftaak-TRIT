@@ -27,6 +27,9 @@ const articleService = {
       `/article/decrementLikeCount?userId=${likeCount.frontendUserId}&articleId=${likeCount.articleId}`
     );
   },
+  getLikedState(likeCount: LikeCountShape) : Promise<AxiosResponse<any, any>> {
+    return API.post(`/article/checkIfAlreadyLiked`, likeCount);
+  },
 };
 
 export default articleService;
