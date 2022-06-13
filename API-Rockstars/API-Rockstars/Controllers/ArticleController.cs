@@ -345,6 +345,18 @@ namespace API_Rockstars.Controllers
             return Ok();
         }
 
+        [HttpPost("checkIfAlreadyLiked")]
+        public async Task<bool> CheckIfAlreadyLiked(ArticleLike like)
+        {
+            var checkArticleLike = await _context.ArticleLike.FirstOrDefaultAsync(x => x.FrontendUserId == like.FrontendUserId && x.ArticleId == like.ArticleId);
+
+            if (checkArticleLike == null)
+            {
+                return false;
+            }
+            return true;
+        }
+
         private bool ArticleExists(Guid id)
         {
             return _context.Articles.Any(e => e.Id == id);
