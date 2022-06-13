@@ -357,6 +357,17 @@ namespace API_Rockstars.Controllers
             return true;
         }
 
+        [HttpPost("getLikeCount")]
+        public async Task<ActionResult<int>> GetLikeCount(Guid articleId)
+        {
+            if (!ArticleExists(articleId))
+            {
+                return BadRequest("Article was not found.");
+            }
+            int count = await _context.ArticleLike.CountAsync();
+            return count;
+        }
+
         private bool ArticleExists(Guid id)
         {
             return _context.Articles.Any(e => e.Id == id);
