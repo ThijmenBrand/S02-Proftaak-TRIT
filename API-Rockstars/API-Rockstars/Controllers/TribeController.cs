@@ -107,20 +107,6 @@ namespace API_Rockstars.Controllers
             return rockstars;
         }
 
-        //Add rockstar to tribe
-        [HttpPost("AddRockstar")]
-        public async Task<ActionResult> AddRockstartToTribe(TribeRockstar tribeRockstar)
-        {
-            var directoryObject = new DirectoryObject
-            {
-                Id = tribeRockstar.RockstarId.ToString()
-            };
-            
-            await _azure.GraphApi.Groups[tribeRockstar.TribeId.ToString()].Members.References.Request().AddAsync(directoryObject);
-
-            return Ok();
-        }
-
         //Create tribe
         // POST: api/Tribe
         [HttpPost]

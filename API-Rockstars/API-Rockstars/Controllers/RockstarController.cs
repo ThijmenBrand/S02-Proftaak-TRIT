@@ -37,7 +37,8 @@ namespace API_Rockstars.Controllers
                 {
                     id = user.Id,
                     displayName = user.DisplayName,
-                    userPrincipalName = user.UserPrincipalName
+                    userPrincipalName = user.UserPrincipalName,
+                    RockstarSocial = _context.RockstarSocials.FirstOrDefault(x => x.RockstarId.ToString() == user.Id)
                 });
             }
 
@@ -54,7 +55,8 @@ namespace API_Rockstars.Controllers
             {
                 id = apiRes.Id,
                 displayName = apiRes.DisplayName,
-                userPrincipalName = apiRes.UserPrincipalName
+                userPrincipalName = apiRes.UserPrincipalName,
+                RockstarSocial = _context.RockstarSocials.FirstOrDefault(x => x.RockstarId.ToString() == apiRes.Id)
             };
 
             return rockstar;
@@ -64,19 +66,17 @@ namespace API_Rockstars.Controllers
         public async Task<ActionResult> SendRockstarOndemandRequest(RockstarOndemand rockstarOndemand)
         {
             string CC = _configuration.GetValue<string>("CCOnDemandEmail");
-
-
+            
             string connectionString = _configuration.GetValue<string>("ConnectionStrings:EmailSender");
             EmailClient emailClient = new EmailClient(connectionString);
 
-            
             EmailContent emailContent = new EmailContent("New rockstar Ondemand request from: " + rockstarOndemand.Name);
             emailContent.PlainText = rockstarOndemand.Message;
             emailContent.Html = "<strong>" + rockstarOndemand.Message + "</strong> <div style=\"margin - top: 30px;\" >Preferred date:  " + rockstarOndemand.Date.ToLongDateString() + " " + rockstarOndemand.Date.ToShortTimeString() + " UTC</div> <div> From: " + rockstarOndemand.SenderEmail + "</div>";
-            List<EmailAddress> emailAddresses = new List<EmailAddress> { new EmailAddress(rockstarOndemand.ReceiverEmail) { DisplayName = rockstarOndemand.Name }, new EmailAddress(CC) { DisplayName = CC.Remove(CC.IndexOf('@'), CC.Length - CC.IndexOf('@'))  } };
+            List<EmailAddress> emailAddresses = new List<EmailAddress> { new(rockstarOndemand.ReceiverEmail) { DisplayName = rockstarOndemand.Name }, new(CC) { DisplayName = CC.Remove(CC.IndexOf('@'), CC.Length - CC.IndexOf('@'))  } };
             EmailRecipients emailRecipients = new EmailRecipients(emailAddresses);
             EmailMessage emailMessage = new EmailMessage("DoNotReply@rockstarmailtest.tk", emailContent, emailRecipients);
-            SendEmailResult emailResult = emailClient.Send(emailMessage, CancellationToken.None);
+            emailClient.Send(emailMessage, CancellationToken.None);
 
             return Ok();
         }
@@ -99,36 +99,28 @@ namespace API_Rockstars.Controllers
 
             return Ok();
         }
-
-        // PUT: api/Rockstar/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutRockstar(Guid id, Rockstar rockstar)
+        
+        [HttpPost("AddRockstarsSocial/{id}")]
+        public async Task<ActionResult> AddSocialsToRockstar(Guid id, RockstarSocial rockstarSocial)
         {
-            if (id != rockstar.Id)
-            {
-                return BadRequest();
-            }
+            RockstarSocial checkDuplicate = _context.RockstarSocials.FirstOrDefault(x => x.RockstarId == rockstarSocial.Id);
 
-            _context.Entry(rockstar).State = EntityState.Modified;
+            if (checkDuplicate != null)
+                return BadRequest("This rockstar is already has socials");
 
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!await RockstarExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+            _context.RockstarSocials.Add(rockstarSocial);
+            await _context.SaveChangesAsync();
 
-            return NoContent();
+            return Ok();
+        }
+        
+        [HttpPut("UpdateRockstarSocial")]
+        public async Task<ActionResult> UpdateSocialsFromRockstar(RockstarSocial rockstarSocial)
+        {
+            _context.RockstarSocials.Update(rockstarSocial);
+            await _context.SaveChangesAsync();
+
+            return Ok();
         }
 
         [HttpGet("GetRockstarRole/TribeId/{tribeId}/RockstarId/{rockstarId}")]
@@ -174,12 +166,6 @@ namespace API_Rockstars.Controllers
             }
             
             return stream;
-        }
-
-        private async Task<bool> RockstarExists(Guid id)
-        {
-            var rockstar = await _azure.GraphApi.Users[id.ToString()].Request().GetAsync();
-            return rockstar != null;
         }
     }
 }
