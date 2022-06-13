@@ -1,5 +1,12 @@
 @import "@/styles/variables.scss";
 
+.loader-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  min-height: calc(100vh - 160px - 104.16px - 80px - 1em);
+}
+
 .background-container {
   .tribes-links-container {
     min-height: calc(100vh - 160px - 104.16px - 80px - 1em);
