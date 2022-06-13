@@ -58,7 +58,7 @@
 <script lang="ts">
 import { useRoute } from "vue-router";
 import { useStore } from "vuex";
-import { computed, onMounted } from "vue";
+import { computed, onMounted, Ref } from "vue";
 
 import ArticleShape from "@/models/Article";
 import { RockstarShape } from "@/models/Rockstar";
@@ -69,6 +69,7 @@ import Recommended from "./components/Recommended.vue";
 import RockstarView from "./components/RockstarArticleView.vue";
 import Blog from "./components/Blog.vue";
 import Loader from "@/components/loader/Loader.vue";
+import { useIsAuthenticated } from "@/services/msal/msal";
 
 export default {
   name: "Article-view",
@@ -85,6 +86,8 @@ export default {
 
     const loading = computed(() => store.getters["isLoading"]);
 
+    const LoggedIn: Ref<boolean> = useIsAuthenticated();
+
     const articleId = computed(() => {
       return route.params.articleId;
     });
@@ -96,7 +99,9 @@ export default {
         .then(() => store.dispatch("article/getRockstar"));
       await store.dispatch("article/getComments", articleId.value);
       await store.dispatch("article/updateViewCount", articleId.value);
-      await store.dispatch("article/checkIfArticleIsLiked", articleId.value);
+      if (LoggedIn.value) {
+        await store.dispatch("article/checkIfArticleIsLiked", articleId.value);
+      }
     });
 
     const articleDetails = computed((): ArticleShape => {
@@ -114,13 +119,14 @@ export default {
     );
 
     const updateLikeState = async () => {
-      if (store.getters["article/getLikeState"]) {
-        await store.dispatch("article/decrementLikeCount", articleId.value);
-      } else {
-        await store.dispatch("article/incrementLikeCount", articleId.value);
+      if (LoggedIn.value) {
+        if (store.getters["article/getLikeState"]) {
+          await store.dispatch("article/decrementLikeCount", articleId.value);
+        } else {
+          await store.dispatch("article/incrementLikeCount", articleId.value);
+        }
       }
     };
-
     return {
       articleId,
       articleDetails,
@@ -128,6 +134,7 @@ export default {
       getRockstar,
       getComments,
       updateLikeState,
+      LoggedIn,
     };
   },
 };
