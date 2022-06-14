@@ -67,6 +67,9 @@ const tribes = {
     };
   },
   getters: {
+    getUserHasLiked(state: articleState): boolean {
+      return state.likeState;
+    },
     getArticle: (state: articleState): ArticleShape => {
       return state.article;
     },
@@ -74,15 +77,14 @@ const tribes = {
       return state.rockstar;
     },
     getComments: (state: articleState): CommentShape[] => {
-      return state.comments;
+      return state.comments ?? Array<CommentShape>();
     },
     getLikeState: (state: articleState): boolean => {
       return state.likeState;
     },
     getLikeCount: (state: articleState): number => {
-      console.log(state.article.likeCount);
       return state.article.likeCount;
-    }
+    },
   },
   actions: {
     getArticle: async (
@@ -103,12 +105,12 @@ const tribes = {
       const { data, status } = await rockstarService.getRockstar(rockstarId);
 
       if (status >= 200 && status <= 299) {
-          const rockstarImage = await rockstarService.getImage(data.id);
-          if (rockstarImage.data != "") {
-            data.image = rockstarImage.data;
-          } else {
-            data.image = PfPlaceholder
-          }
+        const rockstarImage = await rockstarService.getImage(data.id);
+        if (rockstarImage.data != "") {
+          data.image = rockstarImage.data;
+        } else {
+          data.image = PfPlaceholder;
+        }
         context.rootState.loading = false;
         context.commit("SET_ROCKSTAR", data);
       }
@@ -119,41 +121,28 @@ const tribes = {
       viewCount.frontendUserId = localStorage.getItem("UserId-uuid");
       const { data, status } = await articleService.updateViewCount(viewCount);
     },
-    incrementLikeCount: async (context: any, articleId: string): Promise<void> => {
-      const likeCount = context.state.likeCount;
-      likeCount.articleId = articleId;
-      const localstrorageData = localStorage.getItem("user");
-      const userData = JSON.parse(localstrorageData || "{}");
-      likeCount.frontendUserId = userData.account.localAccountId;
-      const { data, status } = await articleService.likeArticle(likeCount);
-      context.commit("SET_LIKE_STATE", true);
-
-      const likeButton = document.getElementById("like-button");
-      likeButton?.classList.add("liked");
-    },
-    decrementLikeCount: async (context: any, articleId: string): Promise<void> => {
-      const likeCount = context.state.likeCount;
-      likeCount.articleId = articleId;
-      const localstrorageData = localStorage.getItem("user");
-      const userData = JSON.parse(localstrorageData || "{}");
-      likeCount.frontendUserId = userData.account.localAccountId;
-      const { data, status } = await articleService.dislikeArticle(likeCount);
-
-      context.commit("SET_LIKE_STATE", false);
-
-      const likeButton = document.getElementById("like-button");
-      likeButton?.classList.remove("liked");
-    },
-    checkIfArticleIsLiked: async (context: any, articleId: string) => {
-      const localstrorageData = localStorage.getItem("user");
-      const userData = JSON.parse(localstrorageData || "{}");
-      const likeCount = context.state.likeCount;
-      likeCount.articleId = articleId;
-      likeCount.frontendUserId = userData.account.localAccountId;
-      const { data, status } = await articleService.getLikedState(likeCount);
+    checkIfUserLiked: async (
+      context: any,
+      opts: { articleId: string; userId: string }
+    ): Promise<void> => {
+      const { data, status } = await articleService.checkIfUserLiked(
+        opts.articleId,
+        opts.userId
+      );
       if (status >= 200 && status <= 299) {
-        context.rootState.loading = false;
         context.commit("SET_LIKE_STATE", data);
+      }
+    },
+    likeOrUnlike: async (
+      context: any,
+      opts: { articleId: string; userId: string; likeState: boolean }
+    ): Promise<void> => {
+      const { data, status } = opts.likeState
+        ? await articleService.dislikeArticle(opts.articleId, opts.userId)
+        : await articleService.likeArticle(opts.articleId, opts.userId);
+      if (status >= 200 && status <= 299) {
+        context.commit("SET_LIKE_COUNT", data);
+        context.commit("SET_LIKE_STATE", !opts.likeState);
       }
     },
     getComments: async (context: any, articleId: string) => {
@@ -209,7 +198,10 @@ const tribes = {
     },
     SET_LIKE_STATE: (state: articleState, data: boolean) => {
       state.likeState = data;
-    }
+    },
+    SET_LIKE_COUNT: (state: articleState, data: number) => {
+      state.article.likeCount = data;
+    },
   },
 };
 

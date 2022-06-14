@@ -11,13 +11,14 @@
     <div class="actions-bar">
       <div class="blog-action">
         <img
-          class="stats-image liked"
+          class="stats-image"
+          :class="{ liked: userLiked, 'not-logged-in': !LoggedIn }"
           id="like-button"
           src="@/assets/images/article/heart-solid.svg"
           :alt="$t('article-page.heart-image')"
-          v-on:click="updateLikeState"
+          @click="updateLikeState"
         />
-        <span class="stats">{{ getLikes }}</span>
+        <span class="stats">{{ articleDetails.likeCount }}</span>
         <img
           class="stats-image"
           src="@/assets/images/article/message-solid.svg"
@@ -69,8 +70,8 @@ import Recommended from "./components/Recommended.vue";
 import RockstarView from "./components/RockstarArticleView.vue";
 import Blog from "./components/Blog.vue";
 import Loader from "@/components/loader/Loader.vue";
-import { useIsAuthenticated } from "@/services/msal/msal";
-import articleService from "@/services/callFunctions/article";
+import { getAccountInfo, useIsAuthenticated } from "@/services/msal/msal";
+import { AccountInfo } from "@azure/msal-browser";
 
 export default {
   name: "Article-view",
@@ -88,21 +89,36 @@ export default {
     const loading = computed(() => store.getters["isLoading"]);
 
     const LoggedIn: Ref<boolean> = useIsAuthenticated();
+    const loggedUser: AccountInfo[] = getAccountInfo();
 
+    const userLiked = computed(() => store.getters["article/getUserHasLiked"]);
     const articleId = computed(() => {
       return route.params.articleId;
     });
 
+    const updateLikeState = async () => {
+      if (LoggedIn.value) {
+        store.dispatch("article/likeOrUnlike", {
+          articleId: articleId.value,
+          userId: loggedUser[0].homeAccountId,
+          likeState: userLiked.value,
+        });
+      }
+    };
+
     onMounted(async () => {
       store.commit("article/CLEAR_ARTICLE");
+      if (LoggedIn.value) {
+        store.dispatch("article/checkIfUserLiked", {
+          articleId: articleId.value,
+          userId: loggedUser[0].homeAccountId,
+        });
+      }
       await store
         .dispatch("article/getArticle", articleId.value)
         .then(() => store.dispatch("article/getRockstar"));
       await store.dispatch("article/getComments", articleId.value);
       await store.dispatch("article/updateViewCount", articleId.value);
-      if (LoggedIn.value) {
-        await store.dispatch("article/checkIfArticleIsLiked", articleId.value);
-      }
     });
 
     const articleDetails = computed((): ArticleShape => {
@@ -114,7 +130,7 @@ export default {
     let getLikes = computed((): number => {
       let likes = store.getters["article/getLikeCount"];
       return likes;
-    })
+    });
 
     const getRockstar = computed((): RockstarShape => {
       return store.getters["article/getRockstar"];
@@ -124,15 +140,6 @@ export default {
       (): CommentShape => store.getters["article/getComments"]
     );
 
-    const updateLikeState = async () => {
-      if (LoggedIn.value) {
-        if (store.getters["article/getLikeState"]) {
-          await store.dispatch("article/decrementLikeCount", articleId.value);
-        } else {
-          await store.dispatch("article/incrementLikeCount", articleId.value);
-        }
-      }
-    };
     return {
       articleId,
       articleDetails,
@@ -142,6 +149,7 @@ export default {
       updateLikeState,
       LoggedIn,
       getLikes,
+      userLiked,
     };
   },
 };
