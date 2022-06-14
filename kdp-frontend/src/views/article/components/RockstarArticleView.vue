@@ -15,6 +15,7 @@
       <p>{{ rockstar.displayName }}</p>
       <div class="socials" v-if="rockstar.rockstarSocial != null">
           <a
+            v-if="rockstar.rockstarSocial.twitterLink != null"
             :href="rockstar.rockstarSocial.twitterLink"
             class="social-component"
           >
@@ -25,6 +26,7 @@
             />
           </a>
           <a
+            v-if="rockstar.rockstarSocial.linkedInLink != null"
             class="social-component"
             :href="rockstar.rockstarSocial.linkedInLink"
           >
@@ -35,6 +37,7 @@
             />
           </a>
           <a
+            v-if="rockstar.email != null"
             class="social-component"
             :href="'mailto:' + rockstar.email"
           >
@@ -45,6 +48,7 @@
             />
           </a>
           <a
+            v-if="rockstar.rockstarSocial.facebookLink != null"
             class="social-component"
             :href="rockstar.rockstarSocial.facebookLink"
           >
