@@ -15,7 +15,7 @@
         <p class="content">
           {{ limitContent(cleanText(content)) }}
         </p>
-        <div class="test-container">
+        <div class="details-container">
           <p class="rockstar-name">
             {{ rockstarName }}
           </p>
