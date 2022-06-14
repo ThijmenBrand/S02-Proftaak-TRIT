@@ -28,7 +28,7 @@
   </div>
   <div class="background-container">
     <div class="content-container">
-      <div v-if="loading">
+      <div class="loader-container" v-if="loading">
         <Loader />
       </div>
       <div

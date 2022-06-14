@@ -1,7 +1,9 @@
 
 <template>
   <div class="background-container">
-    <Loader v-if="loading" />
+    <div class="loader-container" v-if="loading">
+        <Loader />
+    </div>
     <div v-else class="content-container">
       <div class="left-pannel">
         <div class="featured-tribes-container">
