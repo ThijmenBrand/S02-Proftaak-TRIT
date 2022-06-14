@@ -75,17 +75,17 @@
       width: 3px;
     }
 
-  /* Track */
+    /* Track */
     ::-webkit-scrollbar-track {
       background: transparent;
     }
 
-  /* Handle */
+    /* Handle */
     ::-webkit-scrollbar-thumb {
       background: $trit-yellow;
     }
 
-  /* Handle on hover */
+    /* Handle on hover */
     ::-webkit-scrollbar-thumb:hover {
       background: $trit-yellow;
     }
