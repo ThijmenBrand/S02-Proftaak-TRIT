@@ -4,6 +4,9 @@
   display: flex;
   flex-flow: column;
   align-items: center;
+  text-align: center;
+  max-width: 5em;
+  word-break: break-word;
 
   .profile-image-container {
     height: 60px;
@@ -29,5 +32,16 @@
   }
   p {
     text-align: center;
+  }
+}
+
+
+@media screen and (max-width: 768px) {
+  .profile-tag-container {
+    width: auto;
+  }
+
+  .details {
+    display: none;
   }
 }

@@ -9,7 +9,7 @@
   .tribes-overview {
     background-color: $trit-yellow;
     width: auto;
-    height: 300px;
+    height: auto;
     margin: 0;
     padding: 0;
 
@@ -86,10 +86,25 @@
   }
 }
 
-@media only screen and (max-width: 1000px) {
+@media only screen and (max-width: 762px) {
   /* for mobile screens < 1000px */
   .content-container {
     max-width: 100%;
     margin: 0;
+  }
+
+  .profile-container {
+    flex-wrap: wrap;
+    justify-content: flex-start !important;
+    margin-left: 0.5em !important;
+  }
+
+  .profile-wrapper {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .tribes-overview {
+    margin-bottom: 1em !important;
   }
 }
