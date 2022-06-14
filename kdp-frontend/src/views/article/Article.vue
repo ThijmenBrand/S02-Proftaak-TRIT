@@ -62,7 +62,7 @@
 <script lang="ts">
 import { useRoute } from "vue-router";
 import { useStore } from "vuex";
-import { computed, onMounted, ref } from "vue";
+import { computed, onMounted, watch, ref } from "vue";
 
 import ArticleShape from "@/models/Article";
 import { RockstarShape } from "@/models/Rockstar";
@@ -83,6 +83,11 @@ export default {
     RockstarView,
     Loader,
   },
+    methods:{
+    toTop(){
+         window.scrollTo(0,0);
+    }
+  },
   setup() {
     const route = useRoute();
     const store = useStore();
@@ -93,13 +98,25 @@ export default {
       return route.params.articleId;
     });
 
-    onMounted(async () => {
+    const init = async () => {
+      toTop();
       store.commit("article/CLEAR_ARTICLE");
       await store
         .dispatch("article/getArticle", articleId.value)
         .then(() => store.dispatch("article/getRockstar"));
       await store.dispatch("article/getComments", articleId.value);
       await store.dispatch("article/updateViewCount", articleId.value);
+    }
+    
+    const toTop = async () =>{
+      window.scrollTo(0,0);
+    }
+    watch(route, (newRoute) => {
+      init();
+    })
+
+    onMounted(async () => {
+      init();
       await store.dispatch("article/checkIfArticleIsLiked", articleId.value);
       loading.value = false;
     });

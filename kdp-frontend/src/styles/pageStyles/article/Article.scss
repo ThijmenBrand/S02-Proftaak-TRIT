@@ -56,7 +56,7 @@
       }
       
       .article-content {
-        width: 75%;
+        width: 70%;
         .border {
           height: 1px;
           background: $trit-white;
@@ -69,10 +69,9 @@
 
       .side-bar {
         flex: 1;
-        width: 20%;
+        width: 25%;
         display: flex;
         flex-direction: column;
-        align-items: flex-end;
       }
     }
   }

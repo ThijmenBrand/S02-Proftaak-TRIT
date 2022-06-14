@@ -1,0 +1,97 @@
+@import "@/styles/variables.scss";
+
+.article-container:hover {
+  cursor: pointer;
+}
+
+.article-container {
+  height: auto;
+  width: auto;
+  border: 1px solid #3e3e3e;
+  background-color: $trit-gray;
+  margin: 5px;
+  display: flex;
+  flex-direction: row;
+  align-content: space-between;
+  align-items: flex-start;
+  max-height: 300px;
+  margin-bottom: 2em;
+}
+
+.image-container {
+  display: flex;
+  flex-direction: row;
+}
+
+.test-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.content {
+  color: $trit-white;
+  padding-left: 15px;
+  padding-right: 10px;
+  padding-top: 5px;
+  margin: 0;
+  width: auto;
+  font-size: smaller;
+}
+
+.rockstar-name {
+  margin-top: 10px;
+  margin-bottom: 5px;
+  padding-left: 15px;
+  color: $trit-yellow;
+  font-size: smaller; 
+  width: max-content;
+}
+
+.publish-date {
+  margin-top: 10px;
+  margin-bottom: 5px;
+  padding-left: 15px;
+  padding-right: 10px;
+  color: $trit-white;
+  font-size: smaller;
+}
+
+.article-preview-title {
+  color: $trit-yellow;
+  text-align: left;
+  padding-left: 15px;
+  text-transform: uppercase;
+  margin-top: 10px;
+  margin-bottom: 5px;
+  font-size: 16px;
+}
+
+.article-image {
+  object-fit: scale-down;
+  object-position: top;
+  width: auto;
+  height: 100%;
+  max-width: 200px;
+}
+
+@media only screen and (max-width: 1000px) {
+  /* for mobile screens < 1000px */
+  .article {
+    max-width: 100vw;
+    border-left: none;
+    border-right: none;
+
+    img {
+      width: 100%;
+    }
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  /* for mobile screens < 1000px */
+  .content {
+    word-break: break-all;
+  }
+}
