@@ -285,6 +285,18 @@ namespace API_Rockstars.Controllers
             return NoContent();
         }
 
+        [HttpGet("CheckIfUserLiked")]
+        public async Task<IActionResult> CheckIfUserLiked(string userId, Guid articleId)
+        {
+            if (!ArticleExists(articleId))
+            {
+                return BadRequest("Article does not exist.");
+            }
+            var isAlreadyLiked = await _context.ArticleLike.AnyAsync(al => al.FrontendUserId == userId && al.ArticleId == articleId);
+
+            return Ok(isAlreadyLiked);
+        }
+
         [HttpPut("incrementLikeCount")]
         public async Task<IActionResult> IncrementLikeCount(string userId, Guid articleId)
         {
