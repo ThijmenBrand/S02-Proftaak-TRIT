@@ -6,7 +6,7 @@ export default interface ArticleShape {
   rockstarName: string;
   viewCount: number;
   totalViewCount: number;
-  likes: number;
+  likeCount: number;
   title: string;
   content: string;
   publishDate: String | Date;
