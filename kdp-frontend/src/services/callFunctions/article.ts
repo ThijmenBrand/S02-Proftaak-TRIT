@@ -17,18 +17,29 @@ const articleService = {
   postComment(opts: CommentShape): Promise<AxiosResponse<any, any>> {
     return API.post("/comment", opts);
   },
-  likeArticle(likeCount: LikeCountShape): Promise<AxiosResponse<any, any>> {
-    return API.put(
-      `/article/incrementLikeCount?userId=${likeCount.frontendUserId}&articleId=${likeCount.articleId}`
-    );
+  likeArticle(
+    articleId: string,
+    userId: string
+  ): Promise<AxiosResponse<any, any>> {
+    return API.put(`/article/incrementLikeCount/${articleId}/${userId}`);
   },
-  dislikeArticle(likeCount: LikeCountShape): Promise<AxiosResponse<any, any>> {
-    return API.put(
-      `/article/decrementLikeCount?userId=${likeCount.frontendUserId}&articleId=${likeCount.articleId}`
-    );
+  dislikeArticle(
+    articleId: string,
+    userId: string
+  ): Promise<AxiosResponse<any, any>> {
+    return API.put(`/article/decrementLikeCount/${articleId}/${userId}`);
   },
-  getLikedState(likeCount: LikeCountShape) : Promise<AxiosResponse<any, any>> {
+  checkIfUserLiked(
+    articleId: string,
+    userId: string
+  ): Promise<AxiosResponse<any, any>> {
+    return API.get(`/article/CheckIfUserLiked/${articleId}/${userId}`);
+  },
+  getLikedState(likeCount: LikeCountShape): Promise<AxiosResponse<any, any>> {
     return API.post(`/article/checkIfAlreadyLiked`, likeCount);
+  },
+  getLikeCount(articleId: string): Promise<AxiosResponse<any, any>> {
+    return API.post(`/article/getLikeCount?articleId=${articleId}`);
   },
 };
 

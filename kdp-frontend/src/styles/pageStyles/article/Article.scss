@@ -23,12 +23,17 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        #like-button:hover{
+        #like-button:hover {
           cursor: pointer;
         }
       }
-      .liked{
-        filter: invert(14%) sepia(95%) saturate(7491%) hue-rotate(3deg) brightness(97%) contrast(119%);
+      .liked {
+        filter: invert(14%) sepia(95%) saturate(7491%) hue-rotate(3deg)
+          brightness(97%) contrast(119%);
+      }
+      .not-logged-in {
+        filter: grayscale(100%) brightness(101%) saturate(1000%) contrast(99%);
+        cursor: not-allowed !important;
       }
       .views {
         display: flex;
@@ -45,7 +50,7 @@
         margin-right: 1em;
       }
     }
-    
+
     .content-container {
       display: flex;
       .article-header-container {
@@ -57,7 +62,7 @@
       .article-title-container {
         display: inline-block;
       }
-      
+
       .article-content {
         width: 70%;
         .border {

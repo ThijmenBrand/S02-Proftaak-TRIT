@@ -1,26 +1,27 @@
 <template>
-  <div class="content-container" >
+  <div class="content-container">
     <div class="article-header-container">
       <div class="article-title-container" v-if="!loading">
         <h1>{{ articleDetails.title }}</h1>
       </div>
     </div>
   </div>
-  <div class="background-container" >
-  <div class="loader-container" v-if="loading">
-    <Loader />
-  </div>
-  <div v-else>
-      <div class="actions-bar" >
+  <div class="background-container">
+    <div class="loader-container" v-if="loading">
+      <Loader />
+    </div>
+    <div v-else>
+      <div class="actions-bar">
         <div class="blog-action">
           <img
-            class="stats-image liked"
+            class="stats-image"
+            :class="{ liked: userLiked, 'not-logged-in': !LoggedIn }"
             id="like-button"
             src="@/assets/images/article/heart-solid.svg"
             :alt="$t('article-page.heart-image')"
-            v-on:click="updateLikeState"
+            @click="updateLikeState"
           />
-          <span class="stats">11</span>
+          <span class="stats">{{ articleDetails.likeCount }}</span>
           <img
             class="stats-image"
             src="@/assets/images/article/message-solid.svg"
@@ -46,7 +47,10 @@
       <div class="content-container">
         <div class="article-content">
           <div class="real-article-content">
-            <Blog class="article-text" :articleContent="articleDetails.content" />
+            <Blog
+              class="article-text"
+              :articleContent="articleDetails.content"
+            />
             <p>{{ articleDetails.publishDate }}</p>
           </div>
           <div class="border"></div>
@@ -64,7 +68,7 @@
 <script lang="ts">
 import { useRoute } from "vue-router";
 import { useStore } from "vuex";
-import { computed, onMounted, watch, ref } from "vue";
+import { computed, onMounted, watch, ref, Ref } from "vue";
 
 import ArticleShape from "@/models/Article";
 import { RockstarShape } from "@/models/Rockstar";
@@ -75,6 +79,8 @@ import Recommended from "./components/Recommended.vue";
 import RockstarView from "./components/RockstarArticleView.vue";
 import Blog from "./components/Blog.vue";
 import Loader from "@/components/loader/Loader.vue";
+import { getAccountInfo, useIsAuthenticated } from "@/services/msal/msal";
+import { AccountInfo } from "@azure/msal-browser";
 
 export default {
   name: "Article-view",
@@ -85,42 +91,53 @@ export default {
     RockstarView,
     Loader,
   },
-  methods:{
-    toTop(){
-      window.scrollTo(0,0);
-    }
-  },
   setup() {
     const route = useRoute();
     const store = useStore();
 
     const loading = ref(true);
 
+    const LoggedIn: Ref<boolean> = useIsAuthenticated();
+    const loggedUser: AccountInfo[] = getAccountInfo();
+
+    const userLiked = computed(() => store.getters["article/getUserHasLiked"]);
     const articleId = computed(() => {
       return route.params.articleId;
     });
 
+    const updateLikeState = async () => {
+      if (LoggedIn.value) {
+        store.dispatch("article/likeOrUnlike", {
+          articleId: articleId.value,
+          userId: loggedUser[0].homeAccountId,
+          likeState: userLiked.value,
+        });
+      }
+    };
+
     const init = async () => {
       toTop();
       store.commit("article/CLEAR_ARTICLE");
+      store.commit("article/CLEAR_ARTICLE");
+      if (LoggedIn.value) {
+        store.dispatch("article/checkIfUserLiked", {
+          articleId: articleId.value,
+          userId: loggedUser[0].homeAccountId,
+        });
+      }
       await store
-          .dispatch("article/getArticle", articleId.value)
-          .then(() => store.dispatch("article/getRockstar"));
+        .dispatch("article/getArticle", articleId.value)
+        .then(() => store.dispatch("article/getRockstar"));
       await store.dispatch("article/getComments", articleId.value);
       await store.dispatch("article/updateViewCount", articleId.value);
-    }
-
-    const toTop = async () =>{
-      window.scrollTo(0,0);
-    }
-    watch(route, (newRoute) => {
-      init();
-    })
-
-    onMounted(async () => {
-      init();
-      await store.dispatch("article/checkIfArticleIsLiked", articleId.value);
       loading.value = false;
+    };
+    const toTop = async () => {
+      window.scrollTo(0, 0);
+    };
+    watch(route, (newRoute) => {
+      console.log(newRoute);
+      init();
     });
 
     const articleDetails = computed((): ArticleShape => {
@@ -129,21 +146,20 @@ export default {
       return article;
     });
 
+    let getLikes = computed((): number => {
+      let likes = store.getters["article/getLikeCount"];
+      return likes;
+    });
+
     const getRockstar = computed((): RockstarShape => {
       return store.getters["article/getRockstar"];
     });
 
     const getComments = computed(
-        (): CommentShape => store.getters["article/getComments"]
+      (): CommentShape => store.getters["article/getComments"]
     );
 
-    const updateLikeState = async () => {
-      if (store.getters["article/getLikeState"]) {
-        await store.dispatch("article/decrementLikeCount", articleId.value);
-      } else {
-        await store.dispatch("article/incrementLikeCount", articleId.value);
-      }
-    };
+    onMounted(() => init());
 
     return {
       articleId,
@@ -152,6 +168,9 @@ export default {
       getRockstar,
       getComments,
       updateLikeState,
+      LoggedIn,
+      getLikes,
+      userLiked,
     };
   },
 };
