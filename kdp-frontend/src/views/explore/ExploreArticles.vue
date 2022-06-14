@@ -49,6 +49,7 @@
             :content="article.content"
             :rockstarName="article.rockstarName"
             :articlePublishDate="article.publishDate"
+            :thumbnail="article.thumbnail"
           />
         </router-link>
       </div>
@@ -76,7 +77,7 @@ export default {
   components: {
     ArticlePreview,
     Loader,
-    PageSelect
+    PageSelect,
   },
 
   setup() {
@@ -99,7 +100,7 @@ export default {
     const articlesPerPage = ref<number>(6);
     const CurrentPage = ref<number>(0);
 
-    const SetCurrentPage = async(_page: number) => {
+    const SetCurrentPage = async (_page: number) => {
       loading.value = true;
       await store.dispatch("getFoundedArticles", articlesPerPage.value);
       CurrentPage.value = _page;
@@ -192,7 +193,7 @@ export default {
       pageCount,
       computeArticles,
     };
-  }
+  },
 };
 </script>
 

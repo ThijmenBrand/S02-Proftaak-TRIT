@@ -74,12 +74,11 @@ const tribes = {
 
       if (status >= 200 && status <= 299) {
         for (const rockstar of data) {
-
           const rockstarImage = await rockstarService.getImage(rockstar.id);
           if (rockstarImage.data != "") {
             rockstar.image = rockstarImage.data;
           } else {
-            rockstar.image = PfPlaceholder
+            rockstar.image = PfPlaceholder;
           }
         }
         context.commit("SET_ROCKSTARS_BY_TRIBE", data);
@@ -91,6 +90,7 @@ const tribes = {
         (context.rootState.currentPage - 1) * tribeparams.ArticlesPerPage,
         tribeparams.ArticlesPerPage
       );
+
       if (status >= 200 && status <= 299) {
         context.commit("SET_ARTICLES_BY_TRIBE", data);
       }
@@ -136,6 +136,17 @@ const tribes = {
       state.currentTribe = data;
     },
     SET_ARTICLES_BY_TRIBE: (state: tribesState, data: ArticleShape[]) => {
+      data.forEach((article) => {
+        if (article.thumbnail) {
+          const thumbnail = article.thumbnail;
+          article.thumbnail =
+            "https://tritkdpstorageaccount.blob.core.windows.net/articlepictures/" +
+            thumbnail;
+        } else {
+          article.thumbnail =
+            "https://tritkdpstorageaccount.blob.core.windows.net/articlepictures/article-placeholder-image.dfb114aa.jpg";
+        }
+      });
       state.articleList = data;
     },
     EMPTY_STORE: (state: tribesState) => {

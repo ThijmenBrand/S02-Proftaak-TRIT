@@ -1,26 +1,27 @@
-
 <template>
   <div class="background-container">
     <div class="loader-container" v-if="loading">
-        <Loader />
+      <Loader />
     </div>
     <div v-else class="content-container">
       <div class="left-pannel">
         <div class="featured-tribes-container">
           <div class="featured-tribes">
-            <h4 class="featured-tribes-header">{{ $t("home.featured-tribes") }}</h4>
+            <h4 class="featured-tribes-header">
+              {{ $t("home.featured-tribes") }}
+            </h4>
             <div class="featured-tribes-content">
               <div
-                  v-for="(tribe, index) in tribesList.slice(0, 3)"
-                  :key="index"
-                  class="tribe-item"
+                v-for="(tribe, index) in tribesList.slice(0, 3)"
+                :key="index"
+                class="tribe-item"
               >
                 <router-link
-                    :to="{
-                  name: 'tribe',
-                  params: { tribe: tribe.id },
-                }"
-                    class="tribe-link"
+                  :to="{
+                    name: 'tribe',
+                    params: { tribe: tribe.id },
+                  }"
+                  class="tribe-link"
                 >
                   {{ tribe.displayName }}
                 </router-link>
@@ -54,6 +55,7 @@
                   :content="article.content"
                   :rockstarName="article.rockstarName"
                   :articlePublishDate="article.publishDate"
+                  :thumbnail="article.thumbnail"
                 />
               </router-link>
             </div>
@@ -83,7 +85,7 @@
 </template>
 
 <script lang="ts">
-import {computed, onMounted, ref} from "vue";
+import { computed, onMounted, ref } from "vue";
 import { useStore } from "vuex";
 import ArticleShape from "@/models/Article";
 import ArticlePreview from "@/components/articlePreview/ArticlePreview.vue";
@@ -109,7 +111,7 @@ export default {
       await store.dispatch("getAllArticles", 6);
       await store.dispatch("getAllRockstars");
       await store.dispatch("tribes/getAllTribes");
-      
+
       loading.value = false;
       document.title = "RockstarsIT KDP";
     });
@@ -126,9 +128,9 @@ export default {
       const list = store.getters["tribes/getAllTribesList"];
       return list;
     });
-    
+
     return { store, articles, loading, tribesList, rockstars };
-  }
+  },
 };
 </script>
 

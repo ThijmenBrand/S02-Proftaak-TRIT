@@ -35,6 +35,7 @@
               :content="article.content"
               :rockstarName="article.rockstarName"
               :articlePublishDate="article.publishDate"
+              :thumbnail="article.thumbnail"
             />
           </router-link>
         </div>

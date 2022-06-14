@@ -30,6 +30,7 @@ const tribes = {
         title: "",
         tribeId: "",
         tribeName: "",
+        thumbnail: "",
         viewCount: 0,
         totalViewCount: 0,
         likes: 0,
@@ -99,12 +100,12 @@ const tribes = {
       const { data, status } = await rockstarService.getRockstar(rockstarId);
 
       if (status >= 200 && status <= 299) {
-          const rockstarImage = await rockstarService.getImage(data.id);
-          if (rockstarImage.data != "") {
-            data.image = rockstarImage.data;
-          } else {
-            data.image = PfPlaceholder
-          }
+        const rockstarImage = await rockstarService.getImage(data.id);
+        if (rockstarImage.data != "") {
+          data.image = rockstarImage.data;
+        } else {
+          data.image = PfPlaceholder;
+        }
         context.rootState.loading = false;
         context.commit("SET_ROCKSTAR", data);
       }
@@ -115,7 +116,10 @@ const tribes = {
       viewCount.frontendUserId = localStorage.getItem("UserId-uuid");
       const { data, status } = await articleService.updateViewCount(viewCount);
     },
-    incrementLikeCount: async (context: any, articleId: string): Promise<void> => {
+    incrementLikeCount: async (
+      context: any,
+      articleId: string
+    ): Promise<void> => {
       const likeCount = context.state.likeCount;
       likeCount.articleId = articleId;
       const localstrorageData = localStorage.getItem("user");
@@ -127,7 +131,10 @@ const tribes = {
       const likeButton = document.getElementById("like-button");
       likeButton?.classList.add("liked");
     },
-    decrementLikeCount: async (context: any, articleId: string): Promise<void> => {
+    decrementLikeCount: async (
+      context: any,
+      articleId: string
+    ): Promise<void> => {
       const likeCount = context.state.likeCount;
       likeCount.articleId = articleId;
       const localstrorageData = localStorage.getItem("user");
@@ -175,6 +182,7 @@ const tribes = {
         title: "",
         tribeId: "",
         tribeName: "",
+        thumbnail: "",
         viewCount: 0,
         totalViewCount: 0,
         likes: 0,

@@ -47,12 +47,12 @@ const rockstar = {
       const { data, status } = await rockstarService.getRockstar(rockstarId);
 
       if (status >= 200 && status <= 299) {
-          const rockstarImage = await rockstarService.getImage(data.id);
-          if (rockstarImage.data != "") {
-            data.image = rockstarImage.data;
-          } else {
-            data.image = PfPlaceholder
-          }
+        const rockstarImage = await rockstarService.getImage(data.id);
+        if (rockstarImage.data != "") {
+          data.image = rockstarImage.data;
+        } else {
+          data.image = PfPlaceholder;
+        }
         context.rootState.loading = false;
         data.email = data.userPrincipalName;
         context.commit("SET_ROCKSTAR", data);
@@ -60,7 +60,11 @@ const rockstar = {
     },
     getArticles: async (context: any, rockstarparams: any) => {
       context.rootState.loading = true;
-      const { data, status } = await rockstarService.getArticles(rockstarparams.tribeId, (context.rootState.currentPage - 1)*rockstarparams.ArticlesPerPage, rockstarparams.ArticlesPerPage);
+      const { data, status } = await rockstarService.getArticles(
+        rockstarparams.tribeId,
+        (context.rootState.currentPage - 1) * rockstarparams.ArticlesPerPage,
+        rockstarparams.ArticlesPerPage
+      );
 
       if (status >= 200 && status <= 299) {
         context.rootState.loading = false;
@@ -79,11 +83,20 @@ const rockstar = {
   },
   mutations: {
     SET_ROCKSTAR: (state: rockstarState, data: RockstarShape) => {
-      
-      
       state.rockstar = data;
     },
     SET_ARTICLES: (state: rockstarState, data: ArticleShape[]) => {
+      data.forEach((article) => {
+        if (article.thumbnail) {
+          const thumbnail = article.thumbnail;
+          article.thumbnail =
+            "https://tritkdpstorageaccount.blob.core.windows.net/articlepictures/" +
+            thumbnail;
+        } else {
+          article.thumbnail =
+            "https://tritkdpstorageaccount.blob.core.windows.net/articlepictures/article-placeholder-image.dfb114aa.jpg";
+        }
+      });
       state.articles = data;
     },
     SET_ARTICLE_COUNT: (state: rockstarState, data: number) => {

@@ -3,7 +3,7 @@ import { createStore } from "vuex";
 import LocalStorageHandler from "@/services/localStorageHelper/LocalStorageHelper";
 
 import exporeService from "@/services/callFunctions/explore";
-import rockstarService from "@/services/callFunctions/rockstar"
+import rockstarService from "@/services/callFunctions/rockstar";
 
 import tribes from "@/views/tribes/store/tribes";
 import ArticleShape from "@/models/Article";
@@ -76,15 +76,14 @@ export default createStore({
 
       if (status >= 200 && status <= 299) {
         for (const rockstar of data) {
-          
           const rockstarImage = await rockstarService.getImage(rockstar.id);
           if (rockstarImage.data != "") {
             rockstar.image = rockstarImage.data;
           } else {
-            rockstar.image = PfPlaceholder
+            rockstar.image = PfPlaceholder;
           }
         }
-        
+
         context.commit("SET_ALL_ROCKSTARS", data);
       }
     },
@@ -111,6 +110,17 @@ export default createStore({
       state.rockstarList = data;
     },
     SET_ALL_ARTICLES: (state, data: ArticleShape[]) => {
+      data.forEach((article) => {
+        if (article.thumbnail) {
+          const thumbnail = article.thumbnail;
+          article.thumbnail =
+            "https://tritkdpstorageaccount.blob.core.windows.net/articlepictures/" +
+            thumbnail;
+        } else {
+          article.thumbnail =
+            "https://tritkdpstorageaccount.blob.core.windows.net/articlepictures/article-placeholder-image.dfb114aa.jpg";
+        }
+      });
       state.articleList = data;
     },
     SET_COOKIE_ACCEPTED: (state, data: CookieShape) => {
@@ -140,6 +150,17 @@ export default createStore({
       state.searchData = data;
     },
     SET_FOUNDED_ARTICLES: (state: IState, data: ArticleShape[]) => {
+      data.forEach((article) => {
+        if (article.thumbnail) {
+          const thumbnail = article.thumbnail;
+          article.thumbnail =
+            "https://tritkdpstorageaccount.blob.core.windows.net/articlepictures/" +
+            thumbnail;
+        } else {
+          article.thumbnail =
+            "https://tritkdpstorageaccount.blob.core.windows.net/articlepictures/article-placeholder-image.dfb114aa.jpg";
+        }
+      });
       state.foundedArticles = data;
     },
   },
