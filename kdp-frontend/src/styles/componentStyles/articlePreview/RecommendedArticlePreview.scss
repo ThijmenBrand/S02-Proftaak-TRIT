@@ -20,10 +20,10 @@
 
 .image-container {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
 }
 
-.test-container {
+.details-container {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -62,6 +62,7 @@
   color: $trit-yellow;
   text-align: left;
   padding-left: 15px;
+  padding-right: 10px;
   text-transform: uppercase;
   margin-top: 10px;
   margin-bottom: 5px;
@@ -69,11 +70,11 @@
 }
 
 .article-image {
-  object-fit: scale-down;
+  object-fit: cover;
   object-position: top;
   width: auto;
-  height: 100%;
-  max-width: 200px;
+  max-width: 100%;
+  max-height: 10em;
 }
 
 @media only screen and (max-width: 1000px) {
