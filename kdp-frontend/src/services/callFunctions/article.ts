@@ -30,6 +30,9 @@ const articleService = {
   getLikedState(likeCount: LikeCountShape) : Promise<AxiosResponse<any, any>> {
     return API.post(`/article/checkIfAlreadyLiked`, likeCount);
   },
+  getLikeCount(articleId: string): Promise<AxiosResponse<any, any>> {
+    return API.post(`/article/getLikeCount?articleId=${articleId}`)
+  }
 };
 
 export default articleService;
