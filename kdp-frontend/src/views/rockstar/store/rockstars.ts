@@ -86,6 +86,8 @@ const rockstar = {
       state.rockstar = data;
     },
     SET_ARTICLES: (state: rockstarState, data: ArticleShape[]) => {
+      if (data.length <= 0) return;
+
       data.forEach((article) => {
         if (article.thumbnail) {
           const thumbnail = article.thumbnail;

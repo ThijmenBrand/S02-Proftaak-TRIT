@@ -136,6 +136,8 @@ const tribes = {
       state.currentTribe = data;
     },
     SET_ARTICLES_BY_TRIBE: (state: tribesState, data: ArticleShape[]) => {
+      if (data.length <= 0) return;
+
       data.forEach((article) => {
         if (article.thumbnail) {
           const thumbnail = article.thumbnail;

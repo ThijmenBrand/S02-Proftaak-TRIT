@@ -110,6 +110,8 @@ export default createStore({
       state.rockstarList = data;
     },
     SET_ALL_ARTICLES: (state, data: ArticleShape[]) => {
+      if (data.length <= 0) return;
+
       data.forEach((article) => {
         if (article.thumbnail) {
           const thumbnail = article.thumbnail;
@@ -150,6 +152,8 @@ export default createStore({
       state.searchData = data;
     },
     SET_FOUNDED_ARTICLES: (state: IState, data: ArticleShape[]) => {
+      if (data.length <= 0) return;
+
       data.forEach((article) => {
         if (article.thumbnail) {
           const thumbnail = article.thumbnail;
