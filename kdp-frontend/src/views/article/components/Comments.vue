@@ -25,7 +25,7 @@
         </div>
       </div>
         <div class="remaining-char-container">
-          <p class="remaining-char">{{GetRemainingChar()}} {{ $t("article-page.comment-remaining-char") }}</p>
+          <p class="remaining-char">{{GetRemainingChar()}}/250</p>
         </div>
     </div>
     <div class="login-message-container" v-else>
