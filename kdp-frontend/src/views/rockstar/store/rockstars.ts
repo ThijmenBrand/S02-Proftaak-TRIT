@@ -19,10 +19,12 @@ const rockstar = {
         description: "",
         image: "",
         role: "",
-        linkedIn: "",
-        twitter: "",
         email: "",
-        phone: "",
+        rockstarSocial: {
+          facebookLink: "",
+          linkedInLink: "",
+          twitterLink: "",
+        },
       },
       articles: [],
       articleCount: 0,
@@ -51,7 +53,7 @@ const rockstar = {
           } else {
             data.image = PfPlaceholder
           }
-          
+          console.log(data);
         context.rootState.loading = false;
         data.email = data.userPrincipalName;
         context.commit("SET_ROCKSTAR", data);
@@ -78,7 +80,7 @@ const rockstar = {
   },
   mutations: {
     SET_ROCKSTAR: (state: rockstarState, data: RockstarShape) => {
-
+      
       
       state.rockstar = data;
     },

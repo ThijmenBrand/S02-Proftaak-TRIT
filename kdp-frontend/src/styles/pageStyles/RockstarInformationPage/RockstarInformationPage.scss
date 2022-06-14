@@ -12,6 +12,7 @@
   }
 }
 .background-container {
+  min-height: calc(100vh - 160px - 192px - 16px - 5em);
   a {
     margin: 10px;
   }
@@ -47,4 +48,11 @@
 .article-error {
   color: $trit-white;
   text-align: center;
+}
+
+@media only screen and (max-width: 1000px) {
+  .background-container {
+    min-height: calc(100vh - 160px - 339.6px - 16px - 5em);
+  }
+  
 }
