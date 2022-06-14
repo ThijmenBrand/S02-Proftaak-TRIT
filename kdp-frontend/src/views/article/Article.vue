@@ -17,7 +17,7 @@
           :alt="$t('article-page.heart-image')"
           v-on:click="updateLikeState"
         />
-        <span class="stats">11</span>
+        <span class="stats">{{ getLikes }}</span>
         <img
           class="stats-image"
           src="@/assets/images/article/message-solid.svg"
@@ -70,6 +70,7 @@ import RockstarView from "./components/RockstarArticleView.vue";
 import Blog from "./components/Blog.vue";
 import Loader from "@/components/loader/Loader.vue";
 import { useIsAuthenticated } from "@/services/msal/msal";
+import articleService from "@/services/callFunctions/article";
 
 export default {
   name: "Article-view",
@@ -110,6 +111,11 @@ export default {
       return article;
     });
 
+    let getLikes = computed((): number => {
+      let likes = store.getters["article/getLikeCount"];
+      return likes;
+    })
+
     const getRockstar = computed((): RockstarShape => {
       return store.getters["article/getRockstar"];
     });
@@ -135,6 +141,7 @@ export default {
       getComments,
       updateLikeState,
       LoggedIn,
+      getLikes,
     };
   },
 };
