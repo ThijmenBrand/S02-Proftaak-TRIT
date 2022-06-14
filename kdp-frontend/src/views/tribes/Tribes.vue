@@ -6,7 +6,9 @@
     <div class="content-container">
       <div class="tribes-links-container">
         <div class="tribes-links-flexbox">
-          <Loader v-if="loading" />
+          <div class="loader-container" v-if="loading">
+            <Loader />
+          </div>
           <TribeCard
             v-else
             v-for="(tribe, index) in tribesList"

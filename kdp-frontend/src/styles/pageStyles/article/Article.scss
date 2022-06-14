@@ -1,9 +1,17 @@
 @import "@/styles/variables";
+
+.loader-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;    
+  min-height: calc(100vh - 160px - 80px);
+}
 .main-content {
   .real-article-content {
     word-break: break-all;
   }
   .background-container {
+    min-height: calc(100vh - 160px - 80px);
     color: $trit-white;
     .actions-bar {
       margin: 0 50px 1em 50px;

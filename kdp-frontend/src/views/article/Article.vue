@@ -8,50 +8,55 @@
     </div>
   </div>
   <div class="background-container">
-    <div class="actions-bar">
-      <div class="blog-action">
-        <img
-          class="stats-image liked"
-          id="like-button"
-          src="@/assets/images/article/heart-solid.svg"
-          :alt="$t('article-page.heart-image')"
-          v-on:click="updateLikeState"
-        />
-        <span class="stats">11</span>
-        <img
-          class="stats-image"
-          src="@/assets/images/article/message-solid.svg"
-          :alt="$t('article-page.comment-image')"
-        />
-        <span class="stats">{{ getComments.length }}</span>
-      </div>
-      <div class="views">
-        <img
-          class="stats-image"
-          src="@/assets/images/article/eye-solid.svg"
-          :alt="$t('article-page.view-image')"
-        />
-        <span class="stats">{{ articleDetails.viewCount }}</span>
-        <img
-          class="stats-image"
-          src="@/assets/images/article/file-solid.svg"
-          :alt="$t('article-page.page-view-image')"
-        />
-        <span class="stats">{{ articleDetails.totalViewCount }}</span>
-      </div>
-    </div>
-    <div class="content-container">
-      <div class="article-content">
-        <div class="real-article-content">
-          <Blog class="article-text" :articleContent="articleDetails.content" />
-          <p>{{ articleDetails.publishDate }}</p>
+  <div class="loader-container" v-if="loading">
+    <Loader />
+  </div>
+  <div v-else>
+      <div class="actions-bar">
+        <div class="blog-action">
+          <img
+            class="stats-image liked"
+            id="like-button"
+            src="@/assets/images/article/heart-solid.svg"
+            :alt="$t('article-page.heart-image')"
+            v-on:click="updateLikeState"
+          />
+          <span class="stats">11</span>
+          <img
+            class="stats-image"
+            src="@/assets/images/article/message-solid.svg"
+            :alt="$t('article-page.comment-image')"
+          />
+          <span class="stats">{{ getComments.length }}</span>
         </div>
-        <div class="border"></div>
-        <Comments :comments="getComments" />
+        <div class="views">
+          <img
+            class="stats-image"
+            src="@/assets/images/article/eye-solid.svg"
+            :alt="$t('article-page.view-image')"
+          />
+          <span class="stats">{{ articleDetails.viewCount }}</span>
+          <img
+            class="stats-image"
+            src="@/assets/images/article/file-solid.svg"
+            :alt="$t('article-page.page-view-image')"
+          />
+          <span class="stats">{{ articleDetails.totalViewCount }}</span>
+        </div>
       </div>
-      <div class="side-bar">
-        <RockstarView :rockstar="getRockstar" />
-        <Recommended />
+      <div class="content-container">
+        <div class="article-content">
+          <div class="real-article-content">
+            <Blog class="article-text" :articleContent="articleDetails.content" />
+            <p>{{ articleDetails.publishDate }}</p>
+          </div>
+          <div class="border"></div>
+          <Comments :comments="getComments" />
+        </div>
+        <div class="side-bar">
+          <RockstarView :rockstar="getRockstar" />
+          <Recommended />
+        </div>
       </div>
     </div>
   </div>
