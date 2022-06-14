@@ -294,7 +294,7 @@ namespace API_Rockstars.Controllers
             }
             var isAlreadyLiked = await _context.ArticleLike.AnyAsync(al => al.FrontendUserId == userId && al.ArticleId == articleId);
 
-            return Ok(isAlreadyLiked);
+            return Ok(isAlreadyLiked != null ? true : false);
         }
 
         [HttpPut("incrementLikeCount/{articleId}/{userId}")]
