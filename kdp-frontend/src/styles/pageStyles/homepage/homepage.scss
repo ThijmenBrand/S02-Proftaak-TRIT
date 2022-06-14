@@ -139,7 +139,7 @@
 /* end fix */
 
 
-@media only screen and (max-width: 1000px) {
+@media only screen and (max-width: 762px) {
   .right-pannel {
     display: none;
   }
@@ -151,20 +151,13 @@
       width: 100%;
     }
   }
-  .content-container
-    .left-pannel
-    .featured-tribes-container
-    .featured-tribes
-    .tribe-item {
-    margin-left: 0;
-  }
-}
 
-
-
-@media only screen and (max-width: 480px) {
   .content-container {
     margin: 0;
     width: 100%;
+  }
+
+  .flexbox-fix {
+    display: none; /* The fix is not needed as articles don't need alignment on mobile. */
   }
 }

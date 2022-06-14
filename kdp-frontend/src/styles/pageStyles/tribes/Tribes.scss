@@ -51,9 +51,13 @@
 }
 /* end fix */
 
-@media only screen and (max-width: 480px) {
+@media only screen and (max-width: 762px) {
   .content-container {
     display: flex;
     justify-content: center;
+  }
+
+  .flexbox-fix {
+    display: none; /* The fix is not needed as tribes don't need alignment on mobile. */
   }
 }
