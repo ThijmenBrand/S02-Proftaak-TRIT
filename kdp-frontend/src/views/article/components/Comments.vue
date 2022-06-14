@@ -14,19 +14,19 @@
           maxlength="250"
           @click="RemoveErrorMsg"
         ></textarea>
-        <div class="button-container">
-          <button
+      </div>
+      <div class="button-container">
+        <button
             class="comment-button btn-yellow"
             type="submit"
             @click="submitComment()"
-          >
-            {{ $t("article-page.button-text") }}
-          </button>
+        >
+          {{ $t("article-page.button-text") }}
+        </button>
+        <div class="remaining-char-container">
+          <p class="remaining-char">{{GetMessageLength()}}/{{maxMessageLength}}</p>
         </div>
       </div>
-        <div class="remaining-char-container">
-          <p class="remaining-char">{{GetRemainingChar()}} remaining charaters</p>
-        </div>
     </div>
     <div class="login-message-container" v-else>
       <p class="login-message">{{ $t("article-page.comment-login-message")}} </p>
@@ -103,10 +103,10 @@ export default {
       return "";
     };
     
-    function GetRemainingChar(){
-      var length = commentContent.value.length;
-      return 250-length;
+    function GetMessageLength(){
+      return commentContent.value.length;
     }
+    const maxMessageLength = 250;
     
     function RemoveSuccessMsg() {
       setInterval(function () {
@@ -125,7 +125,7 @@ export default {
         LocalStorageHandler.setItem('user', result); 
         });
     }
-    return { date, commentContent, submitComment, LoggedIn, GetRemainingChar, login, RemoveErrorMsg, EmptyPostError, successMessage };
+    return { date, commentContent, submitComment, LoggedIn, GetMessageLength, maxMessageLength, login, RemoveErrorMsg, EmptyPostError, successMessage };
   },
 };
 </script>
