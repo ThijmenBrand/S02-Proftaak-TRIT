@@ -104,8 +104,6 @@ export default createStore({
         payload,
         context.state.searchData
       );
-      console.log(context.state.foundedArticles);
-      console.log(data);
       if (status >= 200 && status <= 299) {
         context.state.loading = false;
         context.commit("SET_FOUNDED_ARTICLES", data);
@@ -127,7 +125,6 @@ export default createStore({
       state.articleList = data;
     },
     SET_COOKIE_ACCEPTED: (state, data: CookieShape) => {
-      console.log(data);
       let types: CookieShape;
       if (data == null || data.ShowCookieBanner == true) {
         types = {
