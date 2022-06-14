@@ -6,7 +6,9 @@
     <div class="content-container">
       <div class="tribes-links-container">
         <div class="tribes-links-flexbox">
-          <Loader v-if="loading" />
+          <div class="loader-container" v-if="loading">
+            <Loader />
+          </div>
           <TribeCard
             v-else
             v-for="(tribe, index) in tribesList"
@@ -21,7 +23,7 @@
 </template>
 
 <script lang="ts">
-import {computed, onMounted, ref} from "vue";
+import { computed, onMounted, ref } from "vue";
 import { useStore } from "vuex";
 import TribeCard from "@/components/TribeCard/TribeCard.vue";
 
@@ -35,7 +37,7 @@ export default {
   setup() {
     const store = useStore();
     const loading = ref(true);
-    
+
     onMounted(async () => {
       document.title = "Loading...";
       await store.dispatch("tribes/getAllTribes");

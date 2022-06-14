@@ -16,10 +16,10 @@
         <div class="row-name">
           <a class="DIN2014-Bold">{{ rockstar.displayName }}</a>
         </div>
-        <div class="col-socials">
+        <div class="col-socials" v-if="rockstar.rockstarSocial != null">
           <a
-            v-if="rockstar.twitter != null"
-            :href="rockstar.twitter"
+            v-if="rockstar.rockstarSocial.twitterLink != null"
+            :href="rockstar.rockstarSocial.twitterLink"
             class="social-component"
           >
             <img
@@ -30,9 +30,9 @@
           </a>
 
           <a
-            v-if="rockstar.linkedIn != null"
+            v-if="rockstar.rockstarSocial.linkedInLink != null"
             class="social-component"
-            :href="rockstar.linkedIn"
+            :href="rockstar.rockstarSocial.linkedInLink"
           >
             <img
               class="social-image"
@@ -54,14 +54,14 @@
           </a>
 
           <a
-            v-if="rockstar.phone != null"
+            v-if="rockstar.rockstarSocial.facebookLink != null"
             class="social-component"
-            :href="'tel:' + rockstar.phone"
+            :href="rockstar.rockstarSocial.facebookLink"
           >
             <img
               class="social-image"
-              src="@/assets/images/socials/phone.svg"
-              :alt="rockstar.phone"
+              src="@/assets/images/socials/facebook.svg"
+              :alt="rockstar.rockstarSocial.facebookLink"
             />
           </a>
         </div>

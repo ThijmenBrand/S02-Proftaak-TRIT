@@ -3,6 +3,7 @@
 .search-bar {
   margin-right: 45px;
   display: flex;
+  height: 37px;
   justify-content: right;
   margin-bottom: 30px;
   .search-input {
@@ -44,7 +45,7 @@
 
 .background-container {
   .content-container {
-    min-height: calc(100vh - 226.5px);
+    min-height: calc(100vh - 160px - 37px - 30px - 5em);
     .articles-container {
       margin-top: 30px;
       display: grid;
@@ -59,6 +60,15 @@
     }
   }
 }
+
+
+.loader-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  min-height: calc(100vh - 160px - 37px - 30px - 5em);
+}
+
 
 .select-item div:hover,
 .same-as-selected {

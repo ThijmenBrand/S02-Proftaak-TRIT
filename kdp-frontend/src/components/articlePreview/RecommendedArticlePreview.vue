@@ -15,12 +15,14 @@
         <p class="content">
           {{ limitContent(cleanText(content)) }}
         </p>
-        <p class="rockstar-name">
-          {{ rockstarName }}
-        </p>
-        <p class="publish-date">
-          {{ getCustomDateTime(articlePublishDate) }}
-        </p>
+        <div class="details-container">
+          <p class="rockstar-name">
+            {{ rockstarName }}
+          </p>
+          <p class="publish-date">
+            {{ getCustomDateTime(articlePublishDate) }}
+          </p>
+        </div>
       </div>
     </div>
   </div>
@@ -29,7 +31,7 @@
 <script lang="ts">
 import getCustomDateTime from "@/services/customDateTime";
 export default {
-  name: "ArticlePreview",
+  name: "RecommendedArticlePreview",
   props: {
     name: String,
     content: String,
@@ -39,7 +41,7 @@ export default {
   },
   setup() {
     const limitContent = (content: string): string => {
-      return content.length < 250 ? content : content.substring(0, 250) + "...";
+      return content.length < 90 ? content : content.substring(0, 90) + "...";
     };
 
     const cleanText = (content: string): string => {
@@ -51,4 +53,8 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped />
+<style
+  lang="scss"
+  scoped
+  src="@/styles/componentStyles/articlePreview/RecommendedArticlePreview.scss"
+/>

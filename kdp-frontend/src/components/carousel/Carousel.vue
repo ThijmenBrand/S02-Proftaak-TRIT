@@ -3,6 +3,7 @@
     v-if="spotifyLinks.length != 0"
     :items-to-show="1"
     class="carousel-wrapper"
+    wrap-around="true"
   >
     <slide v-for="(item, index) in spotifyLinks" :key="index" class="carousel">
       <iframe

@@ -2,17 +2,19 @@
   <div class="information-page-main">
     <div v-if="!loading" class="tribes-overview">
       <h3 class="tribe-title">{{ currentTribe.displayName }}</h3>
-      <div class="profile-container">
-        <profiletag
-          v-for="(rockstar, index) in rockstars"
-          :key="index"
-          :id="rockstar.id"
-          :name="rockstar.displayName"
-          :image="rockstar.image"
-          :role="rockstar.role"
-          :view-details="true"
-          class="profile-tag"
-        />
+      <div class="profile-wrapper">
+        <div class="profile-container">
+          <profiletag
+              v-for="(rockstar, index) in rockstars"
+              :key="index"
+              :id="rockstar.id"
+              :name="rockstar.displayName"
+              :image="rockstar.image"
+              :role="rockstar.role"
+              :view-details="true"
+              class="profile-tag"
+          />
+        </div>
       </div>
     </div>
     <div class="background-container">
@@ -35,6 +37,7 @@
               :content="article.content"
               :rockstarName="article.rockstarName"
               :articlePublishDate="article.publishDate"
+              :thumbnail="article.thumbnail"
             />
           </router-link>
         </div>

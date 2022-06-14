@@ -7,6 +7,7 @@ export default interface ArticleShape {
   viewCount: number;
   totalViewCount: number;
   likeCount: number;
+  thumbnail: string;
   title: string;
   content: string;
   publishDate: String | Date;

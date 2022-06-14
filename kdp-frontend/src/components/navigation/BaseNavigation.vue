@@ -111,4 +111,10 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped />
+<style lang="scss" scoped>
+  @media screen and (max-width: 768px) {
+   .logo img {
+     margin-left: 1em;
+   }
+  }
+</style>
