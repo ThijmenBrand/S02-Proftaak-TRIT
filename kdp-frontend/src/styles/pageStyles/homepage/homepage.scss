@@ -60,6 +60,8 @@
       display: inline-flex;
       flex-wrap: wrap;
       justify-content: space-between;
+      width: 100%;
+
       .article {
         margin: 0px;
         justify-self: center;
@@ -129,6 +131,12 @@
     border-left: 1px solid rgba(255, 255, 255, .2);
   }
 }
+
+/* for the flexbox left-align fix */
+.flexbox-fix {
+  visibility: hidden;
+}
+/* end fix */
 
 
 @media only screen and (max-width: 1000px) {
