@@ -32,7 +32,7 @@ const tribes = {
         tribeName: "",
         viewCount: 0,
         totalViewCount: 0,
-        likes: 0,
+        likeCount: 0,
         publishDate: new Date(),
       },
       rockstar: {
@@ -79,6 +79,10 @@ const tribes = {
     getLikeState: (state: articleState): boolean => {
       return state.likeState;
     },
+    getLikeCount: (state: articleState): number => {
+      console.log(state.article.likeCount);
+      return state.article.likeCount;
+    }
   },
   actions: {
     getArticle: async (
@@ -177,7 +181,7 @@ const tribes = {
         tribeName: "",
         viewCount: 0,
         totalViewCount: 0,
-        likes: 0,
+        likeCount: 0,
         publishDate: "",
       };
       state.comments = [
@@ -205,7 +209,7 @@ const tribes = {
     },
     SET_LIKE_STATE: (state: articleState, data: boolean) => {
       state.likeState = data;
-    },
+    }
   },
 };
 
