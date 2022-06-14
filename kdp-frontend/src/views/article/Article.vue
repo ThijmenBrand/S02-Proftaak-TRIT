@@ -45,8 +45,10 @@
       </div>
       <div class="content-container">
         <div class="article-content">
-          <Blog class="article-text" :articleContent="articleDetails.content" />
-          <p>{{ articleDetails.publishDate }}</p>
+          <div class="real-article-content">
+            <Blog class="article-text" :articleContent="articleDetails.content" />
+            <p>{{ articleDetails.publishDate }}</p>
+          </div>
           <div class="border"></div>
           <Comments :comments="getComments" />
         </div>
@@ -55,7 +57,7 @@
           <Recommended />
         </div>
       </div>
-  </div>
+    </div>
   </div>
 </template>
 
@@ -83,9 +85,9 @@ export default {
     RockstarView,
     Loader,
   },
-    methods:{
+  methods:{
     toTop(){
-         window.scrollTo(0,0);
+      window.scrollTo(0,0);
     }
   },
   setup() {
@@ -102,12 +104,12 @@ export default {
       toTop();
       store.commit("article/CLEAR_ARTICLE");
       await store
-        .dispatch("article/getArticle", articleId.value)
-        .then(() => store.dispatch("article/getRockstar"));
+          .dispatch("article/getArticle", articleId.value)
+          .then(() => store.dispatch("article/getRockstar"));
       await store.dispatch("article/getComments", articleId.value);
       await store.dispatch("article/updateViewCount", articleId.value);
     }
-    
+
     const toTop = async () =>{
       window.scrollTo(0,0);
     }
@@ -132,7 +134,7 @@ export default {
     });
 
     const getComments = computed(
-      (): CommentShape => store.getters["article/getComments"]
+        (): CommentShape => store.getters["article/getComments"]
     );
 
     const updateLikeState = async () => {
