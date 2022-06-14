@@ -15,10 +15,10 @@
             $t('rockstar-page.profile-picture-alt-text', { name: this.name })
           "
         />
-        <div v-if="viewDetails">
-          <p class="rockstar">{{ name }}</p>
-          <p class="rockstar-role">{{ role }}</p>
-        </div>
+      </div>
+      <div class="details" v-if="viewDetails">
+        <p class="rockstar">{{ name }}</p>
+        <p class="rockstar-role">{{ role }}</p>
       </div>
     </div>
   </router-link>
