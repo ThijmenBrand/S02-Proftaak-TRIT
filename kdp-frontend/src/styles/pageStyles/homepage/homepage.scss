@@ -69,11 +69,41 @@
   }
   .right-pannel {
     width: 20%;
+
+      /* width */
+    ::-webkit-scrollbar {
+      width: 3px;
+    }
+
+  /* Track */
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+  /* Handle */
+    ::-webkit-scrollbar-thumb {
+      background: $trit-yellow;
+    }
+
+  /* Handle on hover */
+    ::-webkit-scrollbar-thumb:hover {
+      background: $trit-yellow;
+    }
+
     .highlighted-rockstars {
-      height: 370px;
+      min-height: 700px;
+      height: calc(100vh - 23em );
       display: flex;
       flex-direction: column;
       gap: 0.5rem;
+      overflow-y: auto;
+      overflow-x: hidden;
+      border: 1px solid #3e3e3e;
+      padding: 5px;
+      
+      .bottom-spacer{
+        margin-bottom: 50px;
+      }
     }
   }
 }
