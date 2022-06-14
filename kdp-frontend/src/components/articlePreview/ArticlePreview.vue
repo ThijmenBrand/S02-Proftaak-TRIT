@@ -2,7 +2,7 @@
   <div class="article-container">
     <div class="image-container">
       <img
-        src="@/assets/images/article-placeholder-image.jpg"
+        :src="thumbnail"
         class="preview article-image"
         :alt="
           $t('explore-articles-page.article-thumbnail-alt-text', {
@@ -35,6 +35,7 @@ export default {
     content: String,
     rockstarName: String,
     articlePublishDate: String,
+    thumbnail: String,
   },
   setup() {
     const limitContent = (content: string): string => {

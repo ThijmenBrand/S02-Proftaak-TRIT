@@ -23,7 +23,7 @@
 </template>
 
 <script lang="ts">
-import {computed, onMounted, ref} from "vue";
+import { computed, onMounted, ref } from "vue";
 import { useStore } from "vuex";
 import TribeCard from "@/components/TribeCard/TribeCard.vue";
 
@@ -37,7 +37,7 @@ export default {
   setup() {
     const store = useStore();
     const loading = ref(true);
-    
+
     onMounted(async () => {
       document.title = "Loading...";
       await store.dispatch("tribes/getAllTribes");

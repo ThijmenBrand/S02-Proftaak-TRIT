@@ -4,13 +4,14 @@
     <div class="loader-container" v-if="loading">
       <Loader />
     </div>
-    <div v-else-if="!loading && articles.length > 0" class="content-container DIN2014-Regular">
+    <div
+      v-else-if="!loading && articles.length > 0"
+      class="content-container DIN2014-Regular"
+    >
       <h3 class="articles-overview-title">
         {{ $t("articles-overview.header") }}
       </h3>
-      <div
-        class="articles-container"
-      >
+      <div class="articles-container">
         <router-link
           v-for="(article, index) in articles"
           :key="index"
@@ -20,17 +21,17 @@
           }"
           class="article"
         >
-          <article-preview 
-          :name="article.title" 
-          :content="article.content" 
-          :articlePublishDate="article.publishDate"
-           />
+          <article-preview
+            :name="article.title"
+            :content="article.content"
+            :articlePublishDate="article.publishDate"
+            :thumbnail="article.thumbnail"
+          />
         </router-link>
       </div>
     </div>
     <p class="article-error" v-else>{{ $t("article.article-error") }}</p>
 
-    
     <div :style="[loading || pageCount <= 1 ? { display: 'none' } : {}]">
       <page-select :PageCount="pageCount" @current-page="SetCurrentPage" />
     </div>
@@ -56,7 +57,7 @@ export default {
     const route = useRoute();
     const store = useStore();
     const loading = ref(true);
-    
+
     const rockstar = computed((): RockstarShape => {
       const rs = store.getters["rockstars/getRockstar"];
       document.title = rs.displayName;
@@ -75,8 +76,11 @@ export default {
         tribeId: route.params.rockstarId,
         ArticlesPerPage: articlesPerPage.value,
       };
-      
-      await store.dispatch("rockstars/getArticleCount", route.params.rockstarId);
+
+      await store.dispatch(
+        "rockstars/getArticleCount",
+        route.params.rockstarId
+      );
       await store.dispatch("rockstars/getArticles", rockstarArticleParams);
       loading.value = false;
     });
@@ -85,7 +89,7 @@ export default {
     const articlesPerPage = ref(6);
     const CurrentPage = ref(0);
 
-    const SetCurrentPage = async (_page: number)=> {
+    const SetCurrentPage = async (_page: number) => {
       loading.value = true;
       const rockstarArticleParams = {
         tribeId: route.params.rockstarId,
