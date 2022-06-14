@@ -26,5 +26,10 @@
 @media screen and (max-width: 768px) {
   .rockstar {
     margin-bottom: 2em;
+    .rockstar-info {
+      p {
+        margin: 0 auto;
+      }
+    }
   }
 }

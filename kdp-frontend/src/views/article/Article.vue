@@ -42,8 +42,10 @@
     </div>
     <div class="content-container">
       <div class="article-content">
-        <Blog class="article-text" :articleContent="articleDetails.content" />
-        <p>{{ articleDetails.publishDate }}</p>
+        <div class="real-article-content">
+          <Blog class="article-text" :articleContent="articleDetails.content" />
+          <p>{{ articleDetails.publishDate }}</p>
+        </div>
         <div class="border"></div>
         <Comments :comments="getComments" />
       </div>

@@ -1,5 +1,8 @@
 @import "@/styles/variables";
 .main-content {
+  .real-article-content {
+    word-break: break-all;
+  }
   .background-container {
     color: $trit-white;
     .actions-bar {
@@ -95,7 +98,7 @@
           width: 100%;
           display: flex;
           flex-direction: row;
-
+          justify-content: center;
         }
       }
     }
