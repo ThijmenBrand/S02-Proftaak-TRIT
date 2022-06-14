@@ -285,7 +285,7 @@ namespace API_Rockstars.Controllers
             return NoContent();
         }
 
-        [HttpGet("CheckIfUserLiked")]
+        [HttpGet("CheckIfUserLiked/{articleId}/{userId}")]
         public async Task<IActionResult> CheckIfUserLiked(string userId, Guid articleId)
         {
             if (!ArticleExists(articleId))
