@@ -1,8 +1,7 @@
 <template>
-  <Loader v-if="loading" />
-  <div class="content-container" v-else>
+  <div class="content-container">
     <div class="article-header-container">
-      <div class="article-title-container">
+      <div class="article-title-container" v-if="!loading">
         <h1>{{ articleDetails.title }}</h1>
       </div>
     </div>
@@ -65,7 +64,7 @@
 <script lang="ts">
 import { useRoute } from "vue-router";
 import { useStore } from "vuex";
-import { computed, onMounted } from "vue";
+import {computed, onMounted, ref} from "vue";
 
 import ArticleShape from "@/models/Article";
 import { RockstarShape } from "@/models/Rockstar";
@@ -90,7 +89,7 @@ export default {
     const route = useRoute();
     const store = useStore();
 
-    const loading = computed(() => store.getters["isLoading"]);
+    const loading = ref(true);
 
     const articleId = computed(() => {
       return route.params.articleId;
@@ -104,6 +103,7 @@ export default {
       await store.dispatch("article/getComments", articleId.value);
       await store.dispatch("article/updateViewCount", articleId.value);
       await store.dispatch("article/checkIfArticleIsLiked", articleId.value);
+      loading.value = false;
     });
 
     const articleDetails = computed((): ArticleShape => {
