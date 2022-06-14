@@ -16,7 +16,7 @@
         <div class="row-name">
           <a class="DIN2014-Bold">{{ rockstar.displayName }}</a>
         </div>
-        <div class="col-socials">
+        <div class="col-socials" v-if="rockstar.rockstarSocial != null">
           <a
             v-if="rockstar.rockstarSocial.twitterLink != null"
             :href="rockstar.rockstarSocial.twitterLink"

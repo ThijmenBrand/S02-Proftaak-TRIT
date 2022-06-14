@@ -98,10 +98,7 @@ const rockstar = {
         description: "",
         role: "",
         image: "",
-        linkedIn: "",
-        twitter: "",
         email: "",
-        phone: "",
       };
     },
   },

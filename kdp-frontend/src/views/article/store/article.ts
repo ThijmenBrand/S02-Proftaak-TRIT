@@ -41,10 +41,12 @@ const tribes = {
         description: "",
         image: "",
         role: "",
-        linkedIn: "",
-        twitter: "",
         email: "",
-        phone: "",
+        rockstarSocial: {
+          facebookLink: "",
+          linkedInLink: "",
+          twitterLink: "",
+        },
       },
       viewCount: {
         frontendUserId: "",
