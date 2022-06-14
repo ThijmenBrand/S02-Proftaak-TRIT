@@ -1,27 +1,27 @@
 <template>
-  <div class="content-container" >
+  <div class="content-container">
     <div class="article-header-container">
       <div class="article-title-container" v-if="!loading">
         <h1>{{ articleDetails.title }}</h1>
       </div>
     </div>
   </div>
-  <div class="background-container" >
-  <div class="loader-container" v-if="loading">
-    <Loader />
-  </div>
-  <div v-else>
-      <div class="actions-bar" >
+  <div class="background-container">
+    <div class="loader-container" v-if="loading">
+      <Loader />
+    </div>
+    <div v-else>
+      <div class="actions-bar">
         <div class="blog-action">
           <img
-          class="stats-image"
-          :class="{ liked: userLiked, 'not-logged-in': !LoggedIn }"
-          id="like-button"
-          src="@/assets/images/article/heart-solid.svg"
-          :alt="$t('article-page.heart-image')"
-          @click="updateLikeState"
-        />
-        <span class="stats">{{ articleDetails.likeCount }}</span>
+            class="stats-image"
+            :class="{ liked: userLiked, 'not-logged-in': !LoggedIn }"
+            id="like-button"
+            src="@/assets/images/article/heart-solid.svg"
+            :alt="$t('article-page.heart-image')"
+            @click="updateLikeState"
+          />
+          <span class="stats">{{ articleDetails.likeCount }}</span>
           <img
             class="stats-image"
             src="@/assets/images/article/message-solid.svg"
@@ -47,7 +47,10 @@
       <div class="content-container">
         <div class="article-content">
           <div class="real-article-content">
-            <Blog class="article-text" :articleContent="articleDetails.content" />
+            <Blog
+              class="article-text"
+              :articleContent="articleDetails.content"
+            />
             <p>{{ articleDetails.publishDate }}</p>
           </div>
           <div class="border"></div>
@@ -65,7 +68,7 @@
 <script lang="ts">
 import { useRoute } from "vue-router";
 import { useStore } from "vuex";
-import { computed, onMounted, watch, ref } from "vue";
+import { computed, onMounted, watch, ref, Ref } from "vue";
 
 import ArticleShape from "@/models/Article";
 import { RockstarShape } from "@/models/Rockstar";
@@ -88,11 +91,6 @@ export default {
     RockstarView,
     Loader,
   },
-  methods:{
-    toTop(){
-      window.scrollTo(0,0);
-    }
-  },
   setup() {
     const route = useRoute();
     const store = useStore();
@@ -106,7 +104,7 @@ export default {
     const articleId = computed(() => {
       return route.params.articleId;
     });
-    
+
     const updateLikeState = async () => {
       if (LoggedIn.value) {
         store.dispatch("article/likeOrUnlike", {
@@ -119,17 +117,7 @@ export default {
 
     const init = async () => {
       toTop();
-    }
-    const toTop = async () =>{
-      window.scrollTo(0,0);
-    }
-    watch(route, (newRoute) => {
-      init();
-    })
-    
-    onMounted(async () => {
-      loading.value = true;
-      init();
+      store.commit("article/CLEAR_ARTICLE");
       store.commit("article/CLEAR_ARTICLE");
       if (LoggedIn.value) {
         store.dispatch("article/checkIfUserLiked", {
@@ -138,11 +126,18 @@ export default {
         });
       }
       await store
-          .dispatch("article/getArticle", articleId.value)
-          .then(() => store.dispatch("article/getRockstar"));
+        .dispatch("article/getArticle", articleId.value)
+        .then(() => store.dispatch("article/getRockstar"));
       await store.dispatch("article/getComments", articleId.value);
       await store.dispatch("article/updateViewCount", articleId.value);
       loading.value = false;
+    };
+    const toTop = async () => {
+      window.scrollTo(0, 0);
+    };
+    watch(route, (newRoute) => {
+      console.log(newRoute);
+      init();
     });
 
     const articleDetails = computed((): ArticleShape => {
@@ -161,8 +156,10 @@ export default {
     });
 
     const getComments = computed(
-        (): CommentShape => store.getters["article/getComments"]
+      (): CommentShape => store.getters["article/getComments"]
     );
+
+    onMounted(() => init());
 
     return {
       articleId,
