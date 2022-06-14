@@ -53,7 +53,6 @@ const rockstar = {
           } else {
             data.image = PfPlaceholder
           }
-          console.log(data);
         context.rootState.loading = false;
         data.email = data.userPrincipalName;
         context.commit("SET_ROCKSTAR", data);
