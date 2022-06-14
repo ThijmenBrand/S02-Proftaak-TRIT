@@ -297,7 +297,7 @@ namespace API_Rockstars.Controllers
             return Ok(isAlreadyLiked);
         }
 
-        [HttpPut("incrementLikeCount")]
+        [HttpPut("incrementLikeCount/{articleId}/{userId}")]
         public async Task<IActionResult> IncrementLikeCount(string userId, Guid articleId)
         {
             //Check if article exists
@@ -326,10 +326,11 @@ namespace API_Rockstars.Controllers
 
             //Save changes
             await _context.SaveChangesAsync();
-            return Ok();
+            int likeCount = _context.Articles.FirstOrDefault(a => a.Id == articleId).LikeCount;
+            return Ok(likeCount);
         }
 
-        [HttpPut("decrementLikeCount")]
+        [HttpPut("decrementLikeCount/{articleId}/{userId}")]
         public async Task<IActionResult> DecrementLikeCount(string userId, Guid articleId)
         {
             //Check if article exists
@@ -354,7 +355,8 @@ namespace API_Rockstars.Controllers
 
             //Save changes
             await _context.SaveChangesAsync();
-            return Ok();
+            int likeCount = _context.Articles.FirstOrDefault(a => a.Id == articleId).LikeCount;
+            return Ok(likeCount);
         }
 
         [HttpPost("checkIfAlreadyLiked")]
