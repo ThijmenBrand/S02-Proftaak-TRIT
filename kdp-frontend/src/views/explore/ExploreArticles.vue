@@ -4,7 +4,7 @@
       v-model="searchQuery"
       :placeholder="$t('explore-articles-page.search-bar.placeholder')"
       class="search-input"
-      @keyup.enter="computeArticles()"
+      @keyup.enter="computeArticles"
     />
     <div class="custom-select">
       <select class="select" v-model="selectedFilter">
@@ -28,7 +28,7 @@
   </div>
   <div class="background-container">
     <div class="content-container">
-      <div v-if="loading">
+      <div class="loader-container" v-if="loading">
         <Loader />
       </div>
       <div
@@ -85,20 +85,25 @@ export default {
     const searchQuery = ref("");
     const selectedFilter = ref("");
 
-    const loading = computed(() => store.getters["isLoading"]);
+    const loading = ref(true);
 
     onMounted(async () => {
+      document.title = "Loading...";
       store.commit("SET_CURRENT_PAGE", 1);
       await store.dispatch("getArticleCount");
       await store.dispatch("getFoundedArticles", articlesPerPage.value);
+      loading.value = false;
+      document.title = "Articles";
     });
 
     const articlesPerPage = ref<number>(6);
     const CurrentPage = ref<number>(0);
 
-    const SetCurrentPage = (_page: number): void => {
-      store.dispatch("getFoundedArticles", articlesPerPage.value);
+    const SetCurrentPage = async(_page: number) => {
+      loading.value = true;
+      await store.dispatch("getFoundedArticles", articlesPerPage.value);
       CurrentPage.value = _page;
+      loading.value = false;
     };
 
     const pageCount = computed((): number => {
@@ -110,8 +115,10 @@ export default {
       return store.getters["getFoundedArticles"];
     });
 
-    const computeArticles = () => {
-      store.dispatch("getFoundedArticles", articlesPerPage.value);
+    const computeArticles = async () => {
+      loading.value = true;
+      await store.dispatch("getFoundedArticles", articlesPerPage.value);
+      loading.value = false;
     };
 
     const filteredArticles = computed((): ArticleShape[] => {

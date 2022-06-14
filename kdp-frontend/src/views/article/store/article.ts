@@ -2,18 +2,20 @@ import ArticleShape from "@/models/Article";
 import { RockstarShape } from "@/models/Rockstar";
 import articleService from "@/services/callFunctions/article";
 import rockstarService from "@/services/callFunctions/rockstar";
-import pfPlaceholder from "@/assets/profilePlaceholder";
-import SetProfilePicture from "@/services/profilePictureHelper";
 import { ViewCountShape } from "@/models/ViewCountShape";
 import getCustomDateTime from "@/services/customDateTime";
 import { ActionContext } from "vuex";
 import { CommentShape } from "@/models/Comment";
+import { LikeCountShape } from "@/models/LikeCountShape";
+import PfPlaceholder from "@/assets/PfPlaceholder";
 
 interface articleState {
   article: ArticleShape;
   rockstar: RockstarShape;
   viewCount: ViewCountShape;
   comments: CommentShape[];
+  likeCount: LikeCountShape;
+  likeState: boolean;
 }
 
 const tribes = {
@@ -30,6 +32,7 @@ const tribes = {
         tribeName: "",
         viewCount: 0,
         totalViewCount: 0,
+        likes: 0,
         publishDate: new Date(),
       },
       rockstar: {
@@ -56,6 +59,11 @@ const tribes = {
           commentDate: "",
         },
       ],
+      likeCount: {
+        frontendUserId: "",
+        articleId: "",
+      },
+      likeState: false,
     };
   },
   getters: {
@@ -67,6 +75,9 @@ const tribes = {
     },
     getComments: (state: articleState): CommentShape[] => {
       return state.comments;
+    },
+    getLikeState: (state: articleState): boolean => {
+      return state.likeState;
     },
   },
   actions: {
@@ -88,6 +99,12 @@ const tribes = {
       const { data, status } = await rockstarService.getRockstar(rockstarId);
 
       if (status >= 200 && status <= 299) {
+          const rockstarImage = await rockstarService.getImage(data.id);
+          if (rockstarImage.data != "") {
+            data.image = rockstarImage.data;
+          } else {
+            data.image = PfPlaceholder
+          }
         context.rootState.loading = false;
         context.commit("SET_ROCKSTAR", data);
       }
@@ -97,6 +114,43 @@ const tribes = {
       viewCount.articleId = articleId;
       viewCount.frontendUserId = localStorage.getItem("UserId-uuid");
       const { data, status } = await articleService.updateViewCount(viewCount);
+    },
+    incrementLikeCount: async (context: any, articleId: string): Promise<void> => {
+      const likeCount = context.state.likeCount;
+      likeCount.articleId = articleId;
+      const localstrorageData = localStorage.getItem("user");
+      const userData = JSON.parse(localstrorageData || "{}");
+      likeCount.frontendUserId = userData.account.localAccountId;
+      const { data, status } = await articleService.likeArticle(likeCount);
+      context.commit("SET_LIKE_STATE", true);
+
+      const likeButton = document.getElementById("like-button");
+      likeButton?.classList.add("liked");
+    },
+    decrementLikeCount: async (context: any, articleId: string): Promise<void> => {
+      const likeCount = context.state.likeCount;
+      likeCount.articleId = articleId;
+      const localstrorageData = localStorage.getItem("user");
+      const userData = JSON.parse(localstrorageData || "{}");
+      likeCount.frontendUserId = userData.account.localAccountId;
+      const { data, status } = await articleService.dislikeArticle(likeCount);
+
+      context.commit("SET_LIKE_STATE", false);
+
+      const likeButton = document.getElementById("like-button");
+      likeButton?.classList.remove("liked");
+    },
+    checkIfArticleIsLiked: async (context: any, articleId: string) => {
+      const localstrorageData = localStorage.getItem("user");
+      const userData = JSON.parse(localstrorageData || "{}");
+      const likeCount = context.state.likeCount;
+      likeCount.articleId = articleId;
+      likeCount.frontendUserId = userData.account.localAccountId;
+      const { data, status } = await articleService.getLikedState(likeCount);
+      if (status >= 200 && status <= 299) {
+        context.rootState.loading = false;
+        context.commit("SET_LIKE_STATE", data);
+      }
     },
     getComments: async (context: any, articleId: string) => {
       context.rootState.loading = true;
@@ -108,11 +162,7 @@ const tribes = {
       }
     },
     postComment: async (context: any, opts: CommentShape): Promise<void> => {
-      const { data, status } = await articleService.postComment(opts);
-
-      if (status >= 200 && status <= 299) {
-        context.commit("SET_COMMENTS", data);
-      }
+      await articleService.postComment(opts);
     },
   },
   mutations: {
@@ -127,6 +177,7 @@ const tribes = {
         tribeName: "",
         viewCount: 0,
         totalViewCount: 0,
+        likes: 0,
         publishDate: "",
       };
       state.comments = [
@@ -148,14 +199,12 @@ const tribes = {
     },
     SET_ROCKSTAR: (state: articleState, data: RockstarShape): void => {
       state.rockstar = data;
-      if (state.rockstar.image == null) {
-        state.rockstar.image = pfPlaceholder;
-      } else {
-        state.rockstar.image = SetProfilePicture(data.image);
-      }
     },
     SET_COMMENTS: (state: articleState, data: CommentShape[]) => {
       state.comments = data;
+    },
+    SET_LIKE_STATE: (state: articleState, data: boolean) => {
+      state.likeState = data;
     },
   },
 };

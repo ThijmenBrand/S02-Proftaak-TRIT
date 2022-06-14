@@ -1,6 +1,14 @@
 @import "@/styles/variables";
+
+.loader-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;    
+  min-height: calc(100vh - 160px - 80px);
+}
 .main-content {
   .background-container {
+    min-height: calc(100vh - 160px - 80px);
     color: $trit-white;
     .actions-bar {
       margin: 0 50px 1em 50px;
@@ -12,7 +20,12 @@
         display: flex;
         align-items: center;
         justify-content: center;
-
+        #like-button:hover{
+          cursor: pointer;
+        }
+      }
+      .liked{
+        filter: invert(14%) sepia(95%) saturate(7491%) hue-rotate(3deg) brightness(97%) contrast(119%);
       }
       .views {
         display: flex;
