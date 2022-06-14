@@ -391,6 +391,9 @@ namespace API_Rockstars.Controllers
 
                 var viewCount = await _context.ArticleViews.Where(x => x.ArticleId == article.Id).ToListAsync();
                 article.ViewCount = viewCount.Count();
+
+                var likeCount = await _context.ArticleLike.Where(x => x.ArticleId == article.Id).ToListAsync();
+                article.LikeCount = likeCount.Count();
             }
 
             return articles;
