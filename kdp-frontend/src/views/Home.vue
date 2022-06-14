@@ -78,6 +78,8 @@
             :view-details="false"
             class="profile-tag"
           />
+
+          <div class="bottom-spacer"></div>
         </div>
       </div>
     </div>
