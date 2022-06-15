@@ -16,6 +16,16 @@
             :name="tribe.displayName"
             :id="tribe.id"
           />
+          <!--
+           The 'flexbox-fix' divs are invisible and act as padding for
+           the flexbox to align the last row to the left. Do not delete.
+          -->
+          <div class="flexbox-fix empty-card" />
+          <div class="flexbox-fix empty-card" />
+          <div class="flexbox-fix empty-card" />
+          <div class="flexbox-fix empty-card" />
+          <div class="flexbox-fix empty-card" />
+          <!-- END FIX -->
         </div>
       </div>
     </div>
@@ -26,11 +36,9 @@
 import { computed, onMounted, ref } from "vue";
 import { useStore } from "vuex";
 import TribeCard from "@/components/TribeCard/TribeCard.vue";
-
 import { TribeShape } from "@/models/Tribe";
-
 import Loader from "@/components/loader/Loader.vue";
-import Tribe from "@/services/callFunctions/tribe";
+
 export default {
   name: "Tribes",
   components: { Loader, TribeCard },
@@ -46,8 +54,7 @@ export default {
     });
 
     const tribesList = computed((): TribeShape[] => {
-      const list = store.getters["tribes/getAllTribesList"];
-      return list;
+      return store.getters["tribes/getAllTribesList"];
     });
 
     return { tribesList, loading };

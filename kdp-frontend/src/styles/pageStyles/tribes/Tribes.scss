@@ -10,14 +10,17 @@
 .background-container {
   .tribes-links-container {
     min-height: calc(100vh - 160px - 104.16px - 80px - 1em);
-    padding-top: 1em;
+    padding-top: 1.5em;
+    max-width: 65%;
+    margin: auto;
 
     .tribes-links-flexbox {
       display: flex;
-      justify-content: center;
+      justify-content: space-around;
       flex-direction: row;
       flex-wrap: wrap;
-      gap: 1em;
+      row-gap: 1em;
+      column-gap: 1em;
 
       h3 {
         color: $trit-white;
@@ -38,9 +41,23 @@
   }
 }
 
-@media only screen and (max-width: 480px) {
+/* for the flexbox left-align fix */
+.flexbox-fix {
+  visibility: hidden;
+}
+.empty-card {
+  height: 1em;
+  width: 15em + 2em; /* 2em = 2x1em padding */
+}
+/* end fix */
+
+@media only screen and (max-width: 762px) {
   .content-container {
     display: flex;
     justify-content: center;
+  }
+
+  .flexbox-fix {
+    display: none; /* The fix is not needed as tribes don't need alignment on mobile. */
   }
 }
