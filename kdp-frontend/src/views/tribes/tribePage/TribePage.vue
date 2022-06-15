@@ -25,7 +25,7 @@
         <h3 class="articles-overview-title">
           {{ $t("articles-overview.header") }}
         </h3>
-        <div class="articles-container">
+        <div class="articles-container" v-if="articles.length > 0">
           <router-link
             :to="{ name: 'article', params: { articleId: article.id } }"
             v-for="(article, index) in tribeArticles"
@@ -41,7 +41,7 @@
             />
           </router-link>
         </div>
-      <p v-if="articles.length < 1" class="cookie-error">{{ $t("article.article-error") }}</p>
+      <p v-else class="cookie-error">{{ $t("article.article-error") }}</p>
 
         <div :style="[loading || pageCount <= 1 ? { display: 'none' } : {}]">
           <page-select :PageCount="pageCount" @current-page="SetCurrentPage" />
