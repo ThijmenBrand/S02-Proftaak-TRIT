@@ -14,9 +14,22 @@ export default {
 };
 </script>
 
-<style>
-
+<style lang="scss">
 img {
   width: 100%;
+}
+
+pre {
+  overflow-x: auto;
+  white-space: pre !important;
+}
+
+.ck-content figure.table {
+  pre {
+    overflow-x: hidden;
+  }
+
+  display: block !important;
+  overflow-x: auto;
 }
 </style>

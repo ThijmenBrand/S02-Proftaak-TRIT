@@ -8,7 +8,7 @@
 }
 .main-content {
   .real-article-content {
-    word-break: break-all;
+    word-break: break-word;
   }
   .background-container {
     min-height: calc(100vh - 160px - 80px);
