@@ -53,5 +53,5 @@ jobs:
         with:
           app-name: 'rockstar-api'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.API_DEPLOYMENT_KEY }}
+          publish-profile: ${{ secrets.NEW_API_DEPLOYMENT_KEY }}
           package: .
