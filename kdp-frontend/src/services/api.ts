@@ -1,7 +1,7 @@
 import axios, { AxiosInstance } from "axios";
 
 const API: AxiosInstance = axios.create({
-  baseURL: "https://rockstar-api.azurewebsites.net/api/",
+  baseURL: "https://api-rockstarsit.azurewebsites.net/api/",
   headers: {
     "Content-type": "application/json",
   },

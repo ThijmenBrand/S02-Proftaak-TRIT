@@ -1,5 +1,5 @@
 module.exports = {
   devServer: {
-    proxy: "https://rockstar-api.azurewebsites.net/api/",
+    proxy: "https://api-rockstarsit.azurewebsites.net/api/",
   },
 };
