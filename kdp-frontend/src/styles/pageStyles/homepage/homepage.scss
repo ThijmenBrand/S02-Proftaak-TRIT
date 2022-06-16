@@ -18,11 +18,14 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+
   h3 {
     color: $trit-yellow;
   }
+
   .left-pannel {
     width: 75%;
+
     .featured-tribes-container {
       .featured-tribes {
         display: flex;
@@ -34,6 +37,7 @@
           color: white;
           font-size: 2pc;
         }
+
         .tribe-item {
           .tribe-link {
             display: flex;
@@ -41,6 +45,7 @@
             align-items: center;
             color: white;
             text-decoration: none;
+
             img {
               height: 40px;
               margin-right: 20px;
@@ -53,9 +58,11 @@
         border: 0.5px solid $trit-yellow;
       }
     }
+
     .about-container {
       color: white;
     }
+
     .articles-container {
       display: inline-flex;
       flex-wrap: wrap;
@@ -63,9 +70,8 @@
       width: 100%;
 
       .article {
-        margin: 0px;
         justify-self: center;
-        margin-bottom: 30px;
+        margin: 0px 0px 30px;
       }
     }
   }
@@ -103,7 +109,7 @@
       border: 1px solid #3e3e3e;
       padding: 5px;
       
-      .bottom-spacer{
+      .bottom-spacer {
         margin-bottom: 50px;
       }
     }
@@ -138,18 +144,22 @@
 }
 /* end fix */
 
-
-@media only screen and (max-width: 762px) {
+@media only screen and (max-width: 1250px) {
+  /* To prevent squishing */
   .right-pannel {
     display: none;
   }
-  .featured-tribes-container {
-    display: none;
-  }
+
   .content-container {
     .left-pannel {
       width: 100%;
     }
+  }
+}
+
+@media only screen and (max-width: 762px) {
+  .featured-tribes-container {
+    display: none;
   }
 
   .content-container {
