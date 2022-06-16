@@ -93,18 +93,28 @@
     margin: 0;
   }
 
-  .profile-container {
-    flex-wrap: wrap;
-    justify-content: flex-start !important;
-    margin-left: 0.5em !important;
+  .information-page-main .tribes-overview .profile-container {
+    flex-wrap: nowrap;
+    margin-left: 0;
   }
 
   .profile-wrapper {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    overflow-x: auto;
   }
 
-  .tribes-overview {
-    margin-bottom: 1em !important;
+  .information-page-main {
+    ::-webkit-scrollbar {
+      height: 0.25em;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: $trit-yellow;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      border-radius: 0;
+    }
   }
 }
