@@ -45,6 +45,39 @@ namespace API_Rockstars.Controllers
             return azureRockstars;
         }
 
+        [HttpGet("GetTribesForRockstar/{id}")]
+        public async Task<ActionResult<List<AzureTribe>>> GetTribesForRockstar(Guid id)
+        {
+            var apiRes = await _azure.GraphApi.Users[id.ToString()].MemberOf.Request().GetAsync();
+            List<string> tribesNames = new();
+            List<string> tribeIds = new();
+            List<AzureTribe> tribes = new(); 
+            tribesNames.AddRange(apiRes.OfType<Microsoft.Graph.Group>().Select(x => x.DisplayName).Where(name => !string.IsNullOrEmpty(name)));
+            while(apiRes.NextPageRequest != null)
+            {
+                apiRes = await apiRes.NextPageRequest.GetAsync();
+                tribesNames.AddRange(apiRes.OfType<Microsoft.Graph.Group>().Select(x => x.DisplayName).Where(name => !string.IsNullOrEmpty(name)));
+            }
+
+            tribeIds.AddRange(apiRes.OfType<Microsoft.Graph.Group>().Select(x => x.Id).Where(id => !string.IsNullOrEmpty(id)));
+            while (apiRes.NextPageRequest != null)
+            {
+                apiRes = await apiRes.NextPageRequest.GetAsync();
+                tribeIds.AddRange(apiRes.OfType<Microsoft.Graph.Group>().Select(x => x.Id).Where(id => !string.IsNullOrEmpty(id)));
+            }
+
+            for (int i = 0; i <= tribeIds.Count - 1; i++)
+            {
+                tribes.Add(new AzureTribe()
+                {
+                    id = Guid.Parse(tribeIds[i]),
+                    displayName = tribesNames[i]
+                });
+            }
+
+            return tribes;
+        }
+
         // GET: api/Rockstar/5
         [HttpGet("{id}")]
         public async Task<ActionResult<AzureRockstar>> GetRockstar(Guid id)
