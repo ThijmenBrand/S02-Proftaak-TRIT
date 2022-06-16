@@ -51,7 +51,7 @@ jobs:
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v2
         with:
-          app-name: 'rockstar-api'
+          app-name: 'api-rockstarsit'
           slot-name: 'Production'
           publish-profile: ${{ secrets.NEW_API_DEPLOYMENT_KEY }}
           package: .
